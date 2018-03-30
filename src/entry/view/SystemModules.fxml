@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="555.0" prefWidth="854.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="entry.control.SystemModulesController">
+   <center>
+      <FlowPane alignment="CENTER" hgap="10.0" style="-fx-background-color: #fff;" styleClass="container" stylesheets="@../css/style.css" vgap="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btn_student_management" buttonType="RAISED" contentDisplay="TOP" onAction="#handleButtonAction" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: #0097a7; -fx-background-radius: 0; -fx-border-radius: 0;" text="Student Management" textAlignment="CENTER" textFill="#f8f8f8" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/student.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btn_inventory_management" buttonType="RAISED" contentDisplay="TOP" onAction="#handleButtonAction" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: #a00037; -fx-background-radius: 0; -fx-border-radius: 0;" text="Inventory Management" textAlignment="CENTER" textFill="#f8f8f8" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/inventory.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btn_employee_management" buttonType="RAISED" contentDisplay="TOP" onAction="#handleButtonAction" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: #1faa00; -fx-background-radius: 0; -fx-border-radius: 0;" text="Employee Management" textAlignment="CENTER" textFill="#f8f8f8" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/employee.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" contentDisplay="TOP" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: #ff6d00; -fx-background-radius: 0; -fx-border-radius: 0;" text="Timetable" textAlignment="CENTER" textFill="#f8f8f8" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/timetable.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" contentDisplay="TOP" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: #00796b; -fx-background-radius: 0; -fx-border-radius: 0;" text="School Administration" textAlignment="CENTER" textFill="#f8f8f8" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/admin.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" contentDisplay="TOP" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: #bf360c; -fx-background-radius: 0; -fx-border-radius: 0;" text="Finance" textAlignment="CENTER" textFill="#f8f8f8" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/finance.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btn_library_management" buttonType="RAISED" contentDisplay="TOP" onAction="#handleButtonAction" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: #ab47bc; -fx-background-radius: 0; -fx-border-radius: 0;" text="Library" textAlignment="CENTER" textFill="#f8f8f8" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/library.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" contentDisplay="TOP" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: #0097a7; -fx-background-radius: 0; -fx-border-radius: 0;" text="Analysis" textAlignment="CENTER" textFill="#f8f8f8" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/analysis.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton buttonType="RAISED" contentDisplay="TOP" prefHeight="110.0" prefWidth="130.0" style="-fx-background-color: #0097a7; -fx-background-radius: 0; -fx-border-radius: 0;" text="Policy Document" textAlignment="CENTER" textFill="#f8f8f8" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/analysis.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </FlowPane>
+   </center>
+</BorderPane>

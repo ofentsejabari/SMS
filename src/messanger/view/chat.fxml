@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="446.0" prefWidth="724.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="messanger.control.ChatsController">
+   <children>
+      <BorderPane layoutX="222.0" layoutY="83.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <top>
+            <VBox prefHeight="80.0" prefWidth="704.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="84.0" prefWidth="704.0" spacing="10.0" style="-fx-background-color: #fff;">
+                     <children>
+                        <Pane prefHeight="83.0" prefWidth="99.0">
+                           <children>
+                              <JFXButton fx:id="btn_toolbar_close" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="1033.0" prefHeight="20.0" prefWidth="23.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" text="" textFill="#fbfeff" wrapText="true">
+                                 <padding>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </padding>
+                              </JFXButton>
+                              <Circle fx:id="profile_picture" fill="#2197ff" layoutX="41.0" layoutY="39.0" radius="35.0" stroke="#ffffff1c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" style="-fx-cursor: hand;">
+                                 <effect>
+                                    <DropShadow />
+                                 </effect>
+                              </Circle>
+                              <JFXButton fx:id="edit" buttonType="RAISED" graphicTextGap="0.0" layoutX="61.0" layoutY="45.0" prefHeight="30.0" prefWidth="30.0" ripplerFill="WHITE" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand; -fx-background-color: #00000060; -fx-border-radius: 50%; -fx-background-radius: 50%;" text="." textFill="WHITE" wrapText="true">
+                                 <graphic>
+                                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../entry/icons/edit.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <padding>
+                                    <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                 </padding>
+                              </JFXButton>
+                           </children>
+                        </Pane>
+                        <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label fx:id="name" text="Goup Name">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Group Admin" />
+                           </children>
+                        </VBox>
+                        <JFXButton fx:id="btn_refresh" graphicTextGap="0.0" prefHeight="30.0" prefWidth="30.0" ripplerFill="#2197ff" style="-fx-cursor: hand; -fx-border-color: #2197ff; -fx-border-radius: 50%; -fx-background-radius: 50%;" text="." textFill="WHITE" wrapText="true">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../entry/icons/help.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_add" buttonType="RAISED" graphicTextGap="0.0" prefHeight="30.0" prefWidth="30.0" ripplerFill="#2197ff" style="-fx-cursor: hand; -fx-border-color: #2197ff; -fx-border-radius: 50%; -fx-background-radius: 50%;" text="." textFill="WHITE" wrapText="true">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../entry/icons/help.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_remove" buttonType="RAISED" graphicTextGap="0.0" prefHeight="30.0" prefWidth="30.0" ripplerFill="#2197ff" style="-fx-cursor: hand; -fx-border-color: #2197ff; -fx-border-radius: 50%; -fx-background-radius: 50%;" text="." textFill="WHITE" wrapText="true">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../entry/icons/help.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_exit_group" buttonType="RAISED" graphicTextGap="0.0" prefHeight="30.0" prefWidth="30.0" ripplerFill="#2197ff" style="-fx-cursor: hand; -fx-border-color: #2197ff; -fx-border-radius: 50%; -fx-background-radius: 50%;" text="." textFill="WHITE" wrapText="true">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../entry/icons/help.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+               </children>
+            </VBox>
+         </top>
+         <bottom>
+            <HBox alignment="BOTTOM_LEFT" prefHeight="59.0" prefWidth="704.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXTextArea fx:id="message" focusColor="#089475" prefHeight="49.0" prefWidth="673.0" promptText="Message" unFocusColor="#05c393" HBox.hgrow="ALWAYS" />
+                  <JFXButton fx:id="send" buttonType="RAISED" graphicTextGap="0.0" prefHeight="30.0" prefWidth="30.0" ripplerFill="WHITE" style="-fx-cursor: hand; -fx-background-color: #2197ff; -fx-border-radius: 50%; -fx-background-radius: 50%;" text="." textFill="WHITE" wrapText="true">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../entry/icons/help.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </padding>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </bottom>
+         <center>
+            <ScrollPane fx:id="chats" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="462.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagement.control.StudentDashboardController">
+   <children>
+      <BorderPane layoutX="91.0" layoutY="33.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox prefHeight="147.0" prefWidth="681.0" spacing="10.0" style="-fx-background-color: #76EEC610;" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton contentDisplay="TOP" prefHeight="127.0" prefWidth="200.0" ripplerFill="#bfbdbd00" style="-fx-border-color: #DEDEDE; -fx-background-color: #fff;" text="Students" textFill="#4d4c4c">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <graphic>
+                        <VBox alignment="TOP_CENTER" prefHeight="81.0" prefWidth="190.0">
+                           <children>
+                              <Label style="-fx-font-family: Roboto Medium;" text="235" textFill="#0ac729">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </Label>
+                              <HBox prefHeight="100.0" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                     </graphic>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>
