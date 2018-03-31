@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import entry.CCValidator;
+import entry.DialogUI;
 import entry.InputValidator;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,6 +24,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import static entry.SMS.getIcon;
+import entry.VSpacer;
+import javafx.event.EventHandler;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import org.controlsfx.tools.Borders;
 import static studentmanagement.control.StudentEnrolmentController.profileStage;
 
 
@@ -37,10 +45,19 @@ public class StudentProfileController implements Initializable {
     public JFXDatePicker dob;
 
     @FXML
+    private HBox container;
+
+    @FXML
+    private VBox background_process;
+
+    @FXML
     private JFXComboBox<String> pob;
 
     @FXML
     private JFXTextField plname;
+
+    @FXML
+    private JFXComboBox<String> language;
 
     @FXML
     private JFXTextField mname;
@@ -56,6 +73,7 @@ public class StudentProfileController implements Initializable {
 
     @FXML
     private JFXTextField lname;
+
 
     @FXML
     private JFXTextArea physicalAddress;
@@ -76,7 +94,7 @@ public class StudentProfileController implements Initializable {
     private JFXTextField ptel;
 
     @FXML
-    private JFXComboBox<String> prelationship, language;
+    private JFXComboBox<String> prelationship;
 
     @FXML
     private JFXTextField fname;
@@ -109,22 +127,27 @@ public class StudentProfileController implements Initializable {
     private JFXComboBox<String> nationality;
 
     @FXML
+    private VBox optionalSubjects;
+
+    @FXML
     private JFXComboBox<String> peducation;
 
     @FXML
     private JFXButton btn_cancel;
 
     @FXML
-    private VBox personalDetails, background_process;
+    private VBox personalDetails, parentDetails, classDetails, contactDetails;
 
     @FXML
     private JFXRadioButton male;
+    
+    @FXML
+    private StackPane stackPane;
     
     private Image imageHolder;
     private ProfileUpdateService uls;
     
     InputValidator iv = new InputValidator();
-    CCValidator ccv = new CCValidator();
     
     /**
      * Initializes the controller class.
@@ -133,6 +156,76 @@ public class StudentProfileController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         disableEditing();
+        container.getChildren().clear();
+       
+        
+        //-- Student contact details -------------------------------------------
+        
+        VBox persDetails = new VBox();
+        persDetails.getChildren().addAll(Borders.wrap(personalDetails)
+                .lineBorder()
+                .title("Persornal Details")
+                .thickness(2, 1, 1, 1)
+                .innerPadding(0)
+                .outerPadding(15, 10, 10, 10)
+                .radius(5)
+                .color(Color.web("#FFC300"), Color.web("#EAEAEA"),
+                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
+                .buildAll());
+
+        HBox.setHgrow(persDetails, Priority.ALWAYS);
+        
+        
+        //-- Student contact details -------------------------------------------
+        
+        VBox conDetails = new VBox();
+        conDetails.getChildren().addAll(Borders.wrap(contactDetails)
+                .lineBorder()
+                .title("Contact Details")
+                .thickness(2, 1, 1, 1)
+                .innerPadding(0)
+                .outerPadding(15, 10, 10, 10)
+                .radius(5)
+                .color(Color.web("#72D800"), Color.web("#EAEAEA"),
+                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
+                .buildAll());
+
+        HBox.setHgrow(conDetails, Priority.ALWAYS);
+        
+        //-- Student contact details -------------------------------------------
+        
+        VBox clsDetails = new VBox();
+        clsDetails.getChildren().addAll(Borders.wrap(classDetails)
+                .lineBorder()
+                .title("Subjects - Class Allocation")
+                .thickness(2, 1, 1, 1)
+                .innerPadding(0)
+                .outerPadding(15, 10, 10, 10)
+                .radius(5)
+                .color(Color.web("#FFC300"), Color.web("#EAEAEA"),
+                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
+                .buildAll());
+
+        HBox.setHgrow(clsDetails, Priority.ALWAYS);
+        
+        //-- Student contact details -------------------------------------------
+        
+        VBox parDetails = new VBox();
+        parDetails.getChildren().addAll(Borders.wrap(parentDetails)
+                .lineBorder()
+                .title("Parent/Gaurdian Details")
+                .thickness(2, 1, 1, 1)
+                .innerPadding(0)
+                .outerPadding(15, 10, 10, 10)
+                .radius(5)
+                .color(Color.web("#72D800"), Color.web("#EAEAEA"),
+                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
+                .buildAll());
+
+        HBox.setHgrow(parDetails, Priority.ALWAYS);
+        
+        
+        container.getChildren().addAll(persDetails, conDetails, clsDetails, parDetails);
         
         uls = new ProfileUpdateService();
         background_process.visibleProperty().bind(uls.runningProperty());
@@ -175,18 +268,55 @@ public class StudentProfileController implements Initializable {
         
         
         
-        ccv.setTextFieldValidator(fname, "Name required");
-        ccv.setTextFieldValidator(lname, "Last name required");
-//        ccv.setTextFieldValidator(nationality, "Name required");
-//        ccv.setTextFieldValidator(lname, "mName required");
-        
+        CCValidator.setTextFieldValidator(fname, "Name required");
+        CCValidator.setTextFieldValidator(lname, "Surname required");
+        CCValidator.setTextFieldValidator(pemail, "Cell Phone"); 
+        CCValidator.setTextFieldValidator(pfname, "First name required"); 
+        CCValidator.setTextFieldValidator(plname, "Last name required"); 
+        CCValidator.setTextFieldValidator(ptel, "Cell/ Tel # required"); 
+        CCValidator.setTextFieldValidator(pomang, "Omang required");
         
         iv.addField(fname);
-        iv.addField(mname);
+        iv.addField(lname);
+        iv.addField(pfname);
+        iv.addField(plname);
+        iv.addField(pemail);
+        iv.addField(ptel);
+        iv.addField(pomang);
+             
         
-        
-        
-    } 
+        btn_update.setOnAction((ActionEvent event) -> {
+            
+            if(iv.isValid()){
+                
+                //--  save the form --
+                DialogUI succ = new DialogUI("Good to go!!!", DialogUI.SUCCESS_NOTIF, stackPane);
+                succ.DIALOG_CONTROLLER.setBTNYESControl(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        background_process.toFront();
+                        succ.close();
+                    }
+                }, "Continue");
+                succ.show();
+            }else{
+                //-- show alert --
+                iv.validate();
+                DialogUI err = new DialogUI("Please ensure that all mandotory fields are filled up before saving changes.",
+                        DialogUI.ERROR_NOTIF, stackPane);
+                err.DIALOG_CONTROLLER.setBTNNOControl(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        background_process.toFront();
+                        err.close();
+                    }
+                }, "Fix Errors");
+                err.show();
+            } 
+        });
+       
+    }
+            
     
     public void enableEditing(){
         edit.setVisible(true);              
