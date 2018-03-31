@@ -69,7 +69,8 @@ public class SMS extends Application {
         
         parentUI.setOnCloseRequest((WindowEvent event) -> {
             parentUI.close();
-            System.exit(1);
+            Footer.serverMonitor.stop();
+            System.exit(0);
         });
     }
     

@@ -673,10 +673,29 @@ Default button style
 
 
 
+/******************************************************************************/
+
+.dialog_error_notif{
+    -fx-border-color:#E22402;
+}
+
+.dialog_success_notif{
+    -fx-border-color:#72CE09;
+}
+
+
+.dialog_information_notif{    
+    -fx-border-color:#FF00BF;
+}
 
 /******************************************************************************/
 .container{
     -fx-background-color: #fff;
+}
+
+.border-container{
+    -fx-background-color: #fff;
+    -fx-padding:20 0 5 5;
 }
 
 .mainUI{

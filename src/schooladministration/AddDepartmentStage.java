@@ -2,7 +2,6 @@
 package schooladministration;
 
 import com.jfoenix.controls.JFXDialog;
-import static entry.SMS.dbHandler;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;

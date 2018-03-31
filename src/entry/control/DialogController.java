@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -25,11 +26,15 @@ public class DialogController implements Initializable {
     private JFXButton btn_no;
     @FXML
     private JFXButton btn_yes;
+    
+    @FXML
+    private HBox btn_ctrl;
 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dialogMessage.setWrapText(true);
+        btn_ctrl.getChildren().clear();
     }    
     
     public void setIcon(ImageView icon){
@@ -43,11 +48,13 @@ public class DialogController implements Initializable {
     public void setBTNNOControl(EventHandler<ActionEvent> eventHandler, String label){
         btn_no.setText(label);
         btn_no.setOnAction(eventHandler);
+        btn_ctrl.getChildren().add(btn_no);
     }
     
     public void setBTNYESControl(EventHandler<ActionEvent> eventHandler, String label){
         btn_yes.setText(label);
         btn_yes.setOnAction(eventHandler);
+        btn_ctrl.getChildren().add(btn_yes);
     }
     
     
