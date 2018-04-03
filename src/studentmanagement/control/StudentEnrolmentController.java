@@ -130,7 +130,10 @@ public class StudentEnrolmentController implements Initializable {
         
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.ACCOUNT_PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-            profileStage = new StudentProfileStage();
+            profileStage = new StudentProfileStage(new Student("Ofente", "ofentse", "jabari", "thato", "oabona", "kgopolo",
+                                                                filter, filter, filter, filter, filter, filter, filter, filter,
+                                                                filter, filter, filter, filter, filter, filter, filter, filter,
+                                                                filter, filter));
             profileStage.show();
         });
         

@@ -7,9 +7,11 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import entry.CCValidator;
 import entry.DialogUI;
 import entry.InputValidator;
+import entry.SMS;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
@@ -24,13 +26,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import static entry.SMS.getIcon;
-import entry.VSpacer;
 import javafx.event.EventHandler;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import org.controlsfx.tools.Borders;
+import studentmanagement.Student;
 import static studentmanagement.control.StudentEnrolmentController.profileStage;
 
 
@@ -74,6 +76,8 @@ public class StudentProfileController implements Initializable {
     @FXML
     private JFXTextField lname;
 
+    @FXML
+    private JFXToggleButton oncampus;
 
     @FXML
     private JFXTextArea physicalAddress;
@@ -97,10 +101,7 @@ public class StudentProfileController implements Initializable {
     private JFXComboBox<String> prelationship;
 
     @FXML
-    private JFXTextField fname;
-
-    @FXML
-    private JFXTextField pomang;
+    private JFXTextField fname, id,  pomang;
 
     @FXML
     private JFXButton edit;
@@ -109,10 +110,7 @@ public class StudentProfileController implements Initializable {
     private Circle profile_picture;
 
     @FXML
-    private JFXComboBox<String> poccupation;
-
-    @FXML
-    private JFXComboBox<String> homeVillage;
+    private JFXComboBox<String> poccupation, homeVillage;
 
     @FXML
     private JFXTextField pfname;
@@ -151,6 +149,8 @@ public class StudentProfileController implements Initializable {
     
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -232,6 +232,12 @@ public class StudentProfileController implements Initializable {
         uls.start();
         
         
+        btn_toolbar_close.setOnAction((ActionEvent event) -> {
+            profileStage.close();
+        });
+        
+        
+        
         //-- Update profile picture --
         imageHolder = getIcon("user.png").getImage();
         profile_picture.setFill(new ImagePattern(imageHolder));
@@ -265,9 +271,7 @@ public class StudentProfileController implements Initializable {
         female.setToggleGroup(tg);
         tg.selectToggle(male);
         
-        
-        
-        
+        //-- Add validators ----------------------------------------------------
         CCValidator.setTextFieldValidator(fname, "Name required");
         CCValidator.setTextFieldValidator(lname, "Surname required");
         CCValidator.setTextFieldValidator(pemail, "Cell Phone"); 
@@ -316,6 +320,51 @@ public class StudentProfileController implements Initializable {
         });
        
     }
+    
+    
+    public void updateStudentDetails(Student studnt){
+    
+//        setTitle("Update Student Profile");
+//        enrollDnDateStatus.setText("Enroll Date");
+        id.setText(studnt.getEnrollDate());
+            
+        //-- populate entries
+        //profilePictureDownload();
+            
+        fname.setText(studnt.getFirstName());
+        mname.setText(studnt.getMiddleName());
+        lname.setText(studnt.getLastName());
+        pob.setValue(studnt.getPlaceOfBirth());
+        //enrollmentID.setText(studnt.getStudentID());
+        dob.setValue(SMS.getLocalDate(studnt.getDob()));
+//        gender.setValue(studnt.getGender());
+        cell.setText(studnt.getPhone());
+        email.setText(studnt.getEmail());
+//        classAllocated.setValue(AdminQuery.getClassByID(studnt.getClassID()).getName());
+        //healthIssues.setText(studnt.getHealthIssues());
+        physicalAddress.setText(studnt.getPhysicalAddress());
+        language.setValue(studnt.getLanguage());
+        nationality.setValue(studnt.getNationality());
+        //status.setValue(studnt.getStatus());
+        //statusReason.setText(studnt.getStatusChangeReason());
+                
+        //SParent sparent = LoginWindow.dbHandler.getParentByStudentID(studnt.getStudentID());
+            
+//            pfirstName.setText(sparent.getFirstName()); pmiddleName.setText(sparent.getMiddleName());
+//            plastName.setText(sparent.getLastName()); occupation.setValue(sparent.getOccupation());
+//            identity.setText(sparent.getIdentity()); education.setValue(sparent.getEducation());
+//            pMobilePhone.setText(sparent.getMobilePhone()); pEmail.setText(sparent.getEmail()); 
+//            pOfficePhone.setText(sparent.getOfficePhone());posAddress.setText(sparent.getPostalAddress());
+//            phyAddress.setText(sparent.getPhysicalAddress());
+//            relationship.setValue(sparent.getRelation());
+            
+            oncampus.setSelected("true".equals(studnt.getOncampus()));
+        
+        //}
+        
+//        if(StudentListUI.selectedClass != null){
+//            _class.setValue(StudentListUI.selectedClass.getName());
+    }
             
     
     public void enableEditing(){
@@ -349,34 +398,6 @@ public class StudentProfileController implements Initializable {
         fname.setEditable(false);
         pomang.setEditable(false);
         pfname.setEditable(false);
-    }
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event){
-        
-        if(event.getSource().equals(btn_toolbar_close)){
-            
-            //-- Close student profile window --
-            profileStage.close();
-            
-        }else if(event.getSource().equals(btn_cancel)){
-            
-            //-- Cancel Changes and disable editing -- 
-            enable_editing.setSelected(false);
-            
-        }else if(event.getSource().equals(btn_update)){
-            
-            if(iv.isValid()){
-            
-                //--  save the form --
-                System.out.println("Good to go!!!");
-                
-            }else{
-                //-- show alert --
-                
-                System.out.println("Mandatory fields not filled up");
-            }
-        }
     }
     
     
