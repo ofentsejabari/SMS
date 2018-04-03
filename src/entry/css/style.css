@@ -673,10 +673,29 @@ Default button style
 
 
 
+/******************************************************************************/
+
+.dialog_error_notif{
+    -fx-border-color:#E22402;
+}
+
+.dialog_success_notif{
+    -fx-border-color:#72CE09;
+}
+
+
+.dialog_information_notif{    
+    -fx-border-color:#FF00BF;
+}
 
 /******************************************************************************/
 .container{
     -fx-background-color: #fff;
+}
+
+.border-container{
+    -fx-background-color: #fff;
+    -fx-padding:20 0 5 5;
 }
 
 .mainUI{
@@ -1116,7 +1135,7 @@ Table pane
 .table-cell, .tree-table-cell {     
     -fx-padding: 1;
     -fx-border-color: -fx-box-border -fx-box-border transparent transparent;  
-    -fx-font: 12px "Segoe UI";    
+    -fx-font: 12px "Roboto Regular";    
     -fx-text-fill: #212121;
     -fx-alignment: CENTER_LEFT;
     -fx-border-insets: 0;
@@ -1144,10 +1163,26 @@ Table pane
     -fx-hbar-policy: never;
 }
 
-.table-row-cell .label, .tree-table-row-cell .label, .table-row-cell .hyperlink, .tree-table-row-cell .hyperlink{    
+.table-row-cell:hover .label, 
+.tree-table-row-cell:hover .label,
+.table-row-cell:hover .hyperlink,
+.tree-table-row-cell:hover .hyperlink,
+.table-row-cell:selected .label, 
+.tree-table-row-cell:selected .label,
+.table-row-cell:selected .hyperlink,
+.tree-table-row-cell:selected .hyperlink{    
+    -fx-font: 12s "Roboto Medium";
+    -fx-text-fill:#ffffff;
     
+}
+
+.table-row-cell .label,
+.tree-table-row-cell .label,
+.table-row-cell .hyperlink,
+.tree-table-row-cell .hyperlink{    
     -fx-font: 12 "Roboto Regular";
 }
+
 .table-row-cell, .tree-table-row-cell{
     -fx-background-color: white;
 }

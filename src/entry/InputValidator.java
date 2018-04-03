@@ -54,13 +54,13 @@ public class InputValidator {
     public boolean isValid(){
     
         for(TextField tf: inputField){
-            if(tf.getText().equalsIgnoreCase("")){
+            if(tf.getText().trim().equalsIgnoreCase("")){
                 return false;
             }
         }
         
         for(TextArea tf: inputArea){
-            if(tf.getText().equalsIgnoreCase("")){
+            if(tf.getText().trim().equalsIgnoreCase("")){
                 return false;
             }
         }

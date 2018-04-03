@@ -7,8 +7,11 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import entry.CCValidator;
+import entry.DialogUI;
 import entry.InputValidator;
+import entry.SMS;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
@@ -23,6 +26,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import static entry.SMS.getIcon;
+import javafx.event.EventHandler;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import org.controlsfx.tools.Borders;
+import studentmanagement.Student;
 import static studentmanagement.control.StudentEnrolmentController.profileStage;
 
 
@@ -37,10 +47,19 @@ public class StudentProfileController implements Initializable {
     public JFXDatePicker dob;
 
     @FXML
+    private HBox container;
+
+    @FXML
+    private VBox background_process;
+
+    @FXML
     private JFXComboBox<String> pob;
 
     @FXML
     private JFXTextField plname;
+
+    @FXML
+    private JFXComboBox<String> language;
 
     @FXML
     private JFXTextField mname;
@@ -56,6 +75,9 @@ public class StudentProfileController implements Initializable {
 
     @FXML
     private JFXTextField lname;
+
+    @FXML
+    private JFXToggleButton oncampus;
 
     @FXML
     private JFXTextArea physicalAddress;
@@ -76,13 +98,10 @@ public class StudentProfileController implements Initializable {
     private JFXTextField ptel;
 
     @FXML
-    private JFXComboBox<String> prelationship, language;
+    private JFXComboBox<String> prelationship;
 
     @FXML
-    private JFXTextField fname;
-
-    @FXML
-    private JFXTextField pomang;
+    private JFXTextField fname, id,  pomang;
 
     @FXML
     private JFXButton edit;
@@ -91,10 +110,7 @@ public class StudentProfileController implements Initializable {
     private Circle profile_picture;
 
     @FXML
-    private JFXComboBox<String> poccupation;
-
-    @FXML
-    private JFXComboBox<String> homeVillage;
+    private JFXComboBox<String> poccupation, homeVillage;
 
     @FXML
     private JFXTextField pfname;
@@ -109,34 +125,117 @@ public class StudentProfileController implements Initializable {
     private JFXComboBox<String> nationality;
 
     @FXML
+    private VBox optionalSubjects;
+
+    @FXML
     private JFXComboBox<String> peducation;
 
     @FXML
     private JFXButton btn_cancel;
 
     @FXML
-    private VBox personalDetails, background_process;
+    private VBox personalDetails, parentDetails, classDetails, contactDetails;
 
     @FXML
     private JFXRadioButton male;
+    
+    @FXML
+    private StackPane stackPane;
     
     private Image imageHolder;
     private ProfileUpdateService uls;
     
     InputValidator iv = new InputValidator();
-    CCValidator ccv = new CCValidator();
     
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
         disableEditing();
+        container.getChildren().clear();
+       
+        
+        //-- Student contact details -------------------------------------------
+        
+        VBox persDetails = new VBox();
+        persDetails.getChildren().addAll(Borders.wrap(personalDetails)
+                .lineBorder()
+                .title("Persornal Details")
+                .thickness(2, 1, 1, 1)
+                .innerPadding(0)
+                .outerPadding(15, 10, 10, 10)
+                .radius(5)
+                .color(Color.web("#FFC300"), Color.web("#EAEAEA"),
+                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
+                .buildAll());
+
+        HBox.setHgrow(persDetails, Priority.ALWAYS);
+        
+        
+        //-- Student contact details -------------------------------------------
+        
+        VBox conDetails = new VBox();
+        conDetails.getChildren().addAll(Borders.wrap(contactDetails)
+                .lineBorder()
+                .title("Contact Details")
+                .thickness(2, 1, 1, 1)
+                .innerPadding(0)
+                .outerPadding(15, 10, 10, 10)
+                .radius(5)
+                .color(Color.web("#72D800"), Color.web("#EAEAEA"),
+                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
+                .buildAll());
+
+        HBox.setHgrow(conDetails, Priority.ALWAYS);
+        
+        //-- Student contact details -------------------------------------------
+        
+        VBox clsDetails = new VBox();
+        clsDetails.getChildren().addAll(Borders.wrap(classDetails)
+                .lineBorder()
+                .title("Subjects - Class Allocation")
+                .thickness(2, 1, 1, 1)
+                .innerPadding(0)
+                .outerPadding(15, 10, 10, 10)
+                .radius(5)
+                .color(Color.web("#FFC300"), Color.web("#EAEAEA"),
+                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
+                .buildAll());
+
+        HBox.setHgrow(clsDetails, Priority.ALWAYS);
+        
+        //-- Student contact details -------------------------------------------
+        
+        VBox parDetails = new VBox();
+        parDetails.getChildren().addAll(Borders.wrap(parentDetails)
+                .lineBorder()
+                .title("Parent/Gaurdian Details")
+                .thickness(2, 1, 1, 1)
+                .innerPadding(0)
+                .outerPadding(15, 10, 10, 10)
+                .radius(5)
+                .color(Color.web("#72D800"), Color.web("#EAEAEA"),
+                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
+                .buildAll());
+
+        HBox.setHgrow(parDetails, Priority.ALWAYS);
+        
+        
+        container.getChildren().addAll(persDetails, conDetails, clsDetails, parDetails);
         
         uls = new ProfileUpdateService();
         background_process.visibleProperty().bind(uls.runningProperty());
         uls.start();
+        
+        
+        btn_toolbar_close.setOnAction((ActionEvent event) -> {
+            profileStage.close();
+        });
+        
         
         
         //-- Update profile picture --
@@ -172,21 +271,101 @@ public class StudentProfileController implements Initializable {
         female.setToggleGroup(tg);
         tg.selectToggle(male);
         
-        
-        
-        
-        ccv.setTextFieldValidator(fname, "Name required");
-        ccv.setTextFieldValidator(lname, "Last name required");
-//        ccv.setTextFieldValidator(nationality, "Name required");
-//        ccv.setTextFieldValidator(lname, "mName required");
-        
+        //-- Add validators ----------------------------------------------------
+        CCValidator.setTextFieldValidator(fname, "Name required");
+        CCValidator.setTextFieldValidator(lname, "Surname required");
+        CCValidator.setTextFieldValidator(pemail, "Cell Phone"); 
+        CCValidator.setTextFieldValidator(pfname, "First name required"); 
+        CCValidator.setTextFieldValidator(plname, "Last name required"); 
+        CCValidator.setTextFieldValidator(ptel, "Cell/ Tel # required"); 
+        CCValidator.setTextFieldValidator(pomang, "Omang required");
         
         iv.addField(fname);
-        iv.addField(mname);
+        iv.addField(lname);
+        iv.addField(pfname);
+        iv.addField(plname);
+        iv.addField(pemail);
+        iv.addField(ptel);
+        iv.addField(pomang);
+             
         
+        btn_update.setOnAction((ActionEvent event) -> {
+            
+            if(iv.isValid()){
+                
+                //--  save the form --
+                DialogUI succ = new DialogUI("Good to go!!!", DialogUI.SUCCESS_NOTIF, stackPane);
+                succ.DIALOG_CONTROLLER.setBTNYESControl(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        background_process.toFront();
+                        succ.close();
+                    }
+                }, "Continue");
+                succ.show();
+            }else{
+                //-- show alert --
+                iv.validate();
+                DialogUI err = new DialogUI("Please ensure that all mandotory fields are filled up before saving changes.",
+                        DialogUI.ERROR_NOTIF, stackPane);
+                err.DIALOG_CONTROLLER.setBTNNOControl(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        background_process.toFront();
+                        err.close();
+                    }
+                }, "Fix Errors");
+                err.show();
+            } 
+        });
+       
+    }
+    
+    
+    public void updateStudentDetails(Student studnt){
+    
+//        setTitle("Update Student Profile");
+//        enrollDnDateStatus.setText("Enroll Date");
+        id.setText(studnt.getEnrollDate());
+            
+        //-- populate entries
+        //profilePictureDownload();
+            
+        fname.setText(studnt.getFirstName());
+        mname.setText(studnt.getMiddleName());
+        lname.setText(studnt.getLastName());
+        pob.setValue(studnt.getPlaceOfBirth());
+        //enrollmentID.setText(studnt.getStudentID());
+        dob.setValue(SMS.getLocalDate(studnt.getDob()));
+//        gender.setValue(studnt.getGender());
+        cell.setText(studnt.getPhone());
+        email.setText(studnt.getEmail());
+//        classAllocated.setValue(AdminQuery.getClassByID(studnt.getClassID()).getName());
+        //healthIssues.setText(studnt.getHealthIssues());
+        physicalAddress.setText(studnt.getPhysicalAddress());
+        language.setValue(studnt.getLanguage());
+        nationality.setValue(studnt.getNationality());
+        //status.setValue(studnt.getStatus());
+        //statusReason.setText(studnt.getStatusChangeReason());
+                
+        //SParent sparent = LoginWindow.dbHandler.getParentByStudentID(studnt.getStudentID());
+            
+//            pfirstName.setText(sparent.getFirstName()); pmiddleName.setText(sparent.getMiddleName());
+//            plastName.setText(sparent.getLastName()); occupation.setValue(sparent.getOccupation());
+//            identity.setText(sparent.getIdentity()); education.setValue(sparent.getEducation());
+//            pMobilePhone.setText(sparent.getMobilePhone()); pEmail.setText(sparent.getEmail()); 
+//            pOfficePhone.setText(sparent.getOfficePhone());posAddress.setText(sparent.getPostalAddress());
+//            phyAddress.setText(sparent.getPhysicalAddress());
+//            relationship.setValue(sparent.getRelation());
+            
+            oncampus.setSelected("true".equals(studnt.getOncampus()));
         
+        //}
         
-    } 
+//        if(StudentListUI.selectedClass != null){
+//            _class.setValue(StudentListUI.selectedClass.getName());
+    }
+            
     
     public void enableEditing(){
         edit.setVisible(true);              
@@ -219,34 +398,6 @@ public class StudentProfileController implements Initializable {
         fname.setEditable(false);
         pomang.setEditable(false);
         pfname.setEditable(false);
-    }
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event){
-        
-        if(event.getSource().equals(btn_toolbar_close)){
-            
-            //-- Close student profile window --
-            profileStage.close();
-            
-        }else if(event.getSource().equals(btn_cancel)){
-            
-            //-- Cancel Changes and disable editing -- 
-            enable_editing.setSelected(false);
-            
-        }else if(event.getSource().equals(btn_update)){
-            
-            if(iv.isValid()){
-            
-                //--  save the form --
-                System.out.println("Good to go!!!");
-                
-            }else{
-                //-- show alert --
-                
-                System.out.println("Mandatory fields not filled up");
-            }
-        }
     }
     
     
