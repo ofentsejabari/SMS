@@ -74,7 +74,7 @@ public class InventoryItem extends BorderPane{
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
         btn_refresh.setOnAction((ActionEvent event) -> {
             inventoryListWork.restart();
-            new DialogUI("ahgjagjcas as ", SMS.getIcon("4_settings.png"), stackPane).show();
+            new DialogUI("ahgjagjcas as ", DialogUI.ERROR_NOTIF, stackPane).show();
         });
 //        
 //        btn_edit.setGraphic(SMS.getGraphics(MaterialDesignIcon.PENCIL_BOX_OUTLINE, "icon-default", 24));
