@@ -64,6 +64,6 @@ public class Supplier {
     
     public String getSupplierFax(){return supplierFax.get();}
     public void setSupplierFax(String id){supplierFax.set(id);}
-//SOME COMMENTS
+
 }
 

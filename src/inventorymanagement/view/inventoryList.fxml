@@ -15,13 +15,6 @@
          <center>
             <VBox prefHeight="456.0" prefWidth="294.0" spacing="15.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="250.0" spacing="5.0" styleClass="secondary-toolbar">
-                     <children>
-                        <Label fx:id="departmentName" styleClass="title-label" />
-                        <Region prefHeight="26.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <JFXButton fx:id="btn_edit" prefHeight="32.0" prefWidth="32.0" ripplerFill="#08a53a" styleClass="jfx-toolbar-button" textFill="#5d5a5a" />
-                     </children>
-                  </HBox>
                   <JFXTabPane styleClass="jfx-tab-flatpane">
                      <tabs>
                         <Tab fx:id="inventoryList" text="Inventory List" />
@@ -34,19 +27,6 @@
                </padding>
             </VBox>
          </center>
-         <top>
-            <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="748.0" spacing="5.0" styleClass="primary-toolbar" BorderPane.alignment="CENTER">
-               <children>
-                  <JFXButton fx:id="btn_add" prefHeight="32.0" ripplerFill="#08a53a" styleClass="jfx-tool-button" text="Add Item" textFill="#5d5a5a" />
-                  <JFXButton fx:id="btn_export" prefHeight="32.0" ripplerFill="#08a53a" styleClass="jfx-tool-button" text="Export" textFill="#5d5a5a" />
-                  <JFXButton fx:id="btn_refresh" prefHeight="32.0" ripplerFill="#08a53a" styleClass="jfx-tool-button" text="Refresh" textFill="#5d5a5a" />
-                  <Region prefHeight="26.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-               </children>
-               <padding>
-                  <Insets bottom="2.0" left="5.0" right="5.0" top="8.0" />
-               </padding>
-            </HBox>
-         </top>
       </BorderPane>
    </children>
 </AnchorPane>

@@ -78,7 +78,9 @@ public class InventoryManagement extends BorderPane{
         } catch (IOException ex) {
         }
         
-        INVENTORY_MAN_STACK = new StackPane(policyDocumentsUI,purchaseOrderUI,assetAllocationUI,supplierUI,inventoryListUI,dashboardUI);
+        INVENTORY_MAN_STACK = new StackPane(policyDocumentsUI,purchaseOrderUI,assetAllocationUI,supplierUI
+               ,inventoryListUI
+                ,dashboardUI);
         
         setCenter(INVENTORY_MAN_STACK);
     }

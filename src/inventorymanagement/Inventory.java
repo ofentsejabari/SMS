@@ -13,7 +13,7 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Inventory {
     SimpleStringProperty inventoryID, inventoryName,inventoryCost, inventoryLocation,
-            inventoryBatch,inventoryDate, inventoryStaff,inventoryQuantity;
+            inventoryBatch,inventoryDate, inventoryStaffID,inventoryQuantity;
 
     public Inventory() {
         inventoryID = new SimpleStringProperty("");
@@ -22,12 +22,12 @@ public class Inventory {
         inventoryLocation = new SimpleStringProperty("");
         inventoryBatch = new SimpleStringProperty("");
         inventoryDate =new SimpleStringProperty("");
-        inventoryStaff = new SimpleStringProperty("");
+        inventoryStaffID = new SimpleStringProperty("");
         inventoryQuantity = new SimpleStringProperty("");
     }
     
     public Inventory(String inventoryID,String inventoryName, String inventoryCost,String inventoryLocation,
-            String inventoryBatch,String inventoryDate,String inventoryStaff,String inventoryQuantity){
+            String inventoryBatch,String inventoryDate,String inventoryStaffID,String inventoryQuantity){
         
        this.inventoryID = new SimpleStringProperty(inventoryID);
        this.inventoryName = new SimpleStringProperty(inventoryName);
@@ -35,7 +35,7 @@ public class Inventory {
        this.inventoryLocation = new SimpleStringProperty(inventoryLocation);
        this.inventoryBatch = new SimpleStringProperty(inventoryBatch);
        this.inventoryDate = new SimpleStringProperty(inventoryDate);
-       this.inventoryStaff = new SimpleStringProperty(inventoryStaff);
+       this.inventoryStaffID = new SimpleStringProperty(inventoryStaffID);
        this.inventoryQuantity= new SimpleStringProperty(inventoryQuantity);
     }
     
@@ -59,8 +59,8 @@ public class Inventory {
     public String getInventoryDate(){return inventoryDate.get();}
     public void setInventoryDate(String id){inventoryDate.set(id);}
     
-    public String getInventoryStaff(){return inventoryStaff.get();}
-    public void setInventoryStaff(String id){inventoryStaff.set(id);}
+    public String getInventoryStaffID(){return inventoryStaffID.get();}
+    public void setInventoryStaffID(String id){inventoryStaffID.set(id);}
     
     public String getInventoryQuantity(){return inventoryQuantity.get();}
     public void setInventoryQuantity(String id){inventoryQuantity.set(id);}

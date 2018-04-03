@@ -39,7 +39,6 @@ public class AddSupplierController  implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         
-        
     }  
     public void setEventHandler(EventHandler event){btn_close.setOnAction(event);}
     
