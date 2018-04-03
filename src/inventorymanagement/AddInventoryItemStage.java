@@ -6,6 +6,7 @@
 package inventorymanagement;
 
 import com.jfoenix.controls.JFXDialog;
+import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import static inventorymanagement.InventoryManagement.INVENTORY_MAN_STACK;
 import inventorymanagement.control.AddInventoryController;
 import inventorymanagement.control.AddSupplierController;
@@ -31,7 +32,7 @@ public class AddInventoryItemStage  extends JFXDialog{
                 close();
             });
                         
-            setDialogContainer(InventoryManagement.INVENTORY_MAN_STACK);
+            setDialogContainer(PARENT_STACK_PANE);
             setContent(pane);
             setOverlayClose(false);
             
