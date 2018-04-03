@@ -36,11 +36,11 @@ public class DBConfig implements Serializable {
         serializeObject(new DBConfig());
         DBConfig cnew = deserialiseObject();
         
-        cnew.setDBHost("127.0.0.1");
-        cnew.setDBUserName("root");
-        cnew.setDBPassword("");
-        cnew.setDBName("ischoolt");
-        
+//        cnew.setDBHost("127.0.0.1");
+//        cnew.setDBUserName("root");
+//        cnew.setDBPassword("");
+//        cnew.setDBName("ischoolt");
+//        
 
         System.out.println();
         System.out.println("Printing object properties...");
