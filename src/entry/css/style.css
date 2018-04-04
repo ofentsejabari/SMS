@@ -1114,7 +1114,7 @@ Scroll bar
 }
  
 .scroll-bar .decrement-button:pressed .decrement-arrow {
-    -fx-background-color: white, white;
+    -fx-background-color: white;
 }
  
 .scroll-bar:disabled {
@@ -1171,7 +1171,7 @@ Table pane
 .tree-table-row-cell:selected .label,
 .table-row-cell:selected .hyperlink,
 .tree-table-row-cell:selected .hyperlink{    
-    -fx-font: 12s "Roboto Medium";
+    -fx-font: 12 "Roboto Medium";
     -fx-text-fill:#ffffff;
     
 }
