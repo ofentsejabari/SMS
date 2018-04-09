@@ -99,7 +99,7 @@ public class FacilityStatusItem extends BorderPane{
         });
         
         CustomTableColumn facilityStatusResource = new CustomTableColumn("RESOURCE");
-        facilityStatusResource.setPercentWidth(15);
+        facilityStatusResource.setPercentWidth(35);
         facilityStatusResource.setCellValueFactory(new PropertyValueFactory<>("facilityStatusResource"));
         facilityStatusResource.setCellFactory(TextFieldTableCell.forTableColumn());
         facilityStatusResource.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
@@ -121,7 +121,7 @@ public class FacilityStatusItem extends BorderPane{
         });
         
         CustomTableColumn facilityStatusName = new CustomTableColumn("FACILITY");
-        facilityStatusName.setPercentWidth(15);
+        facilityStatusName.setPercentWidth(35);
         facilityStatusName.setCellValueFactory(new PropertyValueFactory<>("facilityStatusName"));
         facilityStatusName.setCellFactory(TextFieldTableCell.forTableColumn());
         facilityStatusName.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
