@@ -36,10 +36,11 @@ public class StudentManagement extends BorderPane{
         Label enrolment = new Label("Student Enrolment", getIcon("1_students.png", 30));
         Label attendance = new Label("Attendance", getIcon("inspection_100px.png", 22));
         Label hostel = new Label("Hostel Management", getIcon("bunk_bed.png", 22));
+        Label extraCurriculum = new Label("Extra Curriculum Activities", getIcon("ratings_100px.png", 22));
         Label assessment = new Label("Assessment", getIcon("ratings_100px.png", 22));
 
         mainMenu.getItems().addAll(dashboard, enrolment, attendance,
-                                   hostel, assessment);
+                                   hostel, assessment, extraCurriculum);
         
         //-- set the first item selected --
         mainMenu.getSelectionModel().select(0);
