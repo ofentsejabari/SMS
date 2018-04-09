@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
@@ -55,7 +56,7 @@ public class AddInventoryController implements Initializable {
         setEditing(false);
         
         itemPurchase = new JFXDatePicker();
-        itemPurchase.setPromptText("Purchase Delivery Date");
+        itemPurchase.setPromptText("Date Procured");
         purchaseDetails.getChildren().add(3,itemPurchase);
         
         enable_editing.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
@@ -65,6 +66,7 @@ public class AddInventoryController implements Initializable {
                 setEditing(false);
             }
         });
+        
         
     }  
     

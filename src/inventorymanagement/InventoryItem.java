@@ -9,7 +9,6 @@ import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.CustomTableColumn;
 import entry.CustomTableView;
-import entry.DialogUI;
 import entry.HSpacer;
 import entry.ProgressIndicator;
 import entry.SMS;
@@ -34,7 +33,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import mysqldriver.InventoryQuery;
-import static studentmanagement.control.StudentEnrolmentController.studentTable;
 
 /**
  *
@@ -74,7 +72,7 @@ public class InventoryItem extends BorderPane{
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
         btn_refresh.setOnAction((ActionEvent event) -> {
             inventoryListWork.restart();
-            new DialogUI("ahgjagjcas as ", DialogUI.ERROR_NOTIF, stackPane).show();
+           // new DialogUI("ahgjagjcas as ", DialogUI.ERROR_NOTIF, stackPane).show();
         });
 //        
 //        btn_edit.setGraphic(SMS.getGraphics(MaterialDesignIcon.PENCIL_BOX_OUTLINE, "icon-default", 24));
@@ -300,7 +298,7 @@ public class InventoryItem extends BorderPane{
                         
             Platform.runLater(() -> {  
                 //count.setText(studentList.size()+" Student(s)");
-                studentTable.getTableView().setPlaceholder(setDataNotAvailablePlaceholder());
+                inventoryTable.getTableView().setPlaceholder(setDataNotAvailablePlaceholder());
             });
 
             return inventList;

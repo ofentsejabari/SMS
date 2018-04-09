@@ -10,14 +10,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import static entry.SMS.getIcon;
 
-/**
- *
- * @author ofentse
- */
+
 public class InventoryManagement extends BorderPane{
     
     private JFXListView<Label> mainMenu;
-    private AnchorPane dashboardUI,supplierUI,inventoryListUI,assetAllocationUI,purchaseOrderUI,policyDocumentsUI;
+    private AnchorPane dashboardUI,supplierUI,inventoryListUI,assetAllocationUI,purchaseOrderUI,policyDocumentsUI,facilitiesUI;
     public static StackPane INVENTORY_MAN_STACK;
 
     public InventoryManagement() {
@@ -35,9 +32,10 @@ public class InventoryManagement extends BorderPane{
         Label purchaseOrder = new Label("Purchase Order", getIcon("inspection_100px.png", 22));
         Label assets = new Label("Asset Allocation", getIcon("bunk_bed.png", 22));
         Label policyDocuments = new Label("Policy Document Manager", getIcon("bunk_bed.png", 22));
+        Label facilities = new Label("Facilities Management", getIcon("bunk_bed.png", 22));
 
         mainMenu.getItems().addAll(dashboard, inventory, supplier,
-                                   assets, purchaseOrder, policyDocuments);
+                                   assets, purchaseOrder, policyDocuments,facilities);
         
         //-- set the first item selected --
         mainMenu.getSelectionModel().select(0);
@@ -59,8 +57,13 @@ public class InventoryManagement extends BorderPane{
                 case 4:
                     purchaseOrderUI.toFront();
                     break;
-                default:
+                    
+                case 5:
                     policyDocumentsUI.toFront();
+                    break;
+                    
+                default:
+                    facilitiesUI.toFront();
                     break;
             }
         });
@@ -75,12 +78,12 @@ public class InventoryManagement extends BorderPane{
             assetAllocationUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/assetAllocation.fxml"));
             policyDocumentsUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/policyDocuments.fxml"));
             purchaseOrderUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/purchaseOrder.fxml"));
+            facilitiesUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/facilities.fxml"));
         } catch (IOException ex) {
         }
         
-        INVENTORY_MAN_STACK = new StackPane(policyDocumentsUI,purchaseOrderUI,assetAllocationUI,supplierUI
-               ,inventoryListUI
-                ,dashboardUI);
+        INVENTORY_MAN_STACK = new StackPane(facilitiesUI,policyDocumentsUI,purchaseOrderUI,assetAllocationUI,supplierUI
+               ,inventoryListUI ,dashboardUI);
         
         setCenter(INVENTORY_MAN_STACK);
     }

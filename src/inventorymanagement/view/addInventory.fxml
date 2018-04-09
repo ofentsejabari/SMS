@@ -56,7 +56,8 @@
                                        <children>
                                           <JFXTextField fx:id="iname" editable="false" focusColor="#17b2aa" labelFloat="true" promptText="Item Name" styleClass="name-field" />
                                           <JFXTextArea fx:id="itemDesc" focusColor="#17b2aa" labelFloat="true" prefHeight="120.0" prefWidth="211.0" promptText="Item Description" styleClass="input-text" />
-                                          <JFXTextField fx:id="itemNo" focusColor="#17b2aa" labelFloat="true" promptText="Asset Number" styleClass="name-field" />
+                                          <JFXTextField fx:id="itemNo" focusColor="#17b2aa" labelFloat="true" promptText="Manufacture Serial Number" styleClass="name-field" />
+                                          <JFXTextField fx:id="itemGov" focusColor="#17b2aa" labelFloat="true" promptText="Government Serial Number" styleClass="name-field" />
                                        </children>
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="25.0" />
@@ -95,6 +96,7 @@
                                           <JFXComboBox fx:id="itemDept" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="253.0" promptText="Department" styleClass="input-text" />
                                           <JFXComboBox fx:id="itemRoom" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="253.0" promptText="Room" styleClass="input-text" />
                                           <JFXTextField fx:id="itemStaff" focusColor="#17b2aa" labelFloat="true" promptText="Receiving Officer" styleClass="input-text" />
+                                          <JFXTextField fx:id="itemYears" focusColor="#17b2aa" labelFloat="true" promptText="Years in use" styleClass="input-text" />
                                        </children>
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="25.0" />
