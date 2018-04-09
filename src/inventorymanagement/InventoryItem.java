@@ -63,23 +63,11 @@ public class InventoryItem extends BorderPane{
             new AddInventoryItemStage().show();
         });
         
-//        btn_export.setGraphic(SMS.getGraphics(MaterialDesignIcon.EXPORT, "icon-default", 24));
-//        btn_export.setOnAction((ActionEvent event) -> {
-//            
-//        });
-        
         JFXButton btn_refresh = new JFXButton("Refresh");
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
         btn_refresh.setOnAction((ActionEvent event) -> {
             inventoryListWork.restart();
-           // new DialogUI("ahgjagjcas as ", DialogUI.ERROR_NOTIF, stackPane).show();
         });
-//        
-//        btn_edit.setGraphic(SMS.getGraphics(MaterialDesignIcon.PENCIL_BOX_OUTLINE, "icon-default", 24));
-//        btn_edit.setOnAction((ActionEvent event) -> {
-//            
-//        });
-//        
         
         toolbar.getChildren().addAll(new HSpacer(), btn_refresh, btn_add);
         
