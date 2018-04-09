@@ -48,18 +48,18 @@
                <center>
                   <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                      <children>
-                        <HBox prefHeight="416.0" prefWidth="916.0">
-                           <children>
-                              <Pane prefHeight="288.0" prefWidth="665.0" />
-                           </children>
-                        </HBox>
+                        <JFXTabPane prefHeight="320.0" prefWidth="644.0" styleClass="jfx-tab-flatpane">
+                           <tabs>
+                              <Tab fx:id="statusTab" text="resoource status" />
+                           </tabs>
+                        </JFXTabPane>
                      </children>
                   </VBox>
                </center>
                <top>
                   <HBox prefHeight="40.0" prefWidth="1061.0" styleClass="header-box" BorderPane.alignment="CENTER">
                      <children>
-                        <Label text="hahjfasfhasdasshadsag" />
+                        <Label prefHeight="17.0" prefWidth="88.0" text="hahjfasfhasdasshadsag" />
                         <Region prefHeight="28.0" prefWidth="604.0" HBox.hgrow="ALWAYS" />
                         <JFXButton fx:id="btn_toolbar_close" alignment="TOP_RIGHT" contentDisplay="RIGHT" graphicTextGap="0.0" prefHeight="20.0" prefWidth="23.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" text="" textFill="#fbfeff" wrapText="true">
                            <padding>
