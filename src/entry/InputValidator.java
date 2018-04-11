@@ -19,16 +19,12 @@ public class InputValidator {
     //-- List of mandatory text Fields to validate --
     ArrayList<JFXTextField> inputField;
     ArrayList<JFXTextArea> inputArea;
-    ArrayList<JFXComboBox<String>> combo_box; 
-    ArrayList<JFXDatePicker> date_picker;
     
     public InputValidator(){
         
         inputField = new ArrayList<>();
         inputArea = new ArrayList<>();
         
-        combo_box = new ArrayList<>();
-        date_picker = new ArrayList<>();
     }
     
     public void addField(JFXTextField tf){
@@ -37,14 +33,6 @@ public class InputValidator {
     
     public void addField(JFXTextArea tf){
         inputArea.add(tf);
-    }
-    
-    public void addField(JFXComboBox tf){
-        combo_box.add(tf);
-    }
-    
-    public void addField(JFXDatePicker tf){
-        date_picker.add(tf);
     }
     
     /**
@@ -65,19 +53,6 @@ public class InputValidator {
             }
         }
         
-        for(ComboBox tf: combo_box){
-            if(tf.getValue() == null || tf.getValue().toString().equalsIgnoreCase("")){
-                return false;
-            }
-        }
-        
-        for(DatePicker tf: date_picker){
-            if(tf.getValue() == null || tf.getValue().toString().equalsIgnoreCase("")){
-                return false;
-            }
-        }
-        
-        
         return true;
     }
     
@@ -95,15 +70,6 @@ public class InputValidator {
         for(JFXTextArea tf: inputArea){
             tf.validate();
         }
-        
-//        for(JFXComboBox tf: combo_box){
-//            tf.validate();
-//        }
-//        
-//        for(DatePicker tf: date_picker){
-//            tf.validate();
-//        }
-        
         
         return true;
     }

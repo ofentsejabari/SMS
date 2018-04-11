@@ -2,9 +2,11 @@ package studentmanagement;
 
 import com.jfoenix.controls.JFXDialog;
 import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import studentmanagement.control.StudentProfileController;
+import studentmanagement.control.UpdateStudentController;
 
 /**
  *
@@ -12,14 +14,14 @@ import studentmanagement.control.StudentProfileController;
  */
 public class StudentProfileStage extends JFXDialog{
     
-    public Student student = null;
-    StudentProfileController spc;
+    public static Student student = null;
+    UpdateStudentController spc;
 
     public StudentProfileStage(Student stdnt){
         this.student = stdnt;
         
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagement/view/studentProfile2.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagement/view/updateStudent.fxml"));
             AnchorPane pane = loader.load();
             spc = loader.getController();
             
@@ -27,14 +29,16 @@ public class StudentProfileStage extends JFXDialog{
             setContent(pane);
             setOverlayClose(false);
             
+            spc.getCloseButton().setOnAction((ActionEvent event) -> {
+                close();
+            });
             
-            if(student !=null){
+            if(student != null){
                 spc.updateStudentDetails(student);
             }
             
-            
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
         
     }

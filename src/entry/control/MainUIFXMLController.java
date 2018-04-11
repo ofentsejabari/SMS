@@ -8,7 +8,6 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.octicons.OctIcon;
 import employeemanagement.HumanResourceManagement;
-import entry.EventsNotification;
 import entry.Footer;
 import entry.SMS;
 import java.net.URL;
@@ -35,7 +34,6 @@ import javafx.scene.layout.FlowPane;
 import static entry.SMS.getIcon;
 import entry.ToolTip;
 import eventcalendar.JBEventCalendar;
-import javafx.event.EventHandler;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -68,9 +66,8 @@ public class MainUIFXMLController implements Initializable {
     
     AnchorPane drawerContent;
     
-    
-    public static BorderPane studentManagement, employeeManagement, 
-                             inventoryManagement, admin, messangerUI;
+    public static BorderPane studentManagement, employeeManagement, inventoryManagement,
+                             admin, messangerUI;
     public static JFXDrawersStack drawerStack;
     public static JFXDrawer jFXDrawer;
     
@@ -78,14 +75,8 @@ public class MainUIFXMLController implements Initializable {
     
     public JFXTabPane jFXTabPane;
     
-    @FXML
-    private JFXButton btn_toolbar_badge1, btn_toolbar_badge2;
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        
-    }
-    
+//    @FXML
+//    private JFXButton messageNotification, eventNotification;
     
     
     @Override
@@ -94,21 +85,19 @@ public class MainUIFXMLController implements Initializable {
         drawer.setText(""); 
         btn_toolbar_help.setGraphic(SMS.getGraphics(OctIcon.QUESTION, "text-white", 20));
         
-        drawer.setGraphic(SMS.getGraphics(MaterialDesignIcon.ARROW_RIGHT_BOLD, "text-white", 20));
+        drawer.setGraphic(SMS.getGraphics(MaterialDesignIcon.ARROW_RIGHT_BOLD, "text-info", 18));
         
-        btn_toolbar_badge1.setGraphic(SMS.getGraphics(MaterialDesignIcon.COMMENT_MULTIPLE_OUTLINE,
-                                      "text-white", 20));
-        btn_toolbar_badge1.setText("");
-        
-        btn_toolbar_badge2.setGraphic(SMS.getGraphics(FontAwesomeIcon.BELL_ALT, "text-white", 20));
-        btn_toolbar_badge2.setText("");
-        btn_toolbar_badge2.setOnAction((ActionEvent event) -> {
-            new EventsNotification(btn_toolbar_badge2);
-        });
-        
-        
-        
-        
+//        messageNotification.setGraphic(SMS.getGraphics(MaterialDesignIcon.COMMENT_MULTIPLE_OUTLINE,
+//                                      "text-white", 16));
+//        messageNotification.setText("");
+//        
+//        eventNotification.setGraphic(SMS.getGraphics(FontAwesomeIcon.BELL_ALT, "text-white", 16));
+//        eventNotification.setText("");
+//        eventNotification.setText("jhkjsdjf");
+//        eventNotification.setOnAction((ActionEvent event) -> {
+//            new EventsNotification(eventNotification);
+//        });
+//        
         
         //-- Update profile picture --
         imageHolder = getIcon("user.png").getImage();
@@ -135,7 +124,6 @@ public class MainUIFXMLController implements Initializable {
         VBox vBox = new VBox();
         vBox.getChildren().addAll(Borders.wrap(calendar)
                 .lineBorder()
-                //.title("Event Calendar")
                 .thickness(2, 1, 1, 1)
                 .innerPadding(0)
                 .radius(5)
@@ -195,14 +183,13 @@ public class MainUIFXMLController implements Initializable {
         Tab timetable   = new Tab("Timetable", messangerUI);
         timetable.setGraphic(SMS.getGraphics(MaterialDesignIcon.CALENDAR_CLOCK, "text-indigo", 24));
         
-        jFXTabPane.getTabs().addAll(db,  lbm, stdm, emlm, invm, finm, timetable, messanger);
-        
+        jFXTabPane.getTabs().addAll(db,  lbm, stdm, emlm,
+                invm, finm, timetable, messanger);
         
         
         PARENT_STACK_PANE = new StackPane(jFXTabPane);
         
         parentContainer.setCenter(PARENT_STACK_PANE);
-        
         
         drawerStack = new JFXDrawersStack();
         drawerStack.setContent(parentContainer);
@@ -221,28 +208,7 @@ public class MainUIFXMLController implements Initializable {
         
         drawerStackPane.getChildren().add(drawerStack);
         
-        
         footer.getChildren().add(new Footer());
-        
-//        badge.getStyleClass().add("icons-badge");
-        
-//        Gauge gauge = GaugeBuilder.create().skinType(Gauge.SkinType.SLIM)
-//                          .barColor(Color.RED)
-//                          .decimals(0)
-//                          .maxValue(100).value(20)
-//                          .unit("TOTAL STUDENTS")
-//                          .build();
-//        
-//        Gauge gauge1 = GaugeBuilder.create().skinType(Gauge.SkinType.DASHBOARD)
-//                          .barColor(Color.GREEN)
-//                          .decimals(0)
-//                          .maxValue(100)
-//                          .unit("UNIT").value(50)
-//                          .build();
-//        gauge1.setAnimated(true);
-//        gauge1.setAnimationDuration(1000);
-//        
-//        students.getChildren().addAll(gauge, gauge1);
         
     }   
     

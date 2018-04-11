@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entry.control;
 
 import com.jfoenix.controls.JFXButton;
 import static entry.control.MainUIFXMLController.employeeManagement;
-import static entry.control.MainUIFXMLController.inventoryManagement;
 import static entry.control.MainUIFXMLController.studentManagement;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,7 +45,7 @@ public class SystemModulesController implements Initializable {
         }else if(event.getSource()== btn_employee_management){
             employeeManagement.toFront();
         }else if(event.getSource()== btn_inventory_management){
-            inventoryManagement.toFront();
+            //inventoryManagement.toFront();
         }else if(event.getSource()== btn_library_management){
             admin.toFront();
         }

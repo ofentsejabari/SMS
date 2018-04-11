@@ -24,7 +24,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import org.controlsfx.control.textfield.CustomTextField;
@@ -32,10 +31,12 @@ import studentmanagement.ExportMenu;
 import studentmanagement.Student;
 import studentmanagement.StudentProfileStage;
 import static entry.SMS.setDataNotAvailablePlaceholder;
-import static entry.SMS.getGraphics;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.layout.VBox;
+import static entry.SMS.getGraphics;
+import entry.ToolTip;
+import static entry.SMS.getGraphics;
 
 /**
  * FXML Controller class
@@ -130,10 +131,7 @@ public class StudentEnrolmentController implements Initializable {
         
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.ACCOUNT_PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-            profileStage = new StudentProfileStage(new Student("Ofente", "ofentse", "jabari", "thato", "oabona", "kgopolo",
-                                                                filter, filter, filter, filter, filter, filter, filter, filter,
-                                                                filter, filter, filter, filter, filter, filter, filter, filter,
-                                                                filter, filter));
+            profileStage = new StudentProfileStage(null);
             profileStage.show();
         });
         
@@ -171,9 +169,8 @@ public class StudentEnrolmentController implements Initializable {
                 };
             }
         });
-
         
-        CustomTableColumn admissionNumber = new CustomTableColumn("Enrolment Code");
+        CustomTableColumn admissionNumber = new CustomTableColumn("ENROLLMENT ID");
         admissionNumber.setPercentWidth(20);
         admissionNumber.setCellValueFactory(new PropertyValueFactory<>("studentID"));
         admissionNumber.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
@@ -185,7 +182,14 @@ public class StudentEnrolmentController implements Initializable {
                     public void updateItem(final String ID, boolean empty) {
                         super.updateItem(ID, empty);
                         if(!empty){
-                            setGraphic(new Label(ID));
+                            
+                            final Hyperlink studentID = new Hyperlink(ID);
+                            studentID.setTooltip(new ToolTip("Edit student profile", 300, 100));
+                            studentID.setOnAction((ActionEvent event) -> {
+                                new StudentProfileStage(dbHandler.getStudentByID(ID)).show();
+                            });
+                            
+                            setGraphic(studentID);
                         }else{ setGraphic(null); }
                         
                     }
@@ -193,7 +197,7 @@ public class StudentEnrolmentController implements Initializable {
             }
         });
 
-        CustomTableColumn fname = new CustomTableColumn("Fullname");
+        CustomTableColumn fname = new CustomTableColumn("STUDENT NAME");
         fname.setPercentWidth(25);
         fname.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         fname.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -206,10 +210,8 @@ public class StudentEnrolmentController implements Initializable {
                     public void updateItem(final String ID, boolean empty) {
                         super.updateItem(ID, empty);
                         
-                        final Hyperlink fullname = new Hyperlink("");
+                        final Hyperlink fullname = new Hyperlink(ID);
                         if(!empty){
-                            fullname.getStyleClass().add("tableLink");
-                            fullname.setText(ID);
                             fullname.setContentDisplay(ContentDisplay.LEFT);
                             fullname.setTooltip(new Tooltip("Student profile"));
                             setGraphic(fullname);
@@ -221,11 +223,11 @@ public class StudentEnrolmentController implements Initializable {
             }
         });
         
-        CustomTableColumn contacts = new CustomTableColumn("Class");
-        contacts.setPercentWidth(20);
-        contacts.setCellValueFactory(new PropertyValueFactory<>("classID"));
-        contacts.setCellFactory(TextFieldTableCell.forTableColumn());
-        contacts.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+        CustomTableColumn _class = new CustomTableColumn("CLASS NAME");
+        _class.setPercentWidth(20);
+        _class.setCellValueFactory(new PropertyValueFactory<>("classID"));
+        _class.setCellFactory(TextFieldTableCell.forTableColumn());
+        _class.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
             public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
@@ -235,11 +237,7 @@ public class StudentEnrolmentController implements Initializable {
                         super.updateItem(ID, empty);
                         
                         if(!empty){
-                            HBox contacts = new HBox(new Label(ID));
-                            contacts.setStyle("-fx-padding:0");
-                            contacts.setSpacing(5);
-                            
-                            setGraphic(contacts);
+                            setGraphic(new Label(ID));
                            
                         }else{ setGraphic(null); }
                       
@@ -248,11 +246,11 @@ public class StudentEnrolmentController implements Initializable {
             }
         });
         
-        CustomTableColumn status = new CustomTableColumn("Parent Contacts");
-        status.setPercentWidth(30);
-        status.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        status.setCellFactory(TextFieldTableCell.forTableColumn());
-        status.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+        CustomTableColumn contacts = new CustomTableColumn("PARENT/GUARDIAN CONTACTS");
+        contacts.setPercentWidth(30);
+        contacts.setCellValueFactory(new PropertyValueFactory<>("parentID"));
+        contacts.setCellFactory(TextFieldTableCell.forTableColumn());
+        contacts.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
             public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
@@ -270,13 +268,13 @@ public class StudentEnrolmentController implements Initializable {
             }
         });
         
-        studentTable.getTableView().getColumns().addAll(id, admissionNumber, fname, contacts, status);
+        studentTable.getTableView().getColumns().addAll(id, admissionNumber, fname, _class, contacts);
         
         VBox ph = setDataNotAvailablePlaceholder();
         studentTable.getTableView().setPlaceholder(ph);
         
         
-        ProgressIndicator pi = new ProgressIndicator("Loading student data", "If network connection is very slow,"
+        ProgressIndicator pi = new ProgressIndicator("Loading Student Data", "If network connection is very slow,"
                                                    + " this might take some few more seconds.");
         
         pi.visibleProperty().bind(studentListWork.runningProperty());
@@ -302,7 +300,7 @@ public class StudentEnrolmentController implements Initializable {
             });
             studentList  = dbHandler.studentList(filter);
             for(int i=0;i<studentList.size();i++){
-                studentList.get(i).setEnrollID(i+1+"");
+                studentList.get(i).setId(i+1+"");
             }
                         
             Platform.runLater(() -> {  

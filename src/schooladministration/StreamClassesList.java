@@ -212,7 +212,7 @@ public class StreamClassesList extends BorderPane{
             
             for (int i = 0; i < data.size(); i++) {
                 data.get(i).setSchoolID((i+1)+"");
-                data.get(i).setHouse(AdminQuery.getHouseByID(data.get(i).getHouse()).getHouseName());
+                data.get(i).setHouseID(AdminQuery.getHouseByID(data.get(i).getHouseID()).getHouseName());
             }
             
             

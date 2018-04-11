@@ -13,32 +13,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1100.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="entry.control.MainUIFXMLController">
+<AnchorPane id="AnchorPane" prefHeight="625.0" prefWidth="1100.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="entry.control.MainUIFXMLController">
    <children>
       <StackPane fx:id="drawerStackPane" prefHeight="600.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <BorderPane fx:id="parentContainer" prefHeight="400.0" prefWidth="600.0">
                <top>
-                  <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="1100.0" spacing="10.0" styleClass="header-box" BorderPane.alignment="CENTER_LEFT">
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="1100.0" spacing="10.0" styleClass="header-box" BorderPane.alignment="CENTER_LEFT">
                      <children>
-                        <Pane prefHeight="63.0" prefWidth="295.0">
+                        <Pane prefHeight="0.0" prefWidth="295.0">
                            <children>
-                              <Label layoutX="88.0" layoutY="6.0" text="Ofentse Jabari" textFill="WHITE">
+                              <Label layoutX="68.0" layoutY="1.0" text="Ofentse Jabari" textFill="WHITE">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="88.0" layoutY="34.0" text="Administrator" textFill="WHITE">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <Circle fx:id="profile_picture" fill="#1f93ff00" layoutX="33.0" layoutY="30.0" radius="28.0" stroke="#ffffff1c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
+                              <Label layoutX="68.0" layoutY="28.0" text="Administrator" textFill="WHITE" />
+                              <Circle fx:id="profile_picture" fill="#1f93ff00" layoutX="26.0" layoutY="25.0" radius="23.0" stroke="#ffffff1c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE">
                                  <effect>
                                     <DropShadow />
                                  </effect>
                               </Circle>
-                              <JFXButton fx:id="drawer" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="46.0" layoutY="27.0" onAction="#handleButtonAction" prefHeight="28.0" prefWidth="28.0" ripplerFill="WHITE" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand; -fx-background-color: #00000050; -fx-border-radius: 50%; -fx-background-radius: 50%;" text="." textFill="WHITE" wrapText="true">
+                              <JFXButton fx:id="drawer" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="32.0" layoutY="26.0" prefHeight="20.0" prefWidth="20.0" ripplerFill="WHITE" style="-fx-cursor: hand; -fx-background-color: #ffffff50; -fx-border-radius: 50%; -fx-background-radius: 50%;" text="." textFill="WHITE" wrapText="true">
                                  <padding>
                                     <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                                  </padding>
@@ -46,44 +42,9 @@
                            </children>
                         </Pane>
                         <Region HBox.hgrow="ALWAYS" />
-                        <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="681.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="681.0" spacing="5.0" HBox.hgrow="ALWAYS">
                            <children>
-                              
-                                    <JFXBadge fx:id="badge1" position="TOP_RIGHT" styleClass="icons-badge-yellow" text="555">
-                                 <control>
-                                     <StackPane alignment="BOTTOM_CENTER" style="-fx-padding: 10;">
-                                        <children>
-                                             <JFXButton fx:id="btn_toolbar_badge2" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="0.0" onAction="#handleButtonAction" ripplerFill="#fcf9f9" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="." textFill="#fbfeff" wrapText="true">
-                                             <graphic>
-                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../icons/talk.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </JFXButton>
-                                        </children>
-                                     </StackPane>
-                                 </control>
-                              </JFXBadge>
-                              <JFXBadge fx:id="badge11" position="TOP_RIGHT" styleClass="icons-badge-orange" text="2">
-                                 <control>
-                                    <StackPane alignment="BOTTOM_CENTER" style="-fx-padding: 10;">
-                                       <children>
-                                          <JFXButton fx:id="btn_toolbar_badge1" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="0.0" onAction="#handleButtonAction" ripplerFill="#fcf9f9" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="." textFill="#fbfeff" wrapText="true">
-                                             <graphic>
-                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../icons/talk.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                          </JFXButton>
-                                       </children>
-                                    </StackPane>
-                                 </control>
-                              </JFXBadge>
-                              <JFXButton fx:id="btn_toolbar_help" buttonType="RAISED" graphicTextGap="0.0" onAction="#handleButtonAction" ripplerFill="#fcf9f9" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="Help Manual" textFill="#fbfeff" wrapText="true">
+                              <JFXButton fx:id="btn_toolbar_help" buttonType="RAISED" graphicTextGap="0.0" ripplerFill="#fcf9f9" style="-fx-background-radius: 0; -fx-padding: 4; -fx-border-radius: 0; -fx-cursor: hand;" styleClass="dark-green" text="Help Manual" textFill="#fbfeff" wrapText="true">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -91,7 +52,7 @@
                                        </image>
                                     </ImageView>
                                  </graphic></JFXButton>
-                              <JFXButton fx:id="btn_toolbar_feedback" buttonType="RAISED" onAction="#handleButtonAction" ripplerFill="#fcf9f9" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="Feedback" textFill="#fbfeff" wrapText="true">
+                              <JFXButton fx:id="btn_toolbar_feedback" buttonType="RAISED" ripplerFill="#fcf9f9" style="-fx-background-radius: 0; -fx-padding: 4; -fx-border-radius: 0; -fx-cursor: hand;" styleClass="dark-blue" text="Feedback" textFill="#fbfeff" wrapText="true">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -100,7 +61,7 @@
                                     </ImageView>
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="btn_toolbar_about" buttonType="RAISED" onAction="#handleButtonAction" ripplerFill="#fcf9f9" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="About" textFill="#fbfeff" wrapText="true">
+                              <JFXButton fx:id="btn_toolbar_about" buttonType="RAISED" ripplerFill="#fcf9f9" style="-fx-background-radius: 0; -fx-padding: 4; -fx-border-radius: 0; -fx-cursor: hand;" styleClass="dark-blue" text="About" textFill="#fbfeff" wrapText="true">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

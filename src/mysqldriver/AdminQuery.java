@@ -353,7 +353,7 @@ public class AdminQuery {
         try{
             String query;
             if(!update){
-                query = "INSERT INTO `class` (`classID`, `name`, `classTeacher`, `category`, `cluster`, `schoolID`)"
+                query = "INSERT INTO `class` (`classID`, `name`, `classTeacher`, `house`, `stream`, `schoolID`)"
                         + " VALUES ('"+cls.getClassID()+"', '"+cls.getName()+"', '"+cls.getClassTeacherID()+"',"
                         + " '"+cls.getCategory()+"', '"+cls.getClusterID()+"', '"+cls.getSchoolID()+"')";
                 STATEMENT.addBatch("INSERT INTO `timetable` (`id`, `classID`, `time`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`,"
@@ -376,7 +376,7 @@ public class AdminQuery {
 
             }else{
                 query = "UPDATE `class` SET `name`='"+cls.getName()+"', `classTeacher`='"+cls.getClassTeacherID()+"',"
-                        + " `cluster`='"+cls.getClusterID()+"' , `category`='"+cls.getCategory()+"'"
+                        + " `stream`='"+cls.getClusterID()+"' , `house`='"+cls.getCategory()+"'"
                     + "WHERE `classID`= '"+cls.getClassID()+"'";
                 return STATEMENT.executeUpdate(query) > 0;
             }
@@ -514,13 +514,13 @@ public class AdminQuery {
         try{
             String query;
             if(!update){
-                query = "INSERT INTO `category` (`id`, `categoryName`, `hoh`)"
+                query = "INSERT INTO `house` (`id`, `houseName`, `hoh`)"
                         + " VALUES ('0', '"+category.getHouseName()+"', '"+category.getHOH()+"')";
                 
                 return STATEMENT.executeUpdate(query) > 0;
                 
             }else{
-                query = "UPDATE `category` SET `categoryName`='"+category.getHouseName()+"',"
+                query = "UPDATE `house` SET `houseName`='"+category.getHouseName()+"',"
                         + "`hoh`='"+category.getHOH()+"'"
                         + " WHERE `id`= '"+category.getID()+"'";
                 
@@ -535,13 +535,13 @@ public class AdminQuery {
     
     public static House getHouseByID(String id){
         try{
-            String query = "SELECT `id`, `categoryName`, `hoh`"
-                          + " FROM `category` WHERE `id`= '"+id+"'";
+            String query = "SELECT `id`, `houseName`, `hoh`"
+                          + " FROM `house` WHERE `id`= '"+id+"'";
            
             ResultSet result = STATEMENT.executeQuery(query);
             
             if(result.next()){
-                return new House(result.getString("id"), result.getString("categoryName"),
+                return new House(result.getString("id"), result.getString("houseName"),
                         result.getString("hoh"));
             }
             return new House();
@@ -554,13 +554,13 @@ public class AdminQuery {
     
     public static House getHouseByName(String id){
         try{
-            String query = "SELECT `id`, `categoryName`, `hoh`"
-                          + " FROM `category` WHERE `categoryName`= '"+id+"'";
+            String query = "SELECT `id`, `houseName`, `hoh`"
+                          + " FROM `house` WHERE `houseName`= '"+id+"'";
            
             ResultSet result = STATEMENT.executeQuery(query);
             
             if(result.next()){
-                return new House(result.getString("id"), result.getString("categoryName"), result.getString("hoh"));
+                return new House(result.getString("id"), result.getString("houseName"), result.getString("hoh"));
             }
             return new House();
         } 
@@ -573,13 +573,13 @@ public class AdminQuery {
     public static ObservableList<String> getHouseNames(){
         ObservableList<String> categoryNames = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `categoryName`"
-                          + " FROM `category`";
+            String query = "SELECT `houseName`"
+                          + " FROM `house`";
            
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
-                categoryNames.add((result.getString("categoryName")));
+                categoryNames.add((result.getString("houseName")));
             }
             return categoryNames;
         } 
@@ -592,13 +592,13 @@ public class AdminQuery {
     public static ObservableList<House> getHouses(){
         ObservableList<House> categories = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `id`, `categoryName`, `hoh`"
-                          + " FROM `category`";
+            String query = "SELECT `id`, `houseName`, `hoh`"
+                          + " FROM `house`";
            
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
-                categories.add(new House(result.getString("id"),result.getString("categoryName"),
+                categories.add(new House(result.getString("id"),result.getString("houseName"),
                         result.getString("hoh")));
             }
             return categories;
@@ -615,7 +615,7 @@ public class AdminQuery {
         try{
             String query = "SELECT `name`" +
                             " FROM `class`" +
-                            " WHERE `category` = '"+categoryID+"'";
+                            " WHERE `house` = '"+categoryID+"'";
             
            
             ResultSet result = STATEMENT.executeQuery(query);
@@ -636,15 +636,15 @@ public class AdminQuery {
     public static ObservableList<ISchoolClass> getHouseClassList(String houseID){
         ObservableList<ISchoolClass> ischoolclass = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `classID`, `name`, `classTeacher`, `cluster`,`category`,`schoolID`"
-                         + "FROM `class` WHERE `category` = '"+houseID+"'";
+            String query = "SELECT `classID`, `name`, `classTeacher`, `stream`,`house`,`schoolID`"
+                         + "FROM `class` WHERE `house` = '"+houseID+"'";
             
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
                 ischoolclass.add(new ISchoolClass(result.getString("classID"),result.getString("name"),
-                        result.getString("classTeacher"), result.getString("category"),
-                        result.getString("cluster"),result.getString("schoolID")));
+                        result.getString("classTeacher"), result.getString("house"),
+                        result.getString("stream"),result.getString("schoolID")));
             }
             return ischoolclass;
         } 
@@ -660,13 +660,13 @@ public class AdminQuery {
         try{
             String query;
             if(!update){
-                query = "INSERT INTO `cluster` (`id`, `name`)"
+                query = "INSERT INTO `stream` (`id`, `name`)"
                         + " VALUES ('0', '"+stream.getDescription()+"')";
                 
                 return STATEMENT.executeUpdate(query) > 0;
                 
             }else{
-                query = "UPDATE `cluster` SET `name`='"+stream.getDescription()+"'"
+                query = "UPDATE `stream` SET `name`='"+stream.getDescription()+"'"
                         + " WHERE `id`= '"+stream.getStreamID()+"'";
                 
                 return STATEMENT.executeUpdate(query) > 0;
@@ -680,28 +680,28 @@ public class AdminQuery {
     
     
     public static ObservableList<Stream> getStreams(){
-        ObservableList<Stream> cluster = FXCollections.observableArrayList();
+        ObservableList<Stream> stream = FXCollections.observableArrayList();
         try{
             String query = "SELECT `id`, `name`"
-                          + " FROM `cluster`";
+                          + " FROM `stream`";
            
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
-                cluster.add(new Stream(result.getString("id"),result.getString("name")));
+                stream.add(new Stream(result.getString("id"),result.getString("name")));
             }
-            return cluster;
+            return stream;
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
-             return cluster;
+             return stream;
         }
     }
     
     public static Stream getStreamByID(String id){
         try{
             String query = "SELECT `id`, `name`"
-                         + " FROM `cluster` WHERE `id`= '"+id+"'";
+                         + " FROM `stream` WHERE `id`= '"+id+"'";
            
             ResultSet result = STATEMENT.executeQuery(query);
             
@@ -719,7 +719,7 @@ public class AdminQuery {
     public static Stream getStreamByName(String name){
         try{
             String query = "SELECT `id`, `name`"
-                         + " FROM `cluster` WHERE `name`= '"+name+"'";
+                         + " FROM `stream` WHERE `name`= '"+name+"'";
            
             ResultSet result = STATEMENT.executeQuery(query);
             
@@ -756,7 +756,7 @@ public class AdminQuery {
     public static ObservableList<String> getStreamNames(){
         ObservableList<String> streams = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `name` FROM `cluster` ORDER BY `name` ASC";
+            String query = "SELECT `name` FROM `stream` ORDER BY `name` ASC";
            
             ResultSet result = STATEMENT.executeQuery(query);
             
@@ -772,20 +772,20 @@ public class AdminQuery {
     }
     
     public static ObservableList<String> getStreamClasses(String streamID){
-        ObservableList<String> cluster = FXCollections.observableArrayList();
+        ObservableList<String> stream = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `name` FROM `class` WHERE `cluster` = '"+streamID+"'";
+            String query = "SELECT `name` FROM `class` WHERE `stream` = '"+streamID+"'";
            
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
-                cluster.add(result.getString("name"));
+                stream.add(result.getString("name"));
             }
-            return cluster;
+            return stream;
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
-             return cluster;
+             return stream;
         }
     }
     
@@ -793,15 +793,15 @@ public class AdminQuery {
     public static ObservableList<ISchoolClass> getStreamClassList(String streamID){
         ObservableList<ISchoolClass> ischoolclass = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `classID`, `name`, `classTeacher`, `cluster`,`category`,`schoolID`"
-                         + "FROM `class` WHERE `cluster` = '"+streamID+"'";
+            String query = "SELECT `classID`, `name`, `classTeacher`, `stream`,`house`,`schoolID`"
+                         + "FROM `class` WHERE `stream` = '"+streamID+"'";
             
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
                 ischoolclass.add(new ISchoolClass(result.getString("classID"),result.getString("name"),
-                        result.getString("classTeacher"), result.getString("category"),
-                        result.getString("cluster"),result.getString("schoolID")));
+                        result.getString("classTeacher"), result.getString("house"),
+                        result.getString("stream"),result.getString("schoolID")));
             }
             return ischoolclass;
         } 
@@ -1009,8 +1009,6 @@ public class AdminQuery {
                             " WHERE `subjectID` = '"+subjectID+"'" +
                             " AND `employeeID` = `teacherID`";
             
-            //System.out.println(query);
-           
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
@@ -1127,19 +1125,19 @@ public class AdminQuery {
      /**************************************************************************
      * 
      * @return 
-     *
+     */
     public static ObservableList<ISchoolClass> getClassList(){
         ObservableList<ISchoolClass> ischoolclass = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `classID`, `name`, `classTeacher`, `cluster`,`category`,`schoolID`"
+            String query = "SELECT `classID`, `className`, `classTeacher`, `house`, `stream`,`schoolID`"
                          + "FROM `class`";
             
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
-                ischoolclass.add(new ISchoolClass(result.getString("classID"),result.getString("name"),
-                        result.getString("classTeacher"), result.getString("category"),
-                        result.getString("cluster"),result.getString("schoolID")));
+                ischoolclass.add(new ISchoolClass(result.getString("classID"),result.getString("className"),
+                        result.getString("classTeacher"), result.getString("house"),
+                        result.getString("stream"),result.getString("schoolID")));
             }
             return ischoolclass;
         } 
@@ -1153,19 +1151,19 @@ public class AdminQuery {
      * 
      * @param descr
      * @return 
-     *
+     */
     public static ISchoolClass getClassByName(String descr){
         
         try{
-            String query = "SELECT `classID`, `name`, `classTeacher`, `category`, `cluster`,`schoolID`"
-                         + "FROM `class` WHERE `name` = '"+descr+"'";
+            String query = "SELECT `classID`, `className`, `classTeacher`, `house`, `stream`,`schoolID`"
+                         + "FROM `class` WHERE `className` = '"+descr+"'";
             
             ResultSet result = STATEMENT.executeQuery(query);
             
             if(result.next()){
-                return new ISchoolClass(result.getString("classID"),result.getString("name"),
-                        result.getString("classTeacher"), result.getString("category"),
-                        result.getString("cluster"),result.getString("schoolID"));
+                return new ISchoolClass(result.getString("classID"),result.getString("className"),
+                        result.getString("classTeacher"), result.getString("house"),
+                        result.getString("stream"),result.getString("schoolID"));
             }
             return new ISchoolClass();
             
@@ -1180,19 +1178,19 @@ public class AdminQuery {
      * 
      * @param id
      * @return 
-     *
+     */
     public static ISchoolClass getClassByID(String id){
         
         try{
-            String query = "SELECT `classID`, `name`, `classTeacher`, `category`, `cluster`, `schoolID`"
+            String query = "SELECT `classID`, `className`, `classTeacher`, `house`, `stream`, `schoolID`"
                          + " FROM `class` WHERE `classID` = '"+id+"'";
-            //System.out.println(query);
+            
             ResultSet result = STATEMENT.executeQuery(query);
             
             if(result.next()){
-                return new ISchoolClass(result.getString("classID"),result.getString("name"),
-                        result.getString("classTeacher"), result.getString("category"),
-                        result.getString("cluster"),result.getString("schoolID"));
+                return new ISchoolClass(result.getString("classID"),result.getString("className"),
+                        result.getString("classTeacher"), result.getString("house"),
+                        result.getString("stream"),result.getString("schoolID"));
             }
             return new ISchoolClass();
             
@@ -1203,7 +1201,7 @@ public class AdminQuery {
     }
     
     
-    
+   /* 
     public static ISchoolClass getMyClass(String employeeID){
         
         try{
