@@ -3,25 +3,25 @@ package studentmanagement;
 import com.jfoenix.controls.JFXDialog;
 import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import studentmanagement.control.StudentProfileController;
 import studentmanagement.control.UpdateStudentController;
 
 /**
  *
  * @author ofentse
  */
-public class StudentProfileStage extends JFXDialog{
+public class UpdateStudentStage extends JFXDialog{
     
     public static Student student = null;
-    StudentProfileController spc;
+    UpdateStudentController spc;
 
-    public StudentProfileStage(Student stdnt){
+    public UpdateStudentStage(Student stdnt){
         this.student = stdnt;
         
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagement/view/studentProfile.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/studentmanagement/view/updateStudent.fxml"));
             AnchorPane pane = loader.load();
             spc = loader.getController();
             
@@ -33,6 +33,9 @@ public class StudentProfileStage extends JFXDialog{
                 close();
             });
             
+            if(student != null){
+                spc.updateStudentDetails(student);
+            }
             
         } catch (Exception ex) {
             ex.printStackTrace();

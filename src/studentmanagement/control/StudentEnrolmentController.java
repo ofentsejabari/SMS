@@ -29,14 +29,14 @@ import javafx.util.Callback;
 import org.controlsfx.control.textfield.CustomTextField;
 import studentmanagement.ExportMenu;
 import studentmanagement.Student;
-import studentmanagement.StudentProfileStage;
+import studentmanagement.UpdateStudentStage;
 import static entry.SMS.setDataNotAvailablePlaceholder;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.layout.VBox;
-import static entry.SMS.getGraphics;
 import entry.ToolTip;
 import static entry.SMS.getGraphics;
+import studentmanagement.StudentProfileStage;
 
 /**
  * FXML Controller class
@@ -60,7 +60,7 @@ public class StudentEnrolmentController implements Initializable {
     
     public static String filter = "ALL";
     
-    public static StudentProfileStage profileStage;
+    public static UpdateStudentStage profileStage;
     public static CustomTableView<Student> studentTable;
     public static ObservableList<Student> studentList = FXCollections.observableArrayList();
     
@@ -131,7 +131,7 @@ public class StudentEnrolmentController implements Initializable {
         
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.ACCOUNT_PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-            profileStage = new StudentProfileStage(null);
+            profileStage = new UpdateStudentStage(null);
             profileStage.show();
         });
         
@@ -186,7 +186,7 @@ public class StudentEnrolmentController implements Initializable {
                             final Hyperlink studentID = new Hyperlink(ID);
                             studentID.setTooltip(new ToolTip("Edit student profile", 300, 100));
                             studentID.setOnAction((ActionEvent event) -> {
-                                new StudentProfileStage(dbHandler.getStudentByID(ID)).show();
+                                new UpdateStudentStage(dbHandler.getStudentByID(ID)).show();
                             });
                             
                             setGraphic(studentID);
@@ -213,7 +213,10 @@ public class StudentEnrolmentController implements Initializable {
                         final Hyperlink fullname = new Hyperlink(ID);
                         if(!empty){
                             fullname.setContentDisplay(ContentDisplay.LEFT);
-                            fullname.setTooltip(new Tooltip("Student profile"));
+                            fullname.setTooltip(new ToolTip("View student profile"));
+                            fullname.setOnAction((ActionEvent event) -> {
+                                new StudentProfileStage(dbHandler.getStudentByName(ID)).show();
+                            });
                             setGraphic(fullname);
                            
                         }else{ setGraphic(null); }
