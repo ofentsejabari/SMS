@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import org.controlsfx.control.textfield.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="530.0" prefWidth="1080.0" style="-fx-background-color: #fff;" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagement.control.UpdateStudentController">
+   <children>
+      <StackPane fx:id="stackPane" prefHeight="600.0" prefWidth="1061.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox fx:id="background_process" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" style="-fx-background-color: #00000060;">
+               <children>
+                  <JFXSpinner prefHeight="80.0" prefWidth="1061.0" />
+                  <Label text="Processing ..." textFill="WHITE">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <BorderPane prefHeight="500.0" prefWidth="780.0" style="-fx-background-color: #fff;">
+               <top>
+                  <Pane prefHeight="59.0" prefWidth="1086.0" styleClass="header-box" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="btn_toolbar_close" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="1054.0" prefHeight="26.0" prefWidth="26.0" ripplerFill="#1abbd0" text="" textFill="#fbfeff" wrapText="true">
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                        </JFXButton>
+                        <VBox alignment="CENTER_LEFT" layoutX="85.0" layoutY="1.0" prefHeight="31.0" prefWidth="538.0">
+                           <children>
+                              <Label fx:id="title" prefHeight="10.0" text="Enroll Student" textFill="#fcfcfc">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <HBox alignment="CENTER_RIGHT" layoutY="31.0" maxHeight="31.0" prefHeight="31.0" prefWidth="1080.0" spacing="10.0" styleClass="secondary-toolbar">
+                           <children>
+                              <CustomTextField fx:id="enrolmentID" prefHeight="25.0" prefWidth="130.0" styleClass="search-field" text="102893635632" />
+                              <Region prefHeight="26.0" prefWidth="762.0" HBox.hgrow="ALWAYS" />
+                           </children>
+                           <padding>
+                              <Insets left="100.0" />
+                           </padding>
+                        </HBox>
+                        <Circle fx:id="profile_picture" fill="#2197ff" layoutX="32.0" layoutY="30.0" radius="26.0" stroke="#ffffff1c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" style="-fx-cursor: hand;">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           
+                        </Circle>
+                        <Circle fill="WHITE" layoutX="48.0" layoutY="46.0" opacity="0.74" radius="10.0" stroke="#ffffff31" strokeType="INSIDE">
+                           <effect>
+                              <DropShadow color="#00000050" />
+                           </effect>
+                        </Circle>
+                        <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="40.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../entry/icons/ok.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </top>
+               <center>
+                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <HBox fx:id="container" alignment="TOP_CENTER" prefHeight="416.0" prefWidth="1061.0" spacing="2.0">
+                           <children>
+                              <VBox fx:id="studentDetails" prefHeight="375.0" prefWidth="253.0" spacing="20.0" styleClass="border-container">
+                                 <children>
+                                    <JFXTextField fx:id="fname" focusColor="#17b2aa" labelFloat="true" promptText="First Name" styleClass="name-field" />
+                                    <JFXTextField fx:id="mname" focusColor="#17b2aa" labelFloat="true" promptText="Middle Name" styleClass="name-field" />
+                                    <JFXTextField fx:id="lname" focusColor="#17b2aa" labelFloat="true" promptText="Last Name" styleClass="name-field" />
+                                    <JFXComboBox fx:id="citizenship" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="253.0" promptText="Citizenship" styleClass="input-text" />
+                                    <JFXComboBox fx:id="lastSchool" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="253.0" promptText="Last School Attended" styleClass="input-text" />
+                                    <JFXComboBox fx:id="pslegrade" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="253.0" promptText="PSLE Grade" styleClass="input-text" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="243.0">
+                                       <children>
+                                          <JFXRadioButton fx:id="male" style="-fx-cursor: hand;" text="Male" />
+                                          <JFXRadioButton fx:id="female" style="-fx-cursor: hand;" text="Female" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="25.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox fx:id="studentContact" prefHeight="372.0" prefWidth="253.0" spacing="20.0" styleClass="border-container">
+                                 <children>
+                                    <JFXComboBox fx:id="classAllocated" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="253.0" promptText="Class" styleClass="input-text" />
+                                    <JFXTextField fx:id="studentEmail" focusColor="#17b2aa" labelFloat="true" promptText="Email Address" styleClass="email-field" text="ofentsejabari@gmail.com" />
+                                    <JFXTextArea fx:id="student_postalAddress" focusColor="#17b2aa" labelFloat="true" prefHeight="250.0" prefWidth="196.0" promptText="Postal Address" styleClass="postal-address-field" VBox.vgrow="ALWAYS" />
+                                    <JFXTextArea fx:id="student_physicalAddress" focusColor="#17b2aa" labelFloat="true" prefHeight="250.0" prefWidth="248.0" promptText="Physical Address" styleClass="physical-address-field" VBox.vgrow="ALWAYS" />
+                                    <VBox prefHeight="61.0" prefWidth="248.0" spacing="8.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <JFXCheckBox fx:id="specialNeeds" text="Special Education Need" unCheckedColor="#149dbb" />
+                                          <JFXCheckBox fx:id="socialSupport" checkedColor="#028946" text="Social Welfare Support" unCheckedColor="#137082" />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="2.0" left="20.0" right="2.0" top="2.0" />
+                                       </padding>
+                                    </VBox>
+                                    <JFXComboBox fx:id="sportCode" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="253.0" promptText="Sport Code" styleClass="input-text" />
+                                    <JFXComboBox fx:id="club" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="253.0" promptText="Club" styleClass="input-text" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="25.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox fx:id="parentDetails" prefHeight="373.0" prefWidth="253.0" spacing="20.0" styleClass="border-container">
+                                 <children>
+                                    <JFXTextField fx:id="pfname" focusColor="#17b2aa" labelFloat="true" promptText="First Name" styleClass="name-field" />
+                                    <JFXTextField fx:id="plname" focusColor="#17b2aa" labelFloat="true" promptText="Last Name" styleClass="name-field" />
+                                    <JFXTextField fx:id="identity" focusColor="#17b2aa" labelFloat="true" promptText="Omang/Passport Number" styleClass="input-text" />
+                                    <JFXComboBox fx:id="education" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="253.0" promptText="Education Level Attained" styleClass="input-text" />
+                                    <JFXComboBox fx:id="relationship" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="253.0" promptText="Relationship to Child" styleClass="input-text" />
+                                    <JFXComboBox fx:id="occupation" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="253.0" promptText="Occupation" styleClass="input-text" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="25.0" />
+                                 </padding>
+                              </VBox>
+                              <VBox fx:id="parentContacts" prefHeight="374.0" prefWidth="253.0" spacing="20.0" styleClass="border-container">
+                                 <padding>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="25.0" />
+                                 </padding>
+                                 <children>
+                                    <JFXTextField fx:id="parentEmail" focusColor="#17b2aa" labelFloat="true" promptText="Email Address" styleClass="email-field" />
+                                    <JFXTextField fx:id="telephone" focusColor="#17b2aa" labelFloat="true" promptText="Telephone" styleClass="phone-field" />
+                                    <JFXTextField fx:id="cellphone" focusColor="#17b2aa" labelFloat="true" promptText="Cellphone" styleClass="phone-field" />
+                                    <JFXTextArea fx:id="parent_physicalAddress" focusColor="#17b2aa" labelFloat="true" promptText="Physical Address" styleClass="physical-address-field" />
+                                    <JFXTextArea fx:id="parent_postalAddress" focusColor="#17b2aa" labelFloat="true" prefHeight="174.0" prefWidth="196.0" promptText="Postal Address" styleClass="postal-address-field" />
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </center>
+               <bottom>
+                  <HBox alignment="CENTER" prefHeight="48.0" prefWidth="1019.0" spacing="10.0" style="-fx-padding: 4;" styleClass="secondary-toolbar" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="btn_cancel" buttonType="RAISED" styleClass="dark-blue" text="Cancel" textFill="#2f2a2a">
+                           <padding>
+                              <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_update" buttonType="RAISED" styleClass="dark-blue" text="Update" textFill="WHITE">
+                           <padding>
+                              <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
+                           </padding>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </bottom>
+            </BorderPane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

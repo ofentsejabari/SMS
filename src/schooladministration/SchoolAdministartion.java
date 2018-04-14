@@ -35,7 +35,7 @@ public class SchoolAdministartion extends BorderPane{
         Label streams          = new Label("Streams And Classes",getIcon("12_training.png",   30));
         Label schoolHouses     = new Label("Houses And Categories", getIcon("10_settings.png",  30));
         Label terms            = new Label("Academic Terms",   getIcon("10_settings.png",   30));
-        Label users             = new Label("Access Control",     getIcon("14_access.png",   30));
+        Label users             = new Label("User Directory",     getIcon("14_access.png",   30));
         Label school            = new Label("School Information", getIcon("10_settings.png", 30));
 
         mainMenu.getItems().addAll(dashboard, department_subject, streams,

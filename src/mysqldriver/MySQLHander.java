@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import schooladministration.GradeScheme;
 import schooladministration.Term;
 import schooladministration.User;
+import studentmanagement.SParent;
 import studentmanagement.Student;
 
 /**
@@ -78,34 +79,35 @@ public class MySQLHander {
     
     
     
-    
-    
-    
     public ObservableList<Student> studentList(String filter){
         ObservableList<Student> students = FXCollections.observableArrayList();
         try{
-            String query = " SELECT `students`.`studentID`, CONCAT_WS(' ',`firstName`,`lastName`) AS `fullname`,`status`,"
-                         + " CONCAT_WS(',  ',`studentparent`.`email`, `mobilePhone`, `officePhone`) AS `contacts`, `name`"
-                         + " FROM `students`, `studentparent`, `class`"
-                         + " WHERE `students`.`studentID` = `studentparent`.`studentID`"
-                         + " AND `class`.`classID` = `students`.`class`"
+            String query = " SELECT `student`.`studentID`, CONCAT_WS(' ',`firstName`,`lastName`) AS `fullname`,"
+                         + " CONCAT_WS(',  ',`parent`.`email`, `cellphone`, `telephone`) AS `contacts`, `className`"
+                         + " FROM `student`, `parent`, `class`"
+                         + " WHERE `student`.`parentID` = `parent`.`id`"
+                         + " AND `class`.`classID` = `student`.`classID`"
                          + " AND `status` = '"+filter+"'";
             
             if("ALL".equalsIgnoreCase(filter)){
-                query = " SELECT `students`.`studentID`, CONCAT_WS(' ',`firstName`,`lastName`) AS `fullname`, `status`,"
-                      + " CONCAT_WS(',  ',`studentparent`.`email`, `mobilePhone`, `officePhone`) AS `contacts`, `name`"
-                      + " FROM `students`, `studentparent`, `class`"
-                      + " WHERE `students`.`studentID` = `studentparent`.`studentID`"
-                      + " AND `class`.`classID` = `students`.`class`";
+                query = " SELECT `student`.`studentID`, CONCAT_WS(' ',`firstName`,`lastName`) AS `fullname`,"
+                      + " CONCAT_WS(',  ',`parent`.`email`, `cellphone`, `telephone`) AS `contacts`, `className`"
+                      + " FROM `student`, `parent`, `class`"
+                      + " WHERE `student`.`parentID` = `parent`.`id`"
+                      + " AND `class`.`classID` = `student`.`classID`";
             }
             
             
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
-                students.add(new Student("",result.getString("studentID"), result.getString("fullname"),
-                        result.getString("contacts"), "","",result.getString("name"),
-                        "","","","","","","","","","","","","","","","",""));
+                Student st = new Student();
+                st.setFirstName(result.getString("fullname"));
+                st.setClassID(result.getString("className"));
+                st.setStudentID(result.getString("studentID"));
+                st.setParentID(result.getString("contacts"));
+                
+                students.add(st);
             }
             
             return students;
@@ -117,35 +119,96 @@ public class MySQLHander {
     }
     
     
+    /***************************************************************************
+     * @param studentID
+     * @return 
+     */
+    public Student getStudentByID(String studentID){
+        
+        try{
+            String query = "SELECT `id`, `studentID`, `lastName`, `firstName`, `middleName`, `dob`, `classID`, `gender`,"
+                         + " `specialNeed`, `lastSchoolAttended`, `citizenship`, `email`, `postalAddress`, `physicalAddress`,"
+                         + " `schoolID`, `enrollDate`,`socialWelfare`, `parentID`, `club`, `sportCode`, `psle`, `picture`"
+                         + " FROM `student` WHERE `studentID` = '"+studentID+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return new Student(result.getString("id"),result.getString("studentID"), result.getString("firstName"), 
+                    result.getString("lastName"), result.getString("middleName"), result.getString("dob"), 
+                    result.getString("classID"), result.getString("gender"), result.getString("lastSchoolAttended"), 
+                    result.getString("psle"), result.getString("citizenship"), result.getString("email"),
+                    result.getString("specialNeed"), result.getString("socialWelfare"), result.getString("postalAddress"),
+                    result.getString("physicalAddress"), result.getString("parentID"), result.getString("enrollDate"),
+                    result.getString("club"), result.getString("sportCode"), result.getString("picture"),
+                    result.getString("schoolID"));
+            }
+            return new Student();
+            
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return new Student();
+        }
+    }
     
     
-    
+    /**
+     * 
+     * @param studentN
+     * @return 
+     */
+    public Student getStudentByName(String studentN){
+        
+        try{
+            
+            String query = "SELECT `id`, `studentID`, `lastName`, `firstName`, `middleName`, `dob`, `classID`, `gender`,"
+                    + " `specialNeed`, `lastSchoolAttended`, `citizenship`, `email`, `postalAddress`, `physicalAddress`, "
+                    + " `schoolID`, `enrollDate`,`socialWelfare`, `parentID`, `club`, `sportCode`, `picture`, `psle`"
+                    + " FROM `student` WHERE WHERE CONCAT_WS(' ',`firstName`,`lastName`) = '"+studentN+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return new Student(result.getString("id"),result.getString("studentID"), result.getString("firstName"), 
+                    result.getString("lastName"), result.getString("middleName"), result.getString("dob"), 
+                    result.getString("classID"), result.getString("gender"), result.getString("lastSchoolAttended"), 
+                    result.getString("psle"), result.getString("citizenship"), result.getString("email"),
+                    result.getString("specialNeed"), result.getString("socialWelfare"), result.getString("postalAddress"),
+                    result.getString("physicalAddress"), result.getString("parentID"), result.getString("enrollDate"),
+                    result.getString("club"), result.getString("sportCode"), result.getString("picture"),
+                    result.getString("schoolID"));
+            }
+            return new Student();
+            
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return new Student();
+        }
+    }
     
     
     
     /**
-     * Get al/ System users
+     * Get all System users
      * @return 
      */
     public ObservableList<User> getUsers(){
         ObservableList<User> users = FXCollections.observableArrayList();
         try{
             String query = "SELECT `ID`, `userID`, `password`, `lastLogin`, `updatePassword`, `status`"
-                    + "FROM `users`";
+                         + "FROM `users`";
             
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
                 users.add(new User(result.getString("ID"),result.getString("userID"), result.getString("password"),
-                        result.getString("lastLogin"), result.getString("updatePassword"),
-                        result.getString("status")));
+                          result.getString("lastLogin"), result.getString("updatePassword"), result.getString("status")));
             }
-            
             return users;
         } 
         catch(Exception ex){
-             System.out.println(ex.getMessage());
-             return users;
+            System.out.println(ex.getMessage());
+            return users;
         }
     }
     
@@ -158,21 +221,20 @@ public class MySQLHander {
     public static ObservableList<GradeScheme> getGrades(){
         ObservableList<GradeScheme> grades = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `id`, `symbol`, `lowerBound`, `upperBound`, `points`"
+            String query = " SELECT `id`, `symbol`, `lowerBound`, `upperBound`, `points`"
                          + " FROM `grading`";
            
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
                 grades.add(new GradeScheme(result.getString("id"), result.getString("symbol"), 
-                        result.getString("lowerBound"), result.getString("upperBound")
-                        , result.getString("points")));
+                        result.getString("lowerBound"), result.getString("upperBound"), result.getString("points")));
             }
             return grades;
         } 
         catch(Exception ex){
-             System.out.println(ex.getMessage());
-             return grades;
+            System.out.println(ex.getMessage());
+            return grades;
         }
     }
     
@@ -181,12 +243,9 @@ public class MySQLHander {
             String query;
             if(!update){
                 for(GradeScheme grade: grades){
-                    query = "INSERT INTO `grading` "
-                        + "(`id`, `symbol`, `lowerBound`, `upperbound`, `points`)"
-                        + " VALUES ('0', '"+grade.getSymbol()+"',"
-                        + " '"+grade.getLowerBound()+"',"
-                        + " '"+grade.getUpperBound()+"',"
-                        + " '"+grade.getPoints()+"')";
+                    query = " INSERT INTO `grading` (`id`, `symbol`, `lowerBound`, `upperbound`, `points`)"
+                          + " VALUES ('0', '"+grade.getSymbol()+"', '"+grade.getLowerBound()+"', "
+                          + " '"+grade.getUpperBound()+"', '"+grade.getPoints()+"')";
                     
                     STATEMENT.addBatch(query);
                 }
@@ -196,10 +255,8 @@ public class MySQLHander {
             }else{
                 for(GradeScheme grade: grades){
                     query = "UPDATE `grading` "
-                            + " SET `symbol`='"+grade.getSymbol()+"',"
-                            + " `lowerBound`='"+grade.getLowerBound()+"',"
-                            + " `upperBound`='"+grade.getUpperBound()+"'"
-                            + " `points`='"+grade.getPoints()+"'"
+                            + " SET `symbol`='"+grade.getSymbol()+"', `lowerBound`='"+grade.getLowerBound()+"',"
+                            + " `upperBound`='"+grade.getUpperBound()+"', `points`='"+grade.getPoints()+"'"
                             + " WHERE `id`= '"+grade.getId()+"'";
 
                     STATEMENT.addBatch(query);
@@ -230,8 +287,8 @@ public class MySQLHander {
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
-                terms.add(new Term(result.getString("id"),result.getString("description"), result.getString("from"), result.getString("to"),
-                result.getString("year"), result.getString("currentTerm")));
+                terms.add(new Term(result.getString("id"),result.getString("description"), result.getString("from"),
+                          result.getString("to"), result.getString("year"), result.getString("currentTerm")));
             }
             return terms;
         } 
@@ -262,6 +319,37 @@ public class MySQLHander {
         catch(Exception ex){
              System.out.println(ex.getMessage());
              return terms;
+        }
+    }
+    
+    
+    
+    /**
+     * 
+     * @param id
+     * @return 
+     */
+    public SParent getParentByID(String id){
+        
+        try{
+            String query = "SELECT `id`, `fName`, `lName`, `identity`, `relationship`, `education`,"
+                    + "`occupation`,`cellphone`, `email`, `telephone`, `postalAddress`, `physicalAddress`"
+                    + " FROM `parent` WHERE `id` = '"+id+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return new SParent(result.getString("id"),result.getString("fName"),
+                        result.getString("lName"), result.getString("identity"), 
+                    result.getString("relationship"), result.getString("education"), result.getString("occupation"), 
+                    result.getString("telephone"), result.getString("cellphone"), result.getString("email"), 
+                    result.getString("postalAddress"), result.getString("physicalAddress"));
+            }
+            return new SParent();
+            
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return new SParent();
         }
     }
     
