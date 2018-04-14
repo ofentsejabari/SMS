@@ -13,7 +13,6 @@ import entry.HSpacer;
 import entry.ProgressIndicator;
 import entry.SMS;
 import static entry.SMS.setDataNotAvailablePlaceholder;
-import static inventorymanagement.control.InventoryListController.filter;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,11 +57,7 @@ public class FacilityStatusItem extends BorderPane{
         toolbar.getStyleClass().add("secondary-toolbar");
         setTop(toolbar);
         
-        JFXButton btn_add = new JFXButton("Add");
-        btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
-        btn_add.setOnAction((ActionEvent event) -> {
-            
-        });
+        
                 
         JFXButton btn_refresh = new JFXButton("Refresh");
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
@@ -70,7 +65,7 @@ public class FacilityStatusItem extends BorderPane{
             facilityStatusWork.restart();
         });
    
-        toolbar.getChildren().addAll(new HSpacer(), btn_refresh, btn_add);
+        toolbar.getChildren().addAll(new HSpacer(), btn_refresh);
         
         /*
             CREATE facilityType TABLE
@@ -100,7 +95,7 @@ public class FacilityStatusItem extends BorderPane{
         
         CustomTableColumn facilityStatusResource = new CustomTableColumn("RESOURCE");
         facilityStatusResource.setPercentWidth(35);
-        facilityStatusResource.setCellValueFactory(new PropertyValueFactory<>("facilityStatusResource"));
+        facilityStatusResource.setCellValueFactory(new PropertyValueFactory<>("facilitiesResourceID"));
         facilityStatusResource.setCellFactory(TextFieldTableCell.forTableColumn());
         facilityStatusResource.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
         
@@ -113,7 +108,7 @@ public class FacilityStatusItem extends BorderPane{
                         super.updateItem(ID, empty);
                         
                         if(!empty){
-                            setGraphic(new Label(ID));
+                            setGraphic(new Label(InventoryQuery.getResourceName(ID).get(0)));
                         }else{ setGraphic(null); }
                     }
                 };
@@ -122,7 +117,7 @@ public class FacilityStatusItem extends BorderPane{
         
         CustomTableColumn facilityStatusName = new CustomTableColumn("FACILITY");
         facilityStatusName.setPercentWidth(35);
-        facilityStatusName.setCellValueFactory(new PropertyValueFactory<>("facilityStatusName"));
+        facilityStatusName.setCellValueFactory(new PropertyValueFactory<>("facilitiesID"));
         facilityStatusName.setCellFactory(TextFieldTableCell.forTableColumn());
         facilityStatusName.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
@@ -134,7 +129,7 @@ public class FacilityStatusItem extends BorderPane{
                         super.updateItem(ID, empty);
                         
                         if(!empty){
-                            setGraphic(new Label(ID));
+                            setGraphic(new Label(InventoryQuery.getFacilitiesName(ID).get(0)));
                         }else{ setGraphic(null); }
                     }
                 };
@@ -143,7 +138,7 @@ public class FacilityStatusItem extends BorderPane{
         
         CustomTableColumn facilityStatusAvailable = new CustomTableColumn("AVAILABLE");
         facilityStatusAvailable.setPercentWidth(15);
-        facilityStatusAvailable.setCellValueFactory(new PropertyValueFactory<>("facilityStatusAvailable"));
+        facilityStatusAvailable.setCellValueFactory(new PropertyValueFactory<>("facilitiesStatusAvailable"));
         facilityStatusAvailable.setCellFactory(TextFieldTableCell.forTableColumn());
         facilityStatusAvailable.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
@@ -162,11 +157,11 @@ public class FacilityStatusItem extends BorderPane{
             }
         });
         
-        CustomTableColumn facilityStatusDamaged = new CustomTableColumn("DAMAGED");
-        facilityStatusDamaged.setPercentWidth(15);
-        facilityStatusDamaged.setCellValueFactory(new PropertyValueFactory<>("facilityStatusDamaged"));
-        facilityStatusDamaged.setCellFactory(TextFieldTableCell.forTableColumn());
-        facilityStatusDamaged.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+        CustomTableColumn facilityStatusDamage = new CustomTableColumn("DAMAGED");
+        facilityStatusDamage.setPercentWidth(15);
+        facilityStatusDamage.setCellFactory(TextFieldTableCell.forTableColumn());
+        facilityStatusDamage.setCellValueFactory(new PropertyValueFactory<>("facilitiesStatusDamage"));
+        facilityStatusDamage.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
             public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
@@ -186,7 +181,7 @@ public class FacilityStatusItem extends BorderPane{
         
         
         facilityStatusTable.getTableView().getColumns().addAll(facilityStatusID, facilityStatusName
-                ,facilityStatusResource,facilityStatusAvailable,facilityStatusDamaged);
+                ,facilityStatusResource,facilityStatusAvailable,facilityStatusDamage);
         VBox.setVgrow(facilityStatusTable, Priority.ALWAYS);
         
         //-- SET DATA
@@ -217,7 +212,7 @@ public class FacilityStatusItem extends BorderPane{
             Platform.runLater(() -> {               
                 facilityStatusTable.getTableView().setPlaceholder(new VBox());
             });
-            facilityStatusList  =  InventoryQuery.facilitiesStatusList(filter);
+            facilityStatusList  =  InventoryQuery.getFacilitiesStatus("");
             for(int i=0;i<facilityStatusList.size();i++){
                 facilityStatusList.get(i).setFacilitiesStatusID(i+1+"");
             }

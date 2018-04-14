@@ -12,33 +12,40 @@ import javafx.beans.property.SimpleStringProperty;
  * @author MOILE
  */
 public class FacilitiesStatus {
-    SimpleStringProperty facilitiesStatusID,facilitiesStatusResource,facilitiesStatusAvailable,facilitiesStatusDamaged;
+    SimpleStringProperty facilitiesStatusID,facilitiesID,facilitiesResourceID,facilitiesStatusAvailable
+            ,facilitiesStatusDamage;
 
     public FacilitiesStatus() {
         facilitiesStatusID = new SimpleStringProperty("");
-        facilitiesStatusResource = new SimpleStringProperty("");
+        facilitiesID = new SimpleStringProperty("");
+        facilitiesResourceID = new SimpleStringProperty("");
         facilitiesStatusAvailable = new SimpleStringProperty("");
-        facilitiesStatusDamaged = new SimpleStringProperty("");
+        facilitiesStatusDamage = new SimpleStringProperty("");
     }
-    public FacilitiesStatus(String facilitiesStatusID,String facilitiesStatusResource,String facilitiesStatusAvailable,String facilitiesStatusDamaged){
+    public FacilitiesStatus(String facilitiesStatusID,String facilitiesID,String facilitiesResourceID
+            ,String facilitiesStatusAvailable,String facilitiesStatusDamage)
+    {
         
         this.facilitiesStatusID = new SimpleStringProperty(facilitiesStatusID);
-        this.facilitiesStatusResource = new SimpleStringProperty(facilitiesStatusResource);
+        this.facilitiesResourceID = new SimpleStringProperty(facilitiesResourceID);
+        this.facilitiesID = new SimpleStringProperty(facilitiesID);
         this.facilitiesStatusAvailable = new SimpleStringProperty(facilitiesStatusAvailable);
-        this.facilitiesStatusDamaged = new SimpleStringProperty(facilitiesStatusDamaged);
+        this.facilitiesStatusDamage = new SimpleStringProperty(facilitiesStatusDamage);
     }
     
-    public String getFacilitiesStatusResource(){return facilitiesStatusResource.get();}
-    public void setFacilitiesStatusResource(String id){facilitiesStatusResource.set(id);}
+    public String getFacilitiesResourceID(){return facilitiesResourceID.get();}
+    public void setFacilitiesResourceID(String id){facilitiesResourceID.set(id);}
     
     public String getFacilitiesStatusID (){return facilitiesStatusID.get();}
     public void setFacilitiesStatusID(String id){facilitiesStatusID.set(id);}
     
+    public String getFacilitiesID (){return facilitiesID.get();}
+    public void setFacilitiesID(String id){facilitiesID.set(id);}
+    
     public String getFacilitiesStatusAvailable(){return facilitiesStatusAvailable.get();}
     public void setFacilitiesStatusAvailable(String id){facilitiesStatusAvailable.set(id);}
             
-    public String getFacilitiesStatusDamaged(){return facilitiesStatusDamaged.get();}
-    public void setFacilitiesStatusDamaged(String id){facilitiesStatusDamaged.set(id);}
+    public String getFacilitiesStatusDamage(){return facilitiesStatusDamage.get();}
+    public void setFacilitiesStatusDamage(String id){facilitiesStatusDamage.set(id);}
             
 }
-

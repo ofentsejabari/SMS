@@ -35,13 +35,15 @@ public class FacilityStatusController implements Initializable {
 
     FacilityStatusItem statusItem = null;
     
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-         statusItem =new FacilityStatusItem();
+         statusItem = new FacilityStatusItem();
+         
         statusTab.setContent(statusItem);
     }  
     public void setEventHandler(EventHandler event){btn_toolbar_close.setOnAction(event);}

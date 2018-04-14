@@ -80,7 +80,7 @@ public class FacilityTypeItem extends BorderPane{
         facilityTypeTable = new CustomTableView<>();
         
         CustomTableColumn facilityTypeID = new CustomTableColumn("#");
-        facilityTypeID.setPercentWidth(4.9);
+        facilityTypeID.setPercentWidth(10);
         facilityTypeID.setCellValueFactory(new PropertyValueFactory<>("facilitiesTypeID"));
         facilityTypeID.setCellFactory(TextFieldTableCell.forTableColumn());
         facilityTypeID.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
@@ -101,7 +101,7 @@ public class FacilityTypeItem extends BorderPane{
         });
         
         CustomTableColumn facilityTypeName = new CustomTableColumn("FACILITY NAME");
-        facilityTypeName.setPercentWidth(15);
+        facilityTypeName.setPercentWidth(45);
         facilityTypeName.setCellValueFactory(new PropertyValueFactory<>("facilitiesTypeName"));
         facilityTypeName.setCellFactory(TextFieldTableCell.forTableColumn());
         facilityTypeName.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
@@ -122,7 +122,7 @@ public class FacilityTypeItem extends BorderPane{
         });
         
         CustomTableColumn facilityTypeQuantity = new CustomTableColumn("QUANTITY");
-        facilityTypeQuantity.setPercentWidth(15);
+        facilityTypeQuantity.setPercentWidth(45);
         facilityTypeQuantity.setCellValueFactory(new PropertyValueFactory<>("facilitiesTypeQuantity"));
         facilityTypeQuantity.setCellFactory(TextFieldTableCell.forTableColumn());
         facilityTypeQuantity.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
@@ -157,8 +157,8 @@ public class FacilityTypeItem extends BorderPane{
         
         pi.visibleProperty().bind(facilityTypeWork.runningProperty());
         facilityTypeTable.getTableView().itemsProperty().bind(facilityTypeWork.valueProperty());
-        
-        stackPane.getChildren().addAll(pi,facilityTypeTable);
+        HBox typeHolder = new HBox(facilityTypeTable,new VBox());
+        stackPane.getChildren().addAll(pi,typeHolder);
         setCenter(stackPane);
         
         facilityTypeWork.start();

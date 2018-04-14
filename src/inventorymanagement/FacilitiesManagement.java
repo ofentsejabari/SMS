@@ -187,6 +187,7 @@ public class FacilitiesManagement extends BorderPane{
                             setGraphic(status);
                             
                              status.setOnAction((ActionEvent event) -> {
+                                 System.out.println(facilitiesID.getCellFactory());
                                 new FacilityStatus().show();
                             });
                            
