@@ -13,15 +13,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="197.0" prefWidth="403.0" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schooladministration.control.AddDepartmentController">
+<AnchorPane id="AnchorPane" prefHeight="197.0" prefWidth="403.0" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schooladministration.control.UpdateDepartmentController">
    <children>
-      <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane fx:id="container" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <HBox alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="366.0" styleClass="screen-decoration" stylesheets="@../../entry/css/style.css" BorderPane.alignment="CENTER">
                <children>
                   <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label styleClass="header-title" text="Add Department" />
+                        <Label fx:id="title" styleClass="window-title" text="Add Department" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -43,7 +43,7 @@
                </children></HBox>
          </top>
          <center>
-            <VBox fx:id="personalDetails11" prefHeight="121.0" prefWidth="350.0" spacing="20.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="content" prefHeight="121.0" prefWidth="350.0" spacing="20.0" styleClass="container" BorderPane.alignment="CENTER">
                <children>
                   <JFXTextField fx:id="name" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="360.0" promptText="Department Name" />
                   <JFXComboBox fx:id="hod" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="360.0" promptText="Head of Department" />
@@ -54,9 +54,9 @@
             </VBox>
          </center>
          <bottom>
-            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="403.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="35.0" prefWidth="403.0" styleClass="secondary-toolbar" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="save" buttonType="RAISED" styleClass="jfx-default-button" text="Save" />
+                  <JFXButton fx:id="save" buttonType="RAISED" styleClass="dark-blue" text="Save" />
                </children></HBox>
          </bottom>
       </BorderPane>

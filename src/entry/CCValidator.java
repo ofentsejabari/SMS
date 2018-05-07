@@ -1,12 +1,10 @@
 package entry;
 
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
-import static entry.SMS.getGraphics;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;

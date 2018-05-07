@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import studentmanagement.control.StudentProfileController;
-import studentmanagement.control.UpdateStudentController;
 
 /**
  *

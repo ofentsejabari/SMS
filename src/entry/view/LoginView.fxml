@@ -39,7 +39,7 @@
                                  <children>
                                     <FlowPane alignment="CENTER" hgap="10.0" prefHeight="350.0" prefWidth="472.0" vgap="10.0">
                                        <children>
-                                          <JFXButton fx:id="btn_admin" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" depthTest="ENABLE" onAction="#handleButtonAction" prefHeight="105.0" prefWidth="122.0" style="-fx-background-color: #104E8B; -fx-cursor: hand;" text="System Admin" textFill="#f8f6f6">
+                                          <JFXButton fx:id="btn_admin" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" depthTest="ENABLE"  prefHeight="105.0" prefWidth="122.0" style="-fx-background-color: #104E8B; -fx-cursor: hand;" text="System Admin" textFill="#f8f6f6">
                               
                                              <font>
                                                 <Font size="15.0" />
@@ -101,21 +101,21 @@
                            <top>
                               <Pane prefHeight="351.0" prefWidth="533.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <JFXTextField fx:id="username" focusColor="#1c86ee" labelFloat="true" layoutX="65.0" layoutY="135.0" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="294.0" promptText="Username">
+                                    <JFXTextField fx:id="username" focusColor="#1c86ee" labelFloat="true" layoutX="65.0" layoutY="135.0"  prefHeight="25.0" prefWidth="294.0" promptText="Username">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </JFXTextField>
-                                    <JFXPasswordField fx:id="password" focusColor="#1c86ee" labelFloat="true" layoutX="66.0" layoutY="188.0" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="293.0" promptText="Password">
+                                    <JFXPasswordField fx:id="password" focusColor="#1c86ee" labelFloat="true" layoutX="66.0" layoutY="188.0" prefHeight="25.0" prefWidth="293.0" promptText="Password">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </JFXPasswordField>
-                                    <JFXCheckBox fx:id="ck_remember" layoutX="56.0" layoutY="257.0" onAction="#handleButtonAction" text="Remember">
+                                    <JFXCheckBox fx:id="ck_remember" layoutX="56.0" layoutY="257.0" text="Remember">
                                        <cursor>
                                           <Cursor fx:constant="HAND" />
                                        </cursor></JFXCheckBox>
-                                    <JFXButton fx:id="btn_cancel" buttonType="RAISED" layoutX="157.0" layoutY="250.0" onAction="#handleButtonAction" prefHeight="15.0" prefWidth="90.0" ripplerFill="#33a9d3" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #1C86EE;" text="Cancel" textFill="#1e1e1e">
+                                    <JFXButton fx:id="btn_cancel" buttonType="RAISED" layoutX="157.0" layoutY="250.0"  prefHeight="15.0" prefWidth="90.0" ripplerFill="#33a9d3" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #1C86EE;" text="Cancel" textFill="#1e1e1e">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -126,7 +126,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </JFXButton>
-                                    <JFXButton fx:id="btn_login" buttonType="RAISED" layoutX="269.0" layoutY="250.0" onAction="#handleButtonAction" prefHeight="15.0" prefWidth="90.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #1C86EE; -fx-background-color: #1C86EE;" text="Login" textFill="#fffbfb">
+                                    <JFXButton fx:id="btn_login" buttonType="RAISED" layoutX="269.0" layoutY="250.0"  prefHeight="15.0" prefWidth="90.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #1C86EE; -fx-background-color: #1C86EE;" text="Login" textFill="#fffbfb">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -137,7 +137,7 @@
                                           <Cursor fx:constant="HAND" />
                                        </cursor>
                                     </JFXButton>
-                                    <Button fx:id="btn_menu" layoutX="371.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="21.0" prefWidth="44.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
+                                    <Button fx:id="btn_menu" layoutX="371.0" mnemonicParsing="false"  prefHeight="21.0" prefWidth="44.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
                                        <graphic>
                                           <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                                              <image>
@@ -192,7 +192,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <Button fx:id="btn_close" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="40.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
+                        <Button fx:id="btn_close" mnemonicParsing="false"  prefHeight="25.0" prefWidth="40.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
                            <graphic>
                               <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                                  <image>

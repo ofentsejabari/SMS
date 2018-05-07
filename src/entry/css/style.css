@@ -108,6 +108,12 @@
     -fx-font-size: 14;
 }
 
+.window-title{
+    -fx-text-fill: snow;
+    -fx-font-family: "Roboto Light";
+    -fx-font-size: 18;
+}
+
 
 .icon-default{
     -fx-fill: COLOR_1; 
@@ -191,6 +197,7 @@ Button
     -fx-font-size: 12px;
     -fx-padding: 6 10 6 10;
     -fx-min-width:80;
+    -fx-cursor: hand;
 }
 
 .dark-blue .jfx-rippler {
@@ -294,6 +301,15 @@ Notifications
     -fx-fill: #137082;
 }
 
+/******************************************************************************
+GridPane
+/******************************************************************************/
+
+
+.gridpane{
+    -fx-padding:25 10 10 15;
+    -fx-background-color: #fff;
+}
 
 /******************************************************************************
 Header Button
@@ -309,10 +325,10 @@ Header Button
 Text field
 /******************************************************************************/
 
-.text-field,
+.jfx-text-field,
 .text-area,
 .combo-box{
-    -fx-padding: 3 20 3 3;
+    /*-fx-padding: 3 20 3 3;*/
     -jfx-focus-color: COLOR_3;
     -jfx-unfocus-color: #fffd8c;
 }
@@ -415,6 +431,7 @@ Text field
                                 derive(COLOR_5, -8%)
                                 
                               );
+    -fx-padding: 0 0 0 2;
 }
 
 
@@ -515,6 +532,7 @@ Toolbars
     -fx-border-width: 0 0 1 0;
     -fx-pref-height:28;
     -fx-max-height:28;
+    
 }
 
 .secondary-toolbar{
@@ -529,6 +547,7 @@ Toolbars
     -fx-border-width: 1 0 1 0;
     -fx-pref-height:28;
     -fx-max-height:28;
+    -fx-alignment:CENTER;
     
 }
 
@@ -766,17 +785,23 @@ Default button style
 
 /******************************************************************************/
 
-.dialog_error_notif{
-    -fx-border-color:#E22402;
+.notification-dialog{
+    -fx-border-color:#e8eaf6;
+    -fx-padding: 5;
 }
 
-.dialog_success_notif{
-    -fx-border-color:#72CE09;
-}
-
-
-.dialog_information_notif{    
-    -fx-border-color:#FF00BF;
+.notification-dialog .jfx-button{
+    
+    -fx-text-fill:COLOR_2;
+    -fx-border-color:COLOR_3;
+    -fx-background-insets: 0;
+    -fx-pref-width:40;
+    -jfx-button-type: FLAT;
+    -fx-background-color: #fff;
+    -fx-border-radius:2;
+    -fx-background-radius:2;
+    -fx-cursor: hand;
+    -fx-padding:5 10 5 10;
 }
 
 /******************************************************************************/

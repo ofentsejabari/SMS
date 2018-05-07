@@ -1,5 +1,6 @@
 package mysqldriver;
 
+import employeemanagement.Employee;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -353,6 +354,103 @@ public class MySQLHander {
         }
     }
     
+    
+    
+    
+    
+    
+    /**
+     * Get students details
+     * @param departmentID
+     * @return 
+     */
+    public ObservableList<String> getDepartmentEmployeeNames(String departmentID){
+        ObservableList<String> employees = FXCollections.observableArrayList();
+        try{
+            String query = "SELECT `lName`, `fName`, `mName` FROM `employee`";
+            
+            if(departmentID != null){
+                query = " SELECT `lName`, `fName`, `mName` "
+                      + " FROM `employee` "
+                      + " WHERE `departmentID` = '"+departmentID+"'";
+            }
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                employees.add(result.getString("fName")+" "+result.getString("lName"));
+            }
+            return employees;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return employees;
+        }
+    }
+    
+    
+    
+    /**
+     * 
+     * @param ID
+     * @return 
+     */
+    public Employee getEmployeeByID(String ID){
+        
+        try{
+            String query = "SELECT `ID`, `employeeID`, `lName`, `fName`, `mName`, `title`, `dob`,"
+                    + " `departmentID`, `employeePosition`, `qualification`, `status`,`nationality`,"
+                    + " `identity`, `leaveDays`,`postalAddress`, `physicalAddress`, `mobilePhone`,"
+                    + " `officePhone`, `email`,`gender`, `enrollDate`, `picture`"
+                    + " FROM `employee` WHERE `ID` = '"+ID+"'";
+           
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return new Employee(result.getString("ID"),result.getString("employeeID"), result.getString("fName"),
+                        result.getString("lName"), result.getString("mName"), result.getString("title"),
+                        result.getString("dob"), result.getString("departmentID"), result.getString("employeePosition"), 
+                        result.getString("qualification"), result.getString("status"),
+                        result.getString("nationality"),result.getString("identity"),result.getString("postalAddress"),
+                        result.getString("physicalAddress"), result.getString("mobilePhone"),
+                        result.getString("officePhone"), result.getString("gender"), 
+                        result.getString("email"),result.getString("enrollDate"), result.getString("picture"));
+            }
+            return new Employee();
+            
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return new Employee();
+        }
+    }
+    
+    
+    public Employee getEmployeeByName(String employeeName){
+        
+        try{
+            String query = "SELECT `ID`, `employeeID`, `lName`, `fName`, `mName`, `title`, `dob`, `departmentID`, `employeePosition`,"
+                    + " `qualification`, `status`,`nationality`, `identity`,`postalAddress`, `physicalAddress`,"
+                    + " `picture`, `mobilePhone`, `officePhone`, `email`,`gender`, `enrollDate` FROM `employee` "
+                    + "WHERE CONCAT_WS(' ',`fName`,`lName`) = '"+employeeName+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return new Employee(result.getString("ID"),result.getString("employeeID"), result.getString("fName"),
+                        result.getString("lName"), result.getString("mName"), result.getString("title"),
+                        result.getString("dob"), result.getString("departmentID"), result.getString("employeePosition"), 
+                        result.getString("qualification"), result.getString("status"),
+                        result.getString("nationality"),result.getString("identity"),result.getString("postalAddress"),
+                        result.getString("physicalAddress"), result.getString("mobilePhone"),
+                        result.getString("officePhone"), result.getString("gender"), 
+                        result.getString("email"), result.getString("enrollDate"), result.getString("picture"));
+            }
+            return new Employee();
+            
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return new Employee();
+        }
+    }
     
     
 }

@@ -20,7 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 import mysqldriver.AdminQuery;
-import schooladministration.AddDepartmentStage;
+import schooladministration.UpdateDepartmentDialog;
 import schooladministration.StreamClassesList;
 import schooladministration.Stream;
 import schooladministration.StreamGrading;
@@ -82,7 +82,7 @@ public class StreamClassesController implements Initializable {
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setTooltip(new ToolTip("Add new stream"));
         btn_add.setOnAction((ActionEvent event) -> {
-            new AddDepartmentStage(null).show();
+            new UpdateDepartmentDialog(null).show();
         });
         
         btn_export.setGraphic(SMS.getGraphics(MaterialDesignIcon.EXPORT, "icon-default", 24));
@@ -96,6 +96,7 @@ public class StreamClassesController implements Initializable {
         btn_refresh.setOnAction((ActionEvent event) -> {
             stream_ListView.setItems(updateStreams());
             stream_ListView.getSelectionModel().select(0);
+            
         });
         
         btn_info.setGraphic(SMS.getGraphics(MaterialDesignIcon.INFORMATION_VARIANT, "icon-default", 24));
@@ -116,11 +117,14 @@ public class StreamClassesController implements Initializable {
         
         stream_ListView.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
                
-            selectedStream = AdminQuery.getStreamByName(stream_ListView.getItems().get(newValue.intValue()).getText());
-            streamName.setText(selectedStream.getDescription()+" Stream");
-            
-            classesList.classWorkService.restart();
-            
+            try {
+                selectedStream = AdminQuery.getStreamByName(stream_ListView.getItems().get(newValue.intValue()).getText());
+                streamName.setText(selectedStream.getDescription()+" Stream");
+
+                classesList.classWorkService.restart();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         });
            
         stream_ListView.setItems(updateStreams());

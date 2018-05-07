@@ -66,8 +66,8 @@ public class MainUIFXMLController implements Initializable {
     
     AnchorPane drawerContent;
     
-    public static BorderPane studentManagement, employeeManagement, inventoryManagement,
-                             admin, messangerUI;
+    public static BorderPane studentManagement, employeeManagement,
+                             inventoryManagement, admin, messangerUI;
     public static JFXDrawersStack drawerStack;
     public static JFXDrawer jFXDrawer;
     
@@ -75,29 +75,13 @@ public class MainUIFXMLController implements Initializable {
     
     public JFXTabPane jFXTabPane;
     
-//    @FXML
-//    private JFXButton messageNotification, eventNotification;
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
         drawer.setText(""); 
         btn_toolbar_help.setGraphic(SMS.getGraphics(OctIcon.QUESTION, "text-white", 20));
         
-        drawer.setGraphic(SMS.getGraphics(MaterialDesignIcon.ARROW_RIGHT_BOLD, "text-info", 18));
-        
-//        messageNotification.setGraphic(SMS.getGraphics(MaterialDesignIcon.COMMENT_MULTIPLE_OUTLINE,
-//                                      "text-white", 16));
-//        messageNotification.setText("");
-//        
-//        eventNotification.setGraphic(SMS.getGraphics(FontAwesomeIcon.BELL_ALT, "text-white", 16));
-//        eventNotification.setText("");
-//        eventNotification.setText("jhkjsdjf");
-//        eventNotification.setOnAction((ActionEvent event) -> {
-//            new EventsNotification(eventNotification);
-//        });
-//        
+        drawer.setGraphic(SMS.getGraphics(MaterialDesignIcon.ARROW_RIGHT_BOLD, "text-info", 18));   
         
         //-- Update profile picture --
         imageHolder = getIcon("user.png").getImage();
@@ -137,15 +121,6 @@ public class MainUIFXMLController implements Initializable {
         //-- End event calendar --
         
         try {
-            AnchorPane pane  = FXMLLoader.load(getClass().getResource("/entry/view/Tile.fxml"));
-            fpane.getChildren().add(pane);
-            AnchorPane pane1 = FXMLLoader.load(getClass().getResource("/entry/view/Tile_1.fxml"));
-            fpane.getChildren().add(pane1);
-            AnchorPane pane2 = FXMLLoader.load(getClass().getResource("/entry/view/Tile_2.fxml"));
-            fpane.getChildren().add(pane2);
-            AnchorPane pane3 = FXMLLoader.load(getClass().getResource("/entry/view/Tile_3.fxml"));
-            fpane.getChildren().add(pane3);
-
             drawerContent = FXMLLoader.load(getClass().getResource("/entry/view/NavigationDrawer.fxml"));
             
         } catch (Exception ex) {
@@ -153,40 +128,34 @@ public class MainUIFXMLController implements Initializable {
         }
         
         jFXTabPane = new JFXTabPane();
-        Tab db          = new Tab("Dashboard", dashboard);
+        Tab db = new Tab("Dashboard", dashboard);
         db.setGraphic(SMS.getGraphics(MaterialDesignIcon.ARCHIVE, "text-indigo", 24));
         
-        Tab emlm        = new Tab("Employees", employeeManagement);
+        Tab emlm = new Tab("Employees", employeeManagement);
         emlm.setGraphic(SMS.getGraphics(MaterialDesignIcon.ACCOUNT_NETWORK, "text-indigo", 24));
-        emlm.setTooltip(new ToolTip("ihs chisd b isubshdihisdhif sdis df"
-                + "sd fhsiodhfhsoihsodifh sdhohsdf "
-                + "sdf sohdf iohso foishofho shdfsho sd sdoifhos dfoihs fsf"
-                + "sd fhosifho sodfhos dfs f", 300, 100,
+        emlm.setTooltip(new ToolTip("", 300, 100,
                 SMS.getGraphics(MaterialDesignIcon.ACCOUNT_NETWORK, "text-indigo", 54)));
         
-        
-        Tab stdm        = new Tab("Students", studentManagement);
+        Tab stdm = new Tab("Students", studentManagement);
         stdm.setGraphic(SMS.getGraphics(FontAwesomeIcon.GRADUATION_CAP, "text-indigo", 24));
         
-        Tab invm        = new Tab("Inventory", inventoryManagement);
+        Tab invm = new Tab("Inventory", inventoryManagement);
         invm.setGraphic(SMS.getGraphics(MaterialDesignIcon.ARCHIVE, "text-indigo", 24));
         
-        Tab lbm         = new Tab("Administration", admin);
+        Tab lbm = new Tab("Administration", admin);
         lbm.setGraphic(SMS.getGraphics(FontAwesomeIcon.GEARS, "text-indigo", 24));
         
-        Tab finm        = new Tab("Finance", null);
+        Tab finm = new Tab("Finance", null);
         finm.setGraphic(SMS.getGraphics(MaterialDesignIcon.ACCOUNT_NETWORK, "text-indigo", 24));
         
-        Tab messanger   = new Tab("Messanger", messangerUI);
+        Tab messanger = new Tab("Messanger", messangerUI);
         messanger.setGraphic(SMS.getGraphics(MaterialDesignIcon.MESSAGE_BULLETED, "text-indigo", 24));
         
-        Tab timetable   = new Tab("Timetable", messangerUI);
+        Tab timetable = new Tab("Timetable", messangerUI);
         timetable.setGraphic(SMS.getGraphics(MaterialDesignIcon.CALENDAR_CLOCK, "text-indigo", 24));
         
-        jFXTabPane.getTabs().addAll(db,  lbm, stdm, emlm,
-                invm, finm, timetable, messanger);
-        
-        
+        jFXTabPane.getTabs().addAll(db,  lbm, stdm, emlm, invm, finm, timetable, messanger);
+
         PARENT_STACK_PANE = new StackPane(jFXTabPane);
         
         parentContainer.setCenter(PARENT_STACK_PANE);
@@ -210,7 +179,9 @@ public class MainUIFXMLController implements Initializable {
         
         footer.getChildren().add(new Footer());
         
-    }   
+    }  
     
-     
+    public StackPane getParentStackPane(){
+        return drawerStackPane;
+    }
 }

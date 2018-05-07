@@ -25,23 +25,17 @@ public class DBConfig implements Serializable {
            db_password;
 
     public DBConfig(){
-        db_host = "192.168.53.90";
-        db_name = "school_management";
+        db_host = "192.168.100.85";
+        db_name = "sms";
         db_username = "sms";
-        db_password = "A1b2c3d4e5!";  
+        db_password = "sms12345";  
     }
 
     public static void main(String args[]){
         
         serializeObject(new DBConfig());
         DBConfig cnew = deserialiseObject();
-        
-//        cnew.setDBHost("127.0.0.1");
-//        cnew.setDBUserName("root");
-//        cnew.setDBPassword("");
-//        cnew.setDBName("ischoolt");
-//        
-
+  
         System.out.println();
         System.out.println("Printing object properties...");
         System.out.println(cnew.getDBHost());

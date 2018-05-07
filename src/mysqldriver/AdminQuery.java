@@ -793,13 +793,13 @@ public class AdminQuery {
     public static ObservableList<ISchoolClass> getStreamClassList(String streamID){
         ObservableList<ISchoolClass> ischoolclass = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `classID`, `name`, `classTeacher`, `stream`,`house`,`schoolID`"
+            String query = "SELECT `classID`, `className`, `classTeacher`, `stream`,`house`,`schoolID`"
                          + "FROM `class` WHERE `stream` = '"+streamID+"'";
             
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
-                ischoolclass.add(new ISchoolClass(result.getString("classID"),result.getString("name"),
+                ischoolclass.add(new ISchoolClass(result.getString("classID"),result.getString("className"),
                         result.getString("classTeacher"), result.getString("house"),
                         result.getString("stream"),result.getString("schoolID")));
             }
@@ -816,9 +816,9 @@ public class AdminQuery {
         ObservableList<HouseSubject> cluster = FXCollections.observableArrayList();
         try{
             String query = "SELECT `id`, `description`, `clusterID`"
-                         + " FROM `clusterSubjects`, `subject` "
+                         + " FROM `stream_subjects`, `subject` "
                          + " WHERE `clusterID`= '"+clusterID+"'"
-                         + " AND `subject`.`subjectID` = `clusterSubjects`.`subjectID`"
+                         + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`"
                          + " AND `type` = '"+type+"'";
            
             ResultSet result = STATEMENT.executeQuery(query);
@@ -839,9 +839,9 @@ public class AdminQuery {
         ObservableList<HouseSubject> cluster = FXCollections.observableArrayList();
         try{
             String query = "SELECT `id`, `description`, `clusterID`"
-                         + " FROM `clusterSubjects`, `subject` "
+                         + " FROM `stream_subjects`, `subject` "
                          + " WHERE `clusterID`= '"+clusterID+"'"
-                         + " AND `subject`.`subjectID` = `clusterSubjects`.`subjectID`";
+                         + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`";
            
             ResultSet result = STATEMENT.executeQuery(query);
             
@@ -860,10 +860,10 @@ public class AdminQuery {
     public static ObservableList<String> getGradeSubjectsList(String clusterID, int type){
         ObservableList<String> cluster = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `id`, `description`, `clusterID`"
-                         + " FROM `clusterSubjects`, `subject` "
+            String query = " SELECT `id`, `description`, `clusterID`"
+                         + " FROM `stream_subjects`, `subject` "
                          + " WHERE `clusterID`= '"+clusterID+"'"
-                         + " AND `subject`.`subjectID` = `clusterSubjects`.`subjectID`"
+                         + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`"
                          + " AND `type` = '"+type+"'";
             
             ResultSet result = STATEMENT.executeQuery(query);
@@ -907,9 +907,9 @@ public class AdminQuery {
         ObservableList<Subject> cluster = FXCollections.observableArrayList();
         try{
             String query = "SELECT `id`, `description`, `clusterID`, `departmentID`"
-                         + " FROM `clusterSubjects`, `subject` "
+                         + " FROM `stream_subjects`, `subject` "
                          + " WHERE `clusterID`= '"+clusterID+"'"
-                         + " AND `subject`.`subjectID` = `clusterSubjects`.`subjectID`";
+                         + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`";
             
             ResultSet result = STATEMENT.executeQuery(query);
             
@@ -931,9 +931,9 @@ public class AdminQuery {
         ObservableList<String> cluster = FXCollections.observableArrayList();
         try{
             String query = "SELECT `subject`.`subjectID`, `description`, `clusterID`"
-                         + " FROM `clusterSubjects`, `subject` "
+                         + " FROM `stream_subjects`, `subject` "
                          + " WHERE `clusterID`= '"+clusterID+"'"
-                         + " AND `subject`.`subjectID` = `clusterSubjects`.`subjectID`"
+                         + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`"
                          + " AND `type` = '"+type+"'";
             
             ResultSet result = STATEMENT.executeQuery(query);
@@ -955,13 +955,13 @@ public class AdminQuery {
         
         try{
             for(HouseSubject subj: csb){
-                String checkExistance = "SELECT * FROM `clusterSubjects` "
+                String checkExistance = "SELECT * FROM `stream_subjects` "
                         + " WHERE `subjectID`= '"+subj.getSubjectID()+"' "
                         + " AND `clusterID`= '"+subj.getClusterID()+"'";
                 
                 if(!STATEMENT.executeQuery(checkExistance).first()){
                     
-                    String query = "INSERT INTO `clusterSubjects` (`id`, `subjectID`, `clusterID`)"
+                    String query = "INSERT INTO `stream_subjects` (`id`, `subjectID`, `clusterID`)"
                             + " VALUES ('0', '"+subj.getSubjectID()+"', '"+subj.getClusterID()+"')";
                     STATEMENT.addBatch(query);
                 }
@@ -980,7 +980,7 @@ public class AdminQuery {
         
         try{
             for(HouseSubject subj: csb){
-                String query = "DELETE FROM `clusterSubjects` "
+                String query = "DELETE FROM `stream_subjects` "
                             + " WHERE `subjectID` = '"+subj.getSubjectID()+"' "
                             + " AND `clusterID` = '"+subj.getClusterID()+"'";
                 STATEMENT.addBatch(query);

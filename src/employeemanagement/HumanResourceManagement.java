@@ -29,7 +29,7 @@ public class HumanResourceManagement extends BorderPane{
         mainMenu.getStyleClass().add("main_menu");
         
         //-- Menu Items --
-        Label dashboard = new Label("Dashboard", getIcon("system_task_100px.png", 22));
+        Label dashboard = new Label("Dashboard", getIcon("14_System_Task.png", 22));
         Label employee = new Label("Employee Management", getIcon("applicant_100px.png", 22));
         Label leaves = new Label("Leave Managegement", getIcon("inspection_100px.png", 22));
         Label appraisal = new Label("Employee Appraisal", getIcon("bunk_bed.png", 22));

@@ -51,7 +51,7 @@ public class StreamSubjectList extends BorderPane{
         btn_add.getStyleClass().add("jfx-tool-button");
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-            new AddDepartmentStage(null).show();
+            new UpdateDepartmentDialog(null).show();
         });
         
        

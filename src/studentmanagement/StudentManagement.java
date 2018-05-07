@@ -32,12 +32,12 @@ public class StudentManagement extends BorderPane{
         mainMenu.getStyleClass().add("main_menu");
         
         //-- Menu Items --
-        Label dashboard = new Label("Dashboard", getIcon("system_task_100px.png", 22));
-        Label enrolment = new Label("Student Enrolment", getIcon("1_students.png", 30));
-        Label attendance = new Label("Attendance", getIcon("inspection_100px.png", 22));
-        Label hostel = new Label("Hostel Management", getIcon("bunk_bed.png", 22));
-        Label extraCurriculum = new Label("Extra Curriculum Activities", getIcon("ratings_100px.png", 22));
-        Label assessment = new Label("Assessment", getIcon("ratings_100px.png", 22));
+        Label dashboard = new Label("Dashboard", getIcon("14_System_Task.png", 26));
+        Label enrolment = new Label("Student Enrolment", getIcon("1_students.png", 26));
+        Label attendance = new Label("Attendance", getIcon("1_students.png", 26));
+        Label hostel = new Label("Hostel Management", getIcon("1_students.png", 26));
+        Label extraCurriculum = new Label("Extra Curriculum Activities", getIcon("1_students.png", 26));
+        Label assessment = new Label("Assessment", getIcon("1_students.png", 26));
 
         mainMenu.getItems().addAll(dashboard, enrolment, attendance,
                                    hostel, assessment, extraCurriculum);

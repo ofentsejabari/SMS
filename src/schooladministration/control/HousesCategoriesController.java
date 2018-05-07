@@ -24,7 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 import mysqldriver.AdminQuery;
-import schooladministration.AddDepartmentStage;
+import schooladministration.UpdateDepartmentDialog;
 import schooladministration.House;
 import schooladministration.HouseClassesList;
 
@@ -81,7 +81,7 @@ public class HousesCategoriesController implements Initializable {
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setTooltip(new ToolTip("Add new stream"));
         btn_add.setOnAction((ActionEvent event) -> {
-            new AddDepartmentStage(null).show();
+            new UpdateDepartmentDialog(null).show();
         });
         
         btn_export.setGraphic(SMS.getGraphics(MaterialDesignIcon.EXPORT, "icon-default", 24));
