@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="495.0" prefWidth="674.0" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventorymanagement.control.SupplierInformationController">
+   <children>
+      <BorderPane prefHeight="390.0" prefWidth="600.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox fx:id="listview" prefHeight="390.0" prefWidth="204.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="32.0" spacing="5.0" styleClass="secondary-toolbar" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label prefHeight="20.0" prefWidth="73.0" styleClass="title-label" text="Suppliers" />
+                              <Region prefHeight="20.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
+                              <JFXButton fx:id="btn_refresh" prefHeight="20.0" prefWidth="34.0" ripplerFill="#08a53a" styleClass="jfx-tool-button" text=" " textFill="#5d5a5a" />
+                              <JFXButton fx:id="searchIcon" prefHeight="20.0" prefWidth="21.0" styleClass="jfx-toolbar-button" />
+                              <Label text="(" />
+                              <Label fx:id="totalSuppliers" text="5" />
+                              <Label text=")" />
+                           </children>
+                        </HBox>
+                        <VBox fx:id="searchArea" prefHeight="52.0" prefWidth="195.0" spacing="10.0" VBox.vgrow="NEVER">
+                           <children>
+                              <HBox prefHeight="34.0" prefWidth="206.0">
+                                 <children>
+                                    <StackPane prefHeight="150.0" prefWidth="200.0">
+                                       <children>
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <JFXButton fx:id="searchButton" prefHeight="32.0" prefWidth="33.0" text=" ">
+                                                   <graphic>
+                                                      <Region prefHeight="35.0" prefWidth="200.0" />
+                                                   </graphic>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                          <JFXTextField fx:id="searchField" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="185.0" promptText="Search" />
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                        <JFXListView fx:id="supplier_ListView" maxWidth="225.0" prefHeight="368.0" prefWidth="180.0" styleClass="jfx-custom-list" VBox.vgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+         </left>
+         <center>
+            <BorderPane prefHeight="390.0" prefWidth="428.0" BorderPane.alignment="CENTER">
+               <center>
+                  <VBox fx:id="vboxId" prefHeight="353.0" prefWidth="450.0" spacing="25.0" style="-fx-padding: 20;" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXTextField fx:id="companyName" disable="true" editable="false" focusColor="#4091a8" labelFloat="true" promptText="Company Name" styleClass="input-text" />
+                        <JFXTextField fx:id="companyTel" disable="true" editable="false" focusColor="#4091a8" labelFloat="true" promptText="Telephone" styleClass="phone-field" />
+                        <JFXTextField fx:id="companyCell" disable="true" editable="false" focusColor="#4091a8" labelFloat="true" promptText="Cell" styleClass="phone-field" />
+                        <JFXTextField fx:id="companyFax" editable="false" focusColor="#4091a8" labelFloat="true" promptText="Fax" styleClass="fax-field" />
+                        <JFXTextField fx:id="companyEmail" disable="true" editable="false" focusColor="#4091a8" labelFloat="true" promptText="Email" styleClass="email-field" />
+                        <JFXTextArea fx:id="companyPostal" editable="false" labelFloat="true" promptText="Postal Address" styleClass="postal-address-field" wrapText="true" />
+                        <JFXTextArea fx:id="companyPhysical" editable="false" labelFloat="true" promptText="Physical Address" styleClass="physical-address-field" wrapText="true" />
+                     </children>
+                     <padding>
+                        <Insets bottom="9.0" />
+                     </padding>
+                  </VBox>
+               </center>
+               <top>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="381.0" spacing="5.0" styleClass="secondary-toolbar" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label fx:id="streamName" styleClass="title-label" />
+                        <Region prefHeight="26.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <JFXButton fx:id="btn_info" prefHeight="32.0" prefWidth="32.0" ripplerFill="#08a53a" styleClass="jfx-toolbar-button" textFill="#5d5a5a" />
+                        <JFXButton fx:id="btn_edit" prefHeight="32.0" prefWidth="32.0" ripplerFill="#08a53a" styleClass="jfx-toolbar-button" textFill="#5d5a5a" />
+                     </children>
+                  </HBox>
+               </top>
+               <padding>
+                  <Insets top="9.0" />
+               </padding>
+               <bottom>
+                  <HBox alignment="CENTER" prefHeight="48.0" prefWidth="1019.0" spacing="10.0" style="-fx-padding: 4;" styleClass="secondary-toolbar" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="btn_cancel" buttonType="RAISED" prefHeight="35.0" prefWidth="110.0" style="-fx-border-color: #22B5FF; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="Cancel" textFill="#2f2a2a">
+                           <padding>
+                              <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
+                           </padding>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_update" buttonType="RAISED" prefHeight="33.0" prefWidth="110.0" style="-fx-background-color: #22B5FF; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="Update" textFill="WHITE">
+                           <padding>
+                              <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
+                           </padding>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </bottom>
+            </BorderPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

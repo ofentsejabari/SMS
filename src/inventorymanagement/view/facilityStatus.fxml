@@ -57,10 +57,13 @@
                   </VBox>
                </center>
                <top>
-                  <HBox prefHeight="40.0" prefWidth="1061.0" styleClass="header-box" BorderPane.alignment="CENTER">
+                  <HBox prefHeight="40.0" prefWidth="1061.0" styleClass="screen-decoration" BorderPane.alignment="CENTER">
                      <children>
-                        <Label prefHeight="17.0" prefWidth="88.0" text="hahjfasfhasdasshadsag" />
-                        <Region prefHeight="28.0" prefWidth="604.0" HBox.hgrow="ALWAYS" />
+                        <Label prefHeight="27.0" prefWidth="143.0" text="facility Status" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Label>
+                        <Region prefHeight="40.0" prefWidth="513.0" HBox.hgrow="ALWAYS" />
                         <JFXButton fx:id="btn_toolbar_close" alignment="TOP_RIGHT" contentDisplay="RIGHT" graphicTextGap="0.0" prefHeight="20.0" prefWidth="23.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" text="" textFill="#fbfeff" wrapText="true">
                            <padding>
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />

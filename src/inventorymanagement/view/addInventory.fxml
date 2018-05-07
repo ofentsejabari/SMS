@@ -14,7 +14,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="563.0" prefWidth="1061.0" style="-fx-background-color: #fff;" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventorymanagement.control.AddInventoryController">
+<AnchorPane id="AnchorPane" prefHeight="512.0" prefWidth="933.0" style="-fx-background-color: #fff;" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventorymanagement.control.AddInventoryController">
    <children>
       <StackPane prefHeight="600.0" prefWidth="1061.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -46,11 +46,11 @@
                   </HBox>
                </bottom>
                <center>
-                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                  <VBox prefHeight="412.0" prefWidth="1020.0" BorderPane.alignment="CENTER">
                      <children>
-                        <HBox alignment="TOP_CENTER" prefHeight="416.0" prefWidth="1061.0">
+                        <HBox alignment="TOP_CENTER" prefHeight="412.0" prefWidth="991.0">
                            <children>
-                              <Pane prefHeight="416.0" prefWidth="270.0">
+                              <Pane prefHeight="408.0" prefWidth="286.0">
                                  <children>
                                     <VBox fx:id="personalDetails" layoutX="7.0" layoutY="30.0" prefHeight="336.0" prefWidth="246.0" spacing="25.0" style="-fx-border-color: #F2F2F2; -fx-border-radius: 10;">
                                        <children>
@@ -70,7 +70,7 @@
                                     </Pane>
                                  </children>
                               </Pane>
-                              <Pane prefHeight="416.0" prefWidth="270.0">
+                              <Pane prefHeight="408.0" prefWidth="277.0">
                                  <children>
                                     <VBox fx:id="purchaseDetails" layoutX="7.0" layoutY="30.0" prefHeight="339.0" prefWidth="253.0" spacing="25.0" style="-fx-border-color: #F2F2F2; -fx-border-radius: 10;">
                                        <children>
@@ -115,9 +115,12 @@
                   </VBox>
                </center>
                <top>
-                  <Pane prefHeight="67.0" prefWidth="1061.0" styleClass="header-box" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="67.0" prefWidth="1061.0" styleClass="screen-decoration" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="btn_toolbar_close" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="1033.0" prefHeight="20.0" prefWidth="23.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" text="" textFill="#fbfeff" wrapText="true">
+                        <JFXButton fx:id="btn_toolbar_close" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="905.0" layoutY="6.0" prefHeight="20.0" prefWidth="23.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" text="" textFill="#fbfeff" wrapText="true">
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -125,27 +128,24 @@
                                  </image>
                               </ImageView>
                            </graphic>
-                           <padding>
-                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                           </padding>
                         </JFXButton>
-                        <VBox alignment="CENTER_LEFT" layoutX="3.0" layoutY="1.0" prefHeight="38.0" prefWidth="638.0">
+                        <VBox alignment="CENTER_LEFT" layoutX="9.0" layoutY="1.0" prefHeight="38.0" prefWidth="632.0">
                            <children>
-                              <Label prefHeight="32.0" prefWidth="225.0" text="add inventory item" textFill="#fcfcfc">
+                              <Label prefHeight="32.0" prefWidth="244.0" text="add inventory item" textFill="#fcfcfc">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
                               </Label>
                            </children>
                         </VBox>
-                        <HBox alignment="CENTER_RIGHT" layoutY="39.0" prefHeight="37.0" prefWidth="1061.0" spacing="10.0" style="-fx-background-color: #fff;">
+                        <HBox alignment="CENTER_RIGHT" layoutY="39.0" prefHeight="37.0" prefWidth="933.0" spacing="10.0" style="-fx-background-color: #fff;">
                            <children>
-                              <JFXTextField disable="true" focusColor="#17b2aa" prefHeight="30.0" prefWidth="236.0" promptText="102786353" text="# : 102">
+                              <JFXTextField disable="true" focusColor="#17b2aa" prefHeight="30.0" prefWidth="162.0" promptText="102786353" text="# : 102">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </JFXTextField>
-                              <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Region prefHeight="37.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
                               <JFXCheckBox fx:id="enable_editing" style="-fx-cursor: hand;" text="Enable Editing" />
                               <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                               <JFXButton ripplerFill="#0096dc" style="-fx-background-radius: 0; -fx-border-radius: 0;" text="Print to PDF" />

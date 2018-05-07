@@ -29,8 +29,6 @@ public class FacilitiesController implements Initializable {
     @FXML
     private Tab facilitiesTab,facilitiesTypes;
     
-
-    
     public static ObservableList<Facilities> facilitiesList = FXCollections.observableArrayList();
 
     FacilitiesManagement facilitiesItem= null; 

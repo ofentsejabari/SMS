@@ -43,25 +43,25 @@
                </children></HBox>
          </top>
          <center>
-            <VBox fx:id="personalDetails11" prefHeight="121.0" prefWidth="350.0" spacing="20.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="personalDetails11" prefHeight="414.0" prefWidth="557.0" spacing="20.0" BorderPane.alignment="CENTER">
                <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="25.0" />
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                </padding>
                <children>
-                  <VBox prefHeight="422.0" prefWidth="517.0" spacing="20.0">
+                  <VBox prefHeight="422.0" prefWidth="528.0" spacing="20.0">
                      <children>
                         <GridPane hgap="40.0" prefHeight="130.0" prefWidth="334.0" vgap="10.0">
                            <children>
-                              <JFXTextField fx:id="cpremises" labelFloat="true" promptText="Premises" GridPane.rowIndex="1">
+                              <JFXTextField fx:id="cpremises" labelFloat="true" promptText="Premises" styleClass="input-text" GridPane.rowIndex="1">
                                  <padding>
                                     <Insets top="10.0" />
                                  </padding>
                               </JFXTextField>
-                              <JFXTextField fx:id="cemail" labelFloat="true" prefHeight="25.0" prefWidth="216.0" promptText="email address" GridPane.rowIndex="2" />
-                              <JFXTextField fx:id="cphone" labelFloat="true" promptText="phone" GridPane.columnIndex="1" />
-                              <JFXTextField fx:id="cmobile" labelFloat="true" promptText="Mobile" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <JFXTextField fx:id="cfax" labelFloat="true" promptText="fax" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <JFXTextField id="supplierId" fx:id="cphone1" labelFloat="true" promptText="Supplier name" />
+                              <JFXTextField fx:id="cemail" labelFloat="true" prefHeight="25.0" prefWidth="216.0" promptText="email address" styleClass="email-field" GridPane.rowIndex="2" />
+                              <JFXTextField fx:id="cphone" labelFloat="true" promptText="phone" styleClass="phone-field" GridPane.columnIndex="1" />
+                              <JFXTextField fx:id="cmobile" labelFloat="true" promptText="Mobile" styleClass="phone-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <JFXTextField fx:id="cfax" labelFloat="true" promptText="fax" styleClass="fax-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <JFXTextField id="supplierId" fx:id="cphone1" labelFloat="true" promptText="Supplier name" styleClass="input-text" />
                            </children>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="225.0" />
@@ -73,20 +73,20 @@
                               <RowConstraints minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="input-text">
                            <children>
                               <JFXTextArea fx:id="cphysical" labelFloat="true" prefHeight="81.0" prefWidth="350.0" promptText="Physical address" />
                            </children>
                         </HBox>
                         <Region prefHeight="1.0" prefWidth="334.0" />
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox prefHeight="100.0" prefWidth="200.0" styleClass="input-text">
                            <children>
                               <JFXTextArea fx:id="cpostal" labelFloat="true" prefHeight="81.0" prefWidth="350.0" promptText="postal address" />
                            </children>
                         </HBox>
                      </children>
                      <padding>
-                        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </VBox>
                </children>

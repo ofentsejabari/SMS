@@ -13,18 +13,21 @@ import entry.HSpacer;
 import entry.ProgressIndicator;
 import entry.SMS;
 import static entry.SMS.setDataNotAvailablePlaceholder;
+import static inventorymanagement.control.FacilitiesController.facilitiesList;
 import static inventorymanagement.control.InventoryListController.filter;
-import static inventorymanagement.control.InventoryListController.inventList;
+import static inventorymanagement.control.PolicyDocumentController.policyList;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
@@ -34,22 +37,20 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import mysqldriver.InventoryQuery;
-import static studentmanagement.control.StudentEnrolmentController.studentTable;
 
 /**
+ *
  * @author MOILE
  */
-public class FacilityTypeItem extends BorderPane{
+public class PolicyDocumentManagement extends BorderPane{
 
-    public static CustomTableView<FacilitiesType> facilityTypeTable;
-    public static FacilityTypeListWorkService facilityTypeWork;
+    public static CustomTableView<PolicyDocument> policyDocTable;
+    public static PolicyWorkService policyWork;
     private final StackPane stackPane;
     
-    public static ObservableList<FacilitiesType> facilityTypeList = FXCollections.observableArrayList();
-    
-    public FacilityTypeItem() {
+    public PolicyDocumentManagement() {
         
-        facilityTypeWork = new FacilityTypeListWorkService();
+        policyWork = new PolicyWorkService();
     
         getStyleClass().add("container");
         stackPane = new StackPane();
@@ -60,30 +61,34 @@ public class FacilityTypeItem extends BorderPane{
         toolbar.getStyleClass().add("secondary-toolbar");
         setTop(toolbar);
         
-        JFXButton btn_add = new JFXButton("Add");
-        btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
+        JFXButton btn_add = new JFXButton("");
+        btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.UPLOAD, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-            
+          //  new AddPolicyDocument().show();
         });
-                
+        
         JFXButton btn_refresh = new JFXButton("Refresh");
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
         btn_refresh.setOnAction((ActionEvent event) -> {
-            facilityTypeWork.restart();
+            policyWork.restart();
+           // new DialogUI("ahgjagjcas as ", DialogUI.ERROR_NOTIF, stackPane).show();
         });
-   
+        
+        
+        
+        
         toolbar.getChildren().addAll(new HSpacer(), btn_refresh, btn_add);
         
         /*
-            CREATE facilityType TABLE
+            CREATE SUPPLIER TABLE
         */
-        facilityTypeTable = new CustomTableView<>();
+        policyDocTable = new CustomTableView<>();
         
-        CustomTableColumn facilityTypeID = new CustomTableColumn("#");
-        facilityTypeID.setPercentWidth(10);
-        facilityTypeID.setCellValueFactory(new PropertyValueFactory<>("facilitiesTypeID"));
-        facilityTypeID.setCellFactory(TextFieldTableCell.forTableColumn());
-        facilityTypeID.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+        CustomTableColumn policyDocID = new CustomTableColumn("#");
+        policyDocID.setPercentWidth(4.9);
+        policyDocID.setCellValueFactory(new PropertyValueFactory<>("policyDocID"));
+        policyDocID.setCellFactory(TextFieldTableCell.forTableColumn());
+        policyDocID.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
             public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
@@ -100,11 +105,11 @@ public class FacilityTypeItem extends BorderPane{
             }
         });
         
-        CustomTableColumn facilityTypeName = new CustomTableColumn("FACILITY NAME");
-        facilityTypeName.setPercentWidth(45);
-        facilityTypeName.setCellValueFactory(new PropertyValueFactory<>("facilitiesTypeName"));
-        facilityTypeName.setCellFactory(TextFieldTableCell.forTableColumn());
-        facilityTypeName.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+        CustomTableColumn policyDocName = new CustomTableColumn("POLICY DOCUMENT");
+        policyDocName.setPercentWidth(55.1);
+        policyDocName.setCellValueFactory(new PropertyValueFactory<>("policyDocName"));
+        policyDocName.setCellFactory(TextFieldTableCell.forTableColumn());
+        policyDocName.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
             public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
@@ -121,11 +126,11 @@ public class FacilityTypeItem extends BorderPane{
             }
         });
         
-        CustomTableColumn facilityTypeQuantity = new CustomTableColumn("QUANTITY");
-        facilityTypeQuantity.setPercentWidth(45);
-        facilityTypeQuantity.setCellValueFactory(new PropertyValueFactory<>("facilitiesTypeQuantity"));
-        facilityTypeQuantity.setCellFactory(TextFieldTableCell.forTableColumn());
-        facilityTypeQuantity.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+        CustomTableColumn policyDocDate = new CustomTableColumn("UPLOAD DATE");
+        policyDocDate.setPercentWidth(25);
+        policyDocDate.setCellValueFactory(new PropertyValueFactory<>("policyDocDate"));
+        policyDocDate.setCellFactory(TextFieldTableCell.forTableColumn());
+        policyDocDate.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
             public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
@@ -141,57 +146,80 @@ public class FacilityTypeItem extends BorderPane{
                 };
             }
         }); 
+                
+        CustomTableColumn policyDocControls= new CustomTableColumn("CONTROLS");
+        policyDocControls.setPercentWidth(15);
+        policyDocControls.setCellFactory(TextFieldTableCell.forTableColumn());
+        policyDocControls.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+            @Override 
+            public TableCell<String, String> call(TableColumn<String, String> clientID) {
+                return new TableCell<String, String>() {
+                    
+                    @Override 
+                    public void updateItem(final String ID, boolean empty) {
+                        super.updateItem(ID, empty);
                         
-        facilityTypeTable.getTableView().getColumns().addAll(facilityTypeID, facilityTypeName,facilityTypeQuantity);
-        VBox.setVgrow(facilityTypeTable, Priority.ALWAYS);
+                        if(!empty){
+                            setGraphic(new Label(ID));
+                        }else{ setGraphic(null); }
+                    }
+                };
+            }
+        }); 
+        
+       
+        
+        policyDocTable.getTableView().getColumns().addAll(policyDocID,policyDocName,policyDocDate,policyDocControls);
+        VBox.setVgrow(policyDocTable, Priority.ALWAYS);
         
         //-- SET DATA
-        facilityTypeTable.getTableView().setItems(InventoryQuery.facilitiesTypeList("ALL"));
+        policyDocTable.getTableView().setItems(InventoryQuery.policiesList());
+        
         
         VBox ph = setDataNotAvailablePlaceholder();
-        facilityTypeTable.getTableView().setPlaceholder(ph);
-        
+        policyDocTable.getTableView().setPlaceholder(ph);
         
         ProgressIndicator pi = new ProgressIndicator("Loading users data", "If network connection is very slow,"
                                                    + " this might take some few more seconds.");
         
-        pi.visibleProperty().bind(facilityTypeWork.runningProperty());
-        facilityTypeTable.getTableView().itemsProperty().bind(facilityTypeWork.valueProperty());
-        HBox typeHolder = new HBox(facilityTypeTable,new VBox());
-        stackPane.getChildren().addAll(pi,typeHolder);
+        pi.visibleProperty().bind(policyWork.runningProperty());
+        policyDocTable.getTableView().itemsProperty().bind(policyWork.valueProperty());
+        
+        stackPane.getChildren().addAll(pi,policyDocTable);
         setCenter(stackPane);
         
-        facilityTypeWork.start();
-        facilityTypeWork.restart();
+        policyWork.start();
+        policyWork.restart();
         
     }
     
-    public class FacilityTypeListWork extends Task<ObservableList<FacilitiesType>> {       
+    public class PolicyWork extends Task<ObservableList<PolicyDocument>> {       
         @Override 
-        protected ObservableList<FacilitiesType> call() throws Exception {
+        protected ObservableList<PolicyDocument> call() throws Exception {
             
             Platform.runLater(() -> {               
-                facilityTypeTable.getTableView().setPlaceholder(new VBox());
+                policyDocTable.getTableView().setPlaceholder(new VBox());
             });
-            facilityTypeList  =  InventoryQuery.facilitiesTypeList(filter);
-            for(int i=0;i<facilityTypeList.size();i++){
-                facilityTypeList.get(i).setFacilitiesTypeID(i+1+"");
+            policyList  =  InventoryQuery.policiesList();
+            
+            for(int i=0;i<policyList.size();i++){
+                policyList.get(i).setPolicyDocID(i+1+"");
             }
                         
             Platform.runLater(() -> {  
                 //count.setText(studentList.size()+" Student(s)");
-                facilityTypeTable.getTableView().setPlaceholder(setDataNotAvailablePlaceholder());
+                policyDocTable.getTableView().setPlaceholder(setDataNotAvailablePlaceholder());
             });
 
-            return facilityTypeList;
+            return policyList;
         } 
     }
 
-    public class FacilityTypeListWorkService extends Service<ObservableList<FacilitiesType>> {
+    public class PolicyWorkService extends Service<ObservableList<PolicyDocument>> {
 
         @Override
         protected Task createTask() {
-            return new FacilityTypeListWork();
+            return new PolicyWork();
         }
     }
     

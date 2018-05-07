@@ -12,7 +12,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author MOILE
  */
 public class Supplier {
-    SimpleStringProperty ID, supplierName,supplierEmail, supplierPhone,
+    SimpleStringProperty ID, supplierName,supplierTel,supplierEmail, supplierPhone,
             supplierCell, supplierPhysical,supplierPostal, supplierFax;
 
     public Supplier() {
@@ -65,5 +65,9 @@ public class Supplier {
     public String getSupplierFax(){return supplierFax.get();}
     public void setSupplierFax(String id){supplierFax.set(id);}
 
+    public String toString(){
+        return supplierName.get();
+    
+    }
 }
 

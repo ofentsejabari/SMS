@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -11,10 +13,19 @@
    <children>
       <BorderPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <Label text="supplier" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="48.0" />
-               </font></Label>
+            <VBox prefHeight="456.0" prefWidth="294.0" spacing="15.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXTabPane styleClass="jfx-tab-flatpane">
+                     <tabs>
+                        <Tab fx:id="policyDocTab" text="Policy Documents" />
+                        <Tab fx:id="policyTypesTab" text="Policy Types" />
+                     </tabs>
+                  </JFXTabPane>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
          </center>
       </BorderPane>
    </children>
