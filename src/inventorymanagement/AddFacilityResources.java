@@ -6,7 +6,7 @@
 package inventorymanagement;
 
 import com.jfoenix.controls.JFXDialog;
-import inventorymanagement.control.FacilityStatusController;
+import inventorymanagement.control.AddFacilityResourcesController;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -15,20 +15,22 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author MOILE
  */
-public class FacilityStatus  extends JFXDialog{
+public class AddFacilityResources  extends JFXDialog{
     
-    public FacilityStatusController DIALOG_CONTROLLER;
-    public FacilityStatus(String facility_name){
+    public AddFacilityResourcesController DIALOG_CONTROLLER;
+    public String identifier;
+    
+    public AddFacilityResources(String identifier){
+        this.identifier=identifier;
         try{
-            FXMLLoader ui = new FXMLLoader(getClass().getResource("/inventorymanagement/view/facilityStatus.fxml"));
+            FXMLLoader ui = new FXMLLoader(getClass().getResource("/inventorymanagement/view/addFacilityResources.fxml"));
             AnchorPane pane = ui.load();
-            DIALOG_CONTROLLER = ui.getController();
             
+            DIALOG_CONTROLLER = ui.getController();
+            DIALOG_CONTROLLER.setId(identifier);
             DIALOG_CONTROLLER.setEventHandler((EventHandler) (Event event) -> {
                 close();
             });
-            
-            DIALOG_CONTROLLER.setFilter(facility_name);
                         
             setDialogContainer(InventoryManagement.INVENTORY_MAN_STACK);
             setContent(pane);
@@ -38,5 +40,6 @@ public class FacilityStatus  extends JFXDialog{
             ex.printStackTrace();
         }
     }
+    
 }
 

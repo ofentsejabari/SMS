@@ -49,7 +49,6 @@ public class Facilities {
     public void setFacilitiesDept(String id)
     {
             facilitiesDept.set(id);
-    
     }
     
     public String getFacilitiesStatus(){return facilitiesStatus.get();}
@@ -59,7 +58,7 @@ public class Facilities {
     public String getFacilitiesCapacity(){return facilitiesCapacity.get();}
     public void setFacilitiesCapacity(String id){facilitiesCapacity.set(id);}
     
-     public String getFacilitiesSchool(){return facilitiesSchool.get();}
+    public String getFacilitiesSchool(){return facilitiesSchool.get();}
     public void setFacilitiesSchool(String id){facilitiesSchool.set(id);}
             
             

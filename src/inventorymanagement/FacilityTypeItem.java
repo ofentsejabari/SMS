@@ -60,11 +60,7 @@ public class FacilityTypeItem extends BorderPane{
         toolbar.getStyleClass().add("secondary-toolbar");
         setTop(toolbar);
         
-        JFXButton btn_add = new JFXButton("Add");
-        btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
-        btn_add.setOnAction((ActionEvent event) -> {
-            
-        });
+       
                 
         JFXButton btn_refresh = new JFXButton("Refresh");
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
@@ -72,7 +68,7 @@ public class FacilityTypeItem extends BorderPane{
             facilityTypeWork.restart();
         });
    
-        toolbar.getChildren().addAll(new HSpacer(), btn_refresh, btn_add);
+        toolbar.getChildren().addAll(new HSpacer(), btn_refresh);
         
         /*
             CREATE facilityType TABLE

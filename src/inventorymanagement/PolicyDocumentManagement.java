@@ -106,7 +106,7 @@ public class PolicyDocumentManagement extends BorderPane{
         });
         
         CustomTableColumn policyDocName = new CustomTableColumn("POLICY DOCUMENT");
-        policyDocName.setPercentWidth(55.1);
+        policyDocName.setPercentWidth(75.1);
         policyDocName.setCellValueFactory(new PropertyValueFactory<>("policyDocName"));
         policyDocName.setCellFactory(TextFieldTableCell.forTableColumn());
         policyDocName.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
@@ -127,7 +127,7 @@ public class PolicyDocumentManagement extends BorderPane{
         });
         
         CustomTableColumn policyDocDate = new CustomTableColumn("UPLOAD DATE");
-        policyDocDate.setPercentWidth(25);
+        policyDocDate.setPercentWidth(10);
         policyDocDate.setCellValueFactory(new PropertyValueFactory<>("policyDocDate"));
         policyDocDate.setCellFactory(TextFieldTableCell.forTableColumn());
         policyDocDate.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
@@ -148,7 +148,7 @@ public class PolicyDocumentManagement extends BorderPane{
         }); 
                 
         CustomTableColumn policyDocControls= new CustomTableColumn("CONTROLS");
-        policyDocControls.setPercentWidth(15);
+        policyDocControls.setPercentWidth(10);
         policyDocControls.setCellFactory(TextFieldTableCell.forTableColumn());
         policyDocControls.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 

@@ -39,8 +39,9 @@ import mysqldriver.InventoryQuery;
 public class FacilityStatusItem extends BorderPane{
 
     public static CustomTableView<FacilitiesStatus> facilityStatusTable;
-    public static FacilityStatusWorkService facilityStatusWork;
+    public FacilityStatusWorkService facilityStatusWork;
     private final StackPane stackPane;
+    public String filter = "";
     
     public static ObservableList<FacilitiesStatus> facilityStatusList = FXCollections.observableArrayList();
     
@@ -64,8 +65,13 @@ public class FacilityStatusItem extends BorderPane{
         btn_refresh.setOnAction((ActionEvent event) -> {
             facilityStatusWork.restart();
         });
+        JFXButton btn_add = new JFXButton("Add");
+        btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
+        btn_add.setOnAction((ActionEvent event) -> {
+             new AddFacilityResources(filter).show();
+        });
    
-        toolbar.getChildren().addAll(new HSpacer(), btn_refresh);
+        toolbar.getChildren().addAll(new HSpacer(), btn_refresh, btn_add);
         
         /*
             CREATE facilityType TABLE
@@ -84,7 +90,6 @@ public class FacilityStatusItem extends BorderPane{
                     @Override 
                     public void updateItem(final String ID, boolean empty) {
                         super.updateItem(ID, empty);
-                        
                         if(!empty){
                             setGraphic(new Label(ID));
                         }else{ setGraphic(null); }
@@ -94,8 +99,9 @@ public class FacilityStatusItem extends BorderPane{
         });
         
         CustomTableColumn facilityStatusResource = new CustomTableColumn("RESOURCE");
-        facilityStatusResource.setPercentWidth(35);
         facilityStatusResource.setCellValueFactory(new PropertyValueFactory<>("facilitiesResourceID"));
+        
+        facilityStatusResource.setPercentWidth(70);
         facilityStatusResource.setCellFactory(TextFieldTableCell.forTableColumn());
         facilityStatusResource.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
         
@@ -116,7 +122,6 @@ public class FacilityStatusItem extends BorderPane{
         });
         
         CustomTableColumn facilityStatusName = new CustomTableColumn("FACILITY");
-        facilityStatusName.setPercentWidth(35);
         facilityStatusName.setCellValueFactory(new PropertyValueFactory<>("facilitiesID"));
         facilityStatusName.setCellFactory(TextFieldTableCell.forTableColumn());
         facilityStatusName.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
@@ -180,7 +185,7 @@ public class FacilityStatusItem extends BorderPane{
         
         
         
-        facilityStatusTable.getTableView().getColumns().addAll(facilityStatusID, facilityStatusName
+        facilityStatusTable.getTableView().getColumns().addAll(facilityStatusID
                 ,facilityStatusResource,facilityStatusAvailable,facilityStatusDamage);
         VBox.setVgrow(facilityStatusTable, Priority.ALWAYS);
         
@@ -205,6 +210,7 @@ public class FacilityStatusItem extends BorderPane{
         
     }
     
+    
     public class FacilityStatusWork extends Task<ObservableList<FacilitiesStatus>> {       
         @Override 
         protected ObservableList<FacilitiesStatus> call() throws Exception {
@@ -212,7 +218,7 @@ public class FacilityStatusItem extends BorderPane{
             Platform.runLater(() -> {               
                 facilityStatusTable.getTableView().setPlaceholder(new VBox());
             });
-            facilityStatusList  =  InventoryQuery.getFacilitiesStatus("");
+            facilityStatusList  =  InventoryQuery.getFacilitiesStatus(filter);
             for(int i=0;i<facilityStatusList.size();i++){
                 facilityStatusList.get(i).setFacilitiesStatusID(i+1+"");
             }

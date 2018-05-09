@@ -116,8 +116,18 @@ public class FacilitiesManagement extends BorderPane{
                     public void updateItem(final String ID, boolean empty) {
                         super.updateItem(ID, empty);
                         
+                        final Hyperlink status = new Hyperlink("");
                         if(!empty){
-                            setGraphic(new Label(ID));
+                            status.getStyleClass().add("tableLink");
+                            status.setText(ID);
+                            status.setContentDisplay(ContentDisplay.LEFT);
+                            status.setTooltip(new Tooltip("facility status"));
+                            setGraphic(status);
+                            
+                            status.setOnAction((ActionEvent event) -> {
+                               //  System.out.println(facilitiesID.getCellFactory());
+                                new FacilityStatus(ID).show();
+                            });
                         }else{ setGraphic(null); }
                     }
                 };
@@ -178,18 +188,8 @@ public class FacilitiesManagement extends BorderPane{
                     @Override 
                     public void updateItem(final String ID, boolean empty) {
                         super.updateItem(ID, empty);
-                        final Hyperlink status = new Hyperlink("");
                         if(!empty){
-                            status.getStyleClass().add("tableLink");
-                            status.setText(ID);
-                            status.setContentDisplay(ContentDisplay.LEFT);
-                            status.setTooltip(new Tooltip("Resource profile"));
-                            setGraphic(status);
-                            
-                             status.setOnAction((ActionEvent event) -> {
-                                 System.out.println(facilitiesID.getCellFactory());
-                                new FacilityStatus().show();
-                            });
+                            setGraphic(new Label(ID));
                            
                         }else{ setGraphic(null); }
                     }
@@ -235,7 +235,9 @@ public class FacilitiesManagement extends BorderPane{
         pi.visibleProperty().bind(facilitiesWork.runningProperty());
         facilitiesTable.getTableView().itemsProperty().bind(facilitiesWork.valueProperty());
         
-        stackPane.getChildren().addAll(pi,facilitiesTable);
+        VBox vb =new VBox(facilitiesTable);
+        
+        stackPane.getChildren().addAll(pi,vb);
         setCenter(stackPane);
         
         facilitiesWork.start();
