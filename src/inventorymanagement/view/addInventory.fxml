@@ -58,6 +58,7 @@
                                           <JFXTextArea fx:id="itemDesc" focusColor="#17b2aa" labelFloat="true" prefHeight="120.0" prefWidth="211.0" promptText="Item Description" styleClass="input-text" />
                                           <JFXTextField fx:id="itemNo" focusColor="#17b2aa" labelFloat="true" promptText="Manufacture Serial Number" styleClass="name-field" />
                                           <JFXTextField fx:id="itemGov" focusColor="#17b2aa" labelFloat="true" promptText="Government Serial Number" styleClass="name-field" />
+                                          <JFXTextField fx:id="itemYears" focusColor="#17b2aa" labelFloat="true" promptText="Years in use" styleClass="input-text" />
                                        </children>
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="25.0" />
@@ -77,6 +78,8 @@
                                           <JFXComboBox fx:id="itemSupplier" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="253.0" promptText="Suppllier" styleClass="input-text" />
                                           <JFXTextField fx:id="itemCost" focusColor="#17b2aa" labelFloat="true" promptText="Cost" styleClass="input-text" />
                                           <JFXTextField fx:id="itemOrder" focusColor="#17b2aa" labelFloat="true" promptText="Purchase order" styleClass="input-text" />
+                                          <JFXTextField fx:id="itemQuantity" focusColor="#17b2aa" labelFloat="true" promptText="Quantity" styleClass="input-text" />
+                                          <JFXTextField fx:id="itemBatch" focusColor="#17b2aa" labelFloat="true" promptText="Batch" styleClass="input-text" />
                                        </children>
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="25.0" />
@@ -96,7 +99,6 @@
                                           <JFXComboBox fx:id="itemDept" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="253.0" promptText="Department" styleClass="input-text" />
                                           <JFXComboBox fx:id="itemRoom" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="253.0" promptText="Room" styleClass="input-text" />
                                           <JFXTextField fx:id="itemStaff" focusColor="#17b2aa" labelFloat="true" promptText="Receiving Officer" styleClass="input-text" />
-                                          <JFXTextField fx:id="itemYears" focusColor="#17b2aa" labelFloat="true" promptText="Years in use" styleClass="input-text" />
                                        </children>
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="20.0" top="25.0" />
@@ -140,15 +142,9 @@
                         </VBox>
                         <HBox alignment="CENTER_RIGHT" layoutY="39.0" prefHeight="37.0" prefWidth="933.0" spacing="10.0" style="-fx-background-color: #fff;">
                            <children>
-                              <JFXTextField disable="true" focusColor="#17b2aa" prefHeight="30.0" prefWidth="162.0" promptText="102786353" text="# : 102">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </JFXTextField>
                               <Region prefHeight="37.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
                               <JFXCheckBox fx:id="enable_editing" style="-fx-cursor: hand;" text="Enable Editing" />
                               <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <JFXButton ripplerFill="#0096dc" style="-fx-background-radius: 0; -fx-border-radius: 0;" text="Print to PDF" />
                            </children>
                            <padding>
                               <Insets left="100.0" />

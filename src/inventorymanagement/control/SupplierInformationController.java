@@ -106,8 +106,7 @@ public class SupplierInformationController implements Initializable {
             companyEmail.setText(sp.getSupplierEmail());
             companyFax.setText(sp.getSupplierFax());
             companyPhysical.setText(sp.getSupplierPhysical());
-                    
-            //System.out.println(newValue);
+            
         });
         
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
@@ -115,10 +114,7 @@ public class SupplierInformationController implements Initializable {
             items =InventoryQuery.getSupplierNames();
             supplier_ListView.setItems(items);
         });
-        
-       
-        
-        searchField.textProperty().addListener(new ChangeListener() {
+         searchField.textProperty().addListener(new ChangeListener() {
             public void changed(ObservableValue observable, Object oldVal,
                 Object newVal) {
               search((String) oldVal, (String) newVal);

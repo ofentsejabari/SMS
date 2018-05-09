@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,15 +8,29 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventorymanagement.control.DashboardController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff;" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventorymanagement.control.DashboardController">
    <children>
-      <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0">
+      <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="451.0" prefWidth="796.0" style="-fx-background-color: #ffffff;">
          <center>
-            <Label text="inventory dashboard" textFill="#119064" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="256.0" prefWidth="796.0">
+                     <children>
+                        <Label prefHeight="27.0" prefWidth="202.0" text="Value by Item" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="250.0" prefWidth="796.0">
+                     <children>
+                        <Label text="Open Orders" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="246.0" prefWidth="796.0">
+                     <children>
+                        <Label text="Supplier Performance" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
          </center>
       </BorderPane>
    </children>

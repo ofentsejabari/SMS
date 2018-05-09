@@ -30,27 +30,14 @@
             </VBox>
             <BorderPane prefHeight="487.0" prefWidth="982.0" style="-fx-background-color: #fff;">
                <bottom>
-                  <HBox alignment="CENTER" prefHeight="48.0" prefWidth="1019.0" spacing="10.0" style="-fx-padding: 4;" styleClass="secondary-toolbar" BorderPane.alignment="CENTER">
-                     <children>
-                        <JFXButton fx:id="btn_cancel" buttonType="RAISED" prefHeight="35.0" prefWidth="110.0" style="-fx-border-color: #22B5FF; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="Cancel" textFill="#2f2a2a">
-                           <padding>
-                              <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
-                           </padding>
-                        </JFXButton>
-                        <JFXButton fx:id="btn_update" buttonType="RAISED" prefHeight="33.0" prefWidth="110.0" style="-fx-background-color: #22B5FF; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="Update" textFill="WHITE">
-                           <padding>
-                              <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
-                           </padding>
-                        </JFXButton>
-                     </children>
-                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="48.0" prefWidth="1019.0" spacing="10.0" style="-fx-padding: 4;" styleClass="secondary-toolbar" BorderPane.alignment="CENTER" />
                </bottom>
                <center>
                   <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                      <children>
                         <JFXTabPane prefHeight="320.0" prefWidth="644.0" styleClass="jfx-tab-flatpane">
                            <tabs>
-                              <Tab fx:id="statusTab" text="resoource status" />
+                              <Tab fx:id="statusTab" text="resource status" />
                            </tabs>
                         </JFXTabPane>
                      </children>
@@ -59,7 +46,7 @@
                <top>
                   <HBox prefHeight="40.0" prefWidth="1061.0" styleClass="screen-decoration" BorderPane.alignment="CENTER">
                      <children>
-                        <Label prefHeight="27.0" prefWidth="143.0" text="facility Status" textFill="WHITE">
+                        <Label fx:id="facilityN" prefHeight="27.0" prefWidth="143.0" text="facility Status" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font></Label>

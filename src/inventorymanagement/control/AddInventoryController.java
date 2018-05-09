@@ -9,16 +9,23 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import inventorymanagement.Inventory;
+import static inventorymanagement.InventoryItem.inventoryListWork;
+import inventorymanagement.Success;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
+import mysqldriver.AdminQuery;
+import mysqldriver.InventoryQuery;
 
 /**
  * FXML Controller class
@@ -34,7 +41,7 @@ public class AddInventoryController implements Initializable {
     private JFXButton btn_toolbar_close,btn_cancel,btn_update;
     
     @FXML
-    private JFXTextField iname,itemNo,itemCost,itemStaff,itemOrder;
+    private JFXTextField iname,itemNo,itemCost,itemStaff,itemOrder,itemYears,itemQuantity,itemGov,itemBatch;
            
     @FXML
     private JFXTextArea itemDesc;
@@ -67,7 +74,28 @@ public class AddInventoryController implements Initializable {
             }
         });
         
-        
+        btn_update.setOnAction((ActionEvent event) -> {
+            
+                
+                Inventory item = new  Inventory("0",iname.getText(),itemDesc.getText(),itemNo.getText(),itemGov.getText(),
+                    itemYears.getText(),itemCost.getText(),itemOrder.getText()
+                    ,itemRoom.getValue(),itemBatch.getText(),itemPurchase.getValue().toString()
+                    ,itemDept.getValue(),"",itemQuantity.getText(),itemSupplier.getValue()
+                    ,"",itemStaff.getText(),"100");
+          
+                if(InventoryQuery.updateInventoryItem(item, false).equals("")){
+                        new Success("success",false).show();
+                        inventoryListWork.restart();
+                        btn_update.setDisable(true);
+                        btn_cancel.setDisable(true);
+                }
+                else{
+                        new Success("failed",false).show();
+                 }
+        });
+         itemDept.setItems(AdminQuery.getDepartmentNames()); 
+         itemRoom.setItems(InventoryQuery.getFacilitiesNames()); 
+         itemSupplier.setItems(InventoryQuery.getSupplierNames());
     }  
     
     

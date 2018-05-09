@@ -39,7 +39,6 @@ public class FacilitiesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
         facilitiesTypeItem = new FacilityTypeItem();
         facilitiesItem = new FacilitiesManagement();
         facilitiesTab.setContent(facilitiesItem);

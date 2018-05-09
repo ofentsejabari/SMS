@@ -428,7 +428,6 @@ public class AdminQuery {
                           + " FROM `department` WHERE `id`= '"+id+"'";
            
             ResultSet result = STATEMENT.executeQuery(query);
-            
             if(result.next()){
                 return new Department(result.getString("id"), result.getString("departmentName"),
                         result.getString("hod"));

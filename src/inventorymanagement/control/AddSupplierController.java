@@ -7,14 +7,19 @@ package inventorymanagement.control;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import entry.AutoCompleteComboBoxListener;
+import inventorymanagement.Success;
+import inventorymanagement.Supplier;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import mysqldriver.InventoryQuery;
 
 
 /**
@@ -24,20 +29,37 @@ import javafx.fxml.Initializable;
 public class AddSupplierController  implements Initializable {
 
     @FXML
-    private JFXButton btn_close;
+    private JFXButton btn_close,save;
+    
     @FXML
-    private JFXButton save;
+    private JFXTextField companyName,companyTel,companyCell,companyFax,companyEmail;
+   
     @FXML
-    private JFXTextField name;
-    @FXML
-    private JFXComboBox<String> hod;
+    private JFXTextArea companyPostal,companyPhysical;
+    
+    
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       
         
+        save.setOnAction((ActionEvent event) -> {
+                Supplier item=new Supplier("0", companyName.getText(), companyEmail.getText(), companyTel.getText(), companyCell.getText(), 
+                            companyPhysical.getText(),companyPostal.getText(), companyFax.getText());
+                
+                if(InventoryQuery.updateSupplierItem(item,false).equals("")){
+                    new Success("success",true).show();
+                    save.setDisable(true);
+                }
+                
+                else{
+                     new Success("failure",true).show();
+                }
+        });
+          
         
     }  
     public void setEventHandler(EventHandler event){btn_close.setOnAction(event);}
