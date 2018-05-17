@@ -28,6 +28,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import mysqldriver.AdminQuery;
 import static schooladministration.control.DepartmentsController.selectedDepartment;
+
 /**
  *
  * @author ofentse
@@ -52,9 +53,8 @@ public class DepartmentSubjects extends BorderPane{
         btn_add.getStyleClass().add("jfx-tool-button");
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-            new AddDepartmentStage(null).show();
+            new UpdateDepartmentDialog(null).show();
         });
-        
         
         toolbar.getChildren().addAll(new HSpacer(), btn_add);
         
@@ -160,8 +160,6 @@ public class DepartmentSubjects extends BorderPane{
         subjectWorkService.start();
         
     }
-    
-    
     
     
     public class SubjectListWork extends Task<ObservableList<Subject>> {       

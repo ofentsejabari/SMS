@@ -10,6 +10,7 @@ import inventorymanagement.FacilitiesStatus;
 import inventorymanagement.FacilitiesType;
 import inventorymanagement.Inventory;
 import inventorymanagement.PolicyDocument;
+import inventorymanagement.StudentAllocationModel;
 import inventorymanagement.Supplier;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -583,5 +584,24 @@ public class InventoryQuery {
              return ""+ex.getMessage().toString();
         }
     }
-                
+       
+    
+    public static ObservableList<StudentAllocationModel> getStudentAllocation(String filter){
+        ObservableList<StudentAllocationModel> item =  FXCollections.observableArrayList();
+        try{
+            String query = "";
+           
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                item.add(new StudentAllocationModel(result.getString(""),result.getString(""),result.getString(""),
+                        result.getString(""),result.getString(""),result.getString("")));
+            }
+            return item;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return item;
+        }
+    }
 }

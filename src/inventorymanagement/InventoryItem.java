@@ -51,8 +51,6 @@ public class InventoryItem extends BorderPane{
         getStyleClass().add("container");
         stackPane = new StackPane();
         
-        setPadding(new Insets(10));
-        
         HBox toolbar = new HBox();
         toolbar.getStyleClass().add("secondary-toolbar");
         setTop(toolbar);
@@ -68,7 +66,8 @@ public class InventoryItem extends BorderPane{
         btn_refresh.setOnAction((ActionEvent event) -> {
             inventoryListWork.restart();
         });
-        
+        btn_refresh.getStyleClass().add("jfx-tool-button");
+        btn_add.getStyleClass().add("jfx-tool-button");
         toolbar.getChildren().addAll(new HSpacer(), btn_refresh, btn_add);
         
         /*
@@ -247,11 +246,7 @@ public class InventoryItem extends BorderPane{
             inventoryBatch,inventoryDate, inventoryStaffID,inventoryQuantity);
         VBox.setVgrow(inventoryTable, Priority.ALWAYS);
         
-        //-- SET DATA
-        
-        
-        
-        inventoryTable.getTableView().setItems(InventoryQuery.inventoryList("All"));
+       inventoryTable.getTableView().setItems(InventoryQuery.inventoryList("All"));
         
         
         VBox ph = setDataNotAvailablePlaceholder();

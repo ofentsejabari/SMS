@@ -13,7 +13,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="530.0" prefWidth="1080.0" style="-fx-background-color: #fff;" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagement.control.UpdateStudentController">
+<AnchorPane id="AnchorPane" prefHeight="625.0" prefWidth="1100.0" style="-fx-background-color: #fff;" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagement.control.UpdateStudentController">
    <children>
       <StackPane fx:id="stackPane" prefHeight="600.0" prefWidth="1061.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -29,9 +29,9 @@
             </VBox>
             <BorderPane prefHeight="500.0" prefWidth="780.0" style="-fx-background-color: #fff;">
                <top>
-                  <Pane prefHeight="59.0" prefWidth="1086.0" styleClass="header-box" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="59.0" prefWidth="1100.0" styleClass="header-box" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="btn_toolbar_close" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="1054.0" prefHeight="26.0" prefWidth="26.0" ripplerFill="#1abbd0" text="" textFill="#fbfeff" wrapText="true">
+                        <JFXButton fx:id="btn_toolbar_close" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="1074.0" prefHeight="26.0" prefWidth="26.0" ripplerFill="#1abbd0" text="" textFill="#fbfeff" wrapText="true">
                            <padding>
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                            </padding>
@@ -45,10 +45,10 @@
                               </Label>
                            </children>
                         </VBox>
-                        <HBox alignment="CENTER_RIGHT" layoutY="31.0" maxHeight="31.0" prefHeight="31.0" prefWidth="1080.0" spacing="10.0" styleClass="secondary-toolbar">
+                        <HBox alignment="CENTER_RIGHT" layoutY="31.0" maxHeight="31.0" prefHeight="31.0" prefWidth="1100.0" spacing="10.0" styleClass="secondary-toolbar">
                            <children>
                               <CustomTextField fx:id="enrolmentID" prefHeight="25.0" prefWidth="130.0" styleClass="search-field" text="102893635632" />
-                              <Region prefHeight="26.0" prefWidth="762.0" HBox.hgrow="ALWAYS" />
+                              <Region prefHeight="26.0" HBox.hgrow="ALWAYS" />
                            </children>
                            <padding>
                               <Insets left="100.0" />

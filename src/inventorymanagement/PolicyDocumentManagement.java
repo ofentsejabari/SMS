@@ -55,7 +55,7 @@ public class PolicyDocumentManagement extends BorderPane{
         getStyleClass().add("container");
         stackPane = new StackPane();
         
-        setPadding(new Insets(10));
+        setPadding(new Insets(5));
         
         HBox toolbar = new HBox();
         toolbar.getStyleClass().add("secondary-toolbar");
@@ -71,12 +71,11 @@ public class PolicyDocumentManagement extends BorderPane{
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
         btn_refresh.setOnAction((ActionEvent event) -> {
             policyWork.restart();
-           // new DialogUI("ahgjagjcas as ", DialogUI.ERROR_NOTIF, stackPane).show();
         });
         
-        
-        
-        
+        btn_add.getStyleClass().add("jfx-tool-button");
+        btn_refresh.getStyleClass().add("jfx-tool-button");
+   
         toolbar.getChildren().addAll(new HSpacer(), btn_refresh, btn_add);
         
         /*

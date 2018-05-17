@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,9 +5,24 @@
  */
 package inventorymanagement.control;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import entry.SMS;
+import inventorymanagement.AssetAllocationList;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import mysqldriver.AdminQuery;
+import mysqldriver.InventoryQuery;
 
 /**
  * FXML Controller class
@@ -17,12 +31,62 @@ import javafx.fxml.Initializable;
  */
 public class AssetAllocationController implements Initializable {
 
+    @FXML
+    private BorderPane borderPane;
+   
+    @FXML
+    private JFXButton btn_export,buttonRefresh,btn_info,btn_edit;
+    @FXML
+    private VBox listview;
+    @FXML
+    private Label totalStreams;
+    @FXML
+    private JFXListView<String> stream_ListView;
+    @FXML
+    private VBox streamClasses;
+    @FXML
+    private Label streamName;
+    
+    @FXML
+    private HBox streamToolBar;
+    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        ObservableList<String> items = AdminQuery.getStreamNames();
+        
+        totalStreams.setText(""+items.size());
+        
+        stream_ListView.setItems(items);
+        
+        streamName.setText(streamName.getText());
+        
+        AssetAllocationList asset =new  AssetAllocationList();
+        streamClasses.getChildren().add(1, asset);
+        
+        JFXButton btn_refresh = new JFXButton();
+        streamToolBar.getChildren().add(1, btn_refresh);
+        
+        btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
+        btn_refresh.setOnAction((ActionEvent event) -> {
+            ObservableList<String> items1 = AdminQuery.getStreamNames();
+            totalStreams.setText(""+items1.size());
+            stream_ListView.setItems(items1);
+        });
+         
+        btn_info.setGraphic(SMS.getGraphics(FontAwesomeIcon.INFO, "icon-default", 20));
+        btn_info.setOnAction((ActionEvent event) -> {
+            //new AddSupplierStage().show();
+        });
+        
+        btn_edit.setGraphic(SMS.getGraphics(FontAwesomeIcon.EDIT, "icon-default", 24));
+        btn_edit.setOnAction((ActionEvent event) -> {
+            //new AddSupplierStage().show();
+        });
     }    
+}    
     
-}

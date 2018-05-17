@@ -16,7 +16,6 @@ import static entry.SMS.setDataNotAvailablePlaceholder;
 import static inventorymanagement.control.FacilitiesController.facilitiesList;
 import static inventorymanagement.control.InventoryListController.filter;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -37,7 +36,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import mysqldriver.InventoryQuery;
-import static mysqldriver.InventoryQuery.facilitiesList;
 
 /**
  *
@@ -52,11 +50,10 @@ public class FacilitiesManagement extends BorderPane{
     public FacilitiesManagement() {
         
         facilitiesWork = new FacilitiesWorkService();
-    
         getStyleClass().add("container");
         stackPane = new StackPane();
         
-        setPadding(new Insets(10));
+        setPadding(new Insets(5));
         
         HBox toolbar = new HBox();
         toolbar.getStyleClass().add("secondary-toolbar");
@@ -72,9 +69,9 @@ public class FacilitiesManagement extends BorderPane{
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
         btn_refresh.setOnAction((ActionEvent event) -> {
             facilitiesWork.restart();
-           // new DialogUI("ahgjagjcas as ", DialogUI.ERROR_NOTIF, stackPane).show();
         });
-        
+        btn_refresh.getStyleClass().add("jfx-tool-button");
+        btn_add.getStyleClass().add("jfx-tool-button");
         toolbar.getChildren().addAll(new HSpacer(), btn_refresh, btn_add);
         
         /*
@@ -104,9 +101,9 @@ public class FacilitiesManagement extends BorderPane{
         });
         
         CustomTableColumn facilitiesName = new CustomTableColumn("ROOM NAME");
-        facilitiesName.setPercentWidth(20);
+        facilitiesName.setPercentWidth(15);
         facilitiesName.setCellValueFactory(new PropertyValueFactory<>("facilitiesName"));
-       facilitiesName.setCellFactory(TextFieldTableCell.forTableColumn());
+        facilitiesName.setCellFactory(TextFieldTableCell.forTableColumn());
         facilitiesName.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
             public TableCell<String, String> call(TableColumn<String, String> clientID) {
@@ -135,7 +132,7 @@ public class FacilitiesManagement extends BorderPane{
         });
         
         CustomTableColumn facilitiesType = new CustomTableColumn("ROOM TYPE");
-        facilitiesType.setPercentWidth(20);
+        facilitiesType.setPercentWidth(18);
         facilitiesType.setCellValueFactory(new PropertyValueFactory<>("facilitiesType"));
         facilitiesType.setCellFactory(TextFieldTableCell.forTableColumn());
         facilitiesType.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
@@ -235,9 +232,9 @@ public class FacilitiesManagement extends BorderPane{
         pi.visibleProperty().bind(facilitiesWork.runningProperty());
         facilitiesTable.getTableView().itemsProperty().bind(facilitiesWork.valueProperty());
         
-        VBox vb =new VBox(facilitiesTable);
+        //VBox vb =new VBox(facilitiesTable);
         
-        stackPane.getChildren().addAll(pi,vb);
+        stackPane.getChildren().addAll(pi,facilitiesTable);
         setCenter(stackPane);
         
         facilitiesWork.start();

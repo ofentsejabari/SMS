@@ -13,10 +13,10 @@ import javafx.scene.layout.BorderPane;
  */
 public class SupplierInfo extends BorderPane{
     
-    AnchorPane details;
+    BorderPane details;
     public SupplierInfo() {
         
-        setPadding(new Insets(10));
+        setPadding(new Insets(5));
         
         try{
             //-- 

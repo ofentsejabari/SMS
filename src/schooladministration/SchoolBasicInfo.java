@@ -3,7 +3,6 @@ package schooladministration;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -12,7 +11,7 @@ import javafx.scene.layout.BorderPane;
  */
 public class SchoolBasicInfo extends BorderPane{
     
-    AnchorPane details;
+    BorderPane details;
     public SchoolBasicInfo() {
         
         setPadding(new Insets(10));

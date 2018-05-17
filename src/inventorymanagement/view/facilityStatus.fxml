@@ -28,30 +28,19 @@
                   </Label>
                </children>
             </VBox>
-            <BorderPane prefHeight="487.0" prefWidth="982.0" style="-fx-background-color: #fff;">
+            <BorderPane fx:id="container" prefHeight="487.0" prefWidth="982.0" style="-fx-background-color: #fff;">
                <bottom>
                   <HBox alignment="CENTER" prefHeight="48.0" prefWidth="1019.0" spacing="10.0" style="-fx-padding: 4;" styleClass="secondary-toolbar" BorderPane.alignment="CENTER" />
                </bottom>
-               <center>
-                  <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <JFXTabPane prefHeight="320.0" prefWidth="644.0" styleClass="jfx-tab-flatpane">
-                           <tabs>
-                              <Tab fx:id="statusTab" text="resource status" />
-                           </tabs>
-                        </JFXTabPane>
-                     </children>
-                  </VBox>
-               </center>
                <top>
                   <HBox prefHeight="40.0" prefWidth="1061.0" styleClass="screen-decoration" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="facilityN" prefHeight="27.0" prefWidth="143.0" text="facility Status" textFill="WHITE">
+                        <Label fx:id="facilityN" prefHeight="27.0" prefWidth="160.0" styleClass="window-title" text="Facility Status" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font></Label>
                         <Region prefHeight="40.0" prefWidth="513.0" HBox.hgrow="ALWAYS" />
-                        <JFXButton fx:id="btn_toolbar_close" alignment="TOP_RIGHT" contentDisplay="RIGHT" graphicTextGap="0.0" prefHeight="20.0" prefWidth="23.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" text="" textFill="#fbfeff" wrapText="true">
+                        <JFXButton fx:id="btn_toolbar_close" alignment="TOP_RIGHT" contentDisplay="RIGHT" graphicTextGap="0.0" prefHeight="20.0" prefWidth="23.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" styleClass="window-close" text="" textFill="#fbfeff" wrapText="true">
                            <padding>
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                            </padding>

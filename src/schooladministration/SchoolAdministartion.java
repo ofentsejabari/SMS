@@ -30,13 +30,13 @@ public class SchoolAdministartion extends BorderPane{
         mainMenu.getStyleClass().add("main_menu");
         
         //-- Menu Items --
-        Label dashboard         = new Label("Dashboard",        getIcon("10_settings.png",   30));
-        Label department_subject = new Label("Departments And Subjects",getIcon("13_unit.png", 30));
-        Label streams          = new Label("Streams And Classes",getIcon("12_training.png",   30));
-        Label schoolHouses     = new Label("Houses And Categories", getIcon("10_settings.png",  30));
-        Label terms            = new Label("Academic Terms",   getIcon("10_settings.png",   30));
-        Label users             = new Label("User Directory",     getIcon("14_access.png",   30));
-        Label school            = new Label("School Information", getIcon("10_settings.png", 30));
+        Label dashboard         = new Label("Dashboard",getIcon("14_System_Task.png",   26));
+        Label department_subject = new Label("Departments And Subjects",getIcon("13_unit.png", 26));
+        Label streams          = new Label("Streams And Classes",getIcon("12_training.png",   26));
+        Label schoolHouses     = new Label("Houses And Categories", getIcon("10_settings.png",  26));
+        Label terms            = new Label("Academic Terms",getIcon("10_settings.png",   26));
+        Label users             = new Label("User Directory", getIcon("14_access.png",   26));
+        Label school            = new Label("School Information", getIcon("10_settings.png", 26));
 
         mainMenu.getItems().addAll(dashboard, department_subject, streams,
                                    terms, schoolHouses, users, school);

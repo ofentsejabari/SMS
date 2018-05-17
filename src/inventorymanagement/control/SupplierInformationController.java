@@ -13,6 +13,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.SMS;
 import inventorymanagement.AddSupplierStage;
+import inventorymanagement.AssetAllocationList;
 import inventorymanagement.Supplier;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +25,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mysqldriver.InventoryQuery;
 
@@ -41,6 +44,8 @@ public class SupplierInformationController implements Initializable {
     
     ObservableList<String> items =null; 
     
+    AssetAllocationList statusItem = null;
+    
     @FXML
     private JFXTextField companyName;
     @FXML
@@ -56,6 +61,7 @@ public class SupplierInformationController implements Initializable {
     @FXML
     private JFXTextArea companyPhysical;
     
+    
     @FXML
     private VBox vboxId;        
     @FXML
@@ -66,6 +72,10 @@ public class SupplierInformationController implements Initializable {
     
     @FXML
     private VBox searchArea,listview;
+    
+    
+    @FXML
+    private Label totalSuppliers;
     
     boolean flag= true;
 
@@ -95,6 +105,7 @@ public class SupplierInformationController implements Initializable {
         });
         
         items =InventoryQuery.getSupplierNames();
+        totalSuppliers.setText(""+items.size());
         supplier_ListView.setItems(items);
         
         supplier_ListView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
@@ -114,12 +125,14 @@ public class SupplierInformationController implements Initializable {
             items =InventoryQuery.getSupplierNames();
             supplier_ListView.setItems(items);
         });
-         searchField.textProperty().addListener(new ChangeListener() {
+        
+        searchField.textProperty().addListener(new ChangeListener() {
             public void changed(ObservableValue observable, Object oldVal,
                 Object newVal) {
               search((String) oldVal, (String) newVal);
             }
-          });
+        });
+         
         btn_info.setGraphic(SMS.getGraphics(FontAwesomeIcon.INFO, "icon-default", 20));
         btn_info.setOnAction((ActionEvent event) -> {
             //new AddSupplierStage().show();
@@ -180,6 +193,11 @@ public class SupplierInformationController implements Initializable {
         companyTel.setDisable(!flag);
         this.flag=!flag;
         
+    }
+    
+    public void setFilter(String filter){
+        statusItem.filter = filter;
+        statusItem.studentAllocationWork.restart();
     }
     
 }

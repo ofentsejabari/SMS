@@ -10,11 +10,11 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import entry.AutoCompleteComboBoxListener;
+import entry.ToolTip;
 import inventorymanagement.Success;
 import inventorymanagement.Supplier;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -45,6 +45,8 @@ public class AddSupplierController  implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
+        save.getStyleClass().add("dark-blue");
+        save.setTooltip(new ToolTip("Save Supplier"));
         
         save.setOnAction((ActionEvent event) -> {
                 Supplier item=new Supplier("0", companyName.getText(), companyEmail.getText(), companyTel.getText(), companyCell.getText(), 

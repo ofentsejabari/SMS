@@ -52,7 +52,7 @@ public class FacilityStatusItem extends BorderPane{
         getStyleClass().add("container");
         stackPane = new StackPane();
         
-        setPadding(new Insets(10));
+//        setPadding(new Insets(10));
         
         HBox toolbar = new HBox();
         toolbar.getStyleClass().add("secondary-toolbar");
@@ -70,7 +70,9 @@ public class FacilityStatusItem extends BorderPane{
         btn_add.setOnAction((ActionEvent event) -> {
              new AddFacilityResources(filter).show();
         });
-   
+        
+        btn_refresh.getStyleClass().add("jfx-tool-button");
+        btn_add.getStyleClass().add("jfx-tool-button");
         toolbar.getChildren().addAll(new HSpacer(), btn_refresh, btn_add);
         
         /*
@@ -114,7 +116,7 @@ public class FacilityStatusItem extends BorderPane{
                         super.updateItem(ID, empty);
                         
                         if(!empty){
-                            setGraphic(new Label(InventoryQuery.getResourceName(ID).get(0)));
+                            //setGraphic(new Label(InventoryQuery.getResourceName(ID).get(0)));
                         }else{ setGraphic(null); }
                     }
                 };

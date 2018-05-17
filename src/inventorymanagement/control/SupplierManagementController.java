@@ -26,6 +26,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import mysqldriver.InventoryQuery;
 
@@ -41,9 +42,7 @@ public class SupplierManagementController implements Initializable {
     @FXML
     private JFXButton btn_add, btn_export ;
     
-    
-
-    @FXML
+   @FXML
     private Tab supplierDetails,supplierProfileTab;
     
     public SupplierInfo supplierInfo;

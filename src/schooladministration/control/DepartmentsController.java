@@ -16,7 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import mysqldriver.AdminQuery;
-import schooladministration.AddDepartmentStage;
+import schooladministration.UpdateDepartmentDialog;
 import schooladministration.Department;
 import schooladministration.DepartmentDetails;
 import schooladministration.DepartmentSubjects;
@@ -30,7 +30,7 @@ import schooladministration.Subject;
 public class DepartmentsController implements Initializable {
 
     @FXML
-    private JFXButton btn_add, btn_export, btn_refresh, btn_edit;
+    private JFXButton btn_add, btn_export, btn_refresh;
     @FXML
     private JFXListView<Label> depart_ListView;
     @FXML
@@ -56,7 +56,7 @@ public class DepartmentsController implements Initializable {
         
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-            new AddDepartmentStage(null).show();
+            new UpdateDepartmentDialog(null).show();
         });
         
         btn_export.setGraphic(SMS.getGraphics(MaterialDesignIcon.EXPORT, "icon-default", 24));
@@ -70,46 +70,31 @@ public class DepartmentsController implements Initializable {
             depart_ListView.getSelectionModel().select(0);
         });
         
-        btn_edit.setGraphic(SMS.getGraphics(MaterialDesignIcon.PENCIL_BOX_OUTLINE, "icon-default", 24));
-        btn_edit.setOnAction((ActionEvent event) -> {
-            
-        });
         
         depart_ListView.getSelectionModel().selectedIndexProperty().addListener(
                 (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
                
-                selectedDepartment = AdminQuery.getDepartmentByName(depart_ListView.getItems().get(newValue.intValue()).getText());
+            selectedDepartment = AdminQuery.getDepartmentByName(depart_ListView.getItems().get(newValue.intValue()).getText());
                 
-                departmentName.setText(selectedDepartment.getDepartmentName());
-                departmentSubjects.subjectWorkService.restart();
+            departmentName.setText(selectedDepartment.getDepartmentName());
+            departmentSubjects.subjectWorkService.restart();
                 
         });
         
+        
+        
         depart_ListView.setItems(updateDepartments());
-        
-        
-        
+                
         departmentDetailsTab.setContent(departmentDetails);
         departmentDetailsTab.setGraphic(SMS.getGraphics(MaterialDesignIcon.SERVER_NETWORK, "icon-secondary", 20));
         
         subjectsTab.setContent(departmentSubjects);
         subjectsTab.setGraphic(SMS.getGraphics(MaterialDesignIcon.SERVER_NETWORK, "icon-secondary", 20));
-        
-        
     }
 
     private ObservableList<Label> updateDepartments() {
         
         ObservableList<Label> data = FXCollections.observableArrayList();
-        ObservableList<Department> departments = AdminQuery.getDepartments();
-        
-        totalDepartments.setText(""+ departments.size());
-        
-        for (int i = 0; i < departments.size(); i++) {
-            data.add(new Label(departments.get(i).getDepartmentName()));
-        }
-        
-        
         return data;
     }
 

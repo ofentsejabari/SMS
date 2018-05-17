@@ -119,7 +119,7 @@
                <top>
                   <Pane prefHeight="67.0" prefWidth="1061.0" styleClass="screen-decoration" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="btn_toolbar_close" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="905.0" layoutY="6.0" prefHeight="20.0" prefWidth="23.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" text="" textFill="#fbfeff" wrapText="true">
+                        <JFXButton fx:id="btn_toolbar_close" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="905.0" layoutY="6.0" prefHeight="20.0" prefWidth="23.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" styleClass="window-close" text="" textFill="#fbfeff" wrapText="true">
                            <padding>
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                            </padding>

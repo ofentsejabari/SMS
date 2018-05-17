@@ -10,16 +10,11 @@ import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -55,21 +50,8 @@ public class LoginController implements Initializable {
     UserLoginService uls = null;
     private Stage mainWindow;
     
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        
-        if(event.getSource()== btn_admin){
-            loginView.toFront();
-        }else if(event.getSource()== btn_menu){
-            menuView.toFront();
-        }else if(event.getSource()== btn_login){
-            uls.start();
-            
-        }else if(event.getSource()== btn_close){
-            System.exit(0);
-        }
-    } 
     
+    //MainUIFXMLController MAIN_CONTROLLER;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         menuView.toFront();
@@ -78,11 +60,15 @@ public class LoginController implements Initializable {
         progressView.visibleProperty().bind(uls.runningProperty());
         
         try {
-                Parent root = FXMLLoader.load(getClass().getResource("/entry/view/MainUIFXML.fxml"));
-                Scene scene = new Scene(root, Color.TRANSPARENT);
-                scene.getStylesheets().add(SMS.class.getResource("css/style.css").toExternalForm());
-                mainWindow = new Stage();
-                mainWindow.setScene(scene);
+            
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/entry/view/MainUIFXML.fxml"));
+//            Parent root = loader.load();
+            //MAIN_CONTROLLER = loader.getController();
+            
+//            Scene scene = new Scene(root, Color.TRANSPARENT);
+//            scene.getStylesheets().add(SMS.class.getResource("css/style.css").toExternalForm());
+//            mainWindow = new Stage();
+//            mainWindow.setScene(scene);
                 
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
@@ -97,7 +83,7 @@ public class LoginController implements Initializable {
            
             try{
                 //-- Sleep for a few seconds
-                Thread.sleep(400);
+                // Thread.sleep(400);
                 Platform.runLater(() -> {
                     mainWindow.show();
                     SMS.parentUI.hide();

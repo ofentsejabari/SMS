@@ -7,6 +7,7 @@
 package inventorymanagement;
 
 import com.jfoenix.controls.JFXDialog;
+import entry.SMS;
 import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import inventorymanagement.control.FailedController;
 import inventorymanagement.control.SuccessController;
@@ -23,7 +24,7 @@ public class Success extends JFXDialog{
     
     public Success(String status,boolean value){
         
-        StackPane stack= PARENT_STACK_PANE;
+        StackPane stack= SMS.MAIN_UI;
         try{
             FXMLLoader ui;
             AnchorPane pane;

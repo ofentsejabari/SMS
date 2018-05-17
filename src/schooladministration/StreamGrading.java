@@ -8,13 +8,11 @@ import entry.HSpacer;
 import entry.ProgressIndicator;
 import entry.SMS;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -26,8 +24,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import mysqldriver.AdminQuery;
-import static schooladministration.control.DepartmentsController.selectedDepartment;
 /**
  *
  * @author ofentse
@@ -51,7 +47,7 @@ public class StreamGrading extends BorderPane{
         btn_add.getStyleClass().add("jfx-tool-button");
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-            new AddDepartmentStage(null).show();
+            new UpdateDepartmentDialog(null).show();
         });
         
         

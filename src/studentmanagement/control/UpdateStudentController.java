@@ -9,7 +9,6 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.CCValidator;
-import entry.DialogUI;
 import entry.InputValidator;
 import entry.SMS;
 import static entry.SMS.dbHandler;
@@ -25,28 +24,16 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import org.controlsfx.control.textfield.CustomTextField;
-import org.controlsfx.tools.Borders;
 import studentmanagement.Student;
-import studentmanagement.StudentProfileStage;
 import mysqldriver.AdminQuery;
 import studentmanagement.SParent;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import javafx.application.Platform;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
 import entry.ToolTip;
 import java.util.Date;
 import javafx.scene.layout.GridPane;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
 import static entry.SMS.getGraphics;
 import static entry.SMS.getIcon;
 
@@ -200,72 +187,11 @@ public class UpdateStudentController implements Initializable {
         container.getChildren().clear();
         btn_toolbar_close.setGraphic(getGraphics(MaterialDesignIcon.WINDOW_CLOSE, "close", 20));
         btn_toolbar_close.getStyleClass().add("window-close");
-        
-        //-- Student contact details -------------------------------------------
-        
-        VBox persDetails = new VBox();
-        persDetails.getChildren().addAll(Borders.wrap(studentDetails)
-                .lineBorder()
-                .title("Student Details")
-                .thickness(2, 1, 1, 1)
-                .innerPadding(0)
-                .outerPadding(15, 10, 10, 10)
-                .radius(5)
-                .color(Color.web("#cfd8dc"), Color.web("#EAEAEA"),
-                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
-                .buildAll());
 
-        HBox.setHgrow(persDetails, Priority.ALWAYS);
-        
-        //-- Other  details -------------------------------------------
-        
-        VBox conDetails = new VBox();
-        conDetails.getChildren().addAll(Borders.wrap(studentContact)
-                .lineBorder()
-                .title("Other Details")
-                .thickness(2, 1, 1, 1)
-                .innerPadding(0)
-                .outerPadding(15, 10, 10, 10)
-                .radius(5)
-                .color(Color.web("#cfd8dc"), Color.web("#EAEAEA"),
-                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
-                .buildAll());
-
-        HBox.setHgrow(conDetails, Priority.ALWAYS);
-        
-        //-- Parent contact details -------------------------------------------
-        
-        VBox clsDetails = new VBox();
-        clsDetails.getChildren().addAll(Borders.wrap(parentDetails)
-                .lineBorder()
-                .title("Parent/Gaurdian Details")
-                .thickness(2, 1, 1, 1)
-                .innerPadding(0)
-                .outerPadding(15, 10, 10, 10)
-                .radius(5)
-                .color(Color.web("#cfd8dc"), Color.web("#EAEAEA"),
-                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
-                .buildAll());
-
-        HBox.setHgrow(clsDetails, Priority.ALWAYS);
-        
-        //-- Student contact details -------------------------------------------
-        
-        VBox parDetails = new VBox();
-        parDetails.getChildren().addAll(Borders.wrap(parentContacts)
-                .lineBorder()
-                .title("Parent/Gaurdian Contacts")
-                .thickness(2, 1, 1, 1)
-                .innerPadding(0)
-                .outerPadding(15, 10, 10, 10)
-                .radius(5)
-                .color(Color.web("#cfd8dc"), Color.web("#EAEAEA"),
-                       Color.web("#EAEAEA"), Color.web("#EAEAEA")).buildAll());
-
-        HBox.setHgrow(parDetails, Priority.ALWAYS);
-        
-        
-        container.getChildren().addAll(persDetails, conDetails, clsDetails, parDetails);
+        container.getChildren().addAll(SMS.setBorderContainer(studentDetails, "Student Details"),
+                SMS.setBorderContainer(studentContact, "Other Details"),
+                SMS.setBorderContainer(parentDetails, "Parent/Gaurdian Details"),
+                SMS.setBorderContainer(parentContacts, "Parent/Gaurdian Contacts"));
         
         uls = new ProfileUpdateService();
         background_process.visibleProperty().bind(uls.runningProperty());
@@ -354,28 +280,11 @@ public class UpdateStudentController implements Initializable {
             if(iv.isValid()){
                 
                 //--  save the form --
-                DialogUI succ = new DialogUI("Good to go!!!", DialogUI.SUCCESS_NOTIF, stackPane);
-                succ.DIALOG_CONTROLLER.setBTNYESControl(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        background_process.toFront();
-                        succ.close();
-                    }
-                }, "Continue");
-                succ.show();
+                
             }else{
                 //-- show alert --
                 iv.validate();
-                DialogUI err = new DialogUI("Please ensure that all mandotory fields are filled up before saving changes.",
-                        DialogUI.ERROR_NOTIF, stackPane);
-                err.DIALOG_CONTROLLER.setBTNNOControl(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        background_process.toFront();
-                        err.close();
-                    }
-                }, "Fix Errors");
-                err.show();
+                
             } 
         });
         

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import org.controlsfx.control.textfield.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="530.0" prefWidth="1080.0" style="-fx-background-color: #fff;" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagement.control.StudentProfileController">
+   <children>
+      <StackPane fx:id="stackPane" prefHeight="600.0" prefWidth="1061.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox fx:id="background_process" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" style="-fx-background-color: #00000060;">
+               <children>
+                  <JFXSpinner prefHeight="80.0" prefWidth="1061.0" />
+                  <Label text="Processing ..." textFill="WHITE">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <BorderPane prefHeight="500.0" prefWidth="780.0" style="-fx-background-color: #fff;">
+               <top>
+                  <Pane prefHeight="59.0" prefWidth="1086.0" styleClass="header-box" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="btn_toolbar_close" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="1054.0" prefHeight="26.0" prefWidth="26.0" ripplerFill="#1abbd0" styleClass="window-close" text="" textFill="#fbfeff" wrapText="true">
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                        </JFXButton>
+                        <VBox alignment="CENTER_LEFT" layoutX="85.0" layoutY="1.0" prefHeight="31.0" prefWidth="538.0">
+                           <children>
+                              <Label fx:id="title" prefHeight="10.0" text="Student Profile" textFill="#fcfcfc">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <HBox alignment="CENTER_RIGHT" layoutY="31.0" maxHeight="31.0" prefHeight="31.0" prefWidth="1080.0" spacing="10.0" styleClass="secondary-toolbar">
+                           <children>
+                              <Region prefHeight="26.0" prefWidth="762.0" HBox.hgrow="ALWAYS" />
+                           </children>
+                           <padding>
+                              <Insets left="100.0" />
+                           </padding>
+                        </HBox>
+                        <Circle fx:id="profile_picture" fill="#2197ff" layoutX="32.0" layoutY="30.0" radius="26.0" stroke="#ffffff1c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" style="-fx-cursor: hand;">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           
+                        </Circle>
+                        <Circle fill="WHITE" layoutX="48.0" layoutY="46.0" opacity="0.74" radius="10.0" stroke="#ffffff31" strokeType="INSIDE">
+                           <effect>
+                              <DropShadow color="#00000050" />
+                           </effect>
+                        </Circle>
+                        <ImageView fitHeight="17.0" fitWidth="16.0" layoutX="40.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../entry/icons/ok.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </top>
+               <center>
+                  <JFXTabPane styleClass="jfx-tab-flatpane" BorderPane.alignment="CENTER">
+                     <tabs>
+                        <Tab fx:id="student_details" text="Student Details" />
+                        <Tab fx:id="assessment" text="Assessments" />
+                        <Tab fx:id="finance" text="Finances" />
+                     </tabs>
+                  </JFXTabPane>
+               </center>
+            </BorderPane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

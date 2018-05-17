@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="421.0" prefWidth="679.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schooladministration.view.DepartmentDetailsController">
+   <top>
+      <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="250.0" spacing="5.0" styleClass="secondary-toolbar" BorderPane.alignment="CENTER">
+         <children>
+            <Region prefHeight="26.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <JFXButton fx:id="btn_edit" prefHeight="32.0" prefWidth="32.0" ripplerFill="#08a53a" styleClass="jfx-toolbar-button" textFill="#5d5a5a" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox prefHeight="438.0" spacing="25.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXTextField fx:id="name" disable="true" editable="false" focusColor="#4091a8" labelFloat="true" promptText="Department Name" styleClass="input-field" text="Computer Studies" />
+            <JFXTextField fx:id="hod" disable="true" editable="false" focusColor="#4091a8" labelFloat="true" promptText="Head Of Department" styleClass="website-field" text="Ofentse Jabari" />
+         </children>
+         <padding>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="20.0" />
+         </padding>
+      </VBox>
+   </center>
+</BorderPane>

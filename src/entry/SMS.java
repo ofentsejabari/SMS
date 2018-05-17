@@ -6,7 +6,6 @@ import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.utils.MaterialDesignIconFactory;
 import de.jensd.fx.glyphs.octicons.OctIcon;
 import de.jensd.fx.glyphs.octicons.utils.OctIconFactory;
-import java.io.InputStream;
 import java.time.LocalDate;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
@@ -24,10 +23,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import mysqldriver.MySQLHander;
+import org.controlsfx.tools.Borders;
 
 /**
  *
@@ -38,6 +37,7 @@ public class SMS extends Application {
     private double initX, initY;
     public static Stage parentUI;
     public static MySQLHander dbHandler;
+    public static StackPane MAIN_UI;
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -45,27 +45,29 @@ public class SMS extends Application {
         dbHandler = new MySQLHander();
         
         parentUI = stage;
-        parentUI.setTitle("EDU-TECH School Management System");
-        Parent root = FXMLLoader.load(getClass().getResource("view/LoginView.fxml"));
+        parentUI.setTitle("School Management System");
         
+        MAIN_UI = new StackPane();
         
-        Scene scene = new Scene(root, Color.TRANSPARENT);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/entry/view/MainUIFXML.fxml"));
+        Parent root = loader.load();
+        
+        MAIN_UI.getChildren().add(root);
+        
+        Scene scene = new Scene(MAIN_UI, Color.TRANSPARENT);
         scene.getStylesheets().add(SMS.class.getResource("css/style.css").toExternalForm());
-        parentUI.initStyle(StageStyle.UNDECORATED);
         parentUI.setScene(scene);
         parentUI.show();
         
-        root.setOnMousePressed((MouseEvent me) -> {
+        MAIN_UI.setOnMousePressed((MouseEvent me) -> {
             initX = me.getScreenX() - parentUI.getX();
             initY = me.getScreenY() - parentUI.getY();
         });
  
-        root.setOnMouseDragged((MouseEvent me) -> {
+        MAIN_UI.setOnMouseDragged((MouseEvent me) -> {
             parentUI.setX(me.getScreenX() - initX);
             parentUI.setY(me.getScreenY() - initY);
         });
-        
-        
         
         parentUI.setOnCloseRequest((WindowEvent event) -> {
             parentUI.close();
@@ -78,6 +80,35 @@ public class SMS extends Application {
     
     public static void main(String[] args) {
         launch(args);
+    }
+    
+    public static VBox setBorderContainer(Node content, String title) {
+        VBox conDetails = new VBox();
+        
+        if(title != null){
+            conDetails.getChildren().addAll(Borders.wrap(content)
+                .lineBorder()
+                .title(title)
+                .thickness(2, 1, 1, 1)
+                .innerPadding(0)
+                .outerPadding(15, 10, 10, 10)
+                .radius(5)
+                .color(Color.web("#cfd8dc"), Color.web("#EAEAEA"),
+                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
+                .buildAll());
+        }else{
+            conDetails.getChildren().addAll(Borders.wrap(content)
+                .lineBorder()
+                .thickness(2, 1, 1, 1)
+                .innerPadding(0)
+                .outerPadding(15, 10, 10, 10)
+                .radius(5)
+                .color(Color.web("#cfd8dc"), Color.web("#EAEAEA"),
+                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
+                .buildAll());
+        }
+        
+        return conDetails;
     }
     
     /**
@@ -126,19 +157,6 @@ public class SMS extends Application {
         graphic.getStyleClass().add(colorStyle);
         return graphic;
     }
-    
-    
-    // load the svg file
-    InputStream svgFile =  getClass().getResourceAsStream("/afester/javafx/examples/data/Ghostscript_Tiger.svg");
-//    SvgLoader loader = new SvgLoader();
-//    Group svgImage = loader.loadSvg(svgFile);
-//
-//    // Scale the image and wrap it in a Group to make the button 
-//    // properly scale to the size of the image  
-//    svgImage.setScaleX(0.1);
-//    svgImage.setScaleY(0.1);
-//    Group graphic = new Group(svgImage);
-
     
     
     public static LocalDate getLocalDate(String dt){
@@ -193,7 +211,6 @@ public class SMS extends Application {
         
         return con;
     }
-    
     
     
     //Set selected node to a content holder

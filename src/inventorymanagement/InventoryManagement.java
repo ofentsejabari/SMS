@@ -14,7 +14,8 @@ import static entry.SMS.getIcon;
 public class InventoryManagement extends BorderPane{
     
     private JFXListView<Label> mainMenu;
-    private AnchorPane dashboardUI,supplierUI,inventoryListUI,assetAllocationUI,purchaseOrderUI,policyDocumentsUI,facilitiesUI;
+    private BorderPane facilitiesUI;
+    private AnchorPane dashboardUI,inventoryListUI,assetAllocationUI,purchaseOrderUI,policyDocumentsUI,supplierUI;
     public static StackPane INVENTORY_MAN_STACK;
 
     public InventoryManagement() {
@@ -30,7 +31,7 @@ public class InventoryManagement extends BorderPane{
         Label inventory = new Label("Inventory List", getIcon("applicant_100px.png", 22));
         Label supplier = new Label("Supplier Management", getIcon("inspection_100px.png", 22));
         Label purchaseOrder = new Label("Purchase Order", getIcon("inspection_100px.png", 22));
-        Label assets = new Label("Asset Allocation", getIcon("bunk_bed.png", 22));
+        Label assets = new Label("Student Asset Allocation", getIcon("bunk_bed.png", 22));
         Label policyDocuments = new Label("Policy Document Manager", getIcon("bunk_bed.png", 22));
         Label facilities = new Label("Facilities Management", getIcon("bunk_bed.png", 22));
 

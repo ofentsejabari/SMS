@@ -6,6 +6,7 @@
 package inventorymanagement;
 
 import com.jfoenix.controls.JFXDialog;
+import entry.SMS;
 import inventorymanagement.control.AddFacilityResourcesController;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -32,7 +33,7 @@ public class AddFacilityResources  extends JFXDialog{
                 close();
             });
                         
-            setDialogContainer(InventoryManagement.INVENTORY_MAN_STACK);
+            setDialogContainer(SMS.MAIN_UI);
             setContent(pane);
             setOverlayClose(false);
             

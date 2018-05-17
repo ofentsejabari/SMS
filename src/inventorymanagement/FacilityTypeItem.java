@@ -54,7 +54,7 @@ public class FacilityTypeItem extends BorderPane{
         getStyleClass().add("container");
         stackPane = new StackPane();
         
-        setPadding(new Insets(10));
+        setPadding(new Insets(5));
         
         HBox toolbar = new HBox();
         toolbar.getStyleClass().add("secondary-toolbar");
@@ -67,7 +67,7 @@ public class FacilityTypeItem extends BorderPane{
         btn_refresh.setOnAction((ActionEvent event) -> {
             facilityTypeWork.restart();
         });
-   
+        btn_refresh.getStyleClass().add("jfx-tool-button");
         toolbar.getChildren().addAll(new HSpacer(), btn_refresh);
         
         /*

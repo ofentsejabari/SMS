@@ -1,55 +1,83 @@
 package entry;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
-import entry.control.DialogController;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 /**
  *
  * @author ofentse
  */
 public class DialogUI extends JFXDialog{
-
-    public DialogController DIALOG_CONTROLLER;
     
     //-- Nitification types --
     public static int ERROR_NOTIF = 1, SUCCESS_NOTIF = 2, INFORMATION_NOTIF = 3;
     
-    public DialogUI(String label, int type, StackPane dialogContainer){
-        try{
-            FXMLLoader ui = new FXMLLoader(getClass().getResource("/entry/view/Dialog.fxml"));
-            AnchorPane pane = ui.load();
-            DIALOG_CONTROLLER = ui.getController();
-            DIALOG_CONTROLLER.setText(label);
-            
-            switch(type){
-                case 1:
-                    DIALOG_CONTROLLER.setIcon(SMS.getIcon("high_priority_96.png", 64));
-                    pane.getStyleClass().add("dialog_error_notif");
-                    setOverlayClose(false);
-                    break;
-                    
-                case 2:
-                    DIALOG_CONTROLLER.setIcon(SMS.getIcon("ok_96.png", 64));
-                    pane.getStyleClass().add("dialog_success_notif");
-                    setOverlayClose(true);
-                    break;    
+    public DialogUI(String notif, int type, StackPane dialogContainer, JFXDialog jfxd){
+        
+        BorderPane container = new BorderPane();
+        
+        Label notification = new Label(notif);
+        notification.setWrapText(true);
+        
+        HBox content = new HBox(20);
+        content.setAlignment(Pos.CENTER_LEFT);
+        content.getStyleClass().add("container");
+        content.setStyle("-fx-padding:10");
                 
-                case 3:
-                    DIALOG_CONTROLLER.setIcon(SMS.getIcon("info_96.png", 64));
-                    pane.getStyleClass().add("dialog_information_notif");
-                    setOverlayClose(true);
-                    break;
-            }
+        container.setCenter(content);
+        container.getStyleClass().add("notification-dialog");
+        
+        switch(type){
+            case 1:
+                content.getChildren().addAll(SMS.getIcon("warning.png", 64), notification);
+                //container.setLeft(new VBox(new HSpacer(), SMS.getIcon("warning.png", 64), new VSpacer()));
+                setOverlayClose(false);
+                break;
+                
+            case 2:
+                //container.setLeft(new VBox(new HSpacer(), SMS.getIcon("success.png", 64), new VSpacer()));
+                content.getChildren().addAll(SMS.getIcon("success.png", 64), notification);
+                setOverlayClose(true);
+                break;    
             
-            setDialogContainer(dialogContainer);
-            setContent(pane);
-            
-        }catch(Exception ex){
-            ex.printStackTrace();
+            case 3:
+                //container.setLeft(new VBox(new HSpacer(), SMS.getIcon("information.png", 64), new VSpacer()));
+                content.getChildren().addAll(SMS.getIcon("information.png", 64), notification);
+                setOverlayClose(true);
+                break;
         }
+        
+        //-- footer ------------------------------------------------------------
+        
+        JFXButton ok = new JFXButton("OK");
+        ok.getStyleClass().add("dark-blue");
+        ok.setOnAction((ActionEvent event) -> {
+            close();
+        });
+        
+        
+        
+        HBox footer = new HBox(ok);
+        footer.setStyle("-fx-padding: 2");
+        footer.setAlignment(Pos.CENTER);
+        container.setBottom(footer);
+        
+        if(jfxd != null){
+            jfxd.close();
+        }
+        
+        setDialogContainer(dialogContainer);
+        setContent(container);
+        container.setPrefSize(400, 140);
+        show();
+        
     }
     
 }

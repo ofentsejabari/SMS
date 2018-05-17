@@ -59,6 +59,8 @@ public class AddFacilitiesController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        
         // TODO
         ObservableList<String> options = 
         FXCollections.observableArrayList(

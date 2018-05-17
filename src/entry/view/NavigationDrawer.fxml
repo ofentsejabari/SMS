@@ -56,18 +56,6 @@
                            </graphic>
                         </JFXButton>
                         <Region prefHeight="0.0" prefWidth="50.0" VBox.vgrow="ALWAYS" />
-                        <JFXButton fx:id="editProfile" buttonType="RAISED" graphicTextGap="0.0" prefHeight="30.0" prefWidth="30.0" ripplerFill="WHITE" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand; -fx-background-color: #ffffff60; -fx-border-radius: 50%; -fx-background-radius: 50%;" text="." textFill="WHITE" wrapText="true">
-                           <graphic>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../icons/edit.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <padding>
-                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                           </padding>
-                        </JFXButton>
                      </children>
                   </VBox>
                </children>
@@ -99,7 +87,7 @@
                </graphic>
             </JFXButton>
             <Region VBox.vgrow="ALWAYS" />
-            <JFXButton buttonType="RAISED" graphicTextGap="50.0" prefHeight="33.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-background-radius: 4; -fx-border-radius: 4; -fx-background-color: #22B5FF;" text="Configure" textFill="#f8f8f8">
+            <JFXButton fx:id="configure" buttonType="RAISED" graphicTextGap="50.0" prefHeight="33.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-background-radius: 4; -fx-border-radius: 4; -fx-background-color: #22B5FF;" text="Configure" textFill="#f8f8f8">
                <padding>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </padding>

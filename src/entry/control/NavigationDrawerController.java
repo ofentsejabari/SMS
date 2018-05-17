@@ -3,9 +3,9 @@ package entry.control;
 import com.jfoenix.controls.JFXBadge;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
-import entry.SMS;
 import static entry.control.MainUIFXMLController.drawerStack;
 import static entry.control.MainUIFXMLController.jFXDrawer;
+import entry.SMS;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import static entry.SMS.getIcon;
+import schooladministration.SystemConfigDialog;
 
 /**
  * FXML Controller class
@@ -28,7 +29,10 @@ public class NavigationDrawerController implements Initializable {
     private Circle profile_picture;
 
     @FXML
-    private JFXButton closeDrawer, editProfile, exit, inbox;
+    private JFXButton closeDrawer, exit, inbox;
+    
+    @FXML
+    private JFXButton configure;
         
     private Image imageHolder;
     
@@ -40,16 +44,13 @@ public class NavigationDrawerController implements Initializable {
         //-- Update profile picture --
         imageHolder = getIcon("user.png").getImage();
         profile_picture.setFill(new ImagePattern(imageHolder));
-        
-        
+                
         closeDrawer.setText("");
         closeDrawer.setGraphic(SMS.getGraphics(MaterialDesignIcon.ARROW_LEFT_BOLD, "text-white", 20));
         closeDrawer.setOnAction((ActionEvent event) -> {
             drawerStack.toggle(jFXDrawer);
         });
         
-        editProfile.setText("");
-        editProfile.setGraphic(SMS.getGraphics(MaterialDesignIcon.ARROW_LEFT_BOLD, "text-white", 20));
         
         //-- Exit --
         exit.setGraphic(SMS.getGraphics(MaterialDesignIcon.EXIT_TO_APP, "text-gray", 24));
@@ -61,6 +62,10 @@ public class NavigationDrawerController implements Initializable {
         inbox.setGraphic(SMS.getGraphics(MaterialDesignIcon.MESSAGE_OUTLINE, "text-gray", 18));
         inbox.setOnAction((ActionEvent event) -> {
             
+        });
+        
+        configure.setOnAction((ActionEvent event) -> {
+            new SystemConfigDialog();
         });
         
         JFXBadge badge = new JFXBadge(SMS.getGraphics(MaterialDesignIcon.MESSAGE_OUTLINE, "text-gray", 18),

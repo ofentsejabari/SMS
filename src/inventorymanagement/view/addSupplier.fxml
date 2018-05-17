@@ -13,22 +13,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="427.0" prefWidth="557.0" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventorymanagement.control.AddSupplierController">
+<AnchorPane id="AnchorPane" prefHeight="367.0" prefWidth="557.0" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventorymanagement.control.AddSupplierController">
    <children>
-      <BorderPane prefHeight="447.0" prefWidth="557.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="346.0" prefWidth="557.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <HBox alignment="TOP_RIGHT" prefHeight="35.0" prefWidth="366.0" styleClass="screen-decoration" stylesheets="@../../entry/css/style.css" BorderPane.alignment="CENTER">
+            <HBox alignment="TOP_RIGHT" prefHeight="16.0" prefWidth="557.0" styleClass="screen-decoration" stylesheets="@../../entry/css/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="527.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Region prefHeight="200.0" prefWidth="200.0" />
-                        <Label styleClass="header-title" text="Add Supplier" />
+                        <Label prefHeight="16.0" prefWidth="104.0" styleClass="window-title" text="Add Supplier" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </VBox>
-                  <JFXButton fx:id="btn_close" contentDisplay="RIGHT" graphicTextGap="0.0" prefHeight="20.0" prefWidth="23.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" text="" textFill="#fbfeff" wrapText="true">
+                  <JFXButton fx:id="btn_close" contentDisplay="RIGHT" graphicTextGap="0.0" prefHeight="20.0" prefWidth="23.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" styleClass="window-close" text="" textFill="#fbfeff" wrapText="true">
                      <graphic>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -43,55 +42,48 @@
                </children></HBox>
          </top>
          <center>
-            <VBox fx:id="personalDetails11" prefHeight="327.0" prefWidth="557.0" spacing="20.0" BorderPane.alignment="CENTER">
-               <padding>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </padding>
+            <VBox prefHeight="296.0" prefWidth="536.0" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="324.0" prefWidth="527.0" spacing="20.0">
+                  <GridPane hgap="40.0" prefHeight="137.0" prefWidth="527.0" vgap="10.0">
                      <children>
-                        <GridPane hgap="40.0" prefHeight="109.0" prefWidth="517.0" vgap="10.0">
-                           <children>
-                              <JFXTextField fx:id="companyEmail" labelFloat="true" prefHeight="25.0" prefWidth="216.0" promptText="email address" styleClass="email-field" GridPane.rowIndex="2" />
-                              <JFXTextField fx:id="companyTel" labelFloat="true" promptText="phone" styleClass="phone-field" GridPane.columnIndex="1" />
-                              <JFXTextField fx:id="companyCell" labelFloat="true" promptText="Mobile" styleClass="phone-field" GridPane.rowIndex="1" />
-                              <JFXTextField fx:id="companyFax" labelFloat="true" promptText="fax" styleClass="fax-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <JFXTextField id="supplierId" fx:id="companyName" labelFloat="true" promptText="Supplier name" styleClass="input-text" />
-                           </children>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="225.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="237.0" minWidth="10.0" prefWidth="227.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                        </GridPane>
-                        <HBox prefHeight="64.0" prefWidth="517.0" styleClass="input-text">
-                           <children>
-                              <JFXTextArea fx:id="companyPhysical" labelFloat="true" prefHeight="70.0" prefWidth="518.0" promptText="Physical address" />
-                           </children>
-                        </HBox>
-                        <Region prefHeight="1.0" prefWidth="334.0" />
-                        <HBox prefHeight="61.0" prefWidth="517.0" styleClass="input-text">
-                           <children>
-                              <JFXTextArea fx:id="companyPostal" labelFloat="true" prefHeight="100.0" prefWidth="527.0" promptText="postal address" />
-                           </children>
-                        </HBox>
+                        <JFXTextField fx:id="companyEmail" labelFloat="true" prefHeight="25.0" prefWidth="216.0" promptText="Email address" styleClass="email-field" GridPane.rowIndex="2" />
+                        <JFXTextField fx:id="companyTel" labelFloat="true" prefHeight="25.0" prefWidth="225.0" promptText="Phone" styleClass="phone-field" GridPane.columnIndex="1" />
+                        <JFXTextField fx:id="companyCell" labelFloat="true" promptText="Mobile" styleClass="phone-field" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="companyFax" labelFloat="true" promptText="Fax" styleClass="fax-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <JFXTextField id="supplierId" fx:id="companyName" labelFloat="true" promptText="Supplier name" styleClass="input-text" />
                      </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </VBox>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="242.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="255.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="1.0" prefHeight="1.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+                  <HBox prefHeight="42.0" prefWidth="517.0" styleClass="input-text">
+                     <children>
+                        <JFXTextArea fx:id="companyPhysical" labelFloat="true" prefHeight="42.0" prefWidth="531.0" promptText="Physical address" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="48.0" prefWidth="517.0" styleClass="input-text">
+                     <children>
+                        <JFXTextArea fx:id="companyPostal" labelFloat="true" prefHeight="48.0" prefWidth="529.0" promptText="Postal address" />
+                     </children>
+                  </HBox>
                </children>
+               <padding>
+                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+               </padding>
             </VBox>
          </center>
          <bottom>
-            <HBox alignment="CENTER" prefHeight="44.0" prefWidth="557.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="34.0" prefWidth="557.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="save" buttonType="RAISED" prefHeight="18.0" styleClass="jfx-default-button" text="Save" />
-               </children></HBox>
+                  <JFXButton fx:id="save" buttonType="RAISED" prefHeight="25.0" prefWidth="69.0" text="Save" />
+               </children>
+            </HBox>
          </bottom>
       </BorderPane>
    </children>

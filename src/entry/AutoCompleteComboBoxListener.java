@@ -124,4 +124,18 @@ public class AutoCompleteComboBoxListener implements EventHandler<KeyEvent> {
         }
     }
     
+    /**
+     * If the user types anything that is not in the items (observable)
+     * list of this combo box, clear the value.
+     * @param comboBox 
+     */
+    public static void setAutoCompleteValidator(ComboBox<String> comboBox) {
+        
+        comboBox.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if(!comboBox.getItems().contains(newValue)){
+                comboBox.setValue("");
+            }
+        });
+    }
+    
 }

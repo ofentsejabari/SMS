@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -26,13 +27,13 @@ public class FacilityStatusController implements Initializable {
     @FXML
     private VBox background_process;
     @FXML
+    private BorderPane container;
+    @FXML
     private JFXButton btn_toolbar_close;
     @FXML
     private JFXButton btn_cancel;
     @FXML
     private JFXButton btn_update;
-    @FXML
-    private Tab statusTab;
     
     @FXML
     private Label facilityN;  
@@ -49,7 +50,7 @@ public class FacilityStatusController implements Initializable {
       
         statusItem = new FacilityStatusItem();
          
-        statusTab.setContent(statusItem);
+        container.setCenter(statusItem);
     } 
     
     public void setFilter(String filter){
