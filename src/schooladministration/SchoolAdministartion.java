@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import static entry.SMS.getIcon;
+import schooladministration.control.DepartmentsController;
 
 /**
  *
@@ -20,6 +21,9 @@ public class SchoolAdministartion extends BorderPane{
     private AnchorPane dashboardUI, departments, systemUsers, streamClasses,
             academicTerms ,housesCategories, schoolInfo;
     public static StackPane ADMIN_MAN_STACK;
+    
+    //-- View controllers --
+    public static DepartmentsController departmentsController;
 
     public SchoolAdministartion() {
         
@@ -82,7 +86,11 @@ public class SchoolAdministartion extends BorderPane{
         try{
             //-- Student Management Views
             dashboardUI = FXMLLoader.load(getClass().getResource("/schooladministration/view/dashboard.fxml"));
-            departments = FXMLLoader.load(getClass().getResource("/schooladministration/view/departments.fxml"));
+            
+            FXMLLoader departmentLoader = new FXMLLoader(getClass().getResource("/schooladministration/view/departments.fxml"));
+            departments = departmentLoader.load();
+            departmentsController = departmentLoader.getController();
+            
             systemUsers = FXMLLoader.load(getClass().getResource("/schooladministration/view/systemUsers.fxml"));
             streamClasses = FXMLLoader.load(getClass().getResource("/schooladministration/view/streamClasses.fxml"));
             housesCategories = FXMLLoader.load(getClass().getResource("/schooladministration/view/housesCategories.fxml"));

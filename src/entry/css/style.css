@@ -105,7 +105,7 @@
 .title-label{
     -fx-text-fill: COLOR_3;
     -fx-font-family: "Oxygen Regular";
-    -fx-font-size: 14;
+    -fx-font-size: 18;
 }
 
 .window-title{
@@ -548,6 +548,17 @@ Toolbars
     -fx-pref-height:28;
     -fx-max-height:28;
     -fx-alignment:CENTER;
+    
+}
+
+.title-toolbar{
+    -fx-background-color: #fff;
+    -fx-border-color: COLOR_3;
+    -fx-border-width: 1 0 0 0;
+    -fx-pref-height:35;
+    -fx-max-height:35;
+    -fx-alignment:TOP_LEFT;
+    -fx-spacing: 5;
     
 }
 

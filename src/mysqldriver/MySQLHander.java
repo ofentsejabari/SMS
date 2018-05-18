@@ -399,9 +399,9 @@ public class MySQLHander {
         try{
             String query = "SELECT `ID`, `employeeID`, `lName`, `fName`, `mName`, `title`, `dob`,"
                     + " `departmentID`, `employeePosition`, `qualification`, `status`,`nationality`,"
-                    + " `identity`, `leaveDays`,`postalAddress`, `physicalAddress`, `mobilePhone`,"
+                    + " `identity`,`postalAddress`, `physicalAddress`, `mobilePhone`,"
                     + " `officePhone`, `email`,`gender`, `enrollDate`, `picture`"
-                    + " FROM `employee` WHERE `ID` = '"+ID+"'";
+                    + " FROM `employee` WHERE `employeeID` = '"+ID+"'";
            
             ResultSet result = STATEMENT.executeQuery(query);
             

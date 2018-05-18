@@ -18,9 +18,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import mysqldriver.AdminQuery;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import employeemanagement.Employee;
 import entry.CCValidator;
 import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import javafx.scene.layout.GridPane;
+import static schooladministration.SchoolAdministartion.departmentsController;
 
 /**
  *
@@ -88,10 +90,11 @@ public class UpdateDepartmentDialog extends JFXDialog{
         //-- Update form entries  ----------------------------------------------
         
         if(department != null){
+            Employee employee = dbHandler.getEmployeeByID(department.getHod());
             hod.setItems(dbHandler.getDepartmentEmployeeNames(department.getID()));
             
             departTextField.setText(department.getDepartmentName());
-            hod.setValue(dbHandler.getEmployeeByID(department.getHod()).getFullName());
+            hod.setValue(employee.getFullName());
             title.setText("Update Department");
         }
         
@@ -112,7 +115,8 @@ public class UpdateDepartmentDialog extends JFXDialog{
                         
                         new DialogUI("Department details has been updated successfully",
                         DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE, this).show();
-                        
+                        departmentsController.dws.restart();
+                        close();
                     }else{
                         new DialogUI("Exception occurred while trying to update department details",
                         DialogUI.ERROR_NOTIF, stackPane, null).show();
@@ -126,7 +130,9 @@ public class UpdateDepartmentDialog extends JFXDialog{
                     if(AdminQuery.updateDepartment(newDepartment, false)){
                         
                         new DialogUI("Department details has been added successfully",
-                        DialogUI.ERROR_NOTIF, stackPane, null).show();
+                        DialogUI.SUCCESS_NOTIF, stackPane, null).show();
+                        departmentsController.dws.restart();
+                        close();
                        
                     }else{
                         new DialogUI("Exception occurred while trying to add department details.",

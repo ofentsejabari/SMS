@@ -7,9 +7,12 @@ import entry.CustomTableView;
 import entry.SMS;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,7 +33,7 @@ import schooladministration.Subject;
 public class DepartmentsController implements Initializable {
 
     @FXML
-    private JFXButton btn_add, btn_export, btn_refresh;
+    private JFXButton btn_add, btn_export, btn_refresh, btn_edit, btn_delete;
     @FXML
     private JFXListView<Label> depart_ListView;
     @FXML
@@ -40,16 +43,25 @@ public class DepartmentsController implements Initializable {
     
     
     public static Department selectedDepartment = null;
+    
+    //-- Selected index in the department listview --
+    public int selectedIndex = 0;
     public static CustomTableView<Subject> table;
     
     DepartmentDetails departmentDetails = null;
     DepartmentSubjects departmentSubjects = null;
+    
+    public DepartmentWorkService dws = new DepartmentWorkService();
         
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        departmentName.setText("");
         
         departmentDetails = new DepartmentDetails();
         departmentSubjects = new DepartmentSubjects();
@@ -66,37 +78,79 @@ public class DepartmentsController implements Initializable {
         
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
         btn_refresh.setOnAction((ActionEvent event) -> {
-            depart_ListView.setItems(updateDepartments());
-            depart_ListView.getSelectionModel().select(0);
+            dws.restart();
+        });
+        
+        btn_edit.setGraphic(SMS.getGraphics(MaterialDesignIcon.EARTH, "icon-default", 24));
+        btn_edit.setOnAction((ActionEvent event) -> {
+            new UpdateDepartmentDialog(selectedDepartment);
         });
         
         
         depart_ListView.getSelectionModel().selectedIndexProperty().addListener(
                 (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-               
-            selectedDepartment = AdminQuery.getDepartmentByName(depart_ListView.getItems().get(newValue.intValue()).getText());
-                
-            departmentName.setText(selectedDepartment.getDepartmentName());
-            departmentSubjects.subjectWorkService.restart();
+            
+            try{
+                selectedDepartment = AdminQuery.getDepartmentByName(depart_ListView.getItems().get(newValue.intValue()).getText());
+                selectedIndex = newValue.intValue(); 
+
+                departmentName.setText(selectedDepartment.getDepartmentName());
+                departmentSubjects.subjectWorkService.restart();
+            }catch(Exception ex){}
                 
         });
         
-        
-        
-        depart_ListView.setItems(updateDepartments());
                 
         departmentDetailsTab.setContent(departmentDetails);
-        departmentDetailsTab.setGraphic(SMS.getGraphics(MaterialDesignIcon.SERVER_NETWORK, "icon-secondary", 20));
+        //departmentDetailsTab.setGraphic(SMS.getGraphics(MaterialDesignIcon.SERVER_NETWORK, "icon-secondary", 20));
         
         subjectsTab.setContent(departmentSubjects);
-        subjectsTab.setGraphic(SMS.getGraphics(MaterialDesignIcon.SERVER_NETWORK, "icon-secondary", 20));
-    }
-
-    private ObservableList<Label> updateDepartments() {
+        //subjectsTab.setGraphic(SMS.getGraphics(MaterialDesignIcon.SERVER_NETWORK, "icon-secondary", 20));
         
-        ObservableList<Label> data = FXCollections.observableArrayList();
-        return data;
+        //-- 
+        dws.start();
+        dws.restart();
+    }
+    
+    
+    public class DepartmentListWork extends Task<ObservableList<Label>> {       
+        @Override 
+        protected ObservableList<Label> call() throws Exception {
+            ObservableList<Label> data = FXCollections.observableArrayList();
+            Platform.runLater(() -> {
+            
+            });
+            
+            ObservableList<String> dt = AdminQuery.getDepartmentNames();
+            
+            for(String dept: dt){
+                data.add(new Label(dept));
+            }
+                        
+            Platform.runLater(() -> {
+                try {
+                    depart_ListView.setItems(data);
+                
+                    totalDepartments.setText(""+data.size());
+                    if(selectedDepartment != null){
+                        depart_ListView.getSelectionModel().select(selectedIndex);
+                    }
+                } catch (Exception e) {
+                }
+                
+            });
+            
+            return data;
+        }
+       
     }
 
+    public class DepartmentWorkService extends Service<ObservableList<Label>> {
 
+        @Override
+        protected Task createTask() {
+            return new DepartmentListWork();
+        }
+    }
+   
 }
