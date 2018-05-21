@@ -27,7 +27,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import mysqldriver.AdminQuery;
-import static schooladministration.control.DepartmentsController.selectedDepartment;
+import static schooladministration.SchoolAdministartion.departmentsController;
 
 /**
  *
@@ -53,7 +53,7 @@ public class DepartmentSubjects extends BorderPane{
         btn_add.getStyleClass().add("jfx-tool-button");
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-            new UpdateDepartmentDialog(null).show();
+            new UpdateSubjectDialog(null).show();
         });
         
         toolbar.getChildren().addAll(new HSpacer(), btn_add);
@@ -101,13 +101,8 @@ public class DepartmentSubjects extends BorderPane{
                             description.setText(ID);
                             setGraphic(description);                           
                             description.setOnAction((ActionEvent event) -> {
-                                   
-//                                selectedSubject = AdminQuery.getSubjectByName(ID);
-//                                edit.setDisable(false);
-//                                subjectTeachersList.setItems(AdminQuery.getSubjectTeachersNames(selectedSubject.getSubjectID()));
-//                                
-//                                subjectLink.setVisible(true);
-//                                subjectLink.setText(selectedSubject.getDescription());
+                                
+                                new UpdateSubjectDialog(AdminQuery.getSubjectByName(ID));
                             });
                         }else{ setGraphic(null); }
                     }
@@ -171,8 +166,8 @@ public class DepartmentSubjects extends BorderPane{
             
             ObservableList<Subject> data; 
             
-            if(selectedDepartment != null){
-                data = AdminQuery.getSubjectListFor(selectedDepartment.getID());
+            if(departmentsController.selectedDepartment != null){
+                data = AdminQuery.getSubjectListFor(departmentsController.selectedDepartment.getID());
             }else{ 
                 data = FXCollections.observableArrayList();
             

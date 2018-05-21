@@ -23,20 +23,21 @@ import entry.CCValidator;
 import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import javafx.scene.layout.GridPane;
 import static schooladministration.SchoolAdministartion.departmentsController;
+import static schooladministration.SchoolAdministartion.houseController;
 
 /**
  *
  * @author jabari
  */
-public class UpdateDepartmentDialog extends JFXDialog{
+public class UpdateHouseDialog extends JFXDialog{
 
-    private JFXTextField departTextField;
-    private JFXComboBox<String> hod;
+    private JFXTextField name;
+    private JFXComboBox<String> hoh;
     
     //private final ValidationSupport vSupport;
     
     @SuppressWarnings("ResultOfObjectAllocationIgnored")
-    public UpdateDepartmentDialog(Department department) {
+    public UpdateHouseDialog(House house) {
                     
         //-- Parent Container --
         StackPane stackPane = new StackPane();
@@ -50,21 +51,21 @@ public class UpdateDepartmentDialog extends JFXDialog{
         contentGrid.setVgap(20);
         contentGrid.setHgap(2);
         
-        departTextField = new JFXTextField();
-        departTextField.setPromptText("Department Name");
-        departTextField.setPrefWidth(360);
-        departTextField.setLabelFloat(true);
-        contentGrid.add(departTextField, 0, 0);
+        name = new JFXTextField();
+        name.setPromptText("House Name");
+        name.setPrefWidth(360);
+        name.setLabelFloat(true);
+        contentGrid.add(name, 0, 0);
         
-        CCValidator.setFieldValidator(departTextField, "Department name required.");
+        CCValidator.setFieldValidator(name, "House name required.");
                 
-        hod = new JFXComboBox<>();
-        hod.setPromptText("Head Of Department");
-        hod.setLabelFloat(true);
-        hod.setPrefWidth(360);
-        AutoCompleteComboBoxListener.setAutoCompleteValidator(hod);
-        new AutoCompleteComboBoxListener(hod);
-        contentGrid.add(hod, 0, 1);
+        hoh = new JFXComboBox<>();
+        hoh.setPromptText("Head Of House");
+        hoh.setLabelFloat(true);
+        hoh.setPrefWidth(360);
+        AutoCompleteComboBoxListener.setAutoCompleteValidator(hoh);
+        new AutoCompleteComboBoxListener(hoh);
+        contentGrid.add(hoh, 0, 1);
         
         container.setCenter(SMS.setBorderContainer(contentGrid, null));
         
@@ -78,7 +79,7 @@ public class UpdateDepartmentDialog extends JFXDialog{
             close();
         });
         
-        Label title = new Label("Add Department");
+        Label title = new Label("Add House");
         title.getStyleClass().add("window-title");
         
         toolBar.getChildren().addAll(title, new HSpacer(), btn_close);
@@ -86,59 +87,63 @@ public class UpdateDepartmentDialog extends JFXDialog{
         
         //-- Update form entries  ----------------------------------------------
         
-        if(department != null){
-            Employee employee = dbHandler.getEmployeeByID(department.getHod());
-            hod.setItems(dbHandler.getDepartmentEmployeeNames(department.getID()));
+        if(house != null){
             
-            departTextField.setText(department.getDepartmentName());
-            hod.setValue(employee.getFullName());
-            title.setText("Update Department");
+            hoh.setItems(dbHandler.getEmployeeNameList());
+            
+            name.setText(house.getHouseName());
+            hoh.setValue(dbHandler.getEmployeeByID(house.getHOH()).getFullName());
+            
+            title.setText("Update House");
         }
         
         
         //-- Validate and save the form  ---------------------------------------
         JFXButton save = new JFXButton("Save");
         save.getStyleClass().add("dark-blue");
-        save.setTooltip(new ToolTip("Save Department"));
+        save.setTooltip(new ToolTip("Save House"));
         save.setOnAction((ActionEvent event) -> {
             
-        if(!"".equals(departTextField.getText().trim())){
+        if(!"".equals(name.getText().trim())){
                 
-                if(department != null){
-                    department.setDepartmentName(departTextField.getText().trim());
-                    department.setHod((hod.getValue() == null)? "":dbHandler.getEmployeeByName(hod.getValue()).getEmployeeID());
+                if(house != null){
                     
-                    if(AdminQuery.updateDepartment(department, true)){
+                    house.setHouseName(name.getText().trim());
+                    house.setHOH((hoh.getValue() == null)? "":
+                            dbHandler.getEmployeeByName(hoh.getValue().toString()).getEmployeeID());
+                            
+                    
+                    if(AdminQuery.updateHouse(house, true)){
                         
-                        new DialogUI("Department details has been updated successfully",
+                        new DialogUI("House details has been updated successfully",
                         DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE, this).show();
-                        departmentsController.dws.restart();
+                        houseController.hws.restart();
                         close();
                     }else{
-                        new DialogUI("Exception occurred while trying to update department details",
+                        new DialogUI("Exception occurred while trying to update house details",
                         DialogUI.ERROR_NOTIF, stackPane, null).show();
                     }
                     
                 }else{
                 
-                    Department newDepartment = new Department("0", departTextField.getText().trim(), 
-                            (hod.getValue() == null)? "":dbHandler.getEmployeeByName(hod.getValue().toString()).getID());
+                    House newHouse = new House("0", name.getText().trim(), 
+                            (hoh.getValue() == null)? "":dbHandler.getEmployeeByName(hoh.getValue()).getID());
                     
-                    if(AdminQuery.updateDepartment(newDepartment, false)){
+                    if(AdminQuery.updateHouse(newHouse, false)){
                         
-                        new DialogUI("Department details has been added successfully",
+                        new DialogUI("New house has been created successfully",
                         DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE, null).show();
-                        departmentsController.dws.restart();
+                        houseController.hws.restart();
                         close();
                        
                     }else{
-                        new DialogUI("Exception occurred while trying to add department details.",
+                        new DialogUI("Exception occurred while trying to add new house details.",
                         DialogUI.ERROR_NOTIF, stackPane, null).show();
                     }
                 }
                 
             }else{
-                departTextField.validate();
+                name.validate();
                 new DialogUI( "Ensure that mandatory field are filled up... ",
                     DialogUI.ERROR_NOTIF, stackPane, null).show();
             }

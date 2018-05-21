@@ -29,6 +29,10 @@ public class Subject {
     public String getSubjectID(){return subjectID.get();}
     public void setSubjectID(String id){subjectID.set(id);}
     
+    /**
+     * Subject name
+     * @return 
+     */
     public String getDescription(){return description.get();}
     public void setDescrption(String id){description.set(id);}
     

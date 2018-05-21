@@ -1,12 +1,14 @@
 package schooladministration;
 
 import com.jfoenix.controls.JFXButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.CustomTableColumn;
 import entry.CustomTableView;
 import entry.HSpacer;
 import entry.ProgressIndicator;
 import entry.SMS;
+import entry.ToolTip;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +20,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
@@ -27,7 +30,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import mysqldriver.AdminQuery;
-import static schooladministration.control.StreamClassesController.selectedStream;
+import static schooladministration.SchoolAdministartion.streamClassesController;
 
 /**
  *
@@ -54,11 +57,7 @@ public class StreamSubjectList extends BorderPane{
             new UpdateDepartmentDialog(null).show();
         });
         
-       
-        
         toolbar.getChildren().addAll(new HSpacer(), btn_add);
-        
-        
         table = new CustomTableView<>();
         
         CustomTableColumn cn = new CustomTableColumn("");
@@ -75,13 +74,20 @@ public class StreamSubjectList extends BorderPane{
                         super.updateItem(ID, empty);
                         
                         if(!empty){
-                            setGraphic(new Label(ID));
+                            JFXButton delete = new JFXButton("",
+                                    SMS.getGraphics(MaterialDesignIcon.DELETE_FOREVER, "text-bluegray", 24));
+                            delete.setTooltip(new ToolTip("Close notification"));
+                            delete.getStyleClass().add("table-error-button");
+                            delete.setOnAction((ActionEvent event) -> {
+                                
+                            });
+                            setGraphic(delete);
+                            setStyle("-fx-background-color:#fff;");
                         }else{ setGraphic(null); }
                     }
                 };
             }
         });
-        
         
         CustomTableColumn name = new CustomTableColumn("Subject Name");
         name.setPercentWidth(40);
@@ -109,7 +115,6 @@ public class StreamSubjectList extends BorderPane{
                 };
             }
         });
-        
         
         CustomTableColumn department = new CustomTableColumn("Department");
         department.setPercentWidth(30);
@@ -155,8 +160,6 @@ public class StreamSubjectList extends BorderPane{
             }
         });
         
-        
-        
         table.getTableView().getColumns().addAll(cn, name, department, totalStudents);
         VBox.setVgrow(table, Priority.ALWAYS);
         
@@ -186,14 +189,14 @@ public class StreamSubjectList extends BorderPane{
             
             ObservableList<Subject> data; 
           
-            if(selectedStream != null){
-                data = AdminQuery.getStreamSubjectsList(selectedStream.getStreamID());
+            if(streamClassesController.selectedStream != null){
+                data = AdminQuery.getStreamSubjectsList(streamClassesController.selectedStream.getStreamID());
             }else{ 
                 data = FXCollections.observableArrayList();
             }
             
             for (int i = 0; i < data.size(); i++) {
-                data.get(i).setSubjectID(i+1+"");
+                //data.get(i).setSubjectID(i+1+"");
                 data.get(i).setDepartmentID(AdminQuery.getDepartmentByID(data.get(i).getDepartmentID()).getDepartmentName());
             }
             

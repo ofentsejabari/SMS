@@ -1,10 +1,8 @@
 package schooladministration;
 
-import com.jfoenix.controls.JFXButton;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import com.jfoenix.controls.JFXTextField;
 import entry.CustomTableColumn;
 import entry.CustomTableView;
-import entry.HSpacer;
 import entry.ProgressIndicator;
 import entry.SMS;
 import javafx.application.Platform;
@@ -14,6 +12,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -21,14 +20,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import mysqldriver.AdminQuery;
-import static schooladministration.control.HousesCategoriesController.selectedHouse;
-import static schooladministration.control.StreamClassesController.selectedStream;
+import static schooladministration.SchoolAdministartion.houseController;
 
 /**
  *
@@ -37,27 +35,21 @@ import static schooladministration.control.StreamClassesController.selectedStrea
 public class HouseClassesList extends BorderPane{
     
     public static CustomTableView<ISchoolClass> table;
-    public HouseClassWorkService houseClassWorkService;
+    public HouseClassWorkService hcws;
+    public HouseStreamWorkService hsws;
+    
+    
+    private final JFXTextField name;
+    private final JFXTextField hod;
+    private final PieChart strength;
 
     public HouseClassesList() {
         
         setPadding(new Insets(10));
         getStyleClass().add("container");
-        houseClassWorkService = new HouseClassWorkService();
-        
-        HBox toolbar = new HBox();
-        toolbar.getStyleClass().add("secondary-toolbar");
-        setTop(toolbar);
-        
-        JFXButton btn_add = new JFXButton("Add Class");
-        btn_add.getStyleClass().add("jfx-tool-button");
-        btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
-        btn_add.setOnAction((ActionEvent event) -> {
-            new UpdateDepartmentDialog(null).show();
-        });
-        
-        toolbar.getChildren().addAll(new HSpacer(), btn_add);
-        
+        hcws = new HouseClassWorkService();
+        hsws = new HouseStreamWorkService();
+                
         table = new CustomTableView<>();
         
         CustomTableColumn cn = new CustomTableColumn("");
@@ -81,7 +73,7 @@ public class HouseClassesList extends BorderPane{
             }
         });
         
-        CustomTableColumn className = new CustomTableColumn("Class Name");
+        CustomTableColumn className = new CustomTableColumn("CLASS NAME");
         className.setPercentWidth(94.9);
         className.setCellValueFactory(new PropertyValueFactory<>("name"));
         className.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -115,12 +107,52 @@ public class HouseClassesList extends BorderPane{
         ProgressIndicator pi = new ProgressIndicator("Loading class data", "If network connection is very slow,"
                                                    + " this might take some few more seconds.");
         
-        pi.visibleProperty().bind(houseClassWorkService.runningProperty());
-        table.getTableView().itemsProperty().bind(houseClassWorkService.valueProperty());
+        pi.visibleProperty().bind(hcws.runningProperty());
+        table.getTableView().itemsProperty().bind(hcws.valueProperty());
+                
+        GridPane contentGrid = new GridPane();
+        contentGrid.getStyleClass().add("container");
+        contentGrid.setStyle("-fx-padding:25 5 5 5;");
+        contentGrid.setVgap(20);
+        contentGrid.setHgap(10);
         
+        name = new JFXTextField();
+        name.setPromptText("HOUSE NAME");
+        name.prefWidthProperty().bind(contentGrid.widthProperty());
+        name.setLabelFloat(true);
+        contentGrid.add(name, 0, 0);
+        name.setDisable(true);
+                
+        hod = new JFXTextField();
+        hod.setPromptText("HEAD OF HOUSE (HOH)");
+        hod.prefWidthProperty().bind(contentGrid.widthProperty());
+        hod.setLabelFloat(true);
+        contentGrid.add(hod, 1, 0);
+        hod.setDisable(true);
+        
+        
+        //--
         StackPane stackPane = new StackPane(table, pi);
+        stackPane.getStyleClass().add("container");
+        contentGrid.add(SMS.setBorderContainer(stackPane, null, "#F0582F"), 1, 1);
+        //--
         
-        setCenter(stackPane);
+        strength = new PieChart();
+        strength.setLabelLineLength(5);
+        
+        VBox stBox = new VBox(strength);
+        stBox.getStyleClass().add("container");
+        
+        contentGrid.add(SMS.setBorderContainer(stBox, null, "#F0582F"), 0, 1);
+        
+        setCenter(contentGrid);
+        
+        hcws.start();
+        hsws.start();
+        
+        hcws.restart();
+        hcws.restart();
+        
     }
     
     
@@ -130,31 +162,19 @@ public class HouseClassesList extends BorderPane{
         @Override 
         protected ObservableList<ISchoolClass> call() throws Exception {
             
-            Platform.runLater(() -> {
-                
-            });
-            
             ObservableList<ISchoolClass> data; 
           
-            if(selectedHouse != null){
-                data = AdminQuery.getHouseClassList(selectedHouse.getID());
+            if(houseController.selectedHouse != null){
+                data = AdminQuery.getHouseClassList(houseController.selectedHouse.getID());
             }else{ 
                 data = FXCollections.observableArrayList();
             }
             
             for (int i = 0; i < data.size(); i++) {
                 data.get(i).setSchoolID(i+1+"");
-                //data.get(i).setHouse(AdminQuery.getHouseByID(data.get(i).getHouse()).getHouseName());
-            }
-            
-            
-            Platform.runLater(() -> {
-                
-            });
-            
+            }         
             return data;
         }
-       
     }
 
     public class HouseClassWorkService extends Service<ObservableList<ISchoolClass>> {
@@ -165,5 +185,43 @@ public class HouseClassesList extends BorderPane{
         }
     }
    
+    
+    
+    public class HouseStreamWork extends Task<Integer> {       
+        @Override 
+        protected Integer call() throws Exception {
+            Platform.runLater(() -> {
+            
+                try{
+                    ObservableList<Stream> all = AdminQuery.getStreams();
+
+                    name.setText(houseController.selectedHouse.getHouseName());
+                    hod.setText(SMS.dbHandler.getEmployeeByID(houseController.selectedHouse.getHOH()).getFullNameWithInitials());
+
+                    ObservableList<PieChart.Data>  data = FXCollections.observableArrayList();
+
+                    for(Stream stream: all){
+                        int sz = AdminQuery.getHouseClassList(houseController.selectedHouse.getID(),
+                                stream.getStreamID()).size();
+                        data.add(new PieChart.Data(stream.getDescription()+" - "+sz, sz));
+                    }
+
+                    strength.setData(data);
+
+                }catch(Exception ex){}
+            });
+            
+            
+            return 1;
+        }
+    }
+    
+    public class HouseStreamWorkService extends Service<Integer> {
+
+        @Override
+        protected Task createTask() {
+            return new HouseStreamWork();
+        }
+    }
     
 }

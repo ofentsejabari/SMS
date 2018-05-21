@@ -10,6 +10,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import static entry.SMS.getIcon;
 import schooladministration.control.DepartmentsController;
+import schooladministration.control.HousesCategoriesController;
+import schooladministration.control.StreamClassesController;
 
 /**
  *
@@ -18,12 +20,15 @@ import schooladministration.control.DepartmentsController;
 public class SchoolAdministartion extends BorderPane{
     
     private JFXListView<Label> mainMenu;
-    private AnchorPane dashboardUI, departments, systemUsers, streamClasses,
+    private AnchorPane  departments, systemUsers, streamClasses,
             academicTerms ,housesCategories, schoolInfo;
     public static StackPane ADMIN_MAN_STACK;
+    private BorderPane dashboardUI;
     
     //-- View controllers --
     public static DepartmentsController departmentsController;
+    public static StreamClassesController streamClassesController;
+    public static HousesCategoriesController houseController;
 
     public SchoolAdministartion() {
         
@@ -85,15 +90,24 @@ public class SchoolAdministartion extends BorderPane{
         
         try{
             //-- Student Management Views
-            dashboardUI = FXMLLoader.load(getClass().getResource("/schooladministration/view/dashboard.fxml"));
+            //dashboardUI = FXMLLoader.load(getClass().getResource("/schooladministration/view/dashboard.fxml"));
+            dashboardUI = new DashboardStatistics();
             
             FXMLLoader departmentLoader = new FXMLLoader(getClass().getResource("/schooladministration/view/departments.fxml"));
             departments = departmentLoader.load();
             departmentsController = departmentLoader.getController();
             
             systemUsers = FXMLLoader.load(getClass().getResource("/schooladministration/view/systemUsers.fxml"));
-            streamClasses = FXMLLoader.load(getClass().getResource("/schooladministration/view/streamClasses.fxml"));
-            housesCategories = FXMLLoader.load(getClass().getResource("/schooladministration/view/housesCategories.fxml"));
+            
+            FXMLLoader streamLoader = new FXMLLoader(getClass().getResource("/schooladministration/view/streamClasses.fxml"));
+            streamClasses = streamLoader.load();
+            streamClassesController = streamLoader.getController();
+            
+            
+            FXMLLoader houseLoader = new FXMLLoader(getClass().getResource("/schooladministration/view/housesCategories.fxml"));
+            housesCategories = houseLoader.load();
+            houseController = houseLoader.getController();
+            
             academicTerms = FXMLLoader.load(getClass().getResource("/schooladministration/view/academicTerms.fxml"));
             schoolInfo = FXMLLoader.load(getClass().getResource("/schooladministration/view/schoolInformation.fxml"));
             

@@ -27,7 +27,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import mysqldriver.AdminQuery;
-import static schooladministration.control.StreamClassesController.selectedStream;
+import static schooladministration.SchoolAdministartion.streamClassesController;
 
 /**
  *
@@ -52,7 +52,7 @@ public class StreamClassesList extends BorderPane{
         btn_add.getStyleClass().add("jfx-tool-button");
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-            new UpdateDepartmentDialog(null).show();
+            new UpdateClassDialog(null).show();
         });
         
         toolbar.getChildren().addAll(new HSpacer(), btn_add);
@@ -99,7 +99,7 @@ public class StreamClassesList extends BorderPane{
                             description.setText(ID);
                             setGraphic(description);                           
                             description.setOnAction((ActionEvent event) -> {
-                                   
+                                   new UpdateClassDialog(AdminQuery.getClassByName(ID));
                             });
                         }else{ setGraphic(null); }
                     }
@@ -122,12 +122,6 @@ public class StreamClassesList extends BorderPane{
                         Label subjectType = new Label(type);
                         
                         if(!empty){
-//                            if(type.equalsIgnoreCase("0")){
-//                                subjectType.setText("Optional");
-//                            }else{
-//                                subjectType.setText("Core");
-//                            }
-                            
                             setGraphic(subjectType);
                         }else{ setGraphic(null); }
                     }
@@ -159,7 +153,7 @@ public class StreamClassesList extends BorderPane{
         
         CustomTableColumn totalStudents = new CustomTableColumn("Class Capacity");
         totalStudents.setPercentWidth(19.9);
-        totalStudents.setCellValueFactory(new PropertyValueFactory<>("type"));
+        totalStudents.setCellValueFactory(new PropertyValueFactory<>("stream"));
         totalStudents.setCellFactory(TextFieldTableCell.forTableColumn());
         totalStudents.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
@@ -204,15 +198,17 @@ public class StreamClassesList extends BorderPane{
             
             ObservableList<ISchoolClass> data; 
           
-            if(selectedStream != null){
-                data = AdminQuery.getStreamClassList(selectedStream.getStreamID());
+            if(streamClassesController.selectedStream != null){
+                data = AdminQuery.getStreamClassList(streamClassesController.selectedStream.getStreamID());
             }else{ 
                 data = FXCollections.observableArrayList();
             }
             
             for (int i = 0; i < data.size(); i++) {
                 data.get(i).setSchoolID((i+1)+"");
-                data.get(i).setHouseID(AdminQuery.getHouseByID(data.get(i).getHouseID()).getHouseName());
+                data.get(i).setHouse(AdminQuery.getHouseByID(data.get(i).getHouse()).getHouseName());
+                data.get(i).setClassTeacherID(SMS.dbHandler.getEmployeeByID(data.get(i).getClassTeacherID()).getFullName());
+                data.get(i).setStream(SMS.dbHandler.getStudentListFor(data.get(i).getClassID()).size()+"");
             }
             
             

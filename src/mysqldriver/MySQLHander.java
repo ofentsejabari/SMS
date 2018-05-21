@@ -188,6 +188,86 @@ public class MySQLHander {
     }
     
     
+    /**
+     * Get students details
+     * @param classID
+     * @param filter
+     * @return 
+     */
+    public ObservableList<Student> getStudentListFor(String classID, String  filter){
+        ObservableList<Student> students = FXCollections.observableArrayList();
+        try{
+            String query = "SELECT `id`, `studentID`, `lastName`, `firstName`, `middleName`, `dob`, `classID`, `gender`,"
+                    + " `specialNeed`, `lastSchoolAttended`, `citizenship`, `email`, `postalAddress`, `physicalAddress`, "
+                    + " `schoolID`, `enrollDate`,`socialWelfare`, `parentID`, `club`, `sportCode`, `picture`, `psle`"
+                    + " FROM `student`, `class` WHERE `student`.`classID`= `class`.`classID` "
+                    + " AND `status` = '"+filter+"' AND `classID`= '"+classID+"'";
+                    
+            
+            if(filter.equalsIgnoreCase("ALL")){
+                
+                query = "SELECT `id`, `studentID`, `lastName`, `firstName`, `middleName`, `dob`, `classID`, `gender`,"
+                    + " `specialNeed`, `lastSchoolAttended`, `citizenship`, `email`, `postalAddress`, `physicalAddress`, "
+                    + " `schoolID`, `enrollDate`,`socialWelfare`, `parentID`, `club`, `sportCode`, `picture`, `psle`"
+                    + " FROM `student`, `class` WHERE `student`.`classID`= `class`.`classID` "
+                    + " `classID`= '"+classID+"'";
+                
+                query = "SELECT `students`.`ID`, `students`.`studentID`, `lastName`, `firstName`, `middleName`, `dob`, `classID`, `gender`, `language`,"
+                         + "`place_of_birth`,`nationality`, `email`, `phone`, `healthIssues`, `physicalAddress`, `studentID`,"
+                         + " `students`.`schoolID`, `enrollDate`,`graduateDate`, `statusChangedDate`, `status`, `statusChangeReason`, `picture`, `oncampus`"
+                         + " FROM `students`, `class` WHERE `classID` = `class`"
+                         + " AND `classID`= '"+classID+"'";
+            }
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                students.add(new Student(result.getString("id"),result.getString("studentID"), result.getString("firstName"), 
+                    result.getString("lastName"), result.getString("middleName"), result.getString("dob"), 
+                    result.getString("classID"), result.getString("gender"), result.getString("lastSchoolAttended"), 
+                    result.getString("psle"), result.getString("citizenship"), result.getString("email"),
+                    result.getString("specialNeed"), result.getString("socialWelfare"), result.getString("postalAddress"),
+                    result.getString("physicalAddress"), result.getString("parentID"), result.getString("enrollDate"),
+                    result.getString("club"), result.getString("sportCode"), result.getString("picture"),
+                    result.getString("schoolID")));
+            }
+            return students;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return students;
+        }
+    }
+    
+    public ObservableList<Student> getStudentListFor(String classID){
+        ObservableList<Student> students = FXCollections.observableArrayList();
+        try{
+            String query = "SELECT `id`, `studentID`, `lastName`, `firstName`, `middleName`, `dob`, `class`.`classID`, `gender`,"
+                    + " `specialNeed`, `lastSchoolAttended`, `citizenship`, `email`, `postalAddress`, `physicalAddress`, "
+                    + " `class`.`schoolID`, `enrollDate`,`socialWelfare`, `parentID`, `club`, `sportCode`, `picture`, `psle`"
+                    + " FROM `student`, `class` WHERE `student`.`classID` = `class`.`classID` "
+                    + " AND `class`.`classID` = '"+classID+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                students.add(new Student(result.getString("id"),result.getString("studentID"), result.getString("firstName"), 
+                    result.getString("lastName"), result.getString("middleName"), result.getString("dob"), 
+                    result.getString("classID"), result.getString("gender"), result.getString("lastSchoolAttended"), 
+                    result.getString("psle"), result.getString("citizenship"), result.getString("email"),
+                    result.getString("specialNeed"), result.getString("socialWelfare"), result.getString("postalAddress"),
+                    result.getString("physicalAddress"), result.getString("parentID"), result.getString("enrollDate"),
+                    result.getString("club"), result.getString("sportCode"), result.getString("picture"),
+                    result.getString("schoolID")));
+            }
+            return students;
+        } 
+        catch(Exception ex){
+             ex.printStackTrace();
+             return students;
+        }
+    }
+    
     
     /**
      * Get all System users
@@ -449,6 +529,109 @@ public class MySQLHander {
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             return new Employee();
+        }
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public ObservableList<String> getEmployeeNameList(){
+        ObservableList<String> employees = FXCollections.observableArrayList();
+        try{
+            String query = "SELECT `lName`, `fName`, `mName` FROM `employee`";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                employees.add(result.getString("fName")+" "+result.getString("lName"));
+            }
+            return employees;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return employees;
+        }
+    }
+    
+    public ObservableList<String> getEmployeeIDList(){
+        ObservableList<String> employees = FXCollections.observableArrayList();
+        try{
+            String query = "SELECT `employeeID` FROM `employee`";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                employees.add(result.getString("employeeID"));
+            }
+            return employees;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return employees;
+        }
+    }
+    
+    
+    
+    /**
+     * Get students details
+     * @param showAll
+     * @param departmentID
+     * @return 
+     */
+    public ObservableList<Employee> getEmployeeList(boolean showAll, String departmentID){
+        ObservableList<Employee> employees = FXCollections.observableArrayList();
+        try{
+            String query;
+            if(departmentID.equalsIgnoreCase("")){
+                if(showAll){
+                    query = "SELECT `ID`, `employeeID`, `lName`, `fName`, `mName`, `title`, `dob`, `departmentID`, `employeePosition`,"
+                        + " `qualification`, `status`, `nationality`, `identity`, `postalAddress`, `physicalAddress`,"
+                        + " `picture`, `mobilePhone`, `officePhone`, `email`,`gender`, `enrollDate` FROM `employee`";
+                }else{
+                
+                    query = "SELECT `ID`, `employeeID`, `lName`, `fName`, `mName`, `title`, `dob`, `departmentID`, `employeePosition`,"
+                        + " `qualification`, `status`, `nationality`, `identity`, `employeePosition`, `postalAddress`, `physicalAddress`,"
+                        + " `picture`, `mobilePhone`, `officePhone`, `email`,`gender`, `enrollDate` "
+                            + "FROM `employee` "
+                            + "WHERE `status` = 'PRESENT'";
+                }
+                
+            }else{
+                if(showAll){
+                    query = "SELECT `ID`, `employeeID`, `lName`, `fName`, `mName`, `title`, `dob`, `departmentID`, `employeePosition`,"
+                        + " `qualification`, `status`, `nationality`, `identity`, `postalAddress`, `physicalAddress`,"
+                        + " `picture`, `mobilePhone`, `officePhone`, `email`,`gender`, `enrollDate` "
+                        + " FROM `employee` WHERE `departmentID`='"+departmentID+"'";
+                }else{
+                
+                    query = "SELECT `ID`, `employeeID`, `lName`, `fName`, `mName`, `title`, `dob`, `departmentID`, `employeePosition`,"
+                        + " `qualification`, `status`, `nationality`, `identity`, `employeePosition`, `postalAddress`, `physicalAddress`,"
+                        + " `picture`, `mobilePhone`, `officePhone`, `email`,`gender`, `enrollDate` "
+                            + " FROM `employee` "
+                            + " WHERE `status` = 'PRESENT' AND `departmentID`='"+departmentID+"'";
+                }
+                
+            }
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                employees.add(new Employee(result.getString("ID"),result.getString("employeeID"), result.getString("fName"),
+                        result.getString("lName"), result.getString("mName"), result.getString("title"),
+                        result.getString("dob"), result.getString("departmentID"), result.getString("employeePosition"), 
+                        result.getString("qualification"), result.getString("status"),
+                        result.getString("nationality"),result.getString("identity"),result.getString("postalAddress"),
+                        result.getString("physicalAddress"), result.getString("mobilePhone"),
+                        result.getString("officePhone"), result.getString("gender"), 
+                        result.getString("email"), result.getString("enrollDate"), result.getString("picture")));
+            }
+            return employees;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return employees;
         }
     }
     

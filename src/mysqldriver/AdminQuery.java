@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import static mysqldriver.MySQLHander.STATEMENT;
 import schooladministration.Department;
+import schooladministration.GradeScheme;
 import schooladministration.Stream;
 import schooladministration.House;
 import schooladministration.ISchoolClass;
@@ -178,6 +179,8 @@ public class AdminQuery {
              return ex.getMessage();
         }
     }
+    
+    
     public static boolean deleteSubject(String subjectID){
     
         try{
@@ -347,15 +350,15 @@ public class AdminQuery {
      * @param cls
      * @param update
      * @return 
-     *
+     */
     public static boolean updateClass(ISchoolClass cls, boolean update){
 
         try{
             String query;
             if(!update){
-                query = "INSERT INTO `class` (`classID`, `name`, `classTeacher`, `house`, `stream`, `schoolID`)"
+                query = "INSERT INTO `class` (`classID`, `className`, `classTeacher`, `house`, `stream`, `schoolID`)"
                         + " VALUES ('"+cls.getClassID()+"', '"+cls.getName()+"', '"+cls.getClassTeacherID()+"',"
-                        + " '"+cls.getCategory()+"', '"+cls.getClusterID()+"', '"+cls.getSchoolID()+"')";
+                        + " '"+cls.getHouse()+"', '"+cls.getStream()+"', '"+cls.getSchoolID()+"')";
                 STATEMENT.addBatch("INSERT INTO `timetable` (`id`, `classID`, `time`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`,"
                     + " `saturday`, `sunday`) "
                         + " VALUES (NULL, '"+cls.getClassID()+"', '07:00', '', '', '', '', '', '', ''),"
@@ -375,8 +378,8 @@ public class AdminQuery {
                 return true;
 
             }else{
-                query = "UPDATE `class` SET `name`='"+cls.getName()+"', `classTeacher`='"+cls.getClassTeacherID()+"',"
-                        + " `stream`='"+cls.getClusterID()+"' , `house`='"+cls.getCategory()+"'"
+                query = "UPDATE `class` SET `className`='"+cls.getName()+"', `classTeacher`='"+cls.getClassTeacherID()+"',"
+                        + " `stream`='"+cls.getStream()+"' , `house`='"+cls.getHouse()+"'"
                     + "WHERE `classID`= '"+cls.getClassID()+"'";
                 return STATEMENT.executeUpdate(query) > 0;
             }
@@ -538,7 +541,6 @@ public class AdminQuery {
                           + " FROM `house` WHERE `id`= '"+id+"'";
            
             ResultSet result = STATEMENT.executeQuery(query);
-            
             if(result.next()){
                 return new House(result.getString("id"), result.getString("houseName"),
                         result.getString("hoh"));
@@ -612,7 +614,7 @@ public class AdminQuery {
         
         ObservableList<String> classNames = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `name`" +
+            String query = "SELECT `className`" +
                             " FROM `class`" +
                             " WHERE `house` = '"+categoryID+"'";
             
@@ -635,13 +637,42 @@ public class AdminQuery {
     public static ObservableList<ISchoolClass> getHouseClassList(String houseID){
         ObservableList<ISchoolClass> ischoolclass = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `classID`, `name`, `classTeacher`, `stream`,`house`,`schoolID`"
+            String query = "SELECT `classID`, `className`, `classTeacher`, `stream`,`house`,`schoolID`"
                          + "FROM `class` WHERE `house` = '"+houseID+"'";
+            
+            System.out.println(query);
             
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
-                ischoolclass.add(new ISchoolClass(result.getString("classID"),result.getString("name"),
+                ischoolclass.add(new ISchoolClass(result.getString("classID"),result.getString("className"),
+                        result.getString("classTeacher"), result.getString("house"),
+                        result.getString("stream"),result.getString("schoolID")));
+            }
+            return ischoolclass;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return ischoolclass;
+        }
+    }
+    
+    /**
+     * Get classess belonging to this stream under this house
+     * @param houseID
+     * @param streamID
+     * @return 
+     */
+    public static ObservableList<ISchoolClass> getHouseClassList(String houseID, String streamID){
+        ObservableList<ISchoolClass> ischoolclass = FXCollections.observableArrayList();
+        try{
+            String query = "SELECT `classID`, `className`, `classTeacher`, `stream`,`house`,`schoolID`"
+                         + "FROM `class` WHERE `house` = '"+houseID+"' AND `stream` = '"+streamID+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                ischoolclass.add(new ISchoolClass(result.getString("classID"),result.getString("className"),
                         result.getString("classTeacher"), result.getString("house"),
                         result.getString("stream"),result.getString("schoolID")));
             }
@@ -730,6 +761,17 @@ public class AdminQuery {
         catch(Exception ex){
              System.out.println(ex.getMessage());
              return new Stream();
+        }
+    }
+    
+    
+    public static boolean isStreamExists(Stream cls){
+        try{
+            return STATEMENT.executeQuery("SELECT * FROM `stream` WHERE `name`= '"+cls.getDescription()+"'").first();
+        } 
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return false;
         }
     }
     
@@ -1022,7 +1064,6 @@ public class AdminQuery {
         }
     }
     
-    
     /*
     public static ObservableList<SubjectTeacher> getSubjectTeachers(String subjectID){
         
@@ -1047,7 +1088,7 @@ public class AdminQuery {
              System.out.println(ex.getMessage());
              return teacherNames;
         }
-    }
+    }*
     
     public static boolean addSubjectTeachers(ObservableList<SubjectTeacher> subjectTeachers){
         
@@ -1264,4 +1305,65 @@ public class AdminQuery {
              return classNames;
         }
     }
+    
+    
+    
+    public static ObservableList<GradeScheme> getGrades(){
+        ObservableList<GradeScheme> grades = FXCollections.observableArrayList();
+        try{
+            String query = "SELECT `id`, `symbol`, `lowerBound`, `upperBound`, `points`"
+                         + " FROM `grading`";
+           
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                grades.add(new GradeScheme(result.getString("id"), result.getString("symbol"), 
+                        result.getString("lowerBound"), result.getString("upperBound"), result.getString("points")));
+            }
+            return grades;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return grades;
+        }
+    }
+    
+    public static boolean updateGrades(ObservableList<GradeScheme> grades, boolean update){
+        try{
+            String query;
+            if(!update){
+                for(GradeScheme grade: grades){
+                    query = "INSERT INTO `grading` "
+                        + "(`id`, `symbol`, `lowerBound`, `upperbound`, `points`)"
+                        + " VALUES ('0', '"+grade.getSymbol()+"',"
+                        + " '"+grade.getLowerBound()+"',"
+                        + " '"+grade.getUpperBound()+"',"
+                        + " '"+grade.getPoints()+"')";
+                    
+                    STATEMENT.addBatch(query);
+                }
+                STATEMENT.executeBatch();
+                return true;
+                
+            }else{
+                for(GradeScheme grade: grades){
+                    query = "UPDATE `grading` "
+                            + " SET `symbol`='"+grade.getSymbol()+"',"
+                            + " `lowerBound`='"+grade.getLowerBound()+"',"
+                            + " `upperBound`='"+grade.getUpperBound()+"',"
+                            + " `points`='"+grade.getPoints()+"'"
+                            + " WHERE `id`= '"+grade.getId()+"'";
+
+                    STATEMENT.addBatch(query);
+                }
+                STATEMENT.executeBatch();
+                return true;
+            }
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return false;
+        }
+    }
+    
 }

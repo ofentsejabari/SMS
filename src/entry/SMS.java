@@ -7,6 +7,7 @@ import de.jensd.fx.glyphs.materialdesignicons.utils.MaterialDesignIconFactory;
 import de.jensd.fx.glyphs.octicons.OctIcon;
 import de.jensd.fx.glyphs.octicons.utils.OctIconFactory;
 import java.time.LocalDate;
+import java.util.Date;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -91,7 +92,7 @@ public class SMS extends Application {
                 .title(title)
                 .thickness(2, 1, 1, 1)
                 .innerPadding(0)
-                .outerPadding(15, 10, 10, 10)
+                .outerPadding(0)
                 .radius(5)
                 .color(Color.web("#cfd8dc"), Color.web("#EAEAEA"),
                        Color.web("#EAEAEA"), Color.web("#EAEAEA"))
@@ -101,9 +102,39 @@ public class SMS extends Application {
                 .lineBorder()
                 .thickness(2, 1, 1, 1)
                 .innerPadding(0)
-                .outerPadding(15, 10, 10, 10)
+                .outerPadding(0)
                 .radius(5)
                 .color(Color.web("#cfd8dc"), Color.web("#EAEAEA"),
+                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
+                .buildAll());
+        }
+        
+        return conDetails;
+    }
+    
+    
+    public static VBox setBorderContainer(Node content, String title, String color) {
+        VBox conDetails = new VBox();
+        
+        if(title != null){
+            conDetails.getChildren().addAll(Borders.wrap(content)
+                .lineBorder()
+                .title(title)
+                .thickness(2, 1, 1, 1)
+                .innerPadding(0)
+                .outerPadding(0)
+                .radius(5)
+                .color(Color.web(color), Color.web("#EAEAEA"),
+                       Color.web("#EAEAEA"), Color.web("#EAEAEA"))
+                .buildAll());
+        }else{
+            conDetails.getChildren().addAll(Borders.wrap(content)
+                .lineBorder()
+                .thickness(2, 1, 1, 1)
+                .innerPadding(0)
+                .outerPadding(0)
+                .radius(5)
+                .color(Color.web(color), Color.web("#EAEAEA"),
                        Color.web("#EAEAEA"), Color.web("#EAEAEA"))
                 .buildAll());
         }
@@ -214,17 +245,28 @@ public class SMS extends Application {
     
     
     //Set selected node to a content holder
-    public static void setNode(StackPane stackPane, Node node) {
-        stackPane.getChildren().clear();
-        stackPane.getChildren().add((Node) node);
-
-        FadeTransition ft = new FadeTransition(Duration.millis(1500));
-        ft.setNode(node);
-        ft.setFromValue(0.1);
-        ft.setToValue(1);
-        ft.setCycleCount(1);
-        ft.setAutoReverse(false);
-        ft.play();
+//    public static void setNode(StackPane stackPane, Node node) {
+//        stackPane.getChildren().clear();
+//        stackPane.getChildren().add((Node) node);
+//
+//        FadeTransition ft = new FadeTransition(Duration.millis(1500));
+//        ft.setNode(node);
+//        ft.setFromValue(0.1);
+//        ft.setToValue(1);
+//        ft.setCycleCount(1);
+//        ft.setAutoReverse(false);
+//        ft.play();
+//    }
+    
+    
+    public static String generateDBID(){
+       
+        Date date = new Date();
+        String str = String.format("%tc",date);
+        String st[] = str.split(" ");
+        String tym[] = st[3].split(":");
+        
+        return(st[2]+""+tym[0]+""+tym[1]+""+tym[2]);
     }
     
 }

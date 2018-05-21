@@ -35,7 +35,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
-                  <HBox prefHeight="27.0" prefWidth="488.0" styleClass="title-toolbar">
+                  <HBox prefHeight="27.0" prefWidth="488.0" styleClass="secondary-toolbar">
                      <children>
                         <Label fx:id="departmentName" styleClass="title-label" text="Departments" />
                         <Region prefHeight="26.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />

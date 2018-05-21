@@ -43,11 +43,11 @@ public class StreamGrading extends BorderPane{
         toolbar.getStyleClass().add("secondary-toolbar");
         setTop(toolbar);
         
-        JFXButton btn_add = new JFXButton("Update Grading Scheme");
+        JFXButton btn_add = new JFXButton("Update Gradings");
         btn_add.getStyleClass().add("jfx-tool-button");
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-            new UpdateDepartmentDialog(null).show();
+            new UpdateGradingScheme();
         });
         
         
@@ -191,21 +191,11 @@ public class StreamGrading extends BorderPane{
     public class GradingSchemeWork extends Task<ObservableList<GradeScheme>> {       
         @Override 
         protected ObservableList<GradeScheme> call() throws Exception {
-            Platform.runLater(() -> {
-                
-            });
-            
             ObservableList<GradeScheme>  grades = SMS.dbHandler.getGrades();
             
             for (int i = 0; i < grades.size(); i++) {
                 grades.get(i).setId(i+1+"");
-                
             }
-            
-            
-            Platform.runLater(() -> {
-                
-            });
             
             return grades;
         }

@@ -2,6 +2,7 @@ package schooladministration.control;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.CustomTableView;
 import entry.SMS;
@@ -24,6 +25,7 @@ import schooladministration.Department;
 import schooladministration.DepartmentDetails;
 import schooladministration.DepartmentSubjects;
 import schooladministration.Subject;
+import schooladministration.SubjectTeachers;
 
 /**
  * FXML Controller class
@@ -42,7 +44,7 @@ public class DepartmentsController implements Initializable {
     private Tab departmentDetailsTab, subjectsTab, subjectTeachersTab;
     
     
-    public static Department selectedDepartment = null;
+    public Department selectedDepartment = null;
     
     //-- Selected index in the department listview --
     public int selectedIndex = 0;
@@ -50,6 +52,7 @@ public class DepartmentsController implements Initializable {
     
     DepartmentDetails departmentDetails = null;
     DepartmentSubjects departmentSubjects = null;
+    SubjectTeachers subjectTeachers = null;
     
     public DepartmentWorkService dws = new DepartmentWorkService();
         
@@ -65,6 +68,7 @@ public class DepartmentsController implements Initializable {
         
         departmentDetails = new DepartmentDetails();
         departmentSubjects = new DepartmentSubjects();
+        subjectTeachers = new SubjectTeachers();
         
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
@@ -81,11 +85,16 @@ public class DepartmentsController implements Initializable {
             dws.restart();
         });
         
-        btn_edit.setGraphic(SMS.getGraphics(MaterialDesignIcon.EARTH, "icon-default", 24));
+        btn_edit.setGraphic(SMS.getGraphics(FontAwesomeIcon.EDIT, "icon-default", 24));
         btn_edit.setOnAction((ActionEvent event) -> {
             new UpdateDepartmentDialog(selectedDepartment);
         });
         
+        
+        btn_delete.setGraphic(SMS.getGraphics(MaterialDesignIcon.DELETE_FOREVER, "icon-default", 24));
+        btn_delete.setOnAction((ActionEvent event) -> {
+            //new UpdateDepartmentDialog(selectedDepartment);
+        });
         
         depart_ListView.getSelectionModel().selectedIndexProperty().addListener(
                 (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
@@ -93,9 +102,10 @@ public class DepartmentsController implements Initializable {
             try{
                 selectedDepartment = AdminQuery.getDepartmentByName(depart_ListView.getItems().get(newValue.intValue()).getText());
                 selectedIndex = newValue.intValue(); 
-
                 departmentName.setText(selectedDepartment.getDepartmentName());
+                
                 departmentSubjects.subjectWorkService.restart();
+                departmentDetails.dds.restart();
             }catch(Exception ex){}
                 
         });
@@ -107,6 +117,7 @@ public class DepartmentsController implements Initializable {
         subjectsTab.setContent(departmentSubjects);
         //subjectsTab.setGraphic(SMS.getGraphics(MaterialDesignIcon.SERVER_NETWORK, "icon-secondary", 20));
         
+        subjectTeachersTab.setContent(subjectTeachers);
         //-- 
         dws.start();
         dws.restart();
@@ -117,9 +128,6 @@ public class DepartmentsController implements Initializable {
         @Override 
         protected ObservableList<Label> call() throws Exception {
             ObservableList<Label> data = FXCollections.observableArrayList();
-            Platform.runLater(() -> {
-            
-            });
             
             ObservableList<String> dt = AdminQuery.getDepartmentNames();
             

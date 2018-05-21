@@ -35,11 +35,11 @@ public class ISchoolClass {
     public String getName(){return name.get();}
     public void setName(String id){name.set(id);}
     
-    public String getStreamID(){return stream.get();}
-    public void setStreamID(String id){stream.set(id);}
+    public String getStream(){return stream.get();}
+    public void setStream(String id){stream.set(id);}
     
-    public String getHouseID(){return house.get();}
-    public void setHouseID(String id){house.set(id);}
+    public String getHouse(){return house.get();}
+    public void setHouse(String id){house.set(id);}
     
     public String getClassTeacherID(){return classTeacherID.get();}
     public void setClassTeacherID(String fnam){classTeacherID.set(fnam);}

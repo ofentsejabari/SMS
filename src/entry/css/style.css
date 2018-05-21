@@ -178,6 +178,32 @@ Window close button
 }
 
 /******************************************************************************
+Table buttons
+/******************************************************************************/
+
+.table-error-button{
+    -fx-padding:0;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-cursor: hand;
+    -fx-text-fill: black;
+}
+
+.table-error-button:hover .text-bluegray{
+    -fx-fill:red;
+}
+.table-error-button:selected .text-bluegray{
+    -fx-fill:red;
+}
+
+.table-error-button .jfx-rippler {
+    -jfx-rippler-fill: #FFF;
+}
+
+
+
+
+/******************************************************************************
 Button
 /******************************************************************************/
 
