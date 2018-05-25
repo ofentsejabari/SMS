@@ -32,5 +32,7 @@ public class Department {
     
     public String getHod(){return hod.get();}
     public void setHod(String id){hod.set(id);}
+   
+    
 
 }

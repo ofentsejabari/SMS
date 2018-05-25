@@ -48,10 +48,10 @@ public class StudentManagement extends BorderPane{
         mainMenu.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             switch (newValue.intValue()){
                 case 0:
-                    SMS.setNode(STUDENT_MAN_STACK, dashboardUI);
+                    dashboardUI.toFront();
                     break;
                 case 1:
-                    SMS.setNode(STUDENT_MAN_STACK, enrolmentUI);
+                    enrolmentUI.toFront();
                     break;
                 case 2:
                     break;

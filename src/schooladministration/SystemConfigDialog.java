@@ -112,6 +112,7 @@ public class SystemConfigDialog extends JFXDialog{
                         config.setDBHost(dbHost.getText().trim());
                         config.setDBName(dbName.getText().trim());
                         config.setDBUserName(username.getText().trim());
+                        config.setDBPassword(password.getText().trim());
 
                         //-- Save configuration file with update details --
                         DBConfig.serializeObject(config);

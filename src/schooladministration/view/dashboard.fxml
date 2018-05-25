@@ -7,16 +7,5 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schooladministration.control.DashboardController">
-   <children>
-      <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0">
-         <center>
-            <Label text="Library Management" textFill="#119064" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-         </center>
-      </BorderPane>
-   </children>
-</AnchorPane>
+
+<BorderPane fx:id="dashboard" prefHeight="450.0" prefWidth="737.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schooladministration.control.DashboardController"/>
