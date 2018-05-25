@@ -11,8 +11,10 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.SMS;
 import inventorymanagement.AssetAllocationList;
+import static inventorymanagement.StudentAllocatedResourceDialog.studentAllocationWork;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +24,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mysqldriver.AdminQuery;
-import mysqldriver.InventoryQuery;
 
 /**
  * FXML Controller class
@@ -57,16 +58,24 @@ public class AssetAllocationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
         ObservableList<String> items = AdminQuery.getStreamNames();
         
         totalStreams.setText(""+items.size());
         
         stream_ListView.setItems(items);
+        AssetAllocationList asset =new  AssetAllocationList();
+        streamClasses.getChildren().add(1, asset);
+        stream_ListView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+               
+                asset.stream_ID=newValue;
+                asset.studentAllocationWork.restart();
+            
+        });
         
         streamName.setText(streamName.getText());
         
-        AssetAllocationList asset =new  AssetAllocationList();
-        streamClasses.getChildren().add(1, asset);
+        
         
         JFXButton btn_refresh = new JFXButton();
         streamToolBar.getChildren().add(1, btn_refresh);
@@ -76,7 +85,18 @@ public class AssetAllocationController implements Initializable {
             ObservableList<String> items1 = AdminQuery.getStreamNames();
             totalStreams.setText(""+items1.size());
             stream_ListView.setItems(items1);
-        });
+            AssetAllocationList.stream_ID="ALL";
+            try{
+                studentAllocationWork.restart();
+            }
+            catch(Exception e){
+                System.out.println(e);
+            
+            }
+        
+            });
+        
+        
          
         btn_info.setGraphic(SMS.getGraphics(FontAwesomeIcon.INFO, "icon-default", 20));
         btn_info.setOnAction((ActionEvent event) -> {

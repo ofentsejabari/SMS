@@ -53,7 +53,6 @@ public class FacilitiesManagement extends BorderPane{
         getStyleClass().add("container");
         stackPane = new StackPane();
         
-        setPadding(new Insets(5));
         
         HBox toolbar = new HBox();
         toolbar.getStyleClass().add("secondary-toolbar");
@@ -264,10 +263,12 @@ public class FacilitiesManagement extends BorderPane{
         } 
     }
 
-    public class FacilitiesWorkService extends Service<ObservableList<Facilities>> {
+    public class FacilitiesWorkService extends Service<ObservableList<Facilities>> 
+    {
 
         @Override
-        protected Task createTask() {
+        protected Task createTask()
+        {
             return new FacilitiesWork();
         }
     }

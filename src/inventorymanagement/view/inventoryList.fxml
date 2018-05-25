@@ -11,22 +11,6 @@
 
 <AnchorPane id="AnchorPane" prefHeight="498.0" prefWidth="748.0" style="-fx-background-color: #fff;" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventorymanagement.control.InventoryListController">
    <children>
-      <BorderPane fx:id="borderPane" layoutY="-6.0" prefHeight="498.0" prefWidth="748.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <VBox prefHeight="456.0" prefWidth="294.0" spacing="15.0" BorderPane.alignment="CENTER">
-               <children>
-                  <JFXTabPane styleClass="jfx-tab-flatpane">
-                     <tabs>
-                        <Tab fx:id="inventoryList" text="Inventory List" />
-                        <Tab fx:id="sold" text="Sold Items" />
-                     </tabs>
-                  </JFXTabPane>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </VBox>
-         </center>
-      </BorderPane>
+      <BorderPane fx:id="borderPane" layoutY="-6.0" prefHeight="498.0" prefWidth="748.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

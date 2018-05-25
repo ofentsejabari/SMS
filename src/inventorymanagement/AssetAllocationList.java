@@ -19,10 +19,12 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
@@ -31,19 +33,22 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import mysqldriver.AdminQuery;
 import mysqldriver.InventoryQuery;
+import schooladministration.Stream;
 
 /**
  * @author MOILE
  */
 public class AssetAllocationList extends BorderPane{
 
-    public static CustomTableView<StudentAllocationModel> studentAllocationTable;
+    public static CustomTableView<StudentResourceList> studentAllocationTable;
     public StudentAllocationWorkService studentAllocationWork;
     private final StackPane stackPane;
-    public String filter = "";
+    public static String filter = "",stream_ID="ALL";
     
-    public static ObservableList<StudentAllocationModel> studentAllocationList = FXCollections.observableArrayList();
+    
+    public static ObservableList<StudentResourceList> studentAllocationList = FXCollections.observableArrayList();
     
     public AssetAllocationList() {
         
@@ -61,26 +66,20 @@ public class AssetAllocationList extends BorderPane{
         btn_refresh.setOnAction((ActionEvent event) -> {
            studentAllocationWork.restart();
         });
-        JFXButton btn_add = new JFXButton("Add");
-        btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
-        btn_add.setOnAction((ActionEvent event) -> {
-             new AddFacilityResources(filter).show();
-        });
         
         btn_refresh.getStyleClass().add("jfx-tool-button");
-        btn_add.getStyleClass().add("jfx-tool-button");
-        toolbar.getChildren().addAll(new HSpacer(), btn_refresh, btn_add);
+        toolbar.getChildren().addAll(new HSpacer(), btn_refresh);
         
         /*
             CREATE facilityType TABLE
         */
         studentAllocationTable = new CustomTableView<>();
         
-        CustomTableColumn assetID = new CustomTableColumn("#");
-        assetID.setPercentWidth(4.9);
-        assetID.setCellValueFactory(new PropertyValueFactory<>("assetID"));
-        assetID.setCellFactory(TextFieldTableCell.forTableColumn());
-        assetID.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+        CustomTableColumn studentID = new CustomTableColumn("#");
+        studentID.setPercentWidth(20);
+        studentID.setCellValueFactory(new PropertyValueFactory<>("studentID"));
+        studentID.setCellFactory(TextFieldTableCell.forTableColumn());
+        studentID.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
             public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
@@ -88,8 +87,17 @@ public class AssetAllocationList extends BorderPane{
                     @Override 
                     public void updateItem(final String ID, boolean empty) {
                         super.updateItem(ID, empty);
+                          final Hyperlink status = new Hyperlink("");
                         if(!empty){
-                            setGraphic(new Label(ID));
+                            status.getStyleClass().add("tableLink");
+                            status.setText(ID);
+                            status.setContentDisplay(ContentDisplay.LEFT);
+                            status.setTooltip(new Tooltip("resource allocations"));
+                            setGraphic(status);
+                            
+                            status.setOnAction((ActionEvent event) -> {
+                                new StudentAllocatedResourceDialog(ID);
+                            });
                         }else{ setGraphic(null); }
                     }
                 };
@@ -99,11 +107,11 @@ public class AssetAllocationList extends BorderPane{
         CustomTableColumn studentName = new CustomTableColumn("STUDENT NAME");
         studentName.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         
-        studentName.setPercentWidth(40);
+        studentName.setPercentWidth(34.8);
         studentName.setCellFactory(TextFieldTableCell.forTableColumn());
         studentName.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
         
-        @Override 
+        @Override
         public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
                     
@@ -111,37 +119,19 @@ public class AssetAllocationList extends BorderPane{
                     public void updateItem(final String ID, boolean empty) {
                         super.updateItem(ID, empty);
                         
+                        
                         if(!empty){
-                            //setGraphic(new Label(InventoryQuery.getResourceName(ID).get(0)));
+                            setGraphic(new Label(ID));
                         }else{ setGraphic(null); }
                     }
                 };
             }
         });
         
-        CustomTableColumn assetName = new CustomTableColumn("RESOURCE NAME");
-        assetName.setPercentWidth(20);
-        assetName.setCellValueFactory(new PropertyValueFactory<>("assetName"));
-        assetName.setCellFactory(TextFieldTableCell.forTableColumn());
-        assetName.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
-            @Override 
-            public TableCell<String, String> call(TableColumn<String, String> clientID) {
-                return new TableCell<String, String>() {
-                    
-                    @Override 
-                    public void updateItem(final String ID, boolean empty) {
-                        super.updateItem(ID, empty);
-                        
-                        if(!empty){
-                            setGraphic(new Label(InventoryQuery.getFacilitiesName(ID).get(0)));
-                        }else{ setGraphic(null); }
-                    }
-                };
-            }
-        }); 
+        
         
         CustomTableColumn className = new CustomTableColumn("CLASS");
-        className.setPercentWidth(20);
+        className.setPercentWidth(30);
         className.setCellValueFactory(new PropertyValueFactory<>("className"));
         className.setCellFactory(TextFieldTableCell.forTableColumn());
         className.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
@@ -161,11 +151,11 @@ public class AssetAllocationList extends BorderPane{
             }
         });
         
-        CustomTableColumn manufactureSN = new CustomTableColumn("SERIAL NO.");
-        manufactureSN.setPercentWidth(15);
-        manufactureSN.setCellFactory(TextFieldTableCell.forTableColumn());
-        manufactureSN.setCellValueFactory(new PropertyValueFactory<>("manufactureSN"));
-        manufactureSN.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+        CustomTableColumn resourceNo = new CustomTableColumn("NO. ALLOCATED");
+        resourceNo.setPercentWidth(15);
+        resourceNo.setCellFactory(TextFieldTableCell.forTableColumn());
+        resourceNo.setCellValueFactory(new PropertyValueFactory<>("resourceNo"));
+        resourceNo.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
             public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
@@ -184,12 +174,12 @@ public class AssetAllocationList extends BorderPane{
         
         
         
-        studentAllocationTable.getTableView().getColumns().addAll(assetID
-                ,studentName,assetName,className,manufactureSN);
+        studentAllocationTable.getTableView().getColumns().addAll(studentID
+                ,studentName,className,resourceNo);
         VBox.setVgrow(studentAllocationTable, Priority.ALWAYS);
         
         //-- SET DATA
-        studentAllocationTable.getTableView().setItems(InventoryQuery.getStudentAllocation("ALL"));
+       // studentAllocationTable.getTableView().setItems(InventoryQuery.getStudentResourceList());
         
         VBox ph = setDataNotAvailablePlaceholder();
         studentAllocationTable.getTableView().setPlaceholder(ph);
@@ -210,14 +200,22 @@ public class AssetAllocationList extends BorderPane{
     }
     
     
-    public class StudentAllocationWork extends Task<ObservableList<StudentAllocationModel>> {       
+    public class StudentAllocationWork extends Task<ObservableList<StudentResourceList>> {       
         @Override 
-        protected ObservableList<StudentAllocationModel> call() throws Exception {
+        protected ObservableList<StudentResourceList> call() throws Exception {
             
             Platform.runLater(() -> {               
                 studentAllocationTable.getTableView().setPlaceholder(new VBox());
             });
-            studentAllocationList  =  InventoryQuery.getStudentAllocation(filter);
+            
+            if(!stream_ID.equals("ALL")){
+                Stream stream=AdminQuery.getStreamByName(stream_ID);
+                studentAllocationList  =  InventoryQuery.getStudentResourceList(stream.getStreamID());
+            }
+            else{
+                 studentAllocationList  =  InventoryQuery.getStudentResourceList(stream_ID);
+           
+            }
             for(int i=0;i<studentAllocationList.size();i++){
                 //studentAllocationList.get(i).setFacilitiesStatusID(i+1+"");
             }
@@ -231,7 +229,7 @@ public class AssetAllocationList extends BorderPane{
         } 
     }
 
-    public class StudentAllocationWorkService extends Service<ObservableList<StudentAllocationModel>> {
+    public class StudentAllocationWorkService extends Service<ObservableList<StudentResourceList>> {
 
         @Override
         protected Task createTask() {
