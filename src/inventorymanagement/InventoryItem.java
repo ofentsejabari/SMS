@@ -260,7 +260,7 @@ public class InventoryItem extends BorderPane{
         
         pi.visibleProperty().bind(inventoryListWork.runningProperty());
         inventoryTable.getTableView().itemsProperty().bind(inventoryListWork.valueProperty());
-        
+        stackPane.setPadding(new Insets(10));
         stackPane.getChildren().addAll(pi,inventoryTable);
         setCenter(stackPane);
         

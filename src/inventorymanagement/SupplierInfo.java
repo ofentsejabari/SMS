@@ -1,10 +1,8 @@
 package inventorymanagement;
 
-import schooladministration.*;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 /**

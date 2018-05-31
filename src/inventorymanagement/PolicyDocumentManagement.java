@@ -55,7 +55,7 @@ public class PolicyDocumentManagement extends BorderPane{
         getStyleClass().add("container");
         stackPane = new StackPane();
         
-        setPadding(new Insets(5));
+        setPadding(new Insets(10));
         
         HBox toolbar = new HBox();
         toolbar.getStyleClass().add("secondary-toolbar");

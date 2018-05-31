@@ -22,6 +22,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -44,6 +45,8 @@ public class FacilityTypeItem extends BorderPane{
     public static CustomTableView<FacilitiesType> facilityTypeTable;
     public static FacilityTypeListWorkService facilityTypeWork;
     private final StackPane stackPane;
+    public static HBox typeHolder;
+    public PieChart ftypes;
     
     public static ObservableList<FacilitiesType> facilityTypeList = FXCollections.observableArrayList();
     
@@ -54,7 +57,7 @@ public class FacilityTypeItem extends BorderPane{
         getStyleClass().add("container");
         stackPane = new StackPane();
         
-        setPadding(new Insets(5));
+        setPadding(new Insets(10));
         
         HBox toolbar = new HBox();
         toolbar.getStyleClass().add("secondary-toolbar");
@@ -153,10 +156,14 @@ public class FacilityTypeItem extends BorderPane{
         
         pi.visibleProperty().bind(facilityTypeWork.runningProperty());
         facilityTypeTable.getTableView().itemsProperty().bind(facilityTypeWork.valueProperty());
-        HBox typeHolder = new HBox(facilityTypeTable,new VBox());
+        ftypes = new PieChart();
+        ftypes.setLabelLineLength(5);
+        VBox vb =new VBox(ftypes);
+        vb.getStyleClass().add("container");
+                
+        typeHolder = new HBox(facilityTypeTable,vb);
         stackPane.getChildren().addAll(pi,typeHolder);
         setCenter(stackPane);
-        
         facilityTypeWork.start();
         facilityTypeWork.restart();
         
@@ -172,10 +179,18 @@ public class FacilityTypeItem extends BorderPane{
             facilityTypeList  =  InventoryQuery.facilitiesTypeList(filter);
             for(int i=0;i<facilityTypeList.size();i++){
                 facilityTypeList.get(i).setFacilitiesTypeID(i+1+"");
-            }
+             }
                         
             Platform.runLater(() -> {  
                 //count.setText(studentList.size()+" Student(s)");
+                facilityTypeList  =  InventoryQuery.facilitiesTypeList(filter);
+                ObservableList<PieChart.Data>  data = FXCollections.observableArrayList();
+                for(int i=0;i<facilityTypeList.size();i++){    
+                     
+                     // System.out.println(Double.parseDouble(facilityTypeList.get(i).getFacilitiesTypeQuantity())+"-"+facilityTypeList.get(i).getFacilitiesTypeName());
+                    data.add(new PieChart.Data(facilityTypeList.get(i).getFacilitiesTypeName()+"-"+facilityTypeList.get(i).getFacilitiesTypeQuantity(),Double.parseDouble(facilityTypeList.get(i).getFacilitiesTypeQuantity()) ));
+                }
+                ftypes.setData(data);
                 facilityTypeTable.getTableView().setPlaceholder(setDataNotAvailablePlaceholder());
             });
 
