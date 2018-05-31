@@ -39,7 +39,5 @@ public class UpdateStudentStage extends JFXDialog{
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
     }
-    
 }

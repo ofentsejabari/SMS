@@ -24,7 +24,7 @@
                <children>
                   <JFXTabPane styleClass="jfx-tab-flatpane">
                      <tabs>
-                        <Tab fx:id="usersTab" text="Basic Info" />
+                        <Tab fx:id="usersTab" text="Basic Information" />
                         <Tab fx:id="rolesTab" text="Location Info" />
                      </tabs>
                   </JFXTabPane>

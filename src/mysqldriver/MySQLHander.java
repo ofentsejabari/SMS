@@ -5,10 +5,12 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import schooladministration.GradeScheme;
+import schooladministration.School;
 import schooladministration.Term;
 import schooladministration.User;
 import studentmanagement.SParent;
@@ -634,6 +636,130 @@ public class MySQLHander {
              return employees;
         }
     }
+    
+    
+    /**
+     * 
+     * @return 
+     */
+    public School getSchoolByID(){
+        try{
+            String query = "SELECT `id`, `name`, `tel`, `fax`, `website`, `email`,"
+                         + "`postalAddress`, `physicalAddress`, `showName`, `logo`"
+                         + " FROM `school`";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return new School(result.getString("id"),result.getString("name")
+                ,result.getString("tel"),result.getString("fax")
+                ,result.getString("website"),result.getString("email")
+                ,result.getString("postalAddress"),result.getString("physicalAddress")
+                ,result.getString("logo"), result.getString("showName"));
+            }
+            return new School();
+        } 
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return new School();
+        }
+    }
+    
+    /**
+     * 
+     * @param school
+     * @return 
+     */
+    public String updateSchoolDetails(School school){
+        try{
+            String query = "INSERT INTO `school` (`id`, `name`, `tel`,`fax`, `email`,`website`, "
+                    + "`postalAddress`, `physicalAddress`, `logo`, `showName`)"
+                    + " VALUES('0', '"+school.getSchoolName()+"', '"+school.getTel()+"',"
+                    + " '"+school.getFax()+"' , '"+school.getEmail()+"', "
+                    + " '"+school.getWebsite()+"', '"+school.getPostalAddress()+"',"
+                    + " '"+school.getPhysicalAddress()+"', '"+school.getLogo()+"',"
+                    + " '"+school.getShowName()+"')";
+            
+            if(!school.getSchoolID().equalsIgnoreCase("")){
+                query = "UPDATE `school` SET "
+                    + " `name`='"+school.getSchoolName()+"', `tel`='"+school.getTel()+"',"
+                    + " `fax`='"+school.getFax()+"', `website`='"+school.getWebsite()+"',"
+                    + " `email`='"+school.getEmail()+"',`postalAddress`='"+school.getPostalAddress()+"',"
+                    + " `physicalAddress`='"+school.getPhysicalAddress()+"',"
+                    + " `showName`='"+school.getShowName()+"'"
+                    + " WHERE `id`='"+school.getSchoolID()+"'";
+            }
+            
+            return (STATEMENT.executeUpdate(query) > 0)?"":"Exception occured while trying to add school details";
+            
+            
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+            return ex.getMessage();
+        }
+    }
+    
+    public boolean updateSchoolLogo(String logoName){
+        try{
+            String query = "UPDATE `school` SET  `logo`='"+logoName+"'";
+            
+            return STATEMENT.executeUpdate(query) > 0;
+            
+        } 
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+    
+    /**
+     * Get domain schools
+     * @param schoolID
+     * @return 
+     */
+    public String getSchoolNameByID(String schoolID){
+        try{
+            String query = "SELECT `name`  FROM `school` WHERE `id` = '"+schoolID+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return (result.getString("name"));
+            }
+            return "";
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return "";
+        }
+    }
+    
+   
+    
+    
+    /**
+     * Get domain names
+     * @param schoolName
+     * @return 
+     */
+    public String getSchoolIDByName(String schoolName){
+        
+        try{
+            String query = "SELECT `id` FROM `school` WHERE `name` = '"+schoolName+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return result.getString("id");
+            }
+            return "";
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return "";
+        }
+    }
+    
     
     
 }

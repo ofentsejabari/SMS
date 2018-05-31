@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import static mysqldriver.MySQLHander.STATEMENT;
 import schooladministration.Department;
+import schooladministration.ExtraCurriculaActivity;
 import schooladministration.GradeScheme;
 import schooladministration.Stream;
 import schooladministration.House;
@@ -504,6 +505,117 @@ public class AdminQuery {
         catch(Exception ex){
              ex.printStackTrace();
              return departments;
+        }
+    }
+    
+    
+     /************************ Extra curricula Activities *********************/
+    public static boolean updateActivity(ExtraCurriculaActivity activity, boolean update){
+        
+        try{
+            String query;
+            if(!update){
+                query = "INSERT INTO `ec_activities` (`id`, `name`, `coach`, type)"
+                        + " VALUES ('0', '"+activity.getName()+"', '"+activity.getCoach()+"',"
+                        + " '"+activity.getType()+"')";
+                
+                return STATEMENT.executeUpdate(query) > 0;
+                
+            }else{
+                query = "UPDATE `ec_activities` SET `name`='"+activity.getName()+"',"
+                        + "`coach` = '"+activity.getCoach()+"', `type` = '"+activity.getType()+"'"
+                        + " WHERE `id`= '"+activity.getId()+"'";
+                
+                return STATEMENT.executeUpdate(query) > 0;
+            }
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return false;
+        }
+    }
+    
+    public static ExtraCurriculaActivity getActitityByID(String id){
+        try{
+            String query = "SELECT `id`, `name`, `coach`, `type`"
+                          + " FROM `ec_activities` WHERE `id`= '"+id+"'";
+           
+            ResultSet result = STATEMENT.executeQuery(query);
+            if(result.next()){
+                return new ExtraCurriculaActivity(result.getString("id"), result.getString("name"),
+                        result.getString("coach"), result.getString("type"));
+            }
+            return new ExtraCurriculaActivity();
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return new ExtraCurriculaActivity();
+        }
+    }
+    
+    
+    public static ExtraCurriculaActivity getActivityByName(String name){
+        try{
+            String query = "SELECT `id`, `name`, `coach`, `type`"
+                          + " FROM `ec_activities` WHERE `name`= '"+name+"'";
+           
+            ResultSet result = STATEMENT.executeQuery(query);
+            if(result.next()){
+                return new ExtraCurriculaActivity(result.getString("id"), result.getString("name"),
+                        result.getString("coach"), result.getString("type"));
+            }
+            return new ExtraCurriculaActivity();
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return new ExtraCurriculaActivity();
+        }
+    }
+    
+    public static ObservableList<String> getActivityNames(){
+        ObservableList<String> departmentNames = FXCollections.observableArrayList();
+        try{
+            String query = "SELECT `name`"
+                          + " FROM `ec_activities`";
+           
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                departmentNames.add((result.getString("name")));
+            }
+            return departmentNames;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return departmentNames;
+        }
+    }
+    
+    
+    
+    /**
+     * 
+     * @return 
+     */
+    public static ObservableList<ExtraCurriculaActivity> getExtraCurriculaActivities(){
+        ObservableList<ExtraCurriculaActivity> activities = FXCollections.observableArrayList();
+        try{
+            String query = " SELECT `id`, `name`, `hod`"
+                          +" FROM `ec_activities`";
+           
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                activities.add(new ExtraCurriculaActivity(result.getString("id"),
+                                               result.getString("name"),
+                                               result.getString("coach"),
+                                               result.getString("type")));
+            }
+            return activities;
+        } 
+        catch(Exception ex){
+             ex.printStackTrace();
+             return activities;
         }
     }
     
@@ -1046,7 +1158,7 @@ public class AdminQuery {
         ObservableList<String> teacherNames = FXCollections.observableArrayList();
         try{
             String query = "SELECT `fname`, `mName`, `lName`" +
-                            " FROM `subjectsTeachers`, `employee`" +
+                            " FROM `subjectteachers`, `employee`" +
                             " WHERE `subjectID` = '"+subjectID+"'" +
                             " AND `employeeID` = `teacherID`";
             

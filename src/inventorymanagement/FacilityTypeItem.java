@@ -14,7 +14,6 @@ import entry.ProgressIndicator;
 import entry.SMS;
 import static entry.SMS.setDataNotAvailablePlaceholder;
 import static inventorymanagement.control.InventoryListController.filter;
-import static inventorymanagement.control.InventoryListController.inventList;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,7 +33,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import mysqldriver.InventoryQuery;
-import static studentmanagement.control.StudentEnrolmentController.studentTable;
 
 /**
  * @author MOILE

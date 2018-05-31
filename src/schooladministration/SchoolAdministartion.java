@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import static entry.SMS.getIcon;
 import schooladministration.control.DepartmentsController;
+import schooladministration.control.ExtraCurriculaController;
 import schooladministration.control.HousesCategoriesController;
 import schooladministration.control.StreamClassesController;
 
@@ -21,7 +22,9 @@ public class SchoolAdministartion extends BorderPane{
     
     private JFXListView<Label> mainMenu;
     private AnchorPane  departments, systemUsers, streamClasses,
-            academicTerms ,housesCategories, schoolInfo;
+            academicTerms ,housesCategories, schoolInfo, extraCurricula;
+    
+    
     public static StackPane ADMIN_MAN_STACK;
     private BorderPane dashboardUI;
     
@@ -29,6 +32,8 @@ public class SchoolAdministartion extends BorderPane{
     public static DepartmentsController departmentsController;
     public static StreamClassesController streamClassesController;
     public static HousesCategoriesController houseController;
+    
+    public static ExtraCurriculaController extraCurriculaController;
 
     public SchoolAdministartion() {
         
@@ -39,16 +44,17 @@ public class SchoolAdministartion extends BorderPane{
         mainMenu.getStyleClass().add("main_menu");
         
         //-- Menu Items --
-        Label dashboard         = new Label("Dashboard",getIcon("14_System_Task.png",   26));
+        Label dashboard          = new Label("Dashboard",getIcon("14_System_Task.png",   26));
         Label department_subject = new Label("Departments And Subjects",getIcon("13_unit.png", 26));
-        Label streams          = new Label("Streams And Classes",getIcon("12_training.png",   26));
-        Label schoolHouses     = new Label("Houses And Categories", getIcon("10_settings.png",  26));
-        Label terms            = new Label("Academic Terms",getIcon("10_settings.png",   26));
-        Label users             = new Label("User Directory", getIcon("14_access.png",   26));
-        Label school            = new Label("School Information", getIcon("10_settings.png", 26));
+        Label streams            = new Label("Streams And Classes",getIcon("12_training.png",   26));
+        Label schoolHouses       = new Label("Houses And Categories", getIcon("10_settings.png",  26));
+        Label terms              = new Label("Academic Terms",getIcon("10_settings.png",   26));
+        Label users              = new Label("User Directory", getIcon("14_access.png",   26));
+        Label school             = new Label("School Information", getIcon("10_settings.png", 26));
+        Label extraCurrActivity  = new Label("Extra Curricula Activity", getIcon("10_settings.png", 26));
 
         mainMenu.getItems().addAll(dashboard, department_subject, streams,
-                                   terms, schoolHouses, users, school);
+                                   terms, schoolHouses, users, school, extraCurrActivity);
         
         //-- set the first item selected --
         mainMenu.getSelectionModel().select(0);
@@ -81,6 +87,10 @@ public class SchoolAdministartion extends BorderPane{
                     schoolInfo.toFront();
                     break;
                     
+                case 7:
+                    extraCurricula.toFront();
+                    break;
+                    
                 default:
                     break;
             }
@@ -111,11 +121,17 @@ public class SchoolAdministartion extends BorderPane{
             academicTerms = FXMLLoader.load(getClass().getResource("/schooladministration/view/academicTerms.fxml"));
             schoolInfo = FXMLLoader.load(getClass().getResource("/schooladministration/view/schoolInformation.fxml"));
             
+            
+            FXMLLoader activity = new FXMLLoader(getClass().getResource("/schooladministration/view/extraCurriculaActivity.fxml"));
+            extraCurricula = activity.load();
+            extraCurriculaController = activity.getController();
+            
+            
         }catch(IOException ex){
             ex.printStackTrace();
         }
         
-        ADMIN_MAN_STACK = new StackPane(academicTerms, housesCategories, streamClasses, systemUsers,
+        ADMIN_MAN_STACK = new StackPane(extraCurricula, academicTerms, housesCategories, streamClasses, systemUsers,
                 departments, schoolInfo, dashboardUI);
         
         setCenter(ADMIN_MAN_STACK);
