@@ -8,7 +8,6 @@ import de.jensd.fx.glyphs.octicons.OctIcon;
 import de.jensd.fx.glyphs.octicons.utils.OctIconFactory;
 import java.time.LocalDate;
 import java.util.Date;
-import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -25,7 +24,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.util.Duration;
 import mysqldriver.MySQLHander;
 import org.controlsfx.tools.Borders;
 
@@ -83,7 +81,7 @@ public class SMS extends Application {
         launch(args);
     }
     
-    public static VBox setBorderContainer(Node content, String title) {
+    public static VBox setBorderContainer(Node content , String title) {
         VBox conDetails = new VBox();
         
         if(title != null){
@@ -92,7 +90,7 @@ public class SMS extends Application {
                 .title(title)
                 .thickness(2, 1, 1, 1)
                 .innerPadding(0)
-                .outerPadding(0)
+                .outerPadding(5)
                 .radius(5)
                 .color(Color.web("#cfd8dc"), Color.web("#EAEAEA"),
                        Color.web("#EAEAEA"), Color.web("#EAEAEA"))
@@ -102,7 +100,7 @@ public class SMS extends Application {
                 .lineBorder()
                 .thickness(2, 1, 1, 1)
                 .innerPadding(0)
-                .outerPadding(0)
+                .outerPadding(5)
                 .radius(5)
                 .color(Color.web("#cfd8dc"), Color.web("#EAEAEA"),
                        Color.web("#EAEAEA"), Color.web("#EAEAEA"))
@@ -115,14 +113,14 @@ public class SMS extends Application {
     
     public static VBox setBorderContainer(Node content, String title, String color) {
         VBox conDetails = new VBox();
-        
+                
         if(title != null){
             conDetails.getChildren().addAll(Borders.wrap(content)
                 .lineBorder()
                 .title(title)
                 .thickness(2, 1, 1, 1)
                 .innerPadding(0)
-                .outerPadding(0)
+                .outerPadding(5)
                 .radius(5)
                 .color(Color.web(color), Color.web("#EAEAEA"),
                        Color.web("#EAEAEA"), Color.web("#EAEAEA"))
@@ -132,7 +130,7 @@ public class SMS extends Application {
                 .lineBorder()
                 .thickness(2, 1, 1, 1)
                 .innerPadding(0)
-                .outerPadding(0)
+                .outerPadding(5)
                 .radius(5)
                 .color(Color.web(color), Color.web("#EAEAEA"),
                        Color.web("#EAEAEA"), Color.web("#EAEAEA"))

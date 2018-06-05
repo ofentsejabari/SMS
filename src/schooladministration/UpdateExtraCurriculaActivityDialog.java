@@ -5,38 +5,38 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
 import entry.AutoCompleteComboBoxListener;
-import entry.DialogUI;
 import entry.HSpacer;
 import entry.SMS;
-import static entry.SMS.dbHandler;
-import static entry.SMS.getGraphics;
 import entry.ToolTip;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import mysqldriver.AdminQuery;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
-import employeemanagement.Employee;
 import entry.CCValidator;
+import entry.DialogUI;
+import static entry.SMS.dbHandler;
 import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
+import javafx.collections.FXCollections;
 import javafx.scene.layout.GridPane;
-import static schooladministration.SchoolAdministartion.departmentsController;
+import mysqldriver.AdminQuery;
+import static entry.SMS.getGraphics;
+import static schooladministration.SchoolAdministartion.extraCurriculaController;
 
 /**
  *
  * @author jabari
  */
-public class UpdateDepartmentDialog extends JFXDialog{
+public class UpdateExtraCurriculaActivityDialog extends JFXDialog{
 
-    private JFXTextField departTextField;
-    private JFXComboBox<String> hod;
+    private JFXTextField name;
+    private JFXComboBox<String> coach, type;
     
     //private final ValidationSupport vSupport;
     
     @SuppressWarnings("ResultOfObjectAllocationIgnored")
-    public UpdateDepartmentDialog(Department department) {
+    public UpdateExtraCurriculaActivityDialog(ExtraCurriculaActivity activity) {
                     
         //-- Parent Container --
         StackPane stackPane = new StackPane();
@@ -50,21 +50,33 @@ public class UpdateDepartmentDialog extends JFXDialog{
         contentGrid.setVgap(20);
         contentGrid.setHgap(2);
         
-        departTextField = new JFXTextField();
-        departTextField.setPromptText("Department Name");
-        departTextField.setPrefWidth(360);
-        departTextField.setLabelFloat(true);
-        contentGrid.add(departTextField, 0, 0);
+        name = new JFXTextField();
+        name.setPromptText("Activity Name");
+        name.setPrefWidth(360);
+        name.setLabelFloat(true);
+        contentGrid.add(name, 0, 0);
         
-        CCValidator.setFieldValidator(departTextField, "Department name required.");
+        CCValidator.setFieldValidator(name, "Name required.");
                 
-        hod = new JFXComboBox<>();
-        hod.setPromptText("Head Of Department");
-        hod.setLabelFloat(true);
-        hod.setPrefWidth(360);
-        AutoCompleteComboBoxListener.setAutoCompleteValidator(hod);
-        new AutoCompleteComboBoxListener(hod);
-        contentGrid.add(hod, 0, 1);
+        coach = new JFXComboBox<>(dbHandler.getEmployeeNameList());
+        coach.setPromptText("Activity Coach");
+        coach.setLabelFloat(true);
+        coach.setPrefWidth(360);
+        AutoCompleteComboBoxListener.setAutoCompleteValidator(coach);
+        new AutoCompleteComboBoxListener(coach);
+        contentGrid.add(coach, 0, 1);
+        if(!coach.getItems().isEmpty()){
+            coach.setValue(coach.getItems().get(0));
+        }
+        
+        type = new JFXComboBox<>(FXCollections.observableArrayList("Sport", "Club"));
+        type.setPromptText("Activity Type");
+        type.setLabelFloat(true);
+        type.setPrefWidth(360);
+        AutoCompleteComboBoxListener.setAutoCompleteValidator(type);
+        new AutoCompleteComboBoxListener(type);
+        contentGrid.add(type, 0, 2);
+        type.setValue(type.getItems().get(0));
         
         container.setCenter(SMS.setBorderContainer(contentGrid, null));
         
@@ -78,7 +90,7 @@ public class UpdateDepartmentDialog extends JFXDialog{
             close();
         });
         
-        Label title = new Label("Add Department");
+        Label title = new Label("Add Extra Curricula Activity");
         title.getStyleClass().add("window-title");
         
         toolBar.getChildren().addAll(title, new HSpacer(), btn_close);
@@ -86,61 +98,65 @@ public class UpdateDepartmentDialog extends JFXDialog{
         
         //-- Update form entries  ----------------------------------------------
         
-        if(department != null){
-            Employee employee = dbHandler.getEmployeeByID(department.getHod());
-            hod.setItems(dbHandler.getDepartmentEmployeeNames(department.getID()));
+        if(activity != null){
             
-            departTextField.setText(department.getDepartmentName());
-            hod.setValue(employee.getFullName());
-            title.setText("Update Department");
+            name.setText(activity.getName());
+            coach.setValue(dbHandler.getEmployeeByID(activity.getCoach()).getFullName());
+            type.setValue(activity.getType());
+            title.setText("Update Extra Curricula Activity");
+                        
         }
         
         
         //-- Validate and save the form  ---------------------------------------
         JFXButton save = new JFXButton("Save");
         save.getStyleClass().add("dark-blue");
-        save.setTooltip(new ToolTip("Save Department"));
+        save.setTooltip(new ToolTip("Save Activity"));
         save.setOnAction((ActionEvent event) -> {
             
-        if(!"".equals(departTextField.getText().trim())){
+            if(!"".equals(name.getText().trim())){
                 
-                if(department != null){
-                    department.setDepartmentName(departTextField.getText().trim());
-                    department.setHod((hod.getValue() == null)? "":dbHandler.getEmployeeByName(hod.getValue()).getEmployeeID());
-                    
-                    if(AdminQuery.updateDepartment(department, true)){
+               if(activity != null){
+                   
+                    activity.setName(name.getText().trim());
+                    activity.setCoach((coach.getValue() == null)? "":
+                            dbHandler.getEmployeeByName(coach.getValue()).getEmployeeID());
+                                        
+                    if(AdminQuery.updateActivity(activity, true)){
                         
-                        new DialogUI("Department details has been updated successfully",
+                        new DialogUI("Activity details has been updated successfully",
                         DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE, this).show();
-                        departmentsController.dws.restart();
+                        extraCurriculaController.eca.restart();
                         close();
                     }else{
-                        new DialogUI("Exception occurred while trying to update department details",
+                        new DialogUI("Exception occurred while trying to update activity details",
                         DialogUI.ERROR_NOTIF, stackPane, null).show();
                     }
                     
                 }else{
                 
-                    Department newDepartment = new Department("0", departTextField.getText().trim(), 
-                            (hod.getValue() == null)? "":dbHandler.getEmployeeByName(hod.getValue().toString()).getID());
+                    ExtraCurriculaActivity ecactivity = new ExtraCurriculaActivity("0",
+                            name.getText().trim(), 
+                            (coach.getValue() == null)? "":dbHandler.getEmployeeByName(coach.getValue()).getEmployeeID(),
+                            type.getValue());
                     
-                    if(AdminQuery.updateDepartment(newDepartment, false)){
+                    if(AdminQuery.updateActivity(ecactivity, false)){
                         
-                        new DialogUI("Department details has been added successfully",
+                        new DialogUI("Activity details has been added successfully",
                         DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE, null).show();
-                        departmentsController.dws.restart();
+                        
+                        extraCurriculaController.eca.restart();
                         close();
                        
                     }else{
-                        new DialogUI("Exception occurred while trying to add department details.",
+                        new DialogUI("Exception occurred while trying to add activity details.",
                         DialogUI.ERROR_NOTIF, stackPane, null).show();
                     }
                 }
-                
             }else{
-                departTextField.validate();
+                name.validate();
                 new DialogUI( "Ensure that mandatory field are filled up... ",
-                    DialogUI.ERROR_NOTIF, stackPane, null).show();
+                        DialogUI.ERROR_NOTIF, stackPane, null).show();
             }
             
         });

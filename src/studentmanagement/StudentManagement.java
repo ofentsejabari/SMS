@@ -1,7 +1,6 @@
 package studentmanagement;
 
 import com.jfoenix.controls.JFXListView;
-import entry.SMS;
 import java.io.IOException;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
@@ -67,7 +66,7 @@ public class StudentManagement extends BorderPane{
         setLeft(mainMenu);
         
         try {
-            //-- Student Management Views
+            //-- Student Management Views --
             dashboardUI = FXMLLoader.load(getClass().getResource("/studentmanagement/view/dashboard.fxml"));
             
             enrolmentUI = FXMLLoader.load(getClass().getResource("/studentmanagement/view/studentEnrolment.fxml"));
@@ -75,7 +74,8 @@ public class StudentManagement extends BorderPane{
             System.out.println(ex.getMessage());
         }
         
-        STUDENT_MAN_STACK = new StackPane(enrolmentUI, dashboardUI);
+        STUDENT_MAN_STACK = new StackPane(enrolmentUI,
+                                          dashboardUI);
         
         setCenter(STUDENT_MAN_STACK);
         

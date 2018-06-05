@@ -359,11 +359,13 @@ Text field
     -jfx-unfocus-color: #fffd8c;
 }
 
+
+
 .text-field:disabled,
 .text-area:disabled,
 .text-field,
 .combo-box,
-.text-area{
+.text-area, .jfx-text-area{
     -fx-opacity: 1;
     -fx-prompt-text-fill: COLOR_3;
     -fx-text-fill: #102027; 
@@ -447,8 +449,8 @@ Text field
 /******************************************************************************/
 
 .screen-decoration{
-    -fx-border-color: COLOR_5;
-    -fx-border-width: 0 0 1 0;
+    /*-fx-border-color: COLOR_5;*/
+    /*-fx-border-width: 0 0 1 0;*/
     -fx-background-color:  linear-gradient(to bottom,
                                 derive(COLOR_5, -6%),
                                 derive(COLOR_5, -2%),
@@ -458,6 +460,21 @@ Text field
                                 
                               );
     -fx-padding: 0 0 0 2;
+    -fx-background-color: linear-gradient(to bottom,
+                                derive(COLOR_5, -8%),
+                                derive(COLOR_5, -2%),
+                                derive(COLOR_5, 0%),
+                                derive(COLOR_5, -2%),
+                                derive(COLOR_5, -10%));
+    
+    -fx-background-color:  #090a0c,
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(#20262b, #191d22),
+        radial-gradient(center 50% 0%, radius 100%, rgba(5, 108, 171,0.9), rgba(255,255,255,0));
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-background-radius: 0;/*5,4,3,5;*/
+    -fx-border-radius: 0; 
+    -fx-background-insets: 0;
 }
 
 
@@ -580,11 +597,12 @@ Toolbars
 .title-toolbar{
     -fx-background-color: #fff;
     -fx-border-color: COLOR_3;
-    -fx-border-width: 1 0 0 0;
+    -fx-border-width: 0 0 1 0;
     -fx-pref-height:35;
     -fx-max-height:35;
     -fx-alignment:TOP_LEFT;
     -fx-spacing: 5;
+    -fx-padding: 2;
     
 }
 
@@ -928,10 +946,24 @@ Default button style
 .main_menu .jfx-list-cell:selected {
     -fx-background-color: COLOR_4_80;
     -fx-border-color: COLOR_4;
+
+    /*-fx-background-color: 
+        #090a0c,
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(#20262b, #191d22),
+        radial-gradient(center 50% 0%, radius 100%, rgba(5, 108, 171,0.9), rgba(255,255,255,0));
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-background-radius: 0;
+    -fx-border-radius: 0; 
+    -fx-background-insets: 0,1,2,0;
+    -fx-text-fill: white;
     
-/*    -fx-background-image:url("../icons/arrow.png");
-    -fx-background-position: right center;
-    -fx-background-repeat:no-repeat;*/
+    -fx-font-family: "Roboto Regular";
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-font-size: 12px;
+    /*-fx-padding: 6 10 6 10;
+    -fx-min-width:80;
+    -fx-cursor: hand;*/
 }
 
 /*******************************************************************************
@@ -1082,13 +1114,27 @@ JFX Default Tab pane
 .jfx-tab-pane .headers-region {
     -fx-border-color: COLOR_5;
     -fx-border-width: 0 0 1 0;
-    -fx-background-color:  COLOR_5;
-    -fx-background-color: linear-gradient(to bottom,
+    /*-fx-background-color:  COLOR_5;
+    /*-fx-background-color: linear-gradient(to bottom,
                                 derive(COLOR_5, -8%),
                                 derive(COLOR_5, -2%),
                                 derive(COLOR_5, 0%),
                                 derive(COLOR_5, -2%),
                                 derive(COLOR_5, -10%));
+    
+    /*-fx-background-color:  #090a0c,
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(#20262b, #191d22),
+        radial-gradient(center 50% 0%, radius 100%, rgba(5, 108, 171,0.9), rgba(255,255,255,0));
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-background-radius: 0;
+    -fx-border-radius: 0; 
+    -fx-background-insets: 0,1,2,0;
+    -fx-text-fill: white;
+    
+    -fx-font-family: "Roboto Regular";
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-font-size: 12px;*/
 }
 
 .jfx-tab-pane .tab-header-background {
@@ -1102,6 +1148,20 @@ JFX Default Tab pane
                                 derive(COLOR_5, 0%),
                                 derive(COLOR_5, -2%),
                                 derive(COLOR_5, -10%));
+    
+    -fx-background-color:  #090a0c,
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(#20262b, #191d22),
+        radial-gradient(center 50% 0%, radius 100%, rgba(5, 108, 171,0.9), rgba(255,255,255,0));
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-background-radius: 0;/*5,4,3,5;*/
+    -fx-border-radius: 0; 
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+    
+    -fx-font-family: "Roboto Regular";
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-font-size: 12px;
 }
 
 .jfx-tab-pane .tab-selected-line {

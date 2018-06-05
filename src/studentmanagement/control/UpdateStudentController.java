@@ -36,36 +36,6 @@ import java.util.Date;
 import javafx.scene.layout.GridPane;
 import static entry.SMS.getGraphics;
 import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
-import static entry.SMS.getGraphics;
-import static entry.SMS.getIcon;
 
 
 /**
