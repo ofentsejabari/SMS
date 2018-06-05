@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import entry.ToolTip;
 import inventorymanagement.Facilities;
 import inventorymanagement.Success;
 import java.net.URL;
@@ -43,8 +44,6 @@ public class AddFacilitiesController implements Initializable {
     @FXML
     private JFXButton edit;
     @FXML
-    private JFXButton btn_cancel;
-    @FXML
     private JFXButton btn_update;
     @FXML
     private VBox personalDetails;
@@ -70,6 +69,8 @@ public class AddFacilitiesController implements Initializable {
             "Below Avarage",
             "Poor"
         );
+        btn_update.getStyleClass().add("dark-blue");
+        btn_update.setTooltip(new ToolTip("Save Facility"));
         fType.setItems(InventoryQuery.getFacilitiesTypeList("ALL"));
         fDept.setItems(AdminQuery.getDepartmentNames());
         fCondition.setItems(options);
@@ -86,7 +87,6 @@ public class AddFacilitiesController implements Initializable {
                 hold=updateFacilityItem(facility, false);
                  if(hold.equals("")){
                     btn_update.setDisable(true);
-                    btn_cancel.setDisable(true);
                     fType.setDisable(true);
                     fDept.setDisable(true);
                     fCondition.setDisable(true);

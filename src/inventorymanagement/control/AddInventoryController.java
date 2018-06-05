@@ -12,6 +12,10 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import entry.DialogUI;
+import entry.SMS;
+import entry.ToolTip;
+import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import inventorymanagement.Inventory;
 import static inventorymanagement.InventoryItem.inventoryListWork;
 import inventorymanagement.Success;
@@ -26,6 +30,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import mysqldriver.AdminQuery;
 import mysqldriver.InventoryQuery;
+import static schooladministration.SchoolAdministartion.departmentsController;
 
 /**
  * FXML Controller class
@@ -53,7 +58,7 @@ public class AddInventoryController implements Initializable {
     private JFXCheckBox enable_editing;
     
     @FXML
-    private VBox purchaseDetails;
+    private VBox purchaseDetails,personalDetails;
     
     public JFXDatePicker itemPurchase;
     
@@ -66,6 +71,8 @@ public class AddInventoryController implements Initializable {
         itemPurchase.setPromptText("Date Procured");
         purchaseDetails.getChildren().add(3,itemPurchase);
         
+        //SMS.setBorderContainer(personalDetails, "Personal Details");
+        
         enable_editing.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             if(newValue){
                 setEditing(true);
@@ -73,6 +80,12 @@ public class AddInventoryController implements Initializable {
                 setEditing(false);
             }
         });
+        
+        btn_cancel.getStyleClass().add("dark-blue");
+        btn_update.getStyleClass().add("dark-blue");
+        btn_update.setTooltip(new ToolTip("Save Inventory Entry"));
+        
+        
         
         btn_update.setOnAction((ActionEvent event) -> {
             
@@ -84,13 +97,16 @@ public class AddInventoryController implements Initializable {
                     ,"",itemStaff.getText(),"100");
           
                 if(InventoryQuery.updateInventoryItem(item, false).equals("")){
-                        new Success("success",false).show();
+                        new DialogUI("Inventory Item has been added successfully",
+                                    DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE,null).show();
+                        
                         inventoryListWork.restart();
                         btn_update.setDisable(true);
                         btn_cancel.setDisable(true);
                 }
                 else{
-                        new Success("failed",false).show();
+                       new DialogUI("Exception occurred while trying to add Inventory Item.",
+                                DialogUI.ERROR_NOTIF, PARENT_STACK_PANE, null).show();
                  }
         });
          itemDept.setItems(AdminQuery.getDepartmentNames()); 

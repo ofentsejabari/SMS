@@ -501,15 +501,18 @@ public class InventoryQuery {
     public static String updateInventoryItem(Inventory item, boolean update){
         
         try{
+            //getInventoryType(item.getInventoryID());
+            
+            
             String insertQuery = "INSERT INTO `inventory` (`inventoryID`, `inventoryName`, `inventoryDescription`,"
                     + " `inventoryManSn`, `inventoryGovSn`, `inventoryYears`, `inventoryCost`, `inventoryPurchaseOrder`, "
                     + "`inventoryLocation`, `inventoryBatch`, `inventoryDate`, `inventoryDept`, `inventoryStaffID`, `inventoryQuantity`,"
-                    + " `inventorySupplierID`, `inventoryCaptureDate`, `invetoryCaptuteStaff`, `schoolID`)"
+                    + " `inventorySupplierID`, `inventoryCaptureDate`, `invetoryCaptuteStaff`, `schoolID`,`inventory_typeID`)"
                     + " VALUES (0,'"+item.getInventoryName()+"','"+item.getInventoryDescription()+"','"+item.getInventoryManSn()+"',"
                     + "'"+item.getInventoryGovSn()+"','"+item.getInventoryYears()+"','"+item.getInventoryCost()+"','"+item.getInventoryPurchaseOrder()+"',"
                     + "'"+item.getInventoryLocation()+"','"+item.getInventoryBatch()+"','"+item.getInventoryDate()+"','"+item.getInventoryDept()+"'"
                     + ",'"+item.getInventoryStaffID()+"','"+item.getInventoryQuantity()+"','"+item.getInventorySupplierID()+"',now()"
-                    + ",'"+item.getInvetoryCaptuteStaff()+"','"+item.getSchoolID()+"')";
+                    + ",'"+item.getInvetoryCaptuteStaff()+"','"+item.getSchoolID()+"','')";
             
             STATEMENT.addBatch(insertQuery);
             STATEMENT.executeBatch();
@@ -666,6 +669,24 @@ public class InventoryQuery {
              return item;
         }
     }
+      
+    public static String getInventoryTypeName(String inventoryTypeID){
+        String item="";
+        try{
+            String query = "SELECT `inventory_typeName` FROM `inventory_type` WHERE `inventory_typeID`='"+inventoryTypeID+"'" ;
+           
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                item=result.getString("inventory_typeName");
+            }
+            return item;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return item;
+        }
+    }  
     
     public static String getAllocatedResourceNo(String str){
         

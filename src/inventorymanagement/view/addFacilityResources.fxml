@@ -32,12 +32,7 @@
                <bottom>
                   <HBox alignment="CENTER" prefHeight="48.0" prefWidth="1019.0" spacing="10.0" style="-fx-padding: 4;" styleClass="secondary-toolbar" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="btn_cancel" buttonType="RAISED" prefHeight="35.0" prefWidth="110.0" style="-fx-border-color: #22B5FF; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="Cancel" textFill="#2f2a2a">
-                           <padding>
-                              <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
-                           </padding>
-                        </JFXButton>
-                        <JFXButton fx:id="btn_update" buttonType="RAISED" prefHeight="33.0" prefWidth="110.0" style="-fx-background-color: #22B5FF; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="Update" textFill="WHITE">
+                        <JFXButton fx:id="btn_update" buttonType="RAISED" prefHeight="33.0" prefWidth="110.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="Save" textFill="WHITE">
                            <padding>
                               <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
                            </padding>
@@ -70,24 +65,24 @@
                   </VBox>
                </center>
                <top>
-                  <Pane prefHeight="33.0" prefWidth="377.0" styleClass="screen-decoration" BorderPane.alignment="CENTER">
+                  <Pane prefHeight="27.0" prefWidth="363.0" styleClass="screen-decoration" BorderPane.alignment="CENTER">
                      <children>
-                        <VBox alignment="CENTER_LEFT" layoutX="3.0" layoutY="-3.0" prefHeight="39.0" prefWidth="363.0">
+                        <VBox alignment="CENTER_LEFT" layoutX="3.0" layoutY="-3.0" prefHeight="20.0" prefWidth="363.0">
                            <children>
-                              <HBox prefHeight="39.0" prefWidth="336.0">
+                              <HBox prefHeight="22.0" prefWidth="363.0">
                                  <children>
-                                    <Label prefHeight="32.0" prefWidth="278.0" text="Add Facility Resource" textFill="#fcfcfc">
+                                    <Label prefHeight="28.0" prefWidth="247.0" styleClass="window-title" text="Add Facility Resource" textFill="#fcfcfc">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Region prefHeight="29.0" prefWidth="216.0" />
-                                    <JFXButton fx:id="btn_toolbar_close" alignment="TOP_RIGHT" contentDisplay="RIGHT" graphicTextGap="0.0" prefHeight="20.0" prefWidth="23.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" styleClass="window-close" text="" textFill="#fbfeff" wrapText="true">
+                                    <Region prefHeight="28.0" prefWidth="82.0" />
+                                    <JFXButton fx:id="btn_toolbar_close" alignment="TOP_RIGHT" contentDisplay="RIGHT" graphicTextGap="0.0" prefHeight="5.0" prefWidth="0.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" styleClass="window-close" text="" textFill="#fbfeff" wrapText="true">
                                        <padding>
                                           <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                        </padding>
                                        <graphic>
-                                          <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="26.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../entry/icons/close.png" />
                                              </image>

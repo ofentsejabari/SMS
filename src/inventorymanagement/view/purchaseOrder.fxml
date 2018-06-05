@@ -14,13 +14,6 @@
       <BorderPane fx:id="borderPane" layoutY="-6.0" prefHeight="498.0" prefWidth="748.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
             <VBox prefHeight="456.0" prefWidth="294.0" spacing="4.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
-               <children>
-                  <JFXTabPane styleClass="jfx-tab-flatpane">
-                     <tabs>
-                        <Tab fx:id="supplierProfileTab" text="Purchase Orders" />
-                     </tabs>
-                  </JFXTabPane>
-               </children>
                <padding>
                   <Insets bottom="10.0" left="1.0" right="10.0" top="10.0" />
                </padding>

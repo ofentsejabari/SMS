@@ -8,10 +8,8 @@ package inventorymanagement.control;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import inventorymanagement.AddFacilityResources;
+import entry.ToolTip;
 import inventorymanagement.FacilitiesStatus;
-import inventorymanagement.FacilityStatus;
-import inventorymanagement.FacilityStatusItem;
 import inventorymanagement.Success;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -55,6 +53,8 @@ public class AddFacilityResourcesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         resource.setItems(InventoryQuery.getResourceNames());
+         btn_update.getStyleClass().add("dark-blue");
+        btn_update.setTooltip(new ToolTip("Save Facility"));
         btn_update.setOnAction((ActionEvent event) -> {
             
             FacilitiesStatus fs = new FacilitiesStatus("0",InventoryQuery.getFacilitiesId(ID).get(0),resource.getValue(),rquantity.getText(),

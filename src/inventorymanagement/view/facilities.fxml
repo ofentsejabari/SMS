@@ -15,7 +15,6 @@
          <tabs>
             <Tab fx:id="facilitiesTab" text="Facilities" />
             <Tab fx:id="facilitiesTypes" text="Facility Types" />
-            <Tab fx:id="facilitiesUse" text="Facility Usage" />
          </tabs>
       </JFXTabPane>
    </center>

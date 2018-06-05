@@ -25,7 +25,7 @@ public class DBConfig implements Serializable {
            db_password;
 
     public DBConfig(){
-        db_host = "192.168.53.73";
+        db_host = "192.168.100.77";
         db_name = "sms";
         db_username = "ischool";
         db_password = "ischool";  

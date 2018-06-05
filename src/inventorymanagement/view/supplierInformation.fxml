@@ -43,9 +43,6 @@
                </padding>
             </VBox>
          </center>
-         <padding>
-            <Insets top="9.0" />
-         </padding>
          <top>
             <HBox alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="381.0" spacing="5.0" styleClass="secondary-toolbar" BorderPane.alignment="CENTER">
                <children>
@@ -56,6 +53,9 @@
                </children>
             </HBox>
          </top>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
       </BorderPane>
    </center>
    <left>
@@ -65,10 +65,9 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="32.0" spacing="5.0" styleClass="secondary-toolbar" VBox.vgrow="ALWAYS">
                      <children>
-                        <Label prefHeight="20.0" prefWidth="73.0" styleClass="title-label" text="Suppliers" />
-                        <Region prefHeight="20.0" prefWidth="20.0" HBox.hgrow="ALWAYS" />
-                        <JFXButton fx:id="btn_refresh" prefHeight="20.0" prefWidth="34.0" ripplerFill="#08a53a" styleClass="jfx-tool-button" text=" " textFill="#5d5a5a" />
-                        <JFXButton fx:id="searchIcon" prefHeight="34.0" prefWidth="39.0" styleClass="jfx-toolbar-button" />
+                        <Label prefHeight="27.0" prefWidth="118.0" styleClass="title-label" text="Suppliers" />
+                        <JFXButton fx:id="btn_refresh" prefHeight="27.0" prefWidth="31.0" ripplerFill="#08a53a" styleClass="jfx-tool-button" text=" " textFill="#5d5a5a" />
+                        <JFXButton fx:id="searchIcon" prefHeight="40.0" prefWidth="25.0" styleClass="jfx-toolbar-button" />
                         <Label text="(" />
                         <Label fx:id="totalSuppliers" text="5" />
                         <Label text=")" />
@@ -82,7 +81,7 @@
                                  <children>
                                     <HBox prefHeight="100.0" prefWidth="200.0">
                                        <children>
-                                          <JFXButton fx:id="searchButton" prefHeight="32.0" prefWidth="23.0" text=" ">
+                                          <JFXButton fx:id="searchButton" prefHeight="39.0" prefWidth="24.0" text=" ">
                                              <graphic>
                                                 <Region prefHeight="35.0" prefWidth="200.0" />
                                              </graphic>
@@ -108,4 +107,7 @@
          </children>
       </HBox>
    </left>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </BorderPane>

@@ -20,7 +20,6 @@
                   <JFXTabPane styleClass="jfx-tab-flatpane">
                      <tabs>
                         <Tab fx:id="supplierProfileTab" text="Supplier Profile" />
-                        <Tab fx:id="supplierDetails" text="Supplier Details" />
                         <Tab id="supplierDetails" fx:id="supplierHistoryTab" text="Supplier History" />
                      </tabs>
                   </JFXTabPane>

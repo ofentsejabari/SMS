@@ -64,40 +64,35 @@ public class AssetAllocationController implements Initializable {
         totalStreams.setText(""+items.size());
         
         stream_ListView.setItems(items);
-        AssetAllocationList asset =new  AssetAllocationList();
-        streamClasses.getChildren().add(1, asset);
+        AssetAllocationList asset = new  AssetAllocationList();
+        streamClasses.getChildren().add(1,asset);
         stream_ListView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-               
-                asset.stream_ID=newValue;
+                AssetAllocationList.stream_ID=newValue;
                 asset.studentAllocationWork.restart();
-            
-        });
+         });
         
         streamName.setText(streamName.getText());
         
-        
-        
         JFXButton btn_refresh = new JFXButton();
+        btn_refresh.getStyleClass().add("jfx-tool-button");
         streamToolBar.getChildren().add(1, btn_refresh);
         
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
         btn_refresh.setOnAction((ActionEvent event) -> {
-            ObservableList<String> items1 = AdminQuery.getStreamNames();
-            totalStreams.setText(""+items1.size());
-            stream_ListView.setItems(items1);
-            AssetAllocationList.stream_ID="ALL";
-            try{
-                studentAllocationWork.restart();
-            }
-            catch(Exception e){
-                System.out.println(e);
-            
-            }
+                ObservableList<String> items1 = AdminQuery.getStreamNames();
+                totalStreams.setText(""+items1.size());
+                stream_ListView.setItems(items1);
+                AssetAllocationList.stream_ID="ALL";
+                try{
+                    studentAllocationWork.restart();
+                }
+                catch(Exception e){
+                    System.out.println(e);
+
+                }
         
-            });
+        });
         
-        
-         
         btn_info.setGraphic(SMS.getGraphics(FontAwesomeIcon.INFO, "icon-default", 20));
         btn_info.setOnAction((ActionEvent event) -> {
             //new AddSupplierStage().show();
