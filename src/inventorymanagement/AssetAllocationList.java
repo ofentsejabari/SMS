@@ -69,6 +69,7 @@ public class AssetAllocationList extends BorderPane{
         
         btn_refresh.getStyleClass().add("jfx-tool-button");
         toolbar.getChildren().addAll(new HSpacer(), btn_refresh);
+       // 
         
         /*
             CREATE facilityType TABLE

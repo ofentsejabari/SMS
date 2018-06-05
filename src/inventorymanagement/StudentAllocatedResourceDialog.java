@@ -100,7 +100,7 @@ public class StudentAllocatedResourceDialog extends JFXDialog{
         JFXButton btn_add = new JFXButton("Add");
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-            
+            new AllocateResourceDialog(studentID);
         });
         
         JFXButton btn_refresh = new JFXButton("Refresh");
