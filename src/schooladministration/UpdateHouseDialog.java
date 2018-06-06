@@ -24,6 +24,7 @@ import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import javafx.scene.layout.GridPane;
 import static schooladministration.SchoolAdministartion.departmentsController;
 import static schooladministration.SchoolAdministartion.houseController;
+import static entry.SMS.getGraphics;
 
 /**
  *

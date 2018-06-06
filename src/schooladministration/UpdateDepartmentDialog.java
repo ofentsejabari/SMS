@@ -23,6 +23,7 @@ import entry.CCValidator;
 import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import javafx.scene.layout.GridPane;
 import static schooladministration.SchoolAdministartion.departmentsController;
+import static entry.SMS.getGraphics;
 
 /**
  *

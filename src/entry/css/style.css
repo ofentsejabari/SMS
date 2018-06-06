@@ -210,19 +210,20 @@ Button
 .dark-blue {
     -fx-background-color: 
         #090a0c,
-        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 20%),
         linear-gradient(#20262b, #191d22),
-        radial-gradient(center 50% 0%, radius 100%, rgba(5, 108, 171,0.9), rgba(255,255,255,0));
+        radial-gradient(center 50% 50%, radius 100%, rgba(5, 108, 171,0.9), rgba(255,255,255,0));
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-background-radius: 20 ;/*5,4,3,5;*/
-    -fx-background-insets: 0,1,2,0;
-    -fx-text-fill: white;
     
-    -fx-font-family: "Roboto Regular";
-    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+    /*-fx-background-insets: 0,1,2,0;*/
+    
+    -fx-font-family: "Oxygen Regular";
+    -fx-text-fill: white;
     -fx-font-size: 12px;
-    -fx-padding: 6 10 6 10;
-    -fx-min-width:80;
+    -fx-padding: 4 12 4 12;
+    /*-fx-min-width:80;*/
     -fx-cursor: hand;
 }
 
@@ -233,19 +234,21 @@ Button
 .dark-green {
     -fx-background-color: 
         #090a0c,
-        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 20%),
         linear-gradient(#20262b, #191d22),
-        radial-gradient(center 50% 0%, radius 100%, rgba(58, 171, 5,0.9), rgba(255,255,255,0));
+        radial-gradient(center 50% 50%, radius 100%, rgba(58, 171, 5,0.9), rgba(255,255,255,0));
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-background-radius: 20 ;/*5,4,3,5;*/
-    -fx-background-insets: 0,1,2,0;
-    -fx-text-fill: white;
     
-    -fx-font-family: "Roboto Regular";
-    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+    /*-fx-background-insets: 0,1,2,0;*/
+    
+    -fx-font-family: "Oxygen Regular";
+    -fx-text-fill: white;
     -fx-font-size: 12px;
-    -fx-padding: 6 10 6 10;
-    -fx-min-width:80;
+    -fx-padding: 4 12 4 12;
+    -fx-cursor: hand;
+    /*-fx-min-width:80;*/
 }
 
 .dark-green .jfx-rippler {
@@ -253,6 +256,16 @@ Button
 }
 
 
+.profile-view{
+    
+    -fx-padding:10 5 5 5;
+    -fx-background-image: url(../icons/profile2.png);
+    -fx-background-position: top center;
+    -fx-background-repeat: no-repeat;
+    -fx-border-color: #cfd8dc;
+    -fx-border-width: 0 1 0 0;
+    
+}
 
 /******************************************************************************
 Notifications
@@ -467,10 +480,10 @@ Text field
                                 derive(COLOR_5, -2%),
                                 derive(COLOR_5, -10%));
     
-    -fx-background-color:  #090a0c,
+/*    -fx-background-color:  #090a0c,
         linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
         linear-gradient(#20262b, #191d22),
-        radial-gradient(center 50% 0%, radius 100%, rgba(5, 108, 171,0.9), rgba(255,255,255,0));
+        radial-gradient(center 50% 0%, radius 100%, rgba(5, 108, 171,0.9), rgba(255,255,255,0));*/
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
     -fx-background-radius: 0;/*5,4,3,5;*/
     -fx-border-radius: 0; 
@@ -865,8 +878,13 @@ Default button style
 }
 
 .border-container{
-    -fx-background-color: #fff;
-    -fx-padding:20 0 5 5;
+    -fx-background-color: COLOR_3_80;
+    -fx-background-color: linear-gradient(to bottom,
+                            derive(COLOR_3_80, -10%),
+                            derive(COLOR_3_80, -2%),
+                            derive(COLOR_3_80, 0%),
+                            derive(COLOR_3_80, -2%),
+                            derive(COLOR_3_80, -6%));
 }
 
 .mainUI{
@@ -1196,6 +1214,9 @@ JFX Default Tab pane
 /*******************************************************************************
 JFX Tab pane
 /******************************************************************************/
+
+
+
 .jfx-tab-flatpane {
     -fx-tab-min-height: 26;
     -fx-tab-max-height: 26;
@@ -1254,6 +1275,14 @@ JFX Tab pane
     -fx-text-fill: COLOR_3;
 }
 
+
+
+.jfx-tab-flatpaneUI {
+    -fx-tab-min-height: 26;
+    -fx-tab-max-height: 26;
+    -fx-tab-min-width: 40;
+    
+}
 
 /*******************************************************************************
 Scroll bar
@@ -1473,7 +1502,7 @@ Table pane
 }
  
 .table-view .column-header, .table-view .filler, .tree-table-view .column-header, .tree-table-view .filler {  
-    -fx-size: 25;
+    -fx-size: 30;
     -fx-border-color: transparent;    
     -fx-background-color:   linear-gradient(to bottom,
                                 derive(#fafafa, -4%),
@@ -1487,7 +1516,7 @@ Table pane
 }
 .table-view .filler, .tree-table-view .filler {
     -fx-background-color: #FFF;    
-    -fx-size: 25;
+    -fx-size: 20;
     -fx-border-color: #FFF;
 }
 .table-view .show-hide-columns-button, .tree-table-view .show-hide-columns-button  {

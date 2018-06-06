@@ -100,7 +100,6 @@ public class SchoolAdministartion extends BorderPane{
         
         try{
             //-- Student Management Views
-            //dashboardUI = FXMLLoader.load(getClass().getResource("/schooladministration/view/dashboard.fxml"));
             dashboardUI = new DashboardStatistics();
             
             FXMLLoader departmentLoader = new FXMLLoader(getClass().getResource("/schooladministration/view/departments.fxml"));

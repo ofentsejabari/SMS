@@ -13,19 +13,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="498.0" prefWidth="748.0" style="-fx-background-color: #fff;" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schooladministration.control.SchoolInformationControl">
+<AnchorPane id="AnchorPane" prefHeight="498.0" prefWidth="748.0" style="-fx-background-color: #fff;" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="studentmanagement.control.StudentWalfareController">
    <children>
       <BorderPane fx:id="borderPane" layoutY="-6.0" prefHeight="498.0" prefWidth="748.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="456.0" prefWidth="294.0" BorderPane.alignment="CENTER">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
                   <JFXTabPane styleClass="jfx-tab-flatpane">
                      <tabs>
-                        <Tab fx:id="usersTab" text="Basic Information" />
-                        <Tab fx:id="rolesTab" text="Location Info" />
+                        <Tab fx:id="sns" text="Special Needs" />
+                        <Tab fx:id="sws" text="Social Walfare Support" />
                      </tabs>
                   </JFXTabPane>
                </children>

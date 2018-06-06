@@ -23,6 +23,7 @@ import javafx.scene.layout.GridPane;
 import mysqldriver.AdminQuery;
 import static entry.SMS.getGraphics;
 import static schooladministration.SchoolAdministartion.extraCurriculaController;
+import static entry.SMS.getGraphics;
 
 /**
  *

@@ -8,13 +8,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import schooladministration.SchoolBasicInfo;
+import schooladministration.SchoolBasicInfo;
 
 /**
  * FXML Controller class
  *
  * @author ofentse
  */
-public class SchoolInformation implements Initializable {
+public class SchoolInformationControl implements Initializable {
     
     @FXML
     private Tab rolesTab, usersTab;

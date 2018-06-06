@@ -82,7 +82,7 @@ public class MySQLHander {
     
     
     
-    public ObservableList<Student> studentList(String filter){
+    public ObservableList<Student> getStudentList(String filter){
         ObservableList<Student> students = FXCollections.observableArrayList();
         try{
             String query = " SELECT `student`.`studentID`, CONCAT_WS(' ',`firstName`,`lastName`) AS `fullname`,"
@@ -94,7 +94,8 @@ public class MySQLHander {
             
             if("ALL".equalsIgnoreCase(filter)){
                 query = " SELECT `student`.`studentID`, CONCAT_WS(' ',`firstName`,`lastName`) AS `fullname`,"
-                      + " CONCAT_WS(',  ',`parent`.`email`, `cellphone`, `telephone`) AS `contacts`, `className`"
+                      + " CONCAT_WS(',  ',`parent`.`email`, `cellphone`, `telephone`) AS `contacts`, `className`,"
+                      + " `gender`"
                       + " FROM `student`, `parent`, `class`"
                       + " WHERE `student`.`parentID` = `parent`.`id`"
                       + " AND `class`.`classID` = `student`.`classID`";
@@ -109,6 +110,7 @@ public class MySQLHander {
                 st.setClassID(result.getString("className"));
                 st.setStudentID(result.getString("studentID"));
                 st.setParentID(result.getString("contacts"));
+                st.setGender(result.getString("gender"));
                 
                 students.add(st);
             }

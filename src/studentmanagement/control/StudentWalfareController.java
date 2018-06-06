@@ -5,27 +5,29 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
-import studentmanagement.StudentEnrolment;
+import javafx.scene.layout.BorderPane;
 
 /**
  * FXML Controller class
  *
  * @author ofentse
  */
-public class StudentEnrolmentController implements Initializable {
+public class StudentWalfareController implements Initializable {
 
     @FXML
-    private Tab studentTab;
-    
-    public StudentEnrolment enrollUI;
+    private BorderPane borderPane;
+    @FXML
+    private Tab sns;
+    @FXML
+    private Tab sws;
 
-    
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //--
-        enrollUI = new StudentEnrolment();
         
-        studentTab.setContent(enrollUI);
     }    
-  
+    
 }
