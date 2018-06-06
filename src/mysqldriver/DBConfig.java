@@ -25,10 +25,10 @@ public class DBConfig implements Serializable {
            db_password;
 
     public DBConfig(){
-        db_host = "192.168.100.85";
+        db_host = "192.168.100.77";
         db_name = "sms";
-        db_username = "sms";
-        db_password = "sms12345";  
+        db_username = "ischool";
+        db_password = "ischool";  
     }
 
     public static void main(String args[]){

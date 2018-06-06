@@ -11,6 +11,7 @@ import inventorymanagement.FacilitiesType;
 import inventorymanagement.Inventory;
 import inventorymanagement.PolicyDocument;
 import inventorymanagement.StudentAllocationModel;
+import inventorymanagement.StudentResourceList;
 import inventorymanagement.Supplier;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,8 +25,6 @@ import static mysqldriver.MySQLHander.STATEMENT;
  */
 public class InventoryQuery {
 
-    
-    
     
     /**************************************************************
     *       inventory management 
@@ -407,7 +406,7 @@ public class InventoryQuery {
                          + ",`supplierPhysical`,`supplierPostal`,`supplierFax`"
                          + " FROM `suppliers`"
                          + "WHERE `supplierName`='"+name+"'";
-           System.out.println(query);
+           //System.out.println(query);
             ResultSet result = STATEMENT.executeQuery(query);
             
             if(result.next()){
@@ -502,15 +501,18 @@ public class InventoryQuery {
     public static String updateInventoryItem(Inventory item, boolean update){
         
         try{
+            //getInventoryType(item.getInventoryID());
+            
+            
             String insertQuery = "INSERT INTO `inventory` (`inventoryID`, `inventoryName`, `inventoryDescription`,"
                     + " `inventoryManSn`, `inventoryGovSn`, `inventoryYears`, `inventoryCost`, `inventoryPurchaseOrder`, "
                     + "`inventoryLocation`, `inventoryBatch`, `inventoryDate`, `inventoryDept`, `inventoryStaffID`, `inventoryQuantity`,"
-                    + " `inventorySupplierID`, `inventoryCaptureDate`, `invetoryCaptuteStaff`, `schoolID`)"
+                    + " `inventorySupplierID`, `inventoryCaptureDate`, `invetoryCaptuteStaff`, `schoolID`,`inventory_typeID`)"
                     + " VALUES (0,'"+item.getInventoryName()+"','"+item.getInventoryDescription()+"','"+item.getInventoryManSn()+"',"
                     + "'"+item.getInventoryGovSn()+"','"+item.getInventoryYears()+"','"+item.getInventoryCost()+"','"+item.getInventoryPurchaseOrder()+"',"
-                    + "'"+item.getInventoryLocation()+"','"+item.getInventoryBatch()+"','"+item.getInventoryDate()+"','"+item.getInventoryDate()+"'"
-                    + ",'"+item.getInventoryDept()+"','"+item.getInventoryStaffID()+"','"+item.getInventoryQuantity()+"','"+item.getInventorySupplierID()+"'"
-                    + ",'"+item.getInvetoryCaptuteStaff()+"','"+item.getSchoolID()+"')";
+                    + "'"+item.getInventoryLocation()+"','"+item.getInventoryBatch()+"','"+item.getInventoryDate()+"','"+item.getInventoryDept()+"'"
+                    + ",'"+item.getInventoryStaffID()+"','"+item.getInventoryQuantity()+"','"+item.getInventorySupplierID()+"',now()"
+                    + ",'"+item.getInvetoryCaptuteStaff()+"','"+item.getSchoolID()+"','')";
             
             STATEMENT.addBatch(insertQuery);
             STATEMENT.executeBatch();
@@ -586,16 +588,79 @@ public class InventoryQuery {
     }
        
     
-    public static ObservableList<StudentAllocationModel> getStudentAllocation(String filter){
+    public static ObservableList<StudentAllocationModel> getStudentAllocation(String filter,String filter2){
         ObservableList<StudentAllocationModel> item =  FXCollections.observableArrayList();
+        
         try{
-            String query = "";
+            
+                       String query  = "SELECT `student_inventoryID`,`inventoryName`,`inventoryDept`,`inventoryManSn`"
+                               + "FROM `student`,`inventory`,`student_inventory`,`inventory_type`"
+                               + "WHERE `student`.`studentID`=`student_inventoryStudentID` "
+                               + "AND `studentID`='"+filter+"'"
+                               + "AND `inventory`.`inventory_typeID`=`inventory_type`.`inventory_typeName`";
+                       
+                        if(!filter2.equals("")){
+                                query  = " SELECT `student_inventoryID`,`inventoryName`,`inventoryDept`,`inventoryManSn`"
+                                        +" FROM `student`,`inventory`,`student_inventory`,`inventory_type`"
+                                        +" WHERE `student`.`studentID`=`student_inventoryStudentID` "
+                                        +" AND studentID='"+filter+"'"
+                                        +" AND `inventory`.`inventory_typeID`=`inventory_type`.`inventory_typeName`"
+                                        +" AND `inventory`.`inventory_typeID`='"+filter2+"'";
+
+                        }
+            
+                        ResultSet result = STATEMENT.executeQuery(query);
+                        int count=1;
+                        while(result.next()){
+                            item.add(new StudentAllocationModel(""+count,result.getString("inventoryName")
+                                    ,result.getString("inventoryManSn")));
+                            count++;
+                        }
+                        return item;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return item;
+        }
+    } //StudentResourceList
+    
+    public static ObservableList<StudentResourceList> getStudentResourceList(String stream_id){
+        ObservableList<StudentResourceList> item =  FXCollections.observableArrayList();
+        try{
+                String query = "SELECT `studentID`,CONCAT_WS(' ',`firstName`,`lastName`) AS `studentName`,className "
+                        + "FROM `student`,class "
+                        + "WHERE class.classID=student.classID";
+                if(!stream_id.equals("ALL"))
+                {
+                    System.out.println("----"+stream_id+"----");
+                    query = "SELECT `studentID`,CONCAT_WS(' ',`firstName`,`lastName`) AS `studentName`,className "
+                            + "FROM `student`,class "
+                            + "WHERE stream='"+stream_id+"' AND class.classID=student.classID";
+                }
+                ResultSet result = STATEMENT.executeQuery(query);
+
+                while(result.next()){
+                        item.add(new StudentResourceList(result.getString("studentID"),result.getString("studentName"),
+                                result.getString("className"),""));
+                }
+                return item;
+            
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return item;
+        }
+    }
+    
+      public static ObservableList<String> getInventoryType(){
+        ObservableList<String> item =  FXCollections.observableArrayList();
+        try{
+            String query = "SELECT `inventory_typeID`, `inventory_typeName` FROM `inventory_type` WHERE 1";
            
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
-                item.add(new StudentAllocationModel(result.getString(""),result.getString(""),result.getString(""),
-                        result.getString(""),result.getString(""),result.getString("")));
+                item.add(result.getString("inventory_typeName"));
             }
             return item;
         } 
@@ -603,5 +668,41 @@ public class InventoryQuery {
              System.out.println(ex.getMessage());
              return item;
         }
+    }
+      
+    public static String getInventoryTypeName(String inventoryTypeID){
+        String item="";
+        try{
+            String query = "SELECT `inventory_typeName` FROM `inventory_type` WHERE `inventory_typeID`='"+inventoryTypeID+"'" ;
+           
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                item=result.getString("inventory_typeName");
+            }
+            return item;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return item;
+        }
+    }  
+    
+    public static String getAllocatedResourceNo(String str){
+        
+        String query = "SELECT COUNT(*) FROM `student_inventory` WHERE student_inventoryStudentID='"+str+"'";
+           
+         try {
+            ResultSet res = STATEMENT.executeQuery(query);
+            if(res.next())
+            {
+                return res.getInt(0)+"";
+            }
+        }
+        catch(SQLException e){
+            System.out.println("failed ...!!");
+            return "FALIED";
+        }
+        return "0";
     }
 }

@@ -55,6 +55,8 @@ public class InventoryItem extends BorderPane{
         toolbar.getStyleClass().add("secondary-toolbar");
         setTop(toolbar);
         
+        
+        
         JFXButton btn_add = new JFXButton("Add");
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
@@ -258,7 +260,7 @@ public class InventoryItem extends BorderPane{
         
         pi.visibleProperty().bind(inventoryListWork.runningProperty());
         inventoryTable.getTableView().itemsProperty().bind(inventoryListWork.valueProperty());
-        
+        stackPane.setPadding(new Insets(10));
         stackPane.getChildren().addAll(pi,inventoryTable);
         setCenter(stackPane);
         

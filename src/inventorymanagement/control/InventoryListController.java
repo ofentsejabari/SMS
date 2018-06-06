@@ -2,6 +2,7 @@
 package inventorymanagement.control;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import inventorymanagement.InventoryItem;
 import inventorymanagement.Inventory;
 import java.net.URL;
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.BorderPane;
 import org.controlsfx.control.textfield.CustomTextField;
 
 
@@ -23,6 +25,9 @@ public class InventoryListController implements Initializable {
     
     @FXML
     private CustomTextField search;
+    
+    @FXML
+    private BorderPane borderPane;
     
     @FXML
     private Tab inventoryList, sold;
@@ -40,6 +45,6 @@ public class InventoryListController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         inventoryItem = new InventoryItem();
-        inventoryList.setContent(inventoryItem);
+        borderPane.setCenter(inventoryItem);
     } 
 }

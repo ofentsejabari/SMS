@@ -109,14 +109,27 @@ public class SupplierInformationController implements Initializable {
         supplier_ListView.setItems(items);
         
         supplier_ListView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            Supplier sp = InventoryQuery.getSupplierByName(newValue);
-            companyName.setText(sp.getSupplierName());
-            companyTel.setText(sp.getSupplierPhone());
-            companyPostal.setText(sp.getSupplierPostal());
-            companyCell.setText(sp.getSupplierCell());
-            companyEmail.setText(sp.getSupplierEmail());
-            companyFax.setText(sp.getSupplierFax());
-            companyPhysical.setText(sp.getSupplierPhysical());
+           
+            if (newValue != null){
+                        Supplier sp = InventoryQuery.getSupplierByName(newValue);
+                        companyName.setText(sp.getSupplierName());
+                        companyTel.setText(sp.getSupplierPhone());
+                        companyPostal.setText(sp.getSupplierPostal());
+                        companyCell.setText(sp.getSupplierCell());
+                        companyEmail.setText(sp.getSupplierEmail());
+                        companyFax.setText(sp.getSupplierFax());
+                        companyPhysical.setText(sp.getSupplierPhysical());
+            } 
+            else{
+                        companyName.setText("");
+                        companyTel.setText("");
+                        companyPostal.setText("");
+                        companyCell.setText("");
+                        companyEmail.setText("");
+                        companyFax.setText("");
+                        companyPhysical.setText("");
+            
+            }
             
         });
         
@@ -148,22 +161,25 @@ public class SupplierInformationController implements Initializable {
        // System.out.print("here");
         if (oldVal != null && (newVal.length() < oldVal.length())) {
           supplier_ListView.setItems(items);
+          
         }
         String value = newVal.toUpperCase();
         ObservableList<String> subentries = FXCollections.observableArrayList();
+        int count=0;
         for (String entry : supplier_ListView.getItems()) {
             boolean match = true;
            String entryText = entry;
             
             if (!entryText.toUpperCase().contains(value)) {
-                System.out.println(entryText.toUpperCase()+"--"+value);
+                //System.out.println(entryText.toUpperCase()+"--"+value);
               match = false;
             }
             if (match) {
-                
+              count++;
               subentries.add(entryText);
             }
         }
+        totalSuppliers.setText(""+count);
         supplier_ListView.setItems(subentries);
   }
     

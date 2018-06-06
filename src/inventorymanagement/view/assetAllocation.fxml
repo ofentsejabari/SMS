@@ -13,9 +13,12 @@
    <children>
       <BorderPane fx:id="borderPane" layoutY="-6.0" prefHeight="498.0" prefWidth="748.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
-            <VBox fx:id="streamClasses" prefHeight="456.0" prefWidth="294.0" spacing="5.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="streamClasses" prefHeight="456.0" prefWidth="508.0" spacing="5.0" BorderPane.alignment="CENTER">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="250.0" spacing="5.0" styleClass="secondary-toolbar">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="22.0" prefWidth="381.0" spacing="5.0" styleClass="secondary-toolbar">
                      <children>
                         <Label fx:id="streamName" styleClass="title-label" />
                         <Region prefHeight="26.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
@@ -24,17 +27,17 @@
                      </children>
                   </HBox>
                </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
             </VBox>
          </center>
          <left>
             <VBox fx:id="listview" BorderPane.alignment="CENTER">
                <children>
-                  <HBox fx:id="streamToolBar" alignment="CENTER_LEFT" prefHeight="32.0" spacing="5.0" styleClass="secondary-toolbar">
+                  <HBox fx:id="streamToolBar" alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="32.0" styleClass="secondary-toolbar">
                      <children>
-                        <Label styleClass="title-label" text="Allocation By Streams" />
+                        <Label prefHeight="27.0" prefWidth="157.0" styleClass="title-label" text="By Streams">
+                           <font>
+                              <Font size="10.0" />
+                           </font></Label>
                         <Label text="(" />
                         <Label fx:id="totalStreams" text="345" />
                         <Label text=")" />
@@ -49,9 +52,6 @@
          </left>
          <top>
             <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="748.0" spacing="5.0" styleClass="primary-toolbar" BorderPane.alignment="CENTER">
-               <children>
-                  <Region prefHeight="26.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-               </children>
                <padding>
                   <Insets bottom="2.0" left="5.0" right="5.0" top="8.0" />
                </padding>

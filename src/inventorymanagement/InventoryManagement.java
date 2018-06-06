@@ -72,18 +72,17 @@ public class InventoryManagement extends BorderPane{
         setLeft(mainMenu);
         
         try {
-            //-- Student Management Views
-            dashboardUI = FXMLLoader.load(getClass().getResource("/inventorymanagement/view/dashboard.fxml"));
-            inventoryListUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/inventoryList.fxml"));
-            supplierUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/supplierManagement.fxml"));
-            assetAllocationUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/assetAllocation.fxml"));
-            policyDocumentsUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/policyDocuments.fxml"));
-            purchaseOrderUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/purchaseOrder.fxml"));
-            facilitiesUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/facilities.fxml"));
+                dashboardUI = FXMLLoader.load(getClass().getResource("/inventorymanagement/view/dashboard.fxml"));
+                inventoryListUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/inventoryList.fxml"));
+                supplierUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/supplierManagement.fxml"));
+                assetAllocationUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/assetAllocation.fxml"));
+                policyDocumentsUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/policyDocuments.fxml"));
+                purchaseOrderUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/purchaseOrder.fxml"));
+                facilitiesUI=FXMLLoader.load(getClass().getResource("/inventorymanagement/view/facilities.fxml"));
         } catch (IOException ex) {
         }
         
-        INVENTORY_MAN_STACK = new StackPane(facilitiesUI,policyDocumentsUI,purchaseOrderUI,assetAllocationUI,supplierUI
+        INVENTORY_MAN_STACK = new StackPane(facilitiesUI,policyDocumentsUI,purchaseOrderUI,supplierUI,assetAllocationUI
                ,inventoryListUI ,dashboardUI);
         
         setCenter(INVENTORY_MAN_STACK);

@@ -14,7 +14,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="363.0" prefWidth="394.0" style="-fx-background-color: #fff;" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventorymanagement.view.CaptureStudentAllocationController">
+<AnchorPane id="AnchorPane" prefHeight="363.0" prefWidth="394.0" style="-fx-background-color: #fff;" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventorymanagement.control.CaptureStudentAllocationController">
    <children>
       <StackPane prefHeight="600.0" prefWidth="1061.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -32,12 +32,7 @@
                <bottom>
                   <HBox alignment="CENTER" prefHeight="48.0" prefWidth="1019.0" spacing="10.0" style="-fx-padding: 4;" styleClass="secondary-toolbar" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="btn_cancel" buttonType="RAISED" prefHeight="35.0" prefWidth="110.0" style="-fx-border-color: #22B5FF; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="Cancel" textFill="#2f2a2a">
-                           <padding>
-                              <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
-                           </padding>
-                        </JFXButton>
-                        <JFXButton fx:id="btn_update" buttonType="RAISED" prefHeight="33.0" prefWidth="110.0" style="-fx-background-color: #22B5FF; -fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="Update" textFill="WHITE">
+                        <JFXButton fx:id="btn_save" buttonType="RAISED" prefHeight="33.0" prefWidth="110.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="Save" textFill="WHITE">
                            <padding>
                               <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
                            </padding>
