@@ -9,7 +9,6 @@ import entry.DialogUI;
 import entry.HSpacer;
 import entry.SMS;
 import static entry.SMS.dbHandler;
-import static entry.SMS.getGraphics;
 import entry.ToolTip;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;

@@ -8,9 +8,8 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Student {
     SimpleStringProperty id, studentID, firstName, lastName, middleName, dob,
-            classID, gender, lastSchoolAttended, pslegrade, citizenship, email, specialNeed,
-            parentID, physicalAddress, postalAddress, schoolID, enrollDate, picture, socialWalfare, 
-            club, sportCode;
+            classID, gender, lastSchoolAttended, pslegrade, citizenship, email,
+            physicalAddress, postalAddress, schoolID, enrollDate, picture, status;
 
     public Student() {
         id = new SimpleStringProperty("");
@@ -30,22 +29,20 @@ public class Student {
         
         email = new SimpleStringProperty("");
         
-        specialNeed = new SimpleStringProperty("");
-        socialWalfare = new SimpleStringProperty("");
-        
         postalAddress = new SimpleStringProperty("");
         physicalAddress = new SimpleStringProperty("");
         
         schoolID = new SimpleStringProperty("");
         enrollDate = new SimpleStringProperty("");
-        parentID = new SimpleStringProperty("");
         picture = new SimpleStringProperty("");
+        
+        this.status = new SimpleStringProperty("");
     }
     
     public Student(String id, String studentID, String firstName, String lastName, String middleName, 
             String dob, String classID, String gender, String lastSchool, String psl, String citizenship,
-            String email, String specialNeed, String socialWelfare, String postalAddress, String physicalAddress,
-            String parentID, String enrollDate, String club, String sportCode, String picture, String schoolID){
+            String email, String postalAddress, String physicalAddress, String enrollDate,
+            String status, String picture, String schoolID){
         
         this.id = new SimpleStringProperty(id);
         this.studentID = new SimpleStringProperty(studentID);
@@ -62,20 +59,15 @@ public class Student {
         this.pslegrade = new SimpleStringProperty(psl);
         this.citizenship = new SimpleStringProperty(citizenship);
         
-        this.email = new SimpleStringProperty(email);
-        this.specialNeed = new SimpleStringProperty(specialNeed);
-        this.socialWalfare = new SimpleStringProperty(socialWelfare);
-        
+        this.email = new SimpleStringProperty(email);        
         this.postalAddress = new SimpleStringProperty(postalAddress);
         this.physicalAddress = new SimpleStringProperty(physicalAddress);
-        this.parentID = new SimpleStringProperty(parentID);
         
         this.schoolID = new SimpleStringProperty(schoolID);
         this.enrollDate = new SimpleStringProperty(enrollDate);
         this.picture = new SimpleStringProperty(picture);
         
-        this.club = new SimpleStringProperty(club);
-        this.sportCode = new SimpleStringProperty(sportCode);
+        this.status = new SimpleStringProperty(status);
     }
     
     
@@ -97,9 +89,6 @@ public class Student {
     
     public String getDob(){return dob.get();}
     public void setDob(String lnam){dob.set(lnam);}
-    
-    public String getParentID(){return parentID.get();}
-    public void setParentID(String lnam){parentID.set(lnam);}
         
     public String getClassID(){return classID.get();}
     public void setClassID(String mnam){classID.set(mnam);}
@@ -127,14 +116,8 @@ public class Student {
     public String getPhysicalAddress(){    return physicalAddress.get();}
     public void   setPhysicalAddress(String mnam){physicalAddress.set(mnam);}
     
-    public String getSocialWalfare(){    return socialWalfare.get();}
-    public void   setSocialWalfare(String mnam){socialWalfare.set(mnam);}
-    
     public String getSchoolID(){    return schoolID.get();}
     public void   setSchoolID(String mnam){schoolID.set(mnam);}
-    
-    public String getSpecialNeed(){    return specialNeed.get();}
-    public void   setSpecialNeed(String mnam){specialNeed.set(mnam);}
     
     public String getEnrollDate(){    return enrollDate.get();}
     public void   setEnrollDate(String mnam){enrollDate.set(mnam);}
@@ -142,12 +125,8 @@ public class Student {
     public String getPicture(){    return picture.get();}
     public void   setPicture(String mnam){picture.set(mnam);}
     
-    
-    public String getClub(){    return club.get();}
-    public void   setClub(String mnam){club.set(mnam);}
-    
-    public String getSportCode(){    return sportCode.get();}
-    public void   setSportCode(String mnam){sportCode.set(mnam);}
+    public String getStatus(){    return status.get();}
+    public void   setStatus(String mnam){status.set(mnam);}
     
     public String getFullName(){
         return firstName.get()+" "+lastName.get();

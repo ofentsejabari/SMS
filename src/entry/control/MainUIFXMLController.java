@@ -31,7 +31,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.layout.FlowPane;
-import static entry.SMS.getIcon;
 import entry.ToolTip;
 import eventcalendar.JBEventCalendar;
 import javafx.scene.layout.HBox;
@@ -39,6 +38,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import org.controlsfx.tools.Borders;
+import static entry.SMS.getIcon;
 
 /**
  * 
@@ -53,7 +53,7 @@ public class MainUIFXMLController implements Initializable {
     private BorderPane parentContainer;
     
     @FXML    
-    private JFXButton btn_toolbar_help, drawer;
+    private JFXButton btn_toolbar_help, btn_toolbar_about, drawer;
     
     @FXML    
     private StackPane drawerStackPane;
@@ -122,6 +122,7 @@ public class MainUIFXMLController implements Initializable {
         
         try {
             drawerContent = FXMLLoader.load(getClass().getResource("/entry/view/NavigationDrawer.fxml"));
+            //configDrawerContent = FXMLLoader.load(getClass().getResource("/entry/view/ConfigurationNavigationDrawer.fxml"));
             
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -175,7 +176,26 @@ public class MainUIFXMLController implements Initializable {
             drawerStack.toggle(jFXDrawer);
         });
         
-        drawerStackPane.getChildren().add(drawerStack);
+        
+        
+        
+        /*---- System configuration drawer ---
+        systemConfigDrawerStack = new JFXDrawersStack();
+        systemConfigDrawerStack.setContent(parentContainer);
+        
+        jFXConfigDrawer = new JFXDrawer();
+        
+        jFXConfigDrawer.setDirection(JFXDrawer.DrawerDirection.RIGHT);
+        jFXConfigDrawer.setDefaultDrawerSize(200);
+        jFXConfigDrawer.setSidePane(configDrawerContent);
+        jFXConfigDrawer.setOverLayVisible(true);
+        jFXConfigDrawer.setResizableOnDrag(false);
+        
+        btn_toolbar_about.setOnAction((ActionEvent event) -> {
+            systemConfigDrawerStack.toggle(jFXConfigDrawer);
+        });
+        */
+        drawerStackPane.getChildren().addAll(drawerStack);
         
         footer.getChildren().add(new Footer());
         

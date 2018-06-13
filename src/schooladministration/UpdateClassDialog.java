@@ -22,7 +22,6 @@ import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import javafx.scene.layout.GridPane;
 import static schooladministration.SchoolAdministartion.streamClassesController;
 import static entry.SMS.getGraphics;
-import static entry.SMS.getGraphics;
 
 /**
  *
@@ -111,7 +110,7 @@ public class UpdateClassDialog extends JFXDialog{
             name.setText(isclass.getName());
             teacher.setValue(dbHandler.getEmployeeByID(isclass.getClassTeacherID()).getFullName());
             
-            stream.setValue(AdminQuery.getStreamByID(isclass.getStream()).getDescription());
+            stream.setValue(AdminQuery.getStreamByID(isclass.getStreamID()).getDescription());
             house.setValue(AdminQuery.getHouseByID(isclass.getHouse()).getHouseName());
             
             title.setText("Update Class");

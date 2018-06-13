@@ -8,7 +8,6 @@ import javafx.scene.control.Tab;
 import studentmanagement.StudentEnrolment;
 
 /**
- * FXML Controller class
  *
  * @author ofentse
  */

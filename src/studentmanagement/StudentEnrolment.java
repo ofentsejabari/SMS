@@ -32,25 +32,19 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import static entry.SMS.getGraphics;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import static entry.SMS.getGraphics;
 
 /**
- * FXML Controller class
- *
  * @author ofentse
  */
 public class StudentEnrolment extends  BorderPane{
 
     JFXButton btn_add, btn_refresh, btn_export;
-    
     CustomTextField search;
-    
     Label count;
-    
     StackPane stackpane;
     
     public static String filter = "ALL";
@@ -58,9 +52,7 @@ public class StudentEnrolment extends  BorderPane{
     public static UpdateStudentProfile profileStage;
     public static CustomTableView<Student> studentTable;
     public static ObservableList<Student> studentList = FXCollections.observableArrayList();
-    
-    public static StudentListWorkService studentListWork;
-    
+    public StudentListWorkService studentListWork;
     
     public StudentEnrolment(){
         
@@ -134,8 +126,7 @@ public class StudentEnrolment extends  BorderPane{
         btn_export = new JFXButton("Export");
         btn_export.setGraphic(SMS.getGraphics(MaterialDesignIcon.EXPORT, "icon-default", 24));
         btn_export.setOnAction((ActionEvent event) -> {
-            //new ExportMenu(btn_export);
-            new StudentProfileStage(null);
+            
         });
         
         btn_refresh = new JFXButton("Refresh");
@@ -300,7 +291,7 @@ public class StudentEnrolment extends  BorderPane{
         contacts.setPercentWidth(30);
         contacts.setCellValueFactory(new PropertyValueFactory<>("parentID"));
         contacts.setCellFactory(TextFieldTableCell.forTableColumn());
-        contacts.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+        contacts.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>(){
             @Override 
             public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
@@ -324,7 +315,7 @@ public class StudentEnrolment extends  BorderPane{
         studentTable.getTableView().setPlaceholder(ph);
         
         ProgressIndicator pi = new ProgressIndicator("Loading Student Data", "If network connection is very slow,"
-                                                   + " this might take some few more seconds.");
+                                           + " this might take some few more seconds.");
         
         pi.visibleProperty().bind(studentListWork.runningProperty());
         studentTable.getTableView().itemsProperty().bind(studentListWork.valueProperty());
@@ -347,13 +338,13 @@ public class StudentEnrolment extends  BorderPane{
             Platform.runLater(() -> {               
                 studentTable.getTableView().setPlaceholder(new VBox());
             });
+            
             studentList  = dbHandler.getStudentList(filter);
             for(int i=0; i<studentList.size(); i++){
                 studentList.get(i).setId(i+1+"");
             }
                         
-            Platform.runLater(() -> {  
-//                count.setText(studentList.size()+" Student(s)");
+            Platform.runLater(() -> {
                 studentTable.getTableView().setPlaceholder(setDataNotAvailablePlaceholder());
             });
 

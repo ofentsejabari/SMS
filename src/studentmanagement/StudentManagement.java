@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import static entry.SMS.getIcon;
+import studentmanagement.control.StudentEnrolmentController;
 
 /**
  *
@@ -17,10 +18,11 @@ import static entry.SMS.getIcon;
 public class StudentManagement extends BorderPane{
     
     private JFXListView<Label> mainMenu;
-    private AnchorPane dashboardUI, enrolmentUI, studentWelfareUI;
+    private AnchorPane dashboardUI, enrolmentUI;
     public static StackPane STUDENT_MAN_STACK;
+    private BorderPane studentWelfareUI;
     
-    
+    public static StudentEnrolmentController studentEnrolmentController;
     
     public StudentManagement() {
         
@@ -72,9 +74,11 @@ public class StudentManagement extends BorderPane{
             //-- Student Management Views --
             dashboardUI = FXMLLoader.load(getClass().getResource("/studentmanagement/view/dashboard.fxml"));
             
-            enrolmentUI = FXMLLoader.load(getClass().getResource("/studentmanagement/view/studentsEnrolment.fxml"));
+            FXMLLoader studentLoader = new FXMLLoader(getClass().getResource("/studentmanagement/view/studentsEnrolment.fxml"));
+            enrolmentUI = studentLoader.load();
+            studentEnrolmentController = studentLoader.getController();
             
-            studentWelfareUI = FXMLLoader.load(getClass().getResource("/studentmanagement/view/studentWelfare.fxml"));
+            studentWelfareUI = new StudentWelfare();
             
         } catch (IOException ex) {
             System.out.println(ex.getMessage());

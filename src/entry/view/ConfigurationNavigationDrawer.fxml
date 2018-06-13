@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="drawerContent" maxWidth="297.0" prefHeight="525.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="entry.control.ConfigurationNavigationDrawerController">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="122.0" layoutY="59.0" maxWidth="220.0" prefHeight="400.0" prefWidth="220.0" spacing="5.0" style="-fx-padding: 0 0 10 0;" styleClass="drawer" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label styleClass="window-title" text="System Configuration" />
+            <JFXButton graphicTextGap="50.0" prefHeight="35.0" prefWidth="220.0" ripplerFill="#0096dc" style="-fx-background-radius: 0; -fx-border-radius: 0;" text="Logout" textFill="#f8f8f8" />
+            <JFXButton graphicTextGap="50.0" prefHeight="35.0" prefWidth="220.0" ripplerFill="#0096dc" style="-fx-background-radius: 0; -fx-border-radius: 0;" text="Logout" textFill="#f8f8f8" />
+            <Region VBox.vgrow="ALWAYS" />
+            <JFXButton fx:id="configure" buttonType="RAISED" graphicTextGap="50.0" prefHeight="33.0" prefWidth="180.0" ripplerFill="WHITE" style="-fx-background-radius: 4; -fx-border-radius: 4;" styleClass="dark-green" text="Configure" textFill="#f8f8f8">
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
+            </JFXButton>
+            <Region VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

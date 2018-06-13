@@ -8,7 +8,6 @@ import entry.AutoCompleteComboBoxListener;
 import entry.DialogUI;
 import entry.HSpacer;
 import entry.SMS;
-import static entry.SMS.getGraphics;
 import entry.ToolTip;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
@@ -21,6 +20,7 @@ import entry.CCValidator;
 import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import javafx.scene.layout.GridPane;
 import static schooladministration.SchoolAdministartion.streamClassesController;
+import static entry.SMS.getGraphics;
 
 /**
  *

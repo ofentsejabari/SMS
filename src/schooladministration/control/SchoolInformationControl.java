@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import schooladministration.SchoolBasicInfo;
-import schooladministration.SchoolBasicInfo;
 
 /**
  * FXML Controller class

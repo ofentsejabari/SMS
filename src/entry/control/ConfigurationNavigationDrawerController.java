@@ -1,33 +1,31 @@
-package studentmanagement.control;
 
+package entry.control;
+
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Tab;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
  *
  * @author ofentse
  */
-public class StudentWalfareController implements Initializable {
+public class ConfigurationNavigationDrawerController implements Initializable {
 
     @FXML
-    private BorderPane borderPane;
+    private AnchorPane drawerContent;
     @FXML
-    private Tab sns;
-    @FXML
-    private Tab sws;
+    private JFXButton configure;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //--
-        
+        // TODO
     }    
     
 }
