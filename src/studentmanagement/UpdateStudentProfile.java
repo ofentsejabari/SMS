@@ -72,6 +72,9 @@ public class UpdateStudentProfile extends JFXDialog{
         StackPane root = new StackPane();
         BorderPane pane = new BorderPane();
         
+        BorderPane centerPane = new BorderPane();
+        centerPane.setCenter(pane);
+        
         //-- Screen Decoration -------------------------------------------------
         HBox toolBar = new HBox();
         toolBar.getStyleClass().add("screen-decoration");
@@ -102,6 +105,7 @@ public class UpdateStudentProfile extends JFXDialog{
         studentProfilePic.setStrokeWidth(1);
         studentProfilePic.setFill(Color.web("#EAEAEA"));
         studentProfilePic.setFill(new ImagePattern(place_holder));
+        
         if(student != null){
             studentProfilePic.setFill(new ImagePattern(new Image(SMS.class.getResourceAsStream("icons/"+((student.getGender().equalsIgnoreCase("Female"))?"u9":"u10")+".png"))));
         }
@@ -131,14 +135,13 @@ public class UpdateStudentProfile extends JFXDialog{
         Label studentID = new Label(id);
         studentID.getStyleClass().add("title-label");
         
-        
         VBox con = new VBox(studentProfilePic, update, studentID);
         con.setSpacing(10);
         con.setAlignment(Pos.TOP_CENTER);
         con.setPadding(new Insets(10, 20, 10, 20));
         con.getStyleClass().add("profile-view");
         
-        pane.setLeft(con);
+        pane.setRight(con);
         
         //-- End Profile Picture -----------------------------------------------
         GridPane contentGrid = new GridPane();
@@ -152,23 +155,22 @@ public class UpdateStudentProfile extends JFXDialog{
         contentGrid.add(SMS.setBorderContainer(getParentDetails(), "Parent/Guardian Details"), 0, 2);
         contentGrid.add(SMS.setBorderContainer(getParentContactDetails(), "Parent/Guardian Contacts"), 0, 3);
         //----------------------------------------------------------------------
+        centerPane.setCenter(new ScrollPane(contentGrid));
         
         JFXButton save = new JFXButton("Save");
         save.getStyleClass().add("dark-blue");
         save.setTooltip(new ToolTip("Save"));
         save.setOnAction((ActionEvent event) -> {
-            
             saveChanges();
-            
         });  
-            
+        
+        pane.setCenter(centerPane);
         //-- footer ------------------------------------------------------------
         HBox footer = new HBox(save);
         footer.getStyleClass().add("secondary-toolbar");
-        pane.setBottom(footer);
-        
-        pane.setPrefSize(860, 700);
-        pane.setCenter(new ScrollPane(contentGrid));
+        centerPane.setBottom(footer);
+                
+        pane.setPrefSize(870, 700);
         if(student != null){
             title.setText("Update Student - "+student.getStudentID());
             
@@ -185,6 +187,7 @@ public class UpdateStudentProfile extends JFXDialog{
             s_pslGrade.setValue(student.getPslegrade());
             s_dob.setValue(SMS.getLocalDate(student.getDob()));
             s_enrollmentDate.setValue(SMS.getLocalDate(student.getEnrollDate()));
+            s_lastSchool.setValue(student.getLastSchoolAttended());
             
             if(student.getGender().equalsIgnoreCase("Male")){
                 s_male.setSelected(true);
@@ -232,6 +235,7 @@ public class UpdateStudentProfile extends JFXDialog{
                 student.setPslegrade((s_pslGrade.getValue() != null)? s_pslGrade.getValue():"");
                 student.setDob((s_dob.getValue() != null)? s_dob.getValue().toString():"");
                 student.setEnrollDate((s_enrollmentDate.getValue() != null)? s_enrollmentDate.getValue().toString():"");
+                student.setLastSchoolAttended((s_lastSchool.getValue() != null)? s_lastSchool.getValue():"");
                 student.setFirstName(s_fname.getText().trim());
                 student.setMiddleName(s_mname.getText().trim());
                 student.setLastName(s_lname.getText().trim());
@@ -536,7 +540,7 @@ public class UpdateStudentProfile extends JFXDialog{
         s_lastSchool.setPromptText("Last School Attended");
         s_lastSchool.setLabelFloat(true);
         s_lastSchool.setPrefWidth(280);
-        AutoCompleteComboBoxListener.setAutoCompleteValidator(s_lastSchool);
+        //AutoCompleteComboBoxListener.setAutoCompleteValidator(s_lastSchool);
         new AutoCompleteComboBoxListener(s_lastSchool);
         studentDetails.add(s_lastSchool, 0, 2);
         

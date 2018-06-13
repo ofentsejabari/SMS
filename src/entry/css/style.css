@@ -1266,7 +1266,7 @@ Scroll bar
 /******************************************************************************/
  
 .scroll-bar .thumb{
-    -fx-background-color: #F4F4F4;
+    -fx-background-color: COLOR_4_80;
 }
  
 .scroll-bar .thumb:hover {
