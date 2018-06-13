@@ -21,6 +21,7 @@ public class AddFacilityResources  extends JFXDialog{
     public AddFacilityResourcesController DIALOG_CONTROLLER;
     public String identifier;
     
+    
     public AddFacilityResources(String identifier){
         this.identifier=identifier;
         try{
@@ -28,6 +29,7 @@ public class AddFacilityResources  extends JFXDialog{
             AnchorPane pane = ui.load();
             
             DIALOG_CONTROLLER = ui.getController();
+            DIALOG_CONTROLLER.setDialog(this);
             DIALOG_CONTROLLER.setId(identifier);
             DIALOG_CONTROLLER.setEventHandler((EventHandler) (Event event) -> {
                 close();

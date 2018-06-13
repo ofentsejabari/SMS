@@ -36,24 +36,22 @@ import mysqldriver.InventoryQuery;
 /**
  * @author MOILE
  */
-public class FacilityStatusItem extends BorderPane{
+public class BookItem extends BorderPane{
 
-    public static CustomTableView<FacilitiesStatus> facilityStatusTable;
-    public FacilityStatusWorkService facilityStatusWork;
+    public static CustomTableView<BookCopies> bookDetailsTable;
+    public static BookWorkService bookWork;
     private final StackPane stackPane;
-    public String filter = "";
+    public static String filter = "";
+    public static Label lab;
     
-    public static ObservableList<FacilitiesStatus> facilityStatusList = FXCollections.observableArrayList();
+    public static ObservableList<BookCopies> bookList = FXCollections.observableArrayList();
     
-    public FacilityStatusItem() {
+    public BookItem() {
         
-        facilityStatusWork = new FacilityStatusWorkService();
-    
+        bookWork = new BookWorkService();
         getStyleClass().add("container");
         stackPane = new StackPane();
-        
-//        setPadding(new Insets(10));
-        
+        lab = new Label();
         HBox toolbar = new HBox();
         toolbar.getStyleClass().add("secondary-toolbar");
         setTop(toolbar);
@@ -61,28 +59,30 @@ public class FacilityStatusItem extends BorderPane{
         JFXButton btn_refresh = new JFXButton("Refresh");
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
         btn_refresh.setOnAction((ActionEvent event) -> {
-            facilityStatusWork.restart();
+            bookWork.restart();
         });
+        
         JFXButton btn_add = new JFXButton("Add");
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-             new AddFacilityResources(filter).show();
+             //add book copy
+             new AddBookCopy(filter);
         });
         
         btn_refresh.getStyleClass().add("jfx-tool-button");
         btn_add.getStyleClass().add("jfx-tool-button");
-        toolbar.getChildren().addAll(new HSpacer(), btn_refresh, btn_add);
+        toolbar.getChildren().addAll(new HSpacer(),lab,new HSpacer(), btn_refresh, btn_add);
         
         /*
             CREATE facilityType TABLE
         */
-        facilityStatusTable = new CustomTableView<>();
+        bookDetailsTable = new CustomTableView<>();
         
-        CustomTableColumn facilityStatusID = new CustomTableColumn("#");
-        facilityStatusID.setPercentWidth(4.9);
-        facilityStatusID.setCellValueFactory(new PropertyValueFactory<>("facilitiesStatusID"));
-        facilityStatusID.setCellFactory(TextFieldTableCell.forTableColumn());
-        facilityStatusID.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+        CustomTableColumn copyNo = new CustomTableColumn("#");
+        copyNo.setPercentWidth(4.9);
+        copyNo.setCellValueFactory(new PropertyValueFactory<>("copyNo"));
+        copyNo.setCellFactory(TextFieldTableCell.forTableColumn());
+        copyNo.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
             public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
@@ -98,54 +98,52 @@ public class FacilityStatusItem extends BorderPane{
             }
         });
         
-        CustomTableColumn facilityStatusResource = new CustomTableColumn("RESOURCE");
-        facilityStatusResource.setCellValueFactory(new PropertyValueFactory<>("facilitiesResourceID"));
-        
-        facilityStatusResource.setPercentWidth(70);
-        facilityStatusResource.setCellFactory(TextFieldTableCell.forTableColumn());
-        facilityStatusResource.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+        CustomTableColumn serialNo = new CustomTableColumn("Serial Number");
+        serialNo.setCellValueFactory(new PropertyValueFactory<>("serialNo"));
+        serialNo.setPercentWidth(20);
+        serialNo.setCellFactory(TextFieldTableCell.forTableColumn());
+        serialNo.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
         
         @Override 
         public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
                     
-                    @Override 
+                   @Override 
                     public void updateItem(final String ID, boolean empty) {
                         super.updateItem(ID, empty);
-                        
                         if(!empty){
-                            setGraphic(new Label(InventoryQuery.getResourceName(ID)));
+                            setGraphic(new Label(ID));
                         }else{ setGraphic(null); }
                     }
                 };
             }
         });
         
-        CustomTableColumn facilityStatusName = new CustomTableColumn("FACILITY");
-        facilityStatusName.setCellValueFactory(new PropertyValueFactory<>("facilitiesID"));
-        facilityStatusName.setCellFactory(TextFieldTableCell.forTableColumn());
-        facilityStatusName.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+        CustomTableColumn bookLocation = new CustomTableColumn("Status");
+        bookLocation.setPercentWidth(15);
+        bookLocation.setCellValueFactory(new PropertyValueFactory<>("bookLocation"));
+        bookLocation.setCellFactory(TextFieldTableCell.forTableColumn());
+        bookLocation.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
             public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
                     
-                    @Override 
+                   @Override 
                     public void updateItem(final String ID, boolean empty) {
                         super.updateItem(ID, empty);
-                        
                         if(!empty){
-                            setGraphic(new Label(InventoryQuery.getFacilitiesName(ID).get(0)));
+                            setGraphic(new Label(ID));
                         }else{ setGraphic(null); }
                     }
                 };
             }
         }); 
         
-        CustomTableColumn facilityStatusAvailable = new CustomTableColumn("AVAILABLE");
-        facilityStatusAvailable.setPercentWidth(15);
-        facilityStatusAvailable.setCellValueFactory(new PropertyValueFactory<>("facilitiesStatusAvailable"));
-        facilityStatusAvailable.setCellFactory(TextFieldTableCell.forTableColumn());
-        facilityStatusAvailable.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+        CustomTableColumn edition = new CustomTableColumn("Edition");
+        edition.setPercentWidth(10);
+        edition.setCellValueFactory(new PropertyValueFactory<>("edition"));
+        edition.setCellFactory(TextFieldTableCell.forTableColumn());
+        edition.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
             public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
@@ -162,11 +160,11 @@ public class FacilityStatusItem extends BorderPane{
             }
         });
         
-        CustomTableColumn facilityStatusDamage = new CustomTableColumn("DAMAGED");
-        facilityStatusDamage.setPercentWidth(15);
-        facilityStatusDamage.setCellFactory(TextFieldTableCell.forTableColumn());
-        facilityStatusDamage.setCellValueFactory(new PropertyValueFactory<>("facilitiesStatusDamage"));
-        facilityStatusDamage.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+        CustomTableColumn supplierName = new CustomTableColumn("Supplier Name");
+        supplierName.setPercentWidth(20);
+        supplierName.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
+        supplierName.setCellFactory(TextFieldTableCell.forTableColumn());
+        supplierName.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
             public TableCell<String, String> call(TableColumn<String, String> clientID) {
                 return new TableCell<String, String>() {
@@ -183,60 +181,94 @@ public class FacilityStatusItem extends BorderPane{
             }
         });
         
+        CustomTableColumn cost = new CustomTableColumn("Cost");
+        cost.setPercentWidth(15);
+        cost.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        cost.setCellFactory(TextFieldTableCell.forTableColumn());
+        cost.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+            @Override 
+            public TableCell<String, String> call(TableColumn<String, String> clientID) {
+                return new TableCell<String, String>() {
+                    
+                    @Override 
+                    public void updateItem(final String ID, boolean empty) {
+                        super.updateItem(ID, empty);
+                        
+                        if(!empty){
+                            setGraphic(new Label(ID));
+                        }else{ setGraphic(null); }
+                    }
+                };
+            }
+        });
         
+        CustomTableColumn invoiceNo = new CustomTableColumn("Invoice No.");
+        invoiceNo.setPercentWidth(15);
+        invoiceNo.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        invoiceNo.setCellFactory(TextFieldTableCell.forTableColumn());
+        invoiceNo.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
+            @Override 
+            public TableCell<String, String> call(TableColumn<String, String> clientID) {
+                return new TableCell<String, String>() {
+                    
+                    @Override 
+                    public void updateItem(final String ID, boolean empty) {
+                        super.updateItem(ID, empty);
+                        
+                        if(!empty){
+                            setGraphic(new Label(ID));
+                        }else{ setGraphic(null); }
+                    }
+                };
+            }
+        });
         
-        facilityStatusTable.getTableView().getColumns().addAll(facilityStatusID
-                ,facilityStatusResource,facilityStatusAvailable,facilityStatusDamage);
-        VBox.setVgrow(facilityStatusTable, Priority.ALWAYS);
+        bookDetailsTable.getTableView().getColumns().addAll(copyNo
+                ,serialNo,bookLocation,edition,invoiceNo,supplierName,cost);
         
-        //-- SET DATA
-        facilityStatusTable.getTableView().setItems(InventoryQuery.facilitiesStatusList("ALL"));
+        VBox.setVgrow(bookDetailsTable, Priority.ALWAYS);
         
+       
         VBox ph = setDataNotAvailablePlaceholder();
-        facilityStatusTable.getTableView().setPlaceholder(ph);
-        
+        bookDetailsTable.getTableView().setPlaceholder(ph);
         
         ProgressIndicator pi = new ProgressIndicator("Loading users data", "If network connection is very slow,"
                                                    + " this might take some few more seconds.");
         
-        pi.visibleProperty().bind(facilityStatusWork.runningProperty());
-        facilityStatusTable.getTableView().itemsProperty().bind(facilityStatusWork.valueProperty());
+        pi.visibleProperty().bind(bookWork.runningProperty());
+        bookDetailsTable.getTableView().itemsProperty().bind(bookWork.valueProperty());
         
-        stackPane.getChildren().addAll(pi,facilityStatusTable);
+        stackPane.getChildren().addAll(pi,bookDetailsTable);
         setCenter(stackPane);
         
-        facilityStatusWork.start();
-        facilityStatusWork.restart();
+        bookWork.start();
+        bookWork.restart();
         
     }
     
     
-    public class FacilityStatusWork extends Task<ObservableList<FacilitiesStatus>> {       
+    public class BookWork extends Task<ObservableList<BookCopies>> {       
         @Override 
-        protected ObservableList<FacilitiesStatus> call() throws Exception {
+        protected ObservableList<BookCopies> call() throws Exception {
             
             Platform.runLater(() -> {               
-                facilityStatusTable.getTableView().setPlaceholder(new VBox());
+                bookDetailsTable.getTableView().setPlaceholder(new VBox());
             });
-            facilityStatusList  =  InventoryQuery.getFacilitiesStatus(filter);
-            for(int i=0;i<facilityStatusList.size();i++){
-                facilityStatusList.get(i).setFacilitiesStatusID(i+1+"");
-            }
-                        
+            bookList  =  InventoryQuery.getBookCopiesByBookId(filter);
+                       
             Platform.runLater(() -> {  
-                //count.setText(studentList.size()+" Student(s)");
-                facilityStatusTable.getTableView().setPlaceholder(setDataNotAvailablePlaceholder());
+                bookDetailsTable.getTableView().setPlaceholder(setDataNotAvailablePlaceholder());
             });
 
-            return facilityStatusList;
+            return bookList;
         } 
     }
 
-    public class FacilityStatusWorkService extends Service<ObservableList<FacilitiesStatus>> {
+    public class BookWorkService extends Service<ObservableList<BookCopies>> {
 
         @Override
         protected Task createTask() {
-            return new FacilityStatusWork();
+            return new BookWork();
         }
     }
     

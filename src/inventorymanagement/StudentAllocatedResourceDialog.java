@@ -16,7 +16,6 @@ import entry.ProgressIndicator;
 import entry.SMS;
 import static entry.SMS.getGraphics;
 import static entry.SMS.setDataNotAvailablePlaceholder;
-import entry.ToolTip;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -68,8 +67,6 @@ public class StudentAllocatedResourceDialog extends JFXDialog{
             close();
         });
         
-        //Label title = new Label("Database Configuration", getGraphics(MaterialDesignIcon.SERVER_NETWORK, "", 32));
-        //title.getStyleClass().add("window-title");
         
         toolBar.getChildren().addAll(new HSpacer(), btn_close);
         container.setTop(toolBar);
