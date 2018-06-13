@@ -5,6 +5,8 @@
  */
 package mysqldriver;
 
+import inventorymanagement.BookCopies;
+import inventorymanagement.BookModel;
 import inventorymanagement.Facilities;
 import inventorymanagement.FacilitiesStatus;
 import inventorymanagement.FacilitiesType;
@@ -73,7 +75,26 @@ public class InventoryQuery {
              return item;
         }
     }
-      
+        public static ObservableList<BookCopies> getBookCopiesByBookId(String book_id){
+        
+            ObservableList<BookCopies> item = FXCollections.observableArrayList();
+            String query="SELECT `id`, `serial_number`,`book_location`, `edition`,`book_id`"
+                    + "FROM `book_copies`"
+                    + "WHERE `book_id`='"+book_id+"'";
+            try{
+                ResultSet rs =STATEMENT.executeQuery(query);
+                
+                while(rs.next()){
+                       item.add(new BookCopies(rs.getString("id"),rs.getString("serial_number"), rs.getString("book_location")
+                               , rs.getString("edition"),"",""));
+                }
+                return item;
+            }
+            catch(Exception e){
+                return item;
+            }
+        
+        }
         public static ObservableList<Facilities>  facilitiesList (String filter){
         ObservableList<Facilities> item = FXCollections.observableArrayList();
         try{
@@ -106,7 +127,110 @@ public class InventoryQuery {
                  return item;
             }
         }
-         
+        /*
+            Inventory books list view 
+        
+        */
+        public static ObservableList<String> getBookNames()
+        {
+            ObservableList<String> items = FXCollections.observableArrayList();
+            
+            String query ="SELECT `name` FROM book WHERE 1";
+              try{
+                  ResultSet rs=STATEMENT.executeQuery(query);
+                   while(rs.next())
+                   {
+                       items.add(rs.getString("name"));
+                   }
+                  
+                  return items;
+              }
+              catch(Exception e){
+                  System.out.println(e);
+                  return items;
+              }
+        }
+        public static BookModel getBooksByName(String name){
+            
+                BookModel items = new BookModel();
+                String query = "SELECT `id`, `name`, `author`, `publisher`, `isbn`, `date`, `subjectID` "
+                        + "FROM `book` WHERE `name`='"+name+"'";
+                try{
+                    ResultSet rs = STATEMENT.executeQuery(query);
+                 
+                    if(rs.next()){
+                        return new BookModel(rs.getString("id"),rs.getString("name"),rs.getString("author")
+                                ,rs.getString("publisher"),rs.getString("isbn"),rs.getString("subjectID"));
+                    }
+                 
+                    return items;
+                 }
+                catch(Exception e){
+                    System.out.println(e);
+                    return items;
+                }
+        }
+        public static BookModel getBooksById(String id){
+            
+                BookModel items = new BookModel();
+                String query = "SELECT `id`, `name`, `author`, `publisher`, `isbn`, `date`, `subjectID` "
+                        + "FROM `book` WHERE `id`="+id+"";
+                try{
+                    ResultSet rs = STATEMENT.executeQuery(query);
+                 
+                    if(rs.next()){
+                        return new BookModel(rs.getString("id"),rs.getString("name"),rs.getString("author")
+                                ,rs.getString("publisher"),rs.getString("isbn"),rs.getString("subjectID"));
+                    }
+                 
+                    return items;
+                 }
+                catch(Exception e){
+                    System.out.println(e);
+                    return items;
+                }
+        }
+         public static ObservableList<String> getBookNamesBySubject(String subject){
+            
+                ObservableList<String> items = FXCollections.observableArrayList();
+                String query = "SELECT `name`"
+                             + "FROM `book` "
+                             + "WHERE `subjectID`='"+subject+"'";
+                try{
+                    ResultSet rs = STATEMENT.executeQuery(query);
+                 
+                    while(rs.next()){
+                        items.add(rs.getString("name"));
+                    }
+                 
+                    return items;
+                 }
+                catch(Exception e){
+                    System.out.println(e);
+                    return items;
+                }
+        }
+        public static String updateBook(BookModel book)
+        {
+            ObservableList<String> items = FXCollections.observableArrayList();
+            
+            String query ="INSERT INTO `book`(`id`, `name`, `author`, `publisher`, `subjectID`, `isbn`, `date`) "
+                    + "VALUES (0,'"+book+"',[value-3],"
+                    + "[value-4],[value-5],[value-6],[value-7])";
+              try{
+                  
+        
+                    STATEMENT.addBatch(query);
+                    STATEMENT.executeBatch();
+
+                    return "";
+                } 
+                catch(Exception ex){
+                     System.out.println(ex.getMessage());
+                     return ex.getMessage();
+                }
+        }
+        
         public static ObservableList<FacilitiesType>  facilitiesTypeList (String filter){
         ObservableList<FacilitiesType> item = FXCollections.observableArrayList();
         try{
@@ -260,8 +384,8 @@ public class InventoryQuery {
     }   
        
        
-    public static ObservableList<String> getFacilitiesId(String name){
-        ObservableList<String> leave = FXCollections.observableArrayList();
+    public static String getFacilitiesId(String name){
+        String leave = "";
         try{
             String query = "SELECT `facilitiesID`"
                          + " FROM `facilities`"
@@ -269,14 +393,13 @@ public class InventoryQuery {
            
             ResultSet result = STATEMENT.executeQuery(query);
             
-            while(result.next()){
-                leave.add(result.getString("facilitiesID"));
+            if(result.next()){
+                leave = result.getString("facilitiesID");
             }
             return leave;
         } 
         catch(Exception ex){
-             System.out.println(ex.getMessage());
-             return leave;
+             return "";
         }
     }
     
@@ -321,8 +444,8 @@ public class InventoryQuery {
              return leave;
         }
     }
-    public static ObservableList<String> getResourceId(String name){
-        ObservableList<String> leave = FXCollections.observableArrayList();
+    public static String getResourceId(String name){
+        String leave = "";
         try{
             String query = "SELECT `facilitiesResourceID`"
                          + " FROM `facilities_resource`"
@@ -330,19 +453,19 @@ public class InventoryQuery {
            
             ResultSet result = STATEMENT.executeQuery(query);
             
-            while(result.next()){
-                leave.add(result.getString("facilitiesResourceID"));
+            if(result.next()){
+                leave=result.getString("facilitiesResourceID");
             }
             return leave;
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
-             return leave;
+             return "";
         }
     }
     
-     public static ObservableList<String> getResourceName(String id){
-        ObservableList<String> leave = FXCollections.observableArrayList();
+     public static String getResourceName(String id){
+        String leave = "";
         try{
             String query = "SELECT `facilitiesResourceName`"
                          + " FROM `facilities_resource`"
@@ -350,14 +473,14 @@ public class InventoryQuery {
            
             ResultSet result = STATEMENT.executeQuery(query);
             
-            while(result.next()){
-                leave.add(result.getString("facilitiesResourceName"));
+            if(result.next()){
+                leave=result.getString("facilitiesResourceName");
             }
             return leave;
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
-             return leave;
+             return "";
         }
     }
     
@@ -550,12 +673,20 @@ public class InventoryQuery {
      public static String updateSupplierItem(Supplier item, boolean update){
         
         try{ 
+            
             String insertQuery = "INSERT INTO `suppliers`(`supplierID`, `supplierName`, `supplierPhone`, `supplierFax`, "
                     + "`supplierEmail`, `supplierPostal`, `supplierPhysical`, `schoolID`, `supplierCell`) "
                     + "VALUES (0,'"+item.getSupplierName()+"','"+item.getSupplierPhone()+"','"+item.getSupplierFax()+"',"
                     + "'"+item.getSupplierEmail()+"','"+item.getSupplierPostal()+"','"+item.getSupplierPhysical()+"','100',"
                     + "'"+item.getSupplierCell()+"')";
             
+            if(update){
+                
+             insertQuery = "UPDATE `suppliers` SET `supplierName`='"+item.getSupplierName()+"',`supplierPhone`='"+item.getSupplierPhone()+"',"
+                     + "`supplierFax`='"+item.getSupplierFax()+"',`supplierEmail`='"+item.getSupplierEmail()+"',"
+                     + "`supplierPostal`='"+item.getSupplierPostal()+"',`supplierPhysical`='"+item.getSupplierPhysical()+"'"
+                     + ",`supplierCell`='"+item.getSupplierCell()+"' WHERE `supplierID`="+item.getID()+"";
+            }
             STATEMENT.addBatch(insertQuery);
      
             STATEMENT.executeBatch();
@@ -570,15 +701,14 @@ public class InventoryQuery {
      
     public static String addFacilitiesStatus(FacilitiesStatus facilities,boolean state){
         try{
-            String query = "INSERT INTO `facilities_status`(`facilitiesStatusID`, `facilitiesID`, `facilitiesResourceID`,"
-                         + " `facilitiesStatusAvailable`, `facilitiesStatusDamage`)"
-                         + " VALUES(0,'"+facilities.getFacilitiesID()+"','"+getResourceId(facilities.getFacilitiesResourceID())+"'"
-                         + ",'"+facilities.getFacilitiesStatusAvailable()+"','"+facilities.getFacilitiesStatusDamage()+"')";
-           
-            STATEMENT.addBatch(query);
-     
-            STATEMENT.executeBatch();
             
+            String query = "INSERT INTO `facilities_status`(`facilitiesStatusID`, `facilitiesID`, "
+                    + "`facilitiesResourceID`, `facilitiesStatusAvailable`, `facilitiesStatusDamage`)"
+                    + " VALUES(0,'"+facilities.getFacilitiesID()+"','"+facilities.getFacilitiesResourceID()+"'"
+                    + ",'"+facilities.getFacilitiesStatusAvailable()+"','"+facilities.getFacilitiesStatusDamage()+"')";
+           
+            STATEMENT.executeUpdate(query);
+     
             return "";
         } 
         catch(Exception ex){
