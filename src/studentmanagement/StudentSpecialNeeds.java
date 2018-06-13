@@ -9,7 +9,6 @@ import entry.HSpacer;
 import entry.ProgressIndicator;
 import entry.SMS;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +20,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
@@ -38,12 +38,13 @@ import schooladministration.UpdateSubjectDialog;
  */
 public class StudentSpecialNeeds extends BorderPane{
 
-    public static JFXListView<String> ssn_listView;
+    public static JFXListView<Label> ssn_listView;
     public static SSNWorkService SSNWorkService = null;
     public static CustomTableView<Student> table;
     
     SpecialNeed selectedSpecialNeed = null;
     public static int selectedIndex = 0;
+    //private final Label total;
     
     public StudentSpecialNeeds() {
         
@@ -90,25 +91,19 @@ public class StudentSpecialNeeds extends BorderPane{
         ssn_listView.getStyleClass().add("jfx-custom-list");
         ssn_listView.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             try {
-                selectedSpecialNeed = SMS.dbHandler.getSpecialNeedByName(ssn_listView.getSelectionModel().getSelectedItem());
-                title.setText(ssn_listView.getSelectionModel().getSelectedItem());
+                selectedSpecialNeed = SMS.dbHandler.getSpecialNeedByName(ssn_listView.getSelectionModel().getSelectedItem().getText());
+                title.setText(ssn_listView.getSelectionModel().getSelectedItem().getText());
+                title.setTooltip(new Tooltip(selectedSpecialNeed.getDescription()));
                 
-                SSNWorkService.restart();
                 selectedIndex = newValue.intValue();
-                updateSSNListView();
+                SSNWorkService.restart();
                 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         });
-        
-        HBox con = new HBox();
-        con.getStyleClass().add("secondary-toolbar");
-        Label total = new Label("( )");
-        
-        con.getChildren().addAll(new HSpacer(), total);
-        
-        setLeft(new VBox(con, ssn_listView));
+          
+        setLeft(ssn_listView);
         //----------------------------------------------------------------------
         table = new CustomTableView<>();
         
@@ -208,8 +203,13 @@ public class StudentSpecialNeeds extends BorderPane{
     
     
     public static void updateSSNListView(){
+        ObservableList<String> ssn = SMS.dbHandler.getSpecialNeedNames();
+        ObservableList<Label> data = FXCollections.observableArrayList();
         
-        ssn_listView.setItems(SMS.dbHandler.getSpecialNeedNames());
+        for(String dt: ssn){
+            data.add(new Label(dt));
+        }
+        ssn_listView.setItems(data);
         ssn_listView.getSelectionModel().select(selectedIndex);
     }
     
@@ -229,7 +229,7 @@ public class StudentSpecialNeeds extends BorderPane{
             }
             
             Platform.runLater(() -> {
-                
+                //total.setText("( "+data.size()+" )");
             });
             
             return data;
