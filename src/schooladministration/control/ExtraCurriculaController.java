@@ -28,13 +28,16 @@ import schooladministration.UpdateExtraCurriculaActivityDialog;
  * @author ofentse
  */
 public class ExtraCurriculaController implements Initializable {
-
     @FXML
-    private JFXButton btn_add, btn_export, btn_refresh;//, btn_edit, btn_delete;
+    private JFXButton btn_add;
+    @FXML
+    private JFXButton btn_export, btn_refresh, btn_edit, btn_delete;
     @FXML
     private JFXListView<Label> activity_ListView;
     @FXML
-    private Label activityName, total;
+    private Label activityName;
+    @FXML
+    private Label total;
     @FXML
     private Tab membersTab; //I, subjectsTab;
     
@@ -46,7 +49,7 @@ public class ExtraCurriculaController implements Initializable {
     ExtraCurriculaMembers extraCurriculaMembers = null;
     
     public ExtraCurriculaWorkService eca = new ExtraCurriculaWorkService();
-        
+
     /**
      * Initializes the controller class.
      * @param url

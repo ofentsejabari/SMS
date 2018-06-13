@@ -17,6 +17,13 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import static entry.SMS.getIcon;
 import schooladministration.SystemConfigDialog;
+import static entry.SMS.getIcon;
+import static entry.SMS.getIcon;
+import static entry.SMS.getIcon;
+import static entry.SMS.getIcon;
+import static entry.SMS.getIcon;
+import static entry.SMS.getIcon;
+import static entry.SMS.getIcon;
 
 /**
  * FXML Controller class

@@ -47,6 +47,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return terms;
         }
     }
@@ -71,6 +72,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return new Subject();
         }
     }
@@ -95,6 +97,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return terms;
         }
     }
@@ -119,6 +122,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return subjects;
         }
     }
@@ -143,6 +147,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return null;
         }
     }
@@ -177,6 +182,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return ex.getMessage();
         }
     }
@@ -190,6 +196,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
             System.out.println(ex.getMessage());
+            
             return false;
         }
     }
@@ -212,6 +219,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return roles;
         }
     }
@@ -231,6 +239,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return leave;
         }
     }
@@ -359,7 +368,7 @@ public class AdminQuery {
             if(!update){
                 query = "INSERT INTO `class` (`classID`, `className`, `classTeacher`, `house`, `stream`, `schoolID`)"
                         + " VALUES ('"+cls.getClassID()+"', '"+cls.getName()+"', '"+cls.getClassTeacherID()+"',"
-                        + " '"+cls.getHouse()+"', '"+cls.getStream()+"', '"+cls.getSchoolID()+"')";
+                        + " '"+cls.getHouse()+"', '"+cls.getStreamID()+"', '"+cls.getSchoolID()+"')";
                 STATEMENT.addBatch("INSERT INTO `timetable` (`id`, `classID`, `time`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`,"
                     + " `saturday`, `sunday`) "
                         + " VALUES (NULL, '"+cls.getClassID()+"', '07:00', '', '', '', '', '', '', ''),"
@@ -380,13 +389,14 @@ public class AdminQuery {
 
             }else{
                 query = "UPDATE `class` SET `className`='"+cls.getName()+"', `classTeacher`='"+cls.getClassTeacherID()+"',"
-                        + " `stream`='"+cls.getStream()+"' , `house`='"+cls.getHouse()+"'"
+                        + " `stream`='"+cls.getStreamID()+"' , `house`='"+cls.getHouse()+"'"
                     + "WHERE `classID`= '"+cls.getClassID()+"'";
                 return STATEMENT.executeUpdate(query) > 0;
             }
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return false;
         }
     }
@@ -397,6 +407,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
             System.out.println(ex.getMessage());
+            
             return false;
         }
     }
@@ -422,6 +433,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return false;
         }
     }
@@ -440,6 +452,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return new Department();
         }
     }
@@ -458,6 +471,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return new Department();
         }
     }
@@ -477,6 +491,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return departmentNames;
         }
     }
@@ -503,7 +518,8 @@ public class AdminQuery {
             return departments;
         } 
         catch(Exception ex){
-             ex.printStackTrace();
+             
+             
              return departments;
         }
     }
@@ -531,6 +547,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return false;
         }
     }
@@ -549,6 +566,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return new ExtraCurriculaActivity();
         }
     }
@@ -568,6 +586,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return new ExtraCurriculaActivity();
         }
     }
@@ -587,6 +606,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return departmentNames;
         }
     }
@@ -614,7 +634,7 @@ public class AdminQuery {
             return activities;
         } 
         catch(Exception ex){
-             ex.printStackTrace();
+             
              return activities;
         }
     }
@@ -643,6 +663,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return false;
         }
     }
@@ -661,6 +682,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return new House();
         }
     }
@@ -679,6 +701,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return new House();
         }
     }
@@ -698,6 +721,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return categoryNames;
         }
     }
@@ -718,6 +742,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return categories;
         }
     }
@@ -741,6 +766,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return classNames;
         }
     }
@@ -765,6 +791,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return ischoolclass;
         }
     }
@@ -792,6 +819,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return ischoolclass;
         }
     }
@@ -816,6 +844,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return false;
         }
     }
@@ -836,6 +865,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return stream;
         }
     }
@@ -854,6 +884,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return new Stream();
         }
     }
@@ -872,6 +903,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return new Stream();
         }
     }
@@ -883,6 +915,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
             System.out.println(ex.getMessage());
+            
             return false;
         }
     }
@@ -902,6 +935,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return region;
         }
     }
@@ -920,6 +954,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return streams;
         }
     }
@@ -938,6 +973,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return stream;
         }
     }
@@ -964,58 +1000,39 @@ public class AdminQuery {
         }
     }
     
-    /*
-    public static ObservableList<HouseSubject> getClusterSubjects(String clusterID, int type){
-        ObservableList<HouseSubject> cluster = FXCollections.observableArrayList();
+    
+    public static ObservableList<Subject> getStreamSubjects(String clusterID, int type){
+        ObservableList<Subject> cluster = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `id`, `description`, `clusterID`"
+            String query = " SELECT `id`, `subject`.`subjectID`, `description`, `streamID`, `departmentID`, `type`, `schoolID`"
                          + " FROM `stream_subjects`, `subject` "
-                         + " WHERE `clusterID`= '"+clusterID+"'"
+                         + " WHERE `streamID`= '"+clusterID+"'"
                          + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`"
                          + " AND `type` = '"+type+"'";
            
             ResultSet result = STATEMENT.executeQuery(query);
+            System.out.println(query);
             
             while(result.next()){
-                cluster.add(new HouseSubject(result.getString("id"), result.getString("description"), result.getString("clusterID")));
+                cluster.add(new Subject(result.getString("subjectID"), result.getString("departmentID"),
+                                        result.getString("description"), result.getString("type"),
+                                        result.getString("streamID")));
             }
             return cluster;
         } 
         catch(Exception ex){
-             System.out.println(ex.getMessage());
-             return cluster;
-        }
-    }
-    
-    
-    public static ObservableList<HouseSubject> getClusterSubjects(String clusterID){
-        ObservableList<HouseSubject> cluster = FXCollections.observableArrayList();
-        try{
-            String query = "SELECT `id`, `description`, `clusterID`"
-                         + " FROM `stream_subjects`, `subject` "
-                         + " WHERE `clusterID`= '"+clusterID+"'"
-                         + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`";
-           
-            ResultSet result = STATEMENT.executeQuery(query);
-            
-            while(result.next()){
-                cluster.add(new HouseSubject(result.getString("id"), result.getString("description"), result.getString("clusterID")));
-            }
+            System.out.println(ex.getMessage());
             return cluster;
-        } 
-        catch(Exception ex){
-             System.out.println(ex.getMessage());
-             return cluster;
         }
     }
-    */
+   
     
-    public static ObservableList<String> getGradeSubjectsList(String clusterID, int type){
+    public static ObservableList<String> getStreamSubjectNameList(String streamID, int type){
         ObservableList<String> cluster = FXCollections.observableArrayList();
         try{
             String query = " SELECT `id`, `description`, `clusterID`"
                          + " FROM `stream_subjects`, `subject` "
-                         + " WHERE `clusterID`= '"+clusterID+"'"
+                         + " WHERE `streamID`= '"+streamID+"'"
                          + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`"
                          + " AND `type` = '"+type+"'";
             
@@ -1028,10 +1045,33 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             //
              return cluster;
         }
     }
     
+    public static ObservableList<Subject> getOptionalSubjectFor(String studentID){
+        ObservableList<Subject> optionalSubjects = FXCollections.observableArrayList();
+        
+        try{
+            String query = "SELECT `description`, `subject`.`subjectID`, `departmentID`, `type`, `schoolID`"
+                         + " FROM `student_optional_subjects`, `subject` "
+                         + " WHERE `studentID` = '"+studentID+"'"
+                         + " AND `student_optional_subjects`.`subjectID` = `subject`.`subjectID`";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                optionalSubjects.add(new Subject(result.getString("subjectID"), result.getString("departmentID"), 
+                        result.getString("description"), result.getString("type"), result.getString("schoolID")));
+            }
+            return optionalSubjects;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return optionalSubjects;
+        }
+    }
     
     public static ObservableList<String> getSubjectsList(int type){
         ObservableList<String> cluster = FXCollections.observableArrayList();
@@ -1049,19 +1089,20 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+            
              return cluster;
         }
     }
     
     
     
-    public static ObservableList<Subject> getStreamSubjectsList(String clusterID){
+    public static ObservableList<Subject> getStreamSubjectsList(String streamID){
         
         ObservableList<Subject> cluster = FXCollections.observableArrayList();
         try{
             String query = "SELECT `id`, `description`, `clusterID`, `departmentID`"
                          + " FROM `stream_subjects`, `subject` "
-                         + " WHERE `clusterID`= '"+clusterID+"'"
+                         + " WHERE `streamID`= '"+streamID+"'"
                          + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`";
             
             ResultSet result = STATEMENT.executeQuery(query);
@@ -1074,18 +1115,19 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             //
              return cluster;
         }
     }
     
     
     
-    public static ObservableList<String> getStreamSubjectIDs(String clusterID, int type){
+    public static ObservableList<String> getStreamSubjectIDs(String streamID, int type){
         ObservableList<String> cluster = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `subject`.`subjectID`, `description`, `clusterID`"
+            String query = " SELECT `subject`.`subjectID`, `description`, `clusterID`"
                          + " FROM `stream_subjects`, `subject` "
-                         + " WHERE `clusterID`= '"+clusterID+"'"
+                         + " WHERE `streamID`= '"+streamID+"'"
                          + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`"
                          + " AND `type` = '"+type+"'";
             
@@ -1099,6 +1141,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             //
              return cluster;
         }
     }
@@ -1172,6 +1215,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return teacherNames;
         }
     }
@@ -1269,6 +1313,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return subjects;
         }
     }
@@ -1295,6 +1340,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return ischoolclass;
         }
     }
@@ -1321,6 +1367,7 @@ public class AdminQuery {
             
         }catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return new ISchoolClass();
         }
     }
@@ -1348,6 +1395,7 @@ public class AdminQuery {
             
         }catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return new ISchoolClass();
         }
     }
@@ -1392,6 +1440,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return false;
         }
     }
@@ -1403,17 +1452,18 @@ public class AdminQuery {
     public static ObservableList<String> getClassNames(){
         ObservableList<String> classNames = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `name` FROM `class` ORDER BY `name` ASC";
+            String query = "SELECT `className` FROM `class` ORDER BY `className` ASC";
             
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
-                classNames.add(result.getString("name"));
+                classNames.add(result.getString("className"));
             }
             return classNames;
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return classNames;
         }
     }
@@ -1436,6 +1486,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return grades;
         }
     }
@@ -1474,6 +1525,7 @@ public class AdminQuery {
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
+             
              return false;
         }
     }

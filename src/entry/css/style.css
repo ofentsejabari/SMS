@@ -207,52 +207,111 @@ Table buttons
 Button
 /******************************************************************************/
 
-.dark-blue {
-    -fx-background-color: 
-        #090a0c,
-        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
-        linear-gradient(#20262b, #191d22),
-        radial-gradient(center 50% 0%, radius 100%, rgba(5, 108, 171,0.9), rgba(255,255,255,0));
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-background-radius: 20 ;/*5,4,3,5;*/
-    -fx-background-insets: 0,1,2,0;
-    -fx-text-fill: white;
+.dialog-pane .button{
     
-    -fx-font-family: "Roboto Regular";
-    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-base:COLOR_5;
+    -fx-background-radius: 1;
+    -fx-border-radius: 1;
+    
+    -fx-font-family: "Oxygen Regular";
+    -fx-text-fill: white;
     -fx-font-size: 12px;
-    -fx-padding: 6 10 6 10;
-    -fx-min-width:80;
+    -fx-padding: 4 12 4 12;
     -fx-cursor: hand;
+    -fx-min-width:80;
+    -fx-focus-color:transparent;
+}
+
+
+.dark-blue {
+    -fx-background-color: linear-gradient(to bottom,
+                                derive(COLOR_5, -8%),
+                                derive(COLOR_5, -2%),
+                                derive(COLOR_5, 0%),
+                                derive(COLOR_5, -2%),
+                                derive(COLOR_5, -10%));
+    
+    -fx-background-radius: 1;
+    -fx-border-radius: 1;
+    
+    -fx-font-family: "Oxygen Regular";
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 4 12 4 12;
+    -fx-cursor: hand;
+    -fx-min-width:80;
 }
 
 .dark-blue .jfx-rippler {
-    -jfx-rippler-fill: rgba(5, 108, 171,0.3);
+    -jfx-rippler-fill: #fff;;
 }
 
-.dark-green {
-    -fx-background-color: 
-        #090a0c,
-        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
-        linear-gradient(#20262b, #191d22),
-        radial-gradient(center 50% 0%, radius 100%, rgba(58, 171, 5,0.9), rgba(255,255,255,0));
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-background-radius: 20 ;/*5,4,3,5;*/
-    -fx-background-insets: 0,1,2,0;
-    -fx-text-fill: white;
+
+.dark-green{
+    -fx-background-color: linear-gradient(to bottom,
+                                derive(#1faa00, -8%),
+                                derive(#1faa00, -2%),
+                                derive(#1faa00, 0%),
+                                derive(#1faa00, -2%),
+                                derive(#1faa00, -10%));
+    -fx-background-radius: 1;
+    -fx-border-radius: 1;
     
-    -fx-font-family: "Roboto Regular";
-    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-font-family: "Oxygen Regular";
+    -fx-text-fill: white;
     -fx-font-size: 12px;
-    -fx-padding: 6 10 6 10;
+    -fx-padding: 4 12 4 12;
+    -fx-cursor: hand;
     -fx-min-width:80;
 }
 
-.dark-green .jfx-rippler {
-    -jfx-rippler-fill: rgba(58, 171, 5,0.3);
+.dark-green .jfx-rippler{
+    -jfx-rippler-fill: #fff;
 }
 
 
+.profile-view{
+    
+    -fx-padding:10 5 5 5;
+    -fx-background-color:linear-gradient(to bottom,
+                                derive(#eceff1, -4%),
+                                derive(#eceff1, -1%),
+                                derive(#eceff1, 0%),
+                                derive(#eceff1, -1%),
+                                derive(#eceff1, -6%));
+    -fx-border-color: #cfd8dc;
+    -fx-border-width: 0 1 0 0;
+    -fx-pref-width:200;
+}
+
+
+
+.success-label{
+    -fx-cursor: hand;
+    -fx-min-width:80;
+    -fx-padding:2 5 2 5; -fx-border-color:rgba(48,128,20,1.0);
+    -fx-border-width:1; -fx-background-color:rgba(48,128,20,0.1);
+    -fx-border-radius:10;-fx-background-radius:10;
+}
+
+.warning-label{
+    -fx-cursor: hand;
+    -fx-min-width:80;
+    -fx-padding:2 5 2 5; -fx-border-color:rgba(255,165,79,1.0);
+    -fx-border-width:1; -fx-background-color:rgba(255,165,79,0.1);
+    -fx-border-radius:10;-fx-background-radius:10;
+}
+
+
+
+/******************************************************************************
+Scroll pane
+/******************************************************************************/
+
+.scroll-pane{
+    -fx-focus-color:null;
+    -fx-alignment:TOP_CENTER;
+}
 
 /******************************************************************************
 Notifications
@@ -449,16 +508,6 @@ Text field
 /******************************************************************************/
 
 .screen-decoration{
-    /*-fx-border-color: COLOR_5;*/
-    /*-fx-border-width: 0 0 1 0;*/
-    -fx-background-color:  linear-gradient(to bottom,
-                                derive(COLOR_5, -6%),
-                                derive(COLOR_5, -2%),
-                                derive(COLOR_5, 0%),
-                                derive(COLOR_5, -2%),
-                                derive(COLOR_5, -8%)
-                                
-                              );
     -fx-padding: 0 0 0 2;
     -fx-background-color: linear-gradient(to bottom,
                                 derive(COLOR_5, -8%),
@@ -466,11 +515,6 @@ Text field
                                 derive(COLOR_5, 0%),
                                 derive(COLOR_5, -2%),
                                 derive(COLOR_5, -10%));
-    
-    -fx-background-color:  #090a0c,
-        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
-        linear-gradient(#20262b, #191d22),
-        radial-gradient(center 50% 0%, radius 100%, rgba(5, 108, 171,0.9), rgba(255,255,255,0));
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
     -fx-background-radius: 0;/*5,4,3,5;*/
     -fx-border-radius: 0; 
@@ -829,7 +873,6 @@ Default button style
 }
 
 .popupbutton:selected ,.popupbutton:selected .label{
-    /*-fx-background-color:COLOR_2;*/
     -fx-border-insets:0;
     -fx-background-insets:0;
     -fx-text-fill: #FFF;
@@ -846,7 +889,6 @@ Default button style
 }
 
 .notification-dialog .jfx-button{
-    
     -fx-text-fill:COLOR_2;
     -fx-border-color:COLOR_3;
     -fx-background-insets: 0;
@@ -865,28 +907,28 @@ Default button style
 }
 
 .border-container{
-    -fx-background-color: #fff;
-    -fx-padding:20 0 5 5;
+    -fx-background-color: COLOR_3_80;
+    -fx-background-color: linear-gradient(to bottom,
+                            derive(COLOR_3_80, -10%),
+                            derive(COLOR_3_80, -2%),
+                            derive(COLOR_3_80, 0%),
+                            derive(COLOR_3_80, -2%),
+                            derive(COLOR_3_80, -6%));
 }
 
 .mainUI{
-    
     -fx-background-image: url(../icons/Welcome.png);
     -fx-background-repeat: no-repeat;
     -fx-background-position: top center;
-    
 }
 
 .profile{
-    
     -fx-background-image: url(../icons/Wall-2.png);
     -fx-background-repeat: no-repeat;
     -fx-background-position: bottom center;
-    
 }
 
 .drawer{
-    
     -fx-background-color: COLOR_5;/*#3E5165*/ 
 }
 
@@ -934,9 +976,6 @@ Default button style
 
 .main_menu .jfx-list-cell:hover{
     -fx-cursor:hand;
-/*    -fx-background-image:url("../icons/arrow.png");
-    -fx-background-position: right center;
-    -fx-background-repeat:no-repeat;*/
 }
 
 .main_menu .jfx-list-cell .jfx-rippler {
@@ -947,23 +986,6 @@ Default button style
     -fx-background-color: COLOR_4_80;
     -fx-border-color: COLOR_4;
 
-    /*-fx-background-color: 
-        #090a0c,
-        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
-        linear-gradient(#20262b, #191d22),
-        radial-gradient(center 50% 0%, radius 100%, rgba(5, 108, 171,0.9), rgba(255,255,255,0));
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-background-radius: 0;
-    -fx-border-radius: 0; 
-    -fx-background-insets: 0,1,2,0;
-    -fx-text-fill: white;
-    
-    -fx-font-family: "Roboto Regular";
-    -fx-text-fill: linear-gradient(white, #d0d0d0);
-    -fx-font-size: 12px;
-    /*-fx-padding: 6 10 6 10;
-    -fx-min-width:80;
-    -fx-cursor: hand;*/
 }
 
 /*******************************************************************************
@@ -1114,27 +1136,6 @@ JFX Default Tab pane
 .jfx-tab-pane .headers-region {
     -fx-border-color: COLOR_5;
     -fx-border-width: 0 0 1 0;
-    /*-fx-background-color:  COLOR_5;
-    /*-fx-background-color: linear-gradient(to bottom,
-                                derive(COLOR_5, -8%),
-                                derive(COLOR_5, -2%),
-                                derive(COLOR_5, 0%),
-                                derive(COLOR_5, -2%),
-                                derive(COLOR_5, -10%));
-    
-    /*-fx-background-color:  #090a0c,
-        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
-        linear-gradient(#20262b, #191d22),
-        radial-gradient(center 50% 0%, radius 100%, rgba(5, 108, 171,0.9), rgba(255,255,255,0));
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-background-radius: 0;
-    -fx-border-radius: 0; 
-    -fx-background-insets: 0,1,2,0;
-    -fx-text-fill: white;
-    
-    -fx-font-family: "Roboto Regular";
-    -fx-text-fill: linear-gradient(white, #d0d0d0);
-    -fx-font-size: 12px;*/
 }
 
 .jfx-tab-pane .tab-header-background {
@@ -1148,19 +1149,13 @@ JFX Default Tab pane
                                 derive(COLOR_5, 0%),
                                 derive(COLOR_5, -2%),
                                 derive(COLOR_5, -10%));
-    
-    -fx-background-color:  #090a0c,
-        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
-        linear-gradient(#20262b, #191d22),
-        radial-gradient(center 50% 0%, radius 100%, rgba(5, 108, 171,0.9), rgba(255,255,255,0));
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-background-radius: 0;/*5,4,3,5;*/
+     
+   -fx-background-radius: 0;
     -fx-border-radius: 0; 
     -fx-background-insets: 0;
     -fx-text-fill: white;
     
     -fx-font-family: "Roboto Regular";
-    -fx-text-fill: linear-gradient(white, #d0d0d0);
     -fx-font-size: 12px;
 }
 
@@ -1196,6 +1191,9 @@ JFX Default Tab pane
 /*******************************************************************************
 JFX Tab pane
 /******************************************************************************/
+
+
+
 .jfx-tab-flatpane {
     -fx-tab-min-height: 26;
     -fx-tab-max-height: 26;
@@ -1254,6 +1252,14 @@ JFX Tab pane
     -fx-text-fill: COLOR_3;
 }
 
+
+
+.jfx-tab-flatpaneUI {
+    -fx-tab-min-height: 26;
+    -fx-tab-max-height: 26;
+    -fx-tab-min-width: 40;
+    
+}
 
 /*******************************************************************************
 Scroll bar
@@ -1473,7 +1479,7 @@ Table pane
 }
  
 .table-view .column-header, .table-view .filler, .tree-table-view .column-header, .tree-table-view .filler {  
-    -fx-size: 25;
+    -fx-size: 30;
     -fx-border-color: transparent;    
     -fx-background-color:   linear-gradient(to bottom,
                                 derive(#fafafa, -4%),
@@ -1487,7 +1493,7 @@ Table pane
 }
 .table-view .filler, .tree-table-view .filler {
     -fx-background-color: #FFF;    
-    -fx-size: 25;
+    -fx-size: 20;
     -fx-border-color: #FFF;
 }
 .table-view .show-hide-columns-button, .tree-table-view .show-hide-columns-button  {

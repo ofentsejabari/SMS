@@ -99,7 +99,9 @@ public class DepartmentDetails extends BorderPane{
         @Override 
         protected Integer call() throws Exception {
             Department department = SchoolAdministartion.departmentsController.selectedDepartment;
+            
             Platform.runLater(() -> {
+                
                 name.setText(department.getDepartmentName());
                 hod.setText(SMS.dbHandler.getEmployeeByID(department.getHod()).getFullNameWithInitials());
                 

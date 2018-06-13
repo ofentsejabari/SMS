@@ -8,15 +8,15 @@ import javafx.scene.control.Tab;
 import studentmanagement.StudentEnrolment;
 
 /**
- * FXML Controller class
  *
  * @author ofentse
  */
 public class StudentEnrolmentController implements Initializable {
 
     @FXML
-    private Tab enrolment;
-    private StudentEnrolment enrollUI;
+    private Tab studentTab;
+    
+    public StudentEnrolment enrollUI;
 
     
     @Override
@@ -24,7 +24,7 @@ public class StudentEnrolmentController implements Initializable {
         //--
         enrollUI = new StudentEnrolment();
         
-        enrolment.setContent(enrollUI);
+        studentTab.setContent(enrollUI);
     }    
   
 }

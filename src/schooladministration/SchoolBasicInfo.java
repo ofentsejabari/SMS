@@ -7,14 +7,11 @@ import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.HSpacer;
 import entry.SMS;
 import static entry.SMS.dbHandler;
-import static entry.SMS.getIcon;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -23,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import static entry.SMS.getIcon;
 
 /**
  *

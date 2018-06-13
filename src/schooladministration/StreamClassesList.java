@@ -208,7 +208,7 @@ public class StreamClassesList extends BorderPane{
                 data.get(i).setSchoolID((i+1)+"");
                 data.get(i).setHouse(AdminQuery.getHouseByID(data.get(i).getHouse()).getHouseName());
                 data.get(i).setClassTeacherID(SMS.dbHandler.getEmployeeByID(data.get(i).getClassTeacherID()).getFullName());
-                data.get(i).setStream(SMS.dbHandler.getStudentListFor(data.get(i).getClassID()).size()+"");
+                data.get(i).setStreamID(SMS.dbHandler.getStudentListFor(data.get(i).getClassID()).size()+"");
             }
             
             

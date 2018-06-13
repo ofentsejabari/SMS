@@ -14,7 +14,7 @@ import schooladministration.SchoolBasicInfo;
  *
  * @author ofentse
  */
-public class SchoolInformation implements Initializable {
+public class SchoolInformationControl implements Initializable {
     
     @FXML
     private Tab rolesTab, usersTab;

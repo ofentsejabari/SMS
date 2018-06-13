@@ -1,11 +1,9 @@
-package schooladministration;
+package studentmanagement;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import entry.AutoCompleteComboBoxListener;
-import entry.DialogUI;
 import entry.HSpacer;
 import entry.SMS;
 import static entry.SMS.dbHandler;
@@ -15,27 +13,23 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import mysqldriver.AdminQuery;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.CCValidator;
-import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
+import entry.JFXAlert;
 import javafx.scene.layout.GridPane;
-import static schooladministration.SchoolAdministartion.houseController;
 import static entry.SMS.getGraphics;
 
 /**
  *
  * @author jabari
  */
-public class UpdateHouseDialog extends JFXDialog{
+public class UpdateSSNDialog extends JFXDialog{
 
     private JFXTextField name;
-    private JFXComboBox<String> hoh;
-    
-    //private final ValidationSupport vSupport;
+    private JFXTextArea description;
     
     @SuppressWarnings("ResultOfObjectAllocationIgnored")
-    public UpdateHouseDialog(House house) {
+    public UpdateSSNDialog(SpecialNeed specialNeed) {
                     
         //-- Parent Container --
         StackPane stackPane = new StackPane();
@@ -50,20 +44,18 @@ public class UpdateHouseDialog extends JFXDialog{
         contentGrid.setHgap(2);
         
         name = new JFXTextField();
-        name.setPromptText("House Name");
+        name.setPromptText("Name");
         name.setPrefWidth(360);
         name.setLabelFloat(true);
         contentGrid.add(name, 0, 0);
         
-        CCValidator.setFieldValidator(name, "House name required.");
+        CCValidator.setFieldValidator(name, "Name required");
                 
-        hoh = new JFXComboBox<>();
-        hoh.setPromptText("Head Of House");
-        hoh.setLabelFloat(true);
-        hoh.setPrefWidth(360);
-        AutoCompleteComboBoxListener.setAutoCompleteValidator(hoh);
-        new AutoCompleteComboBoxListener(hoh);
-        contentGrid.add(hoh, 0, 1);
+        description = new JFXTextArea();
+        description.setPromptText("Description");
+        description.setLabelFloat(true);
+        description.setPrefWidth(360);
+        contentGrid.add(description, 0, 1);
         
         container.setCenter(SMS.setBorderContainer(contentGrid, null));
         
@@ -77,7 +69,7 @@ public class UpdateHouseDialog extends JFXDialog{
             close();
         });
         
-        Label title = new Label("Add House");
+        Label title = new Label("Add Special Need");
         title.getStyleClass().add("window-title");
         
         toolBar.getChildren().addAll(title, new HSpacer(), btn_close);
@@ -85,65 +77,57 @@ public class UpdateHouseDialog extends JFXDialog{
         
         //-- Update form entries  ----------------------------------------------
         
-        if(house != null){
+        if(specialNeed != null){
             
-            hoh.setItems(dbHandler.getEmployeeNameList());
-            
-            name.setText(house.getHouseName());
-            hoh.setValue(dbHandler.getEmployeeByID(house.getHOH()).getFullName());
-            
-            title.setText("Update House");
+            name.setText(specialNeed.getName());
+            description.setText(specialNeed.getDescription());
+            title.setText("Update Special Need");
         }
         
         
         //-- Validate and save the form  ---------------------------------------
         JFXButton save = new JFXButton("Save");
         save.getStyleClass().add("dark-blue");
-        save.setTooltip(new ToolTip("Save House"));
+        save.setTooltip(new ToolTip("Save"));
         save.setOnAction((ActionEvent event) -> {
             
         if(!"".equals(name.getText().trim())){
                 
-                if(house != null){
+                if(specialNeed != null){
                     
-                    house.setHouseName(name.getText().trim());
-                    house.setHOH((hoh.getValue() == null)? "":
-                            dbHandler.getEmployeeByName(hoh.getValue().toString()).getEmployeeID());
-                            
+                    specialNeed.setName(name.getText().trim());
+                    specialNeed.setDescriptions((description.getText().trim()));
                     
-                    if(AdminQuery.updateHouse(house, true)){
+                    if(dbHandler.updateSSN(specialNeed, true)){
                         
-                        new DialogUI("House details has been updated successfully",
-                        DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE, this).show();
-                        houseController.hws.restart();
+                        new JFXAlert(JFXAlert.SUCCESS, "Update Successful", "Record has been updated successfully");
+                        StudentSpecialNeeds.SSNWorkService.restart();
+                        StudentSpecialNeeds.updateSSNListView();
                         close();
                     }else{
-                        new DialogUI("Exception occurred while trying to update house details",
-                        DialogUI.ERROR_NOTIF, stackPane, null).show();
+                        new JFXAlert(JFXAlert.ERROR, "Update failed", "Error encountered while trying to update record");
                     }
                     
                 }else{
                 
-                    House newHouse = new House("0", name.getText().trim(), 
-                            (hoh.getValue() == null)? "":dbHandler.getEmployeeByName(hoh.getValue()).getID());
+                    SpecialNeed ssn = new SpecialNeed("0", name.getText().trim(), description.getText().trim());
                     
-                    if(AdminQuery.updateHouse(newHouse, false)){
+                    if(dbHandler.updateSSN(ssn, false)){
                         
-                        new DialogUI("New house has been created successfully",
-                        DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE, null).show();
-                        houseController.hws.restart();
+                        new JFXAlert(JFXAlert.SUCCESS, "Update Successful", "New record has been added successfully");
+                        StudentSpecialNeeds.SSNWorkService.restart();
+                        StudentSpecialNeeds.updateSSNListView();
                         close();
                        
                     }else{
-                        new DialogUI("Exception occurred while trying to add new house details.",
-                        DialogUI.ERROR_NOTIF, stackPane, null).show();
+                        new JFXAlert(JFXAlert.ERROR, "Update failed", "Error encountered while trying to add new record");
                     }
                 }
                 
             }else{
                 name.validate();
-                new DialogUI( "Ensure that mandatory field are filled up... ",
-                    DialogUI.ERROR_NOTIF, stackPane, null).show();
+                description.validate();
+                new JFXAlert(JFXAlert.WARNING, "Input Error", "Ensure that required fields are captured before saving changes.");
             }
             
         });
@@ -154,10 +138,10 @@ public class UpdateHouseDialog extends JFXDialog{
         container.setBottom(footer);
 
         //-- Set jfxdialog view  -----------------------------------------------
-        setDialogContainer(SchoolAdministartion.ADMIN_MAN_STACK);
+        setDialogContainer(StudentManagement.STUDENT_MAN_STACK);
         setContent(stackPane);
         setOverlayClose(false);
-        stackPane.setPrefSize(400, 200);
+        stackPane.setPrefSize(400, 220);
         show();
         
     }

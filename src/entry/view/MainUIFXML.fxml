@@ -23,7 +23,7 @@
                      <children>
                         <Pane prefHeight="0.0" prefWidth="295.0">
                            <children>
-                              <Label layoutX="68.0" layoutY="1.0" text="Ofentse Jabari" textFill="WHITE">
+                              <Label layoutX="68.0" layoutY="1.0" styleClass="window-title" text="Ofentse Jabari" textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -61,7 +61,7 @@
                                     </ImageView>
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="btn_toolbar_about" buttonType="RAISED" ripplerFill="#fcf9f9" style="-fx-background-radius: 0; -fx-padding: 4; -fx-border-radius: 0; -fx-cursor: hand;" styleClass="dark-blue" text="About" textFill="#fbfeff" wrapText="true">
+                              <JFXButton fx:id="btn_toolbar_about" buttonType="RAISED" ripplerFill="#fcf9f9" style="-fx-background-radius: 0; -fx-padding: 4; -fx-border-radius: 0; -fx-cursor: hand;" styleClass="dark-blue" text="settings" textFill="#fbfeff" wrapText="true">
                                  <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

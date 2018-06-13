@@ -20,11 +20,11 @@ import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.CCValidator;
 import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import javafx.scene.layout.GridPane;
-import static entry.SMS.getGraphics;
 import javafx.geometry.Pos;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import static schooladministration.SchoolAdministartion.departmentsController;
+import static entry.SMS.getGraphics;
 
 /**
  *

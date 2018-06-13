@@ -8,12 +8,12 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class ISchoolClass {
     
-    SimpleStringProperty classID, name, classTeacherID, house, stream, schoolID;
+    SimpleStringProperty classID, name, classTeacherID, house, streamID, schoolID;
 
     public ISchoolClass() {
         classID = new SimpleStringProperty("");
         name = new SimpleStringProperty("");
-        stream = new SimpleStringProperty("");
+        streamID = new SimpleStringProperty("");
         house = new SimpleStringProperty("");
         classTeacherID = new SimpleStringProperty("");
         schoolID = new SimpleStringProperty("");
@@ -23,7 +23,7 @@ public class ISchoolClass {
         
         this.classID = new SimpleStringProperty(classID);
         this.name = new SimpleStringProperty(name);
-        this.stream = new SimpleStringProperty(cluster);
+        this.streamID = new SimpleStringProperty(cluster);
         this.house = new SimpleStringProperty(category);
         this.classTeacherID = new SimpleStringProperty(teacherID);
         this.schoolID = new SimpleStringProperty(schoolID);
@@ -35,8 +35,8 @@ public class ISchoolClass {
     public String getName(){return name.get();}
     public void setName(String id){name.set(id);}
     
-    public String getStream(){return stream.get();}
-    public void setStream(String id){stream.set(id);}
+    public String getStreamID(){return streamID.get();}
+    public void setStreamID(String id){streamID.set(id);}
     
     public String getHouse(){return house.get();}
     public void setHouse(String id){house.set(id);}

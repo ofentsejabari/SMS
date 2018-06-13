@@ -7,7 +7,6 @@ import entry.CustomTableView;
 import entry.HSpacer;
 import entry.ProgressIndicator;
 import entry.SMS;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
