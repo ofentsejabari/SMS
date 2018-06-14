@@ -23,6 +23,7 @@ import javafx.scene.layout.GridPane;
 import mysqldriver.AdminQuery;
 import static schooladministration.SchoolAdministartion.extraCurriculaController;
 import static entry.SMS.getGraphics;
+import mysqldriver.EmployeeQuery;
 
 /**
  *
@@ -58,7 +59,7 @@ public class UpdateExtraCurriculaActivityDialog extends JFXDialog{
         
         CCValidator.setFieldValidator(name, "Name required.");
                 
-        coach = new JFXComboBox<>(dbHandler.getEmployeeNameList());
+        coach = new JFXComboBox<>(EmployeeQuery.getEmployeeNameList());
         coach.setPromptText("Activity Coach");
         coach.setLabelFloat(true);
         coach.setPrefWidth(360);
@@ -101,7 +102,7 @@ public class UpdateExtraCurriculaActivityDialog extends JFXDialog{
         if(activity != null){
             
             name.setText(activity.getName());
-            coach.setValue(dbHandler.getEmployeeByID(activity.getCoach()).getFullName());
+            coach.setValue(EmployeeQuery.getEmployeeByID(activity.getCoach()).getFullName());
             type.setValue(activity.getType());
             title.setText("Update Extra Curricula Activity");
                         
@@ -120,7 +121,7 @@ public class UpdateExtraCurriculaActivityDialog extends JFXDialog{
                    
                     activity.setName(name.getText().trim());
                     activity.setCoach((coach.getValue() == null)? "":
-                            dbHandler.getEmployeeByName(coach.getValue()).getEmployeeID());
+                            EmployeeQuery.getEmployeeByName(coach.getValue()).getEmployeeID());
                                         
                     if(AdminQuery.updateActivity(activity, true)){
                         
@@ -137,7 +138,7 @@ public class UpdateExtraCurriculaActivityDialog extends JFXDialog{
                 
                     ExtraCurriculaActivity ecactivity = new ExtraCurriculaActivity("0",
                             name.getText().trim(), 
-                            (coach.getValue() == null)? "":dbHandler.getEmployeeByName(coach.getValue()).getEmployeeID(),
+                            (coach.getValue() == null)? "":EmployeeQuery.getEmployeeByName(coach.getValue()).getEmployeeID(),
                             type.getValue());
                     
                     if(AdminQuery.updateActivity(ecactivity, false)){

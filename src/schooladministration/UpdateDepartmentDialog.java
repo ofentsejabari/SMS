@@ -23,6 +23,7 @@ import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import javafx.scene.layout.GridPane;
 import static schooladministration.SchoolAdministartion.departmentsController;
 import static entry.SMS.getGraphics;
+import mysqldriver.EmployeeQuery;
 
 /**
  *
@@ -87,7 +88,7 @@ public class UpdateDepartmentDialog extends JFXDialog{
         //-- Update form entries  ----------------------------------------------
         
         if(department != null){
-            Employee employee = dbHandler.getEmployeeByID(department.getHod());
+            Employee employee = EmployeeQuery.getEmployeeByID(department.getHod());
             hod.setItems(dbHandler.getDepartmentEmployeeNames(department.getID()));
             
             departTextField.setText(department.getDepartmentName());
@@ -106,7 +107,7 @@ public class UpdateDepartmentDialog extends JFXDialog{
                 
                 if(department != null){
                     department.setDepartmentName(departTextField.getText().trim());
-                    department.setHod((hod.getValue() == null)? "":dbHandler.getEmployeeByName(hod.getValue()).getEmployeeID());
+                    department.setHod((hod.getValue() == null)? "":EmployeeQuery.getEmployeeByName(hod.getValue()).getEmployeeID());
                     
                     if(AdminQuery.updateDepartment(department, true)){
                         
@@ -122,7 +123,7 @@ public class UpdateDepartmentDialog extends JFXDialog{
                 }else{
                 
                     Department newDepartment = new Department("0", departTextField.getText().trim(), 
-                            (hod.getValue() == null)? "":dbHandler.getEmployeeByName(hod.getValue().toString()).getID());
+                            (hod.getValue() == null)? "":EmployeeQuery.getEmployeeByName(hod.getValue().toString()).getID());
                     
                     if(AdminQuery.updateDepartment(newDepartment, false)){
                         

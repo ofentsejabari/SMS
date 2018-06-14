@@ -14,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import mysqldriver.AdminQuery;
+import mysqldriver.EmployeeQuery;
 
 /**
  *
@@ -103,15 +104,15 @@ public class DepartmentDetails extends BorderPane{
             Platform.runLater(() -> {
                 
                 name.setText(department.getDepartmentName());
-                hod.setText(SMS.dbHandler.getEmployeeByID(department.getHod()).getFullNameWithInitials());
+                hod.setText(EmployeeQuery.getEmployeeByID(department.getHod()).getFullNameWithInitials());
                 
-                ObservableList<Employee> all = SMS.dbHandler.getEmployeeList(true, "");
-                ObservableList<Employee> dep = SMS.dbHandler.getEmployeeList(true, department.getID());
+                /*ObservableList<Employee> all = EmployeeQuery.getEmployeeList(true, "");
+                ObservableList<Employee> dep = EmployeeQuery.getEmployeeList(true, department.getID());
                 
                 strength.setData(FXCollections.observableArrayList(
                 new PieChart.Data("Other - "+(all.size()- dep.size()), all.size()- dep.size()),
                 new PieChart.Data(department.getDepartmentName()+" - "+dep.size(), dep.size())));
-                
+                */
                 ObservableList<Subject> subjectsList = AdminQuery.getSubjectListFor(department.getID());
                 
                 ObservableList<PieChart.Data>  data = FXCollections.observableArrayList();

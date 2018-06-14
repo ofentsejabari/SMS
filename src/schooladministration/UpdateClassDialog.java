@@ -22,6 +22,7 @@ import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import javafx.scene.layout.GridPane;
 import static schooladministration.SchoolAdministartion.streamClassesController;
 import static entry.SMS.getGraphics;
+import mysqldriver.EmployeeQuery;
 
 /**
  *
@@ -77,7 +78,7 @@ public class UpdateClassDialog extends JFXDialog{
         contentGrid.add(house, 0, 2);
         
         
-        teacher = new JFXComboBox<>(dbHandler.getEmployeeNameList());
+        teacher = new JFXComboBox<>(EmployeeQuery.getEmployeeNameList());
         teacher.setPromptText("Class Teacher");
         teacher.setLabelFloat(true);
         teacher.setPrefWidth(360);
@@ -108,7 +109,7 @@ public class UpdateClassDialog extends JFXDialog{
         if(isclass != null){
             
             name.setText(isclass.getName());
-            teacher.setValue(dbHandler.getEmployeeByID(isclass.getClassTeacherID()).getFullName());
+            teacher.setValue(EmployeeQuery.getEmployeeByID(isclass.getClassTeacherID()).getFullName());
             
             stream.setValue(AdminQuery.getStreamByID(isclass.getStreamID()).getDescription());
             house.setValue(AdminQuery.getHouseByID(isclass.getHouse()).getHouseName());
@@ -130,7 +131,7 @@ public class UpdateClassDialog extends JFXDialog{
                     if(isclass != null){
                         ISchoolClass cls = new ISchoolClass(isclass.getClassID(),
                                         name.getText().trim(), 
-                                        (teacher.getValue()!= null)?dbHandler.getEmployeeByName(teacher.getValue()).getEmployeeID():"",
+                                        (teacher.getValue()!= null)?EmployeeQuery.getEmployeeByName(teacher.getValue()).getEmployeeID():"",
                                         (house.getValue() != null)?AdminQuery.getHouseByName(house.getValue()).getID():"",
                                          AdminQuery.getStreamByName(stream.getValue()).getStreamID(),
                                         "");
@@ -149,7 +150,7 @@ public class UpdateClassDialog extends JFXDialog{
                     }else{
 
                         ISchoolClass cls = new ISchoolClass(SMS.generateDBID(), name.getText().trim(), 
-                                (teacher.getValue()!= null)?dbHandler.getEmployeeByName(teacher.getValue()).getEmployeeID():"",
+                                (teacher.getValue()!= null)?EmployeeQuery.getEmployeeByName(teacher.getValue()).getEmployeeID():"",
                                 (house.getValue() != null)?AdminQuery.getHouseByName(house.getValue()).getID():"",
                                  AdminQuery.getStreamByName(stream.getValue()).getStreamID(),
                                 "");

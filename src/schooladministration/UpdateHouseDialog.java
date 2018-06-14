@@ -22,6 +22,7 @@ import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import javafx.scene.layout.GridPane;
 import static schooladministration.SchoolAdministartion.houseController;
 import static entry.SMS.getGraphics;
+import mysqldriver.EmployeeQuery;
 
 /**
  *
@@ -87,10 +88,10 @@ public class UpdateHouseDialog extends JFXDialog{
         
         if(house != null){
             
-            hoh.setItems(dbHandler.getEmployeeNameList());
+            hoh.setItems(EmployeeQuery.getEmployeeNameList());
             
             name.setText(house.getHouseName());
-            hoh.setValue(dbHandler.getEmployeeByID(house.getHOH()).getFullName());
+            hoh.setValue(EmployeeQuery.getEmployeeByID(house.getHOH()).getFullName());
             
             title.setText("Update House");
         }
@@ -108,7 +109,7 @@ public class UpdateHouseDialog extends JFXDialog{
                     
                     house.setHouseName(name.getText().trim());
                     house.setHOH((hoh.getValue() == null)? "":
-                            dbHandler.getEmployeeByName(hoh.getValue().toString()).getEmployeeID());
+                            EmployeeQuery.getEmployeeByName(hoh.getValue().toString()).getEmployeeID());
                             
                     
                     if(AdminQuery.updateHouse(house, true)){
@@ -125,7 +126,7 @@ public class UpdateHouseDialog extends JFXDialog{
                 }else{
                 
                     House newHouse = new House("0", name.getText().trim(), 
-                            (hoh.getValue() == null)? "":dbHandler.getEmployeeByName(hoh.getValue()).getID());
+                            (hoh.getValue() == null)? "":EmployeeQuery.getEmployeeByName(hoh.getValue()).getID());
                     
                     if(AdminQuery.updateHouse(newHouse, false)){
                         

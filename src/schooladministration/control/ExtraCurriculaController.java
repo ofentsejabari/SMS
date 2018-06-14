@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import mysqldriver.AdminQuery;
+import mysqldriver.EmployeeQuery;
 import schooladministration.ExtraCurriculaActivity;
 import schooladministration.ExtraCurriculaMembers;
 import schooladministration.UpdateExtraCurriculaActivityDialog;
@@ -78,24 +79,13 @@ public class ExtraCurriculaController implements Initializable {
             eca.restart();
         });
         
-//        btn_edit.setGraphic(SMS.getGraphics(FontAwesomeIcon.EDIT, "icon-default", 24));
-//        btn_edit.setOnAction((ActionEvent event) -> {
-//            new UpdateExtraCurriculaActivityDialog(selectedActivity);
-//        });
-//        
-//        
-//        btn_delete.setGraphic(SMS.getGraphics(MaterialDesignIcon.DELETE_FOREVER, "icon-default", 24));
-//        btn_delete.setOnAction((ActionEvent event) -> {
-//            //new UpdateDepartmentDialog(selectedDepartment);
-//        });
-        
         activity_ListView.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             
             try{
                 selectedActivity = AdminQuery.getActivityByName(activity_ListView.getItems().get(newValue.intValue()).getText());
                 selectedIndex = newValue.intValue(); 
                 
-                activityName.setText("COACH | "+SMS.dbHandler.getEmployeeByID(selectedActivity.getCoach()).getFullName());
+                activityName.setText("COACH | "+EmployeeQuery.getEmployeeByID(selectedActivity.getCoach()).getFullName());
                 
                 extraCurriculaMembers.ams.restart();
             }catch(Exception ex){}
@@ -107,11 +97,6 @@ public class ExtraCurriculaController implements Initializable {
         //membersTab.setGraphic(SMS.getGraphics(MaterialDesignIcon.SERVER_NETWORK, "icon-secondary", 20));
         membersTab.setText("Sport/ Club Members");
         
-        //subjectsTab.setContent(null);
-        //subjectsTab.setDisable(true);
-        //subjectsTab.setGraphic(SMS.getGraphics(MaterialDesignIcon.SERVER_NETWORK, "icon-secondary", 20));
-        
-        //-- 
         eca.start();
         eca.restart();
     }

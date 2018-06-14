@@ -26,6 +26,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import mysqldriver.AdminQuery;
+import mysqldriver.EmployeeQuery;
 import static schooladministration.SchoolAdministartion.houseController;
 
 /**
@@ -196,7 +197,7 @@ public class HouseClassesList extends BorderPane{
                     ObservableList<Stream> all = AdminQuery.getStreams();
 
                     name.setText(houseController.selectedHouse.getHouseName());
-                    hod.setText(SMS.dbHandler.getEmployeeByID(houseController.selectedHouse.getHOH()).getFullNameWithInitials());
+                    hod.setText(EmployeeQuery.getEmployeeByID(houseController.selectedHouse.getHOH()).getFullNameWithInitials());
 
                     ObservableList<PieChart.Data>  data = FXCollections.observableArrayList();
 

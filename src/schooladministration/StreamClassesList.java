@@ -27,6 +27,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import mysqldriver.AdminQuery;
+import mysqldriver.EmployeeQuery;
 import static schooladministration.SchoolAdministartion.streamClassesController;
 
 /**
@@ -207,7 +208,7 @@ public class StreamClassesList extends BorderPane{
             for (int i = 0; i < data.size(); i++) {
                 data.get(i).setSchoolID((i+1)+"");
                 data.get(i).setHouse(AdminQuery.getHouseByID(data.get(i).getHouse()).getHouseName());
-                data.get(i).setClassTeacherID(SMS.dbHandler.getEmployeeByID(data.get(i).getClassTeacherID()).getFullName());
+                data.get(i).setClassTeacherID(EmployeeQuery.getEmployeeByID(data.get(i).getClassTeacherID()).getFullName());
                 data.get(i).setStreamID(SMS.dbHandler.getStudentListFor(data.get(i).getClassID()).size()+"");
             }
             

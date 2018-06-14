@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mysqldriver.AdminQuery;
+import mysqldriver.EmployeeQuery;
 
 /**
  *
@@ -95,7 +96,7 @@ public class DashboardStatistics extends BorderPane{
                 ObservableList<PieChart.Data>  data = FXCollections.observableArrayList();
                 
                 for(Department dept : departmentList){
-                    int sz = SMS.dbHandler.getEmployeeList(true, dept.getID()).size();
+                    int sz = EmployeeQuery.getEmployeeList(true).size();
                    data.add(new PieChart.Data(dept.getDepartmentName()+" - "+sz, sz));
                 }
                 

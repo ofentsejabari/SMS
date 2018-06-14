@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.VBox;
 import mysqldriver.AdminQuery;
+import mysqldriver.EmployeeQuery;
 import schooladministration.House;
 import schooladministration.HouseClassesList;
 import schooladministration.UpdateHouseDialog;
@@ -111,7 +112,7 @@ public class HousesCategoriesController implements Initializable {
             try {
                 selectedIndex = newValue.intValue();
                 selectedHouse = AdminQuery.getHouseByName(house_ListView.getItems().get(newValue.intValue()).getText());
-                hod.setText(SMS.dbHandler.getEmployeeByID(selectedHouse.getHOH()).getFullNameWithInitials());
+                hod.setText(EmployeeQuery.getEmployeeByID(selectedHouse.getHOH()).getFullNameWithInitials());
 
                 classesList.hcws.restart();
                 classesList.hsws.restart();
