@@ -278,7 +278,7 @@ public class EmployeeProfileStage extends JFXDialog{
         p_identity.setPromptText("Omang/ Passport Number");
         p_identity.setLabelFloat(true);
         p_identity.setDisable(true);
-        empDetails.add(p_identity, 1, 1);
+        empDetails.add(p_identity, 1, 0);
         
         
         GridPane contactDetails = new GridPane();
@@ -436,7 +436,7 @@ public class EmployeeProfileStage extends JFXDialog{
        p_telephone.setDisable(value);
        p_cellphone.setDisable(value);
        p_relationship.setDisable(value); 
-       save.setDisable(false);
+       save.setDisable(value);
 
     }
 }
