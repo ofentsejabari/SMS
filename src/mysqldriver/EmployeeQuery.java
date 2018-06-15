@@ -1,6 +1,6 @@
 package mysqldriver;
 
-import employeemanagement.Employee;
+import employeemanagement.EmployeeModel;
 import java.sql.ResultSet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,7 +18,7 @@ public class EmployeeQuery {
      * @param ID
      * @return 
      */
-    public static Employee getEmployeeByID(String ID){
+    public static EmployeeModel getEmployeeByID(String ID){
         
         try{
             String query = "SELECT `id`, `employeeID`, `lastName`, `firstName`, `middleName`, `title`, `dob`,"
@@ -30,7 +30,7 @@ public class EmployeeQuery {
             ResultSet result = STATEMENT.executeQuery(query);
             
             if(result.next()){
-                return new Employee(result.getString("id"),result.getString("employeeID"),
+                return new EmployeeModel(result.getString("id"),result.getString("employeeID"),
                         result.getString("firstName"), result.getString("lastName"),
                         result.getString("middleName"), result.getString("title"),
                         result.getString("dob"),result.getString("designation"), 
@@ -40,17 +40,17 @@ public class EmployeeQuery {
                         result.getString("officePhone"), result.getString("gender"), 
                         result.getString("email"),result.getString("enrollDate"), result.getString("picture"));
             }
-            return new Employee();
+            return new EmployeeModel();
             
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             
-            return new Employee();
+            return new EmployeeModel();
         }
     }
     
     
-    public static Employee getEmployeeByName(String employeeName){
+    public static EmployeeModel getEmployeeByName(String employeeName){
         
         try{
             String query = "SELECT `id`, `employeeID`, `lastName`, `firstName`, `middleName`, `title`, `dob`,"
@@ -63,7 +63,7 @@ public class EmployeeQuery {
             ResultSet result = STATEMENT.executeQuery(query);
             
             if(result.next()){
-                return new Employee(result.getString("id"),result.getString("employeeID"),
+                return new EmployeeModel(result.getString("id"),result.getString("employeeID"),
                         result.getString("firstName"), result.getString("lastName"),
                         result.getString("middleName"), result.getString("title"),
                         result.getString("dob"),result.getString("designation"), 
@@ -73,12 +73,12 @@ public class EmployeeQuery {
                         result.getString("officePhone"), result.getString("gender"), 
                         result.getString("email"),result.getString("enrollDate"), result.getString("picture"));
             }
-            return new Employee();
+            return new EmployeeModel();
             
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             
-            return new Employee();
+            return new EmployeeModel();
         }
     }
     
@@ -88,8 +88,8 @@ public class EmployeeQuery {
      * @param departmentID
      * @return 
      */
-    public static ObservableList<Employee> getEmployeeList(boolean showAll){
-        ObservableList<Employee> employees = FXCollections.observableArrayList();
+    public static ObservableList<EmployeeModel> getEmployeeList(boolean showAll){
+        ObservableList<EmployeeModel> employees = FXCollections.observableArrayList();
         try{
             String query = "SELECT `id`, `employeeID`, `lastName`, `firstName`, `middleName`, `title`, `dob`,"
                     + " `designation`, `qualification`,`nationality`,"
@@ -104,7 +104,7 @@ public class EmployeeQuery {
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
-                employees.add(new Employee(result.getString("id"),result.getString("employeeID"),
+                employees.add(new EmployeeModel(result.getString("id"),result.getString("employeeID"),
                         result.getString("firstName"), result.getString("lastName"),
                         result.getString("middleName"), result.getString("title"),
                         result.getString("dob"),result.getString("designation"), 

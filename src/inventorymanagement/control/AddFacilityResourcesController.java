@@ -7,8 +7,15 @@ package inventorymanagement.control;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import entry.DialogUI;
+import entry.SMS;
+import static entry.SMS.getGraphics;
 import entry.ToolTip;
+import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
+import inventorymanagement.AllocateResourceDialog;
 import inventorymanagement.FacilitiesStatus;
 import inventorymanagement.Success;
 import java.net.URL;
@@ -19,6 +26,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import mysqldriver.InventoryQuery;
+import static mysqldriver.InventoryQuery.getResourceId;
 
 /**
  * FXML Controller class
@@ -32,8 +40,6 @@ public class AddFacilityResourcesController implements Initializable {
     @FXML
     private JFXButton btn_toolbar_close;
     @FXML
-    private JFXButton btn_cancel;
-    @FXML
     private JFXButton btn_update;
     @FXML
     private VBox personalDetails;
@@ -45,6 +51,8 @@ public class AddFacilityResourcesController implements Initializable {
     private JFXTextField rdamaged;
     
     public String ID;
+    
+    public JFXDialog jdialog;
 
     /**
      * Initializes the controller class.
@@ -53,32 +61,50 @@ public class AddFacilityResourcesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         resource.setItems(InventoryQuery.getResourceNames());
-         btn_update.getStyleClass().add("dark-blue");
+        btn_update.getStyleClass().add("dark-blue");
         btn_update.setTooltip(new ToolTip("Save Facility"));
+        btn_toolbar_close.setGraphic(getGraphics(MaterialDesignIcon.WINDOW_CLOSE, "close", 20));
+        
         btn_update.setOnAction((ActionEvent event) -> {
-            
-            FacilitiesStatus fs = new FacilitiesStatus("0",InventoryQuery.getFacilitiesId(ID).get(0),resource.getValue(),rquantity.getText(),
-                    rdamaged.getText());
-              
-            if(InventoryQuery.addFacilitiesStatus(fs,false).equals("")){
-                    btn_cancel.setDisable(true);
+        
+                String value = getResourceId(resource.getValue());
+                FacilitiesStatus fs = new FacilitiesStatus("0",InventoryQuery.getFacilitiesId(ID),value,
+                        rquantity.getText(),rdamaged.getText());
+
+                if(InventoryQuery.addFacilitiesStatus(fs,false).equals("")){
+        //            btn_cancel.setDisable(true);
                     btn_update.setDisable(true);
                     rquantity.setDisable(true);
                     rdamaged.setDisable(true);
                     resource.setDisable(true);
-                    new Success("success",false).show();
-            }
-            else{
-                 new Success("failure",false).show();
-            }
+                    
+                    jdialog.close();
+                    
+                    new DialogUI("Facilities resource has been added successfully",
+                        DialogUI.SUCCESS_NOTIF,SMS.MAIN_UI ,null).show();
+
+                }
+                else{
+                    new DialogUI("Exception occurred while trying to add Facilities resource",
+                        DialogUI.ERROR_NOTIF,SMS.MAIN_UI , null).show();
+                }
                
         });
     }    
      
-    public void setEventHandler(EventHandler event){btn_toolbar_close.setOnAction(event);}
+    public void setEventHandler(EventHandler event){
+        
+        btn_toolbar_close.setOnAction(event);
+    
+    }
     
     public void setId(String ID)
     {
         this.ID=ID;
+    }
+    
+    public void setDialog(JFXDialog jdialog){
+    
+      this.jdialog=jdialog;
     }
 }

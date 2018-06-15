@@ -17,7 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import mysqldriver.AdminQuery;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
-import employeemanagement.Employee;
+import employeemanagement.EmployeeModel;
 import entry.CCValidator;
 import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import javafx.scene.layout.GridPane;
@@ -88,7 +88,7 @@ public class UpdateDepartmentDialog extends JFXDialog{
         //-- Update form entries  ----------------------------------------------
         
         if(department != null){
-            Employee employee = EmployeeQuery.getEmployeeByID(department.getHod());
+            EmployeeModel employee = EmployeeQuery.getEmployeeByID(department.getHod());
             hod.setItems(dbHandler.getDepartmentEmployeeNames(department.getID()));
             
             departTextField.setText(department.getDepartmentName());

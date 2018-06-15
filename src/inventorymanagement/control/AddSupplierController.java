@@ -6,14 +6,13 @@
 package inventorymanagement.control;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import entry.AutoCompleteComboBoxListener;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.DialogUI;
+import static entry.SMS.getGraphics;
 import entry.ToolTip;
 import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
-import inventorymanagement.Success;
 import inventorymanagement.Supplier;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,7 +21,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import mysqldriver.InventoryQuery;
-import static schooladministration.SchoolAdministartion.departmentsController;
 
 
 /**
@@ -51,12 +49,13 @@ public class AddSupplierController  implements Initializable {
         save.getStyleClass().add("dark-blue");
         save.setTooltip(new ToolTip("Save Supplier"));
         
+        btn_close.setGraphic(getGraphics(MaterialDesignIcon.WINDOW_CLOSE, "close", 20));
+        
         save.setOnAction((ActionEvent event) -> {
                 Supplier item=new Supplier("0", companyName.getText(), companyEmail.getText(), companyTel.getText(), companyCell.getText(), 
                             companyPhysical.getText(),companyPostal.getText(), companyFax.getText());
                 
                 if(InventoryQuery.updateSupplierItem(item,false).equals("")){
-                    //new Success("success",true).show();
                     new DialogUI("Supplier has been added successfully",
                                     DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE,null).show();
                        
@@ -64,7 +63,6 @@ public class AddSupplierController  implements Initializable {
                 }
                 
                 else{
-                    // new Success("failure",true).show();
                      new DialogUI("Exception occurred while trying to add Supplier details.",
                                 DialogUI.ERROR_NOTIF, PARENT_STACK_PANE, null).show();
                 }

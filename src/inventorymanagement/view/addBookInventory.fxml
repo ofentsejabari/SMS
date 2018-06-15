@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import org.controlsfx.control.textfield.*?>
+<?import java.net.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="426.0" prefWidth="493.0" style="-fx-background-color: #fff;" stylesheets="@../../entry/css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="inventorymanagement.control.AddBookInventoryController">
+   <children>
+      <StackPane prefHeight="600.0" prefWidth="1061.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox fx:id="background_process" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" style="-fx-background-color: #00000060;">
+               <children>
+                  <JFXSpinner prefHeight="80.0" prefWidth="1061.0" />
+                  <Label text="Processing ..." textFill="WHITE">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <BorderPane prefHeight="500.0" prefWidth="780.0" style="-fx-background-color: #fff;">
+               <bottom>
+                  <HBox alignment="CENTER" maxHeight="70.0" prefHeight="70.0" prefWidth="493.0" spacing="10.0" style="-fx-padding: 4;" styleClass="secondary-toolbar" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="btn_update" buttonType="RAISED" prefHeight="33.0" prefWidth="110.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-cursor: hand;" text="Save" textFill="WHITE">
+                           <padding>
+                              <Insets bottom="4.0" left="8.0" right="8.0" top="4.0" />
+                           </padding>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </bottom>
+               <center>
+                  <VBox prefHeight="386.0" prefWidth="493.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <HBox alignment="TOP_CENTER" prefHeight="379.0" prefWidth="756.0">
+                           <children>
+                              <Pane prefHeight="400.0" prefWidth="488.0">
+                                 <children>
+                                    <VBox fx:id="personalDetails" layoutX="7.0" layoutY="30.0" prefHeight="288.0" prefWidth="468.0" spacing="25.0" style="-fx-border-color: #F2F2F2; -fx-border-radius: 10;">
+                                       <children>
+                                          <JFXTextField fx:id="iname" editable="false" focusColor="#17b2aa" labelFloat="true" promptText="Book Name" styleClass="name-field" />
+                                          <JFXTextField fx:id="itemNo" focusColor="#17b2aa" labelFloat="true" promptText="Book Author" styleClass="name-field" />
+                                          <JFXTextField fx:id="itemGov" focusColor="#17b2aa" labelFloat="true" promptText="Book Publisher" styleClass="name-field" />
+                                          <JFXTextField fx:id="itemYears" focusColor="#17b2aa" labelFloat="true" promptText="ISBN" styleClass="input-text" />
+                                          <JFXComboBox fx:id="itemDept" editable="true" focusColor="#17b2aa" labelFloat="true" prefHeight="25.0" prefWidth="439.0" promptText="Department" styleClass="input-text" />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="20.0" left="20.0" right="20.0" top="25.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="379.0" prefWidth="10.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </center>
+               <top>
+                  <Pane prefHeight="35.0" prefWidth="493.0" styleClass="screen-decoration" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="btn_toolbar_close" contentDisplay="RIGHT" graphicTextGap="0.0" layoutX="453.0" layoutY="-5.0" prefHeight="41.0" prefWidth="43.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" styleClass="window-close" text="" textFill="#fbfeff" wrapText="true">
+                           <padding>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </padding>
+                           <graphic>
+                              <ImageView fitHeight="38.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../entry/icons/close.png" />
+                                 </image>
+                                 <viewport>
+                                    <Rectangle2D height="38.0" />
+                                 </viewport>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <VBox alignment="CENTER_LEFT" layoutX="9.0" layoutY="1.0" prefHeight="38.0" prefWidth="452.0">
+                           <children>
+                              <Label prefHeight="32.0" prefWidth="244.0" styleClass="window-title" text="Add Book" textFill="#fcfcfc">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+               </top>
+            </BorderPane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

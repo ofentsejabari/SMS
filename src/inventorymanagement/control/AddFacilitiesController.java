@@ -9,6 +9,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import static entry.SMS.getGraphics;
 import entry.ToolTip;
 import inventorymanagement.Facilities;
 import inventorymanagement.Success;
@@ -71,6 +73,9 @@ public class AddFacilitiesController implements Initializable {
         );
         btn_update.getStyleClass().add("dark-blue");
         btn_update.setTooltip(new ToolTip("Save Facility"));
+        
+        btn_toolbar_close.setGraphic(getGraphics(MaterialDesignIcon.WINDOW_CLOSE, "close", 20));
+        
         fType.setItems(InventoryQuery.getFacilitiesTypeList("ALL"));
         fDept.setItems(AdminQuery.getDepartmentNames());
         fCondition.setItems(options);

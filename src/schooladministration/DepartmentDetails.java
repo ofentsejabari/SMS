@@ -1,7 +1,7 @@
 package schooladministration;
 
 import com.jfoenix.controls.JFXTextField;
-import employeemanagement.Employee;
+import employeemanagement.EmployeeModel;
 import entry.SMS;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

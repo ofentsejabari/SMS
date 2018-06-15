@@ -6,6 +6,8 @@
 package inventorymanagement.control;
 
 import com.jfoenix.controls.JFXButton;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import static entry.SMS.getGraphics;
 import inventorymanagement.FacilityStatusItem;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,7 +51,7 @@ public class FacilityStatusController implements Initializable {
         // TODO
       
         statusItem = new FacilityStatusItem();
-         
+        btn_toolbar_close.setGraphic(getGraphics(MaterialDesignIcon.WINDOW_CLOSE, "close", 20));
         container.setCenter(statusItem);
     } 
     

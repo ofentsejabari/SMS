@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -32,7 +33,7 @@ public class Notification extends HBox{
         
         
         close = new JFXButton("",SMS.getGraphics(MaterialDesignIcon.WINDOW_CLOSE, "text-error", 16));
-        close.setTooltip(new ToolTip("Close notification"));
+        close.setTooltip(new Tooltip("Close notification"));
         close.getStyleClass().add("jfx-close-button");
         close.setOnAction((ActionEvent event) -> {
             parent.getChildren().remove(1);

@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="dashboardUI" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="employeemanagement.control.DashboardController">
    <children>
-      <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
             <Label text="Employee Management" textFill="#119064" BorderPane.alignment="CENTER">
                <font>

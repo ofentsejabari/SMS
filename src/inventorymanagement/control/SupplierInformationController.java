@@ -11,8 +11,10 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import entry.DialogUI;
 import entry.SMS;
-import inventorymanagement.AddSupplierStage;
+import entry.ToolTip;
+import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import inventorymanagement.AssetAllocationList;
 import inventorymanagement.Supplier;
 import java.net.URL;
@@ -26,7 +28,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import mysqldriver.InventoryQuery;
 
@@ -38,7 +39,7 @@ import mysqldriver.InventoryQuery;
 public class SupplierInformationController implements Initializable {
 
     @FXML
-    private JFXButton btn_info,searchIcon,searchButton, btn_refresh, btn_cancel,btn_update;
+    private JFXButton searchIcon,searchButton, btn_refresh, btn_cancel,btn_update;
     @FXML
     private JFXButton btn_edit;
     
@@ -77,8 +78,10 @@ public class SupplierInformationController implements Initializable {
     @FXML
     private Label totalSuppliers;
     
-    boolean flag= true;
+    boolean flag = true;
 
+    private String supplierID = ""; 
+    
     /**
      * Initializes the controller class.
      */
@@ -90,6 +93,13 @@ public class SupplierInformationController implements Initializable {
         searchIcon.setGraphic(SMS.getGraphics(FontAwesomeIcon.SEARCH, "icon-default", 17));
         searchButton.setGraphic(SMS.getGraphics(FontAwesomeIcon.SEARCH, "icon-default", 17));
         listview.getChildren().remove(searchArea);
+        
+        btn_update.getStyleClass().add("dark-blue");
+        btn_update.setTooltip(new ToolTip("Edit Supplier"));
+        
+        btn_cancel.getStyleClass().add("dark-blue");
+        btn_cancel.setTooltip(new ToolTip("Edit Supplier"));
+        
         
         searchIcon.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -112,6 +122,7 @@ public class SupplierInformationController implements Initializable {
            
             if (newValue != null){
                         Supplier sp = InventoryQuery.getSupplierByName(newValue);
+                        supplierID=sp.getID();
                         companyName.setText(sp.getSupplierName());
                         companyTel.setText(sp.getSupplierPhone());
                         companyPostal.setText(sp.getSupplierPostal());
@@ -119,8 +130,10 @@ public class SupplierInformationController implements Initializable {
                         companyEmail.setText(sp.getSupplierEmail());
                         companyFax.setText(sp.getSupplierFax());
                         companyPhysical.setText(sp.getSupplierPhysical());
+                         activateButtons(false);
             } 
             else{
+                        supplierID="";
                         companyName.setText("");
                         companyTel.setText("");
                         companyPostal.setText("");
@@ -139,6 +152,26 @@ public class SupplierInformationController implements Initializable {
             supplier_ListView.setItems(items);
         });
         
+        btn_update.setOnAction((ActionEvent event) -> {
+                
+                
+            Supplier item=new Supplier(supplierID, companyName.getText(), companyEmail.getText(), companyTel.getText(), companyCell.getText(), 
+                            companyPhysical.getText(),companyPostal.getText(), companyFax.getText());
+                
+            String inv=InventoryQuery.updateSupplierItem(item,true);           
+            
+            if(inv.equals("")){
+                    new DialogUI("Supplier has been updated successfully"+inv,
+                                    DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE,null).show();
+            }
+                
+            else{
+                     new DialogUI(inv,
+                                DialogUI.ERROR_NOTIF, PARENT_STACK_PANE, null).show();
+            }
+            
+        });
+        
         searchField.textProperty().addListener(new ChangeListener() {
             public void changed(ObservableValue observable, Object oldVal,
                 Object newVal) {
@@ -146,10 +179,9 @@ public class SupplierInformationController implements Initializable {
             }
         });
          
-        btn_info.setGraphic(SMS.getGraphics(FontAwesomeIcon.INFO, "icon-default", 20));
-        btn_info.setOnAction((ActionEvent event) -> {
-            //new AddSupplierStage().show();
-        });
+       
+       
+        
         
         btn_edit.setGraphic(SMS.getGraphics(FontAwesomeIcon.EDIT, "icon-default", 24));
         btn_edit.setOnAction((ActionEvent event) -> {

@@ -31,7 +31,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.layout.FlowPane;
-import entry.ToolTip;
 import eventcalendar.JBEventCalendar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;

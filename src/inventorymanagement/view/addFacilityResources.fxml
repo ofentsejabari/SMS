@@ -76,13 +76,13 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Region prefHeight="28.0" prefWidth="82.0" />
+                                    <Region prefHeight="30.0" prefWidth="90.0" />
                                     <JFXButton fx:id="btn_toolbar_close" alignment="TOP_RIGHT" contentDisplay="RIGHT" graphicTextGap="0.0" prefHeight="5.0" prefWidth="0.0" ripplerFill="#1abbd0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-cursor: hand;" styleClass="window-close" text="" textFill="#fbfeff" wrapText="true">
                                        <padding>
                                           <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                        </padding>
                                        <graphic>
-                                          <ImageView fitHeight="26.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="60.0" fitWidth="21.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../../entry/icons/close.png" />
                                              </image>

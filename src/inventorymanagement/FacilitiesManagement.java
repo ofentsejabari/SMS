@@ -48,7 +48,7 @@ public class FacilitiesManagement extends BorderPane{
     private final StackPane stackPane;
     
     public FacilitiesManagement() {
-        
+        this.setStyle("-fx-background-color:white;");
         facilitiesWork = new FacilitiesWorkService();
         getStyleClass().add("container");
         stackPane = new StackPane();

@@ -18,6 +18,7 @@ public class HumanResourceManagement extends BorderPane{
     
     private JFXListView<Label> mainMenu;
     private AnchorPane dashboardUI;
+    private BorderPane employeeManagementView;
     public static StackPane HR_MAN_STACK;
 
     public HumanResourceManagement() {
@@ -46,6 +47,7 @@ public class HumanResourceManagement extends BorderPane{
                     dashboardUI.toFront();
                     break;
                 case 1:
+                   employeeManagementView.toFront();
                     break;
                 case 2:
                     break;
@@ -63,10 +65,11 @@ public class HumanResourceManagement extends BorderPane{
         try {
             //-- Student Management Views
             dashboardUI = FXMLLoader.load(getClass().getResource("/employeemanagement/view/dashboard.fxml"));
+            employeeManagementView = new EmployeeManagementView();
         } catch (IOException ex) {
         }
         
-        HR_MAN_STACK = new StackPane(dashboardUI);
+        HR_MAN_STACK = new StackPane(employeeManagementView,dashboardUI);
         
         setCenter(HR_MAN_STACK);
     }

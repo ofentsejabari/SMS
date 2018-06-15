@@ -36,7 +36,7 @@ public class AssetAllocationController implements Initializable {
     private BorderPane borderPane;
    
     @FXML
-    private JFXButton btn_export,buttonRefresh,btn_info,btn_edit;
+    private JFXButton btn_export,buttonRefresh;
     @FXML
     private VBox listview;
     @FXML
@@ -45,8 +45,6 @@ public class AssetAllocationController implements Initializable {
     private JFXListView<String> stream_ListView;
     @FXML
     private VBox streamClasses;
-    @FXML
-    private Label streamName;
     
     @FXML
     private HBox streamToolBar;
@@ -65,13 +63,11 @@ public class AssetAllocationController implements Initializable {
         
         stream_ListView.setItems(items);
         AssetAllocationList asset = new  AssetAllocationList();
-        streamClasses.getChildren().add(1,asset);
+        streamClasses.getChildren().add(asset);
         stream_ListView.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
                 AssetAllocationList.stream_ID=newValue;
                 asset.studentAllocationWork.restart();
          });
-        
-        streamName.setText(streamName.getText());
         
         JFXButton btn_refresh = new JFXButton();
         btn_refresh.getStyleClass().add("jfx-tool-button");
@@ -93,15 +89,6 @@ public class AssetAllocationController implements Initializable {
         
         });
         
-        btn_info.setGraphic(SMS.getGraphics(FontAwesomeIcon.INFO, "icon-default", 20));
-        btn_info.setOnAction((ActionEvent event) -> {
-            //new AddSupplierStage().show();
-        });
-        
-        btn_edit.setGraphic(SMS.getGraphics(FontAwesomeIcon.EDIT, "icon-default", 24));
-        btn_edit.setOnAction((ActionEvent event) -> {
-            //new AddSupplierStage().show();
-        });
     }    
 }    
     

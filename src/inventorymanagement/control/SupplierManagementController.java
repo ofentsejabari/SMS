@@ -11,12 +11,15 @@ import entry.SMS;
 import inventorymanagement.AddSupplierStage;
 import inventorymanagement.SupplierInfo;
 import inventorymanagement.SupplierManagement;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.BorderPane;
 
 /**
  * FXML Controller class
@@ -30,10 +33,14 @@ public class SupplierManagementController implements Initializable {
     @FXML
     private JFXButton btn_add, btn_export ;
     
-   @FXML
-    private Tab supplierDetails,supplierProfileTab;
+    @FXML
+    private BorderPane borderPane;
+    
+    BorderPane details ;
     
     public SupplierInfo supplierInfo;
+    
+    
     
     /**
      * Initializes the controller class.
@@ -41,9 +48,16 @@ public class SupplierManagementController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-      supplierInfo = new SupplierInfo();
+      try{
+            //-- 
+            details = FXMLLoader.load(getClass().getResource("/inventorymanagement/view/supplierInformation.fxml"));
+            
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
         
-       supplierProfileTab.setContent(supplierInfo);
+        borderPane.setCenter(details);
+        
         
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {

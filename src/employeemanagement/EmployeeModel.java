@@ -6,13 +6,13 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author ofentse
  */
-public class Employee {
+public class EmployeeModel {
     SimpleStringProperty ID, employeeID, firstName, lastName, middleName, title, dob,
                         designation, qualification, nationality, identity, postalAddress,
                         physicalAddress, cellPhone,telephone, email, gender, 
                         enrollDate, profilePicture;
 
-    public Employee() {
+    public EmployeeModel() {
         ID = new SimpleStringProperty("");
         employeeID = new SimpleStringProperty("");
         firstName = new SimpleStringProperty("");
@@ -34,7 +34,7 @@ public class Employee {
         profilePicture = new SimpleStringProperty("");
     }
     
-    public Employee(String ID, String employeeID,String fName, String lName, String mName, String title, String dob,
+    public EmployeeModel(String ID, String employeeID,String fName, String lName, String mName, String title, String dob,
             String jobTitle,String qualification,String nationality, String omang, 
             String postalAddress, String physicalAddress, String mphone,String ophone, String gender, String  email,
             String enrollDate, String profilePicture){

@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 
@@ -39,6 +40,7 @@ public class FacilitiesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+         borderPane.setPadding(new Insets(10));
         facilitiesTypeItem = new FacilityTypeItem();
         facilitiesItem = new FacilitiesManagement();
         facilitiesTab.setContent(facilitiesItem);
