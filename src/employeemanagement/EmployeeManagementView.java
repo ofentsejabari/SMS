@@ -15,7 +15,6 @@ import entry.SMS;
 import static entry.SMS.dbHandler;
 import static entry.SMS.getGraphics;
 import static entry.SMS.setDataNotAvailablePlaceholder;
-import entry.ToolTip;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -33,6 +32,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
@@ -43,8 +43,6 @@ import javafx.util.Callback;
 import mysqldriver.EmployeeQuery;
 import org.controlsfx.control.textfield.CustomTextField;
 import studentmanagement.Student;
-import studentmanagement.StudentProfileStage;
-import studentmanagement.UpdateStudentProfile;
 
 /**
  *
@@ -231,7 +229,7 @@ public class EmployeeManagementView extends BorderPane{
                         if(!empty){
                             
                             final Hyperlink employeeID = new Hyperlink(ID);
-                            employeeID.setTooltip(new ToolTip("Edit employee profile", 300, 100));
+                            employeeID.setTooltip(new Tooltip("Edit employee profile"));
                             employeeID.setOnAction((ActionEvent event) -> {
                                // new UpdateStudentProfile(dbHandler.getStudentByID(ID)).show();
                             });
@@ -260,7 +258,7 @@ public class EmployeeManagementView extends BorderPane{
                         final Hyperlink fullname = new Hyperlink(ID);
                         if(!empty){
                             fullname.setContentDisplay(ContentDisplay.LEFT);
-                            fullname.setTooltip(new ToolTip("View employee profile"));
+                            fullname.setTooltip(new Tooltip("View employee profile"));
                             fullname.setOnAction((ActionEvent event) -> {
                                 //new StudentProfileStage(dbHandler.getStudentByName(ID)).show();
                             });
