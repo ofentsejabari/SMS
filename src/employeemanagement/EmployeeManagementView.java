@@ -40,6 +40,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import mysqldriver.AdminQuery;
 import mysqldriver.EmployeeQuery;
 import org.controlsfx.control.textfield.CustomTextField;
 import studentmanagement.Student;
@@ -231,7 +232,7 @@ public class EmployeeManagementView extends BorderPane{
                             final Hyperlink employeeID = new Hyperlink(ID);
                             employeeID.setTooltip(new Tooltip("Edit employee profile"));
                             employeeID.setOnAction((ActionEvent event) -> {
-                               // new UpdateStudentProfile(dbHandler.getStudentByID(ID)).show();
+                               //UpdateStudentProfile(dbHandler.getStudentByID(ID)).show();
                             });
                             
                             setGraphic(employeeID);
@@ -260,8 +261,11 @@ public class EmployeeManagementView extends BorderPane{
                             fullname.setContentDisplay(ContentDisplay.LEFT);
                             fullname.setTooltip(new Tooltip("View employee profile"));
                             fullname.setOnAction((ActionEvent event) -> {
-                                //new StudentProfileStage(dbHandler.getStudentByName(ID)).show();
+                                EmployeeModel empModel=EmployeeQuery.getEmployeeByName(ID);
+                                System.out.println(empModel.employeeID);
+                                new EmployeeProfileStage(empModel).show();
                             });
+                            
                             setGraphic(fullname);
                            
                         }else{ setGraphic(null); }
@@ -285,7 +289,8 @@ public class EmployeeManagementView extends BorderPane{
                         super.updateItem(ID, empty);
                         
                         if(!empty){
-                            setGraphic(new Label(ID));
+                            String desig =EmployeeQuery.getEmployeeDesignation(ID);
+                            setGraphic(new Label(desig));
                            
                         }else{ setGraphic(null); }
                       

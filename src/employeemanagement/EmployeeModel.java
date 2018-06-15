@@ -1,6 +1,8 @@
 package employeemanagement;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -11,6 +13,7 @@ public class EmployeeModel {
                         designation, qualification, nationality, identity, postalAddress,
                         physicalAddress, cellPhone,telephone, email, gender, 
                         enrollDate, profilePicture;
+    ObservableList<NextOfKin> nextOfKin;
 
     public EmployeeModel() {
         ID = new SimpleStringProperty("");
@@ -32,6 +35,7 @@ public class EmployeeModel {
         email = new SimpleStringProperty("");
         enrollDate = new SimpleStringProperty("");
         profilePicture = new SimpleStringProperty("");
+        nextOfKin = FXCollections.observableArrayList();
     }
     
     public EmployeeModel(String ID, String employeeID,String fName, String lName, String mName, String title, String dob,
@@ -59,7 +63,8 @@ public class EmployeeModel {
        this.enrollDate = new SimpleStringProperty(enrollDate);
        this.profilePicture = new SimpleStringProperty(profilePicture);
     }
-    
+    public ObservableList<NextOfKin> getNextOfKin(){return nextOfKin;}
+    public void setNextOfKin(ObservableList<NextOfKin> id){nextOfKin=id;}
     
     public String getEmployeeID(){return employeeID.get();}
     public void setEmployeeID(String id){employeeID.set(id);}
@@ -130,7 +135,7 @@ public class EmployeeModel {
             if (middleName.get() != null && !middleName.get().equalsIgnoreCase("")) {
                 return title.get()+" "+firstName.get().substring(0, 1) + " ." + middleName.get().substring(0, 1) + ". " + lastName.get();
             }
-            return title.get()+" "+firstName.get().substring(0, 1) + ". " + lastName.get();
+            return title.get()+" "+firstName.get();
         } catch (Exception e) {
             return "";
         }
