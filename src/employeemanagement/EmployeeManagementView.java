@@ -83,7 +83,7 @@ public class EmployeeManagementView extends BorderPane{
         employee_pane.getStyleClass().add("jfx-tab-flatpane");
         
         all_emp = new Tab("All Employees");
-        all_emp.setGraphic( SMS.getGraphics(MaterialDesignIcon.HUMAN,"text-bluegray", 24));
+        all_emp.setGraphic( SMS.getGraphics(MaterialDesignIcon.ACCOUNT_MULTIPLE,"text-bluegray", 24));
         emp_designations= new Tab("Designations");
         emp_designations.setGraphic( SMS.getGraphics(MaterialDesignIcon.BRIEFCASE,"text-bluegray", 24));
         employee_pane.getTabs().addAll(all_emp,emp_designations);
@@ -145,18 +145,21 @@ public class EmployeeManagementView extends BorderPane{
         });
         
         btn_add = new JFXButton("Add Employee");
+        btn_add.getStyleClass().add("jfx-tool-button");
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.ACCOUNT_PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
            new AddEmployeeStage(null);
         });
         
         btn_export = new JFXButton("Export");
+        btn_export.getStyleClass().add("jfx-tool-button");
         btn_export.setGraphic(SMS.getGraphics(MaterialDesignIcon.EXPORT, "icon-default", 24));
         btn_export.setOnAction((ActionEvent event) -> {
             
         });
         
         btn_refresh = new JFXButton("Refresh");
+        btn_refresh.getStyleClass().add("jfx-tool-button");
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
         btn_refresh.setOnAction((ActionEvent event) -> {
             employeeListWork.restart();
