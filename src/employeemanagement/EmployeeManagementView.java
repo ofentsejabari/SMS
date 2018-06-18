@@ -6,6 +6,7 @@
 package employeemanagement;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTabPane;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.CustomTableColumn;
 import entry.CustomTableView;
@@ -27,6 +28,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.Toggle;
@@ -61,7 +63,9 @@ public class EmployeeManagementView extends BorderPane{
   //  public static UpdateEmployeeProfile profileStage;
     public static CustomTableView<EmployeeModel> employeeTable;
     public static ObservableList<EmployeeModel> employeeList = FXCollections.observableArrayList();
-    public EmployeeListWorkService employeeListWork;
+    public static EmployeeListWorkService employeeListWork;
+    private JFXTabPane employee_pane;
+    public Tab all_emp,emp_designations;
     
    public EmployeeManagementView() {
         
@@ -70,6 +74,20 @@ public class EmployeeManagementView extends BorderPane{
         count = new Label("");
         
         stackpane = new StackPane();
+        
+        //
+        BorderPane inner_bp = new BorderPane();
+        inner_bp.setPadding(new Insets(10));
+        employee_pane = new JFXTabPane();
+        
+        employee_pane.getStyleClass().add("jfx-tab-flatpane");
+        
+        all_emp = new Tab("All Employees");
+        all_emp.setGraphic( SMS.getGraphics(MaterialDesignIcon.HUMAN,"text-bluegray", 24));
+        emp_designations= new Tab("Designations");
+        employee_pane.getTabs().addAll(all_emp,emp_designations);
+        setCenter(employee_pane);
+        
         
         employeeListWork = new EmployeeListWorkService();
         
@@ -128,7 +146,7 @@ public class EmployeeManagementView extends BorderPane{
         btn_add = new JFXButton("Add Employee");
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.ACCOUNT_PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-            
+           new AddEmployeeStage(null);
         });
         
         btn_export = new JFXButton("Export");
@@ -147,7 +165,7 @@ public class EmployeeManagementView extends BorderPane{
         
         HBox toolbar = new HBox();
         toolbar.getStyleClass().add("secondary-toolbar");
-        setTop(toolbar);
+        inner_bp.setTop(toolbar);
         
         
         /////////////////////////////////////////////////////////////////////
@@ -233,6 +251,7 @@ public class EmployeeManagementView extends BorderPane{
                             employeeID.setTooltip(new Tooltip("Edit employee profile"));
                             employeeID.setOnAction((ActionEvent event) -> {
                                //UpdateStudentProfile(dbHandler.getStudentByID(ID)).show();
+                               new AddEmployeeStage(EmployeeQuery.getEmployeeByID(ID));
                             });
                             
                             setGraphic(employeeID);
@@ -333,7 +352,10 @@ public class EmployeeManagementView extends BorderPane{
         employeeTable.getTableView().itemsProperty().bind(employeeListWork.valueProperty());
         
         stackpane.getChildren().addAll(employeeTable, pi);
-        setCenter(stackpane);
+        inner_bp.setCenter(stackpane);
+        all_emp.setContent(inner_bp);
+        
+        setCenter(employee_pane);
         
         employeeListWork.start();
         employeeListWork.restart();

@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
+import entry.CCValidator;
 import entry.HSpacer;
 import entry.SMS;
 import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
@@ -33,8 +34,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import static entry.SMS.getGraphics;
-import entry.ToolTip;
-import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Orientation;
 import javafx.scene.layout.FlowPane;
@@ -51,12 +51,12 @@ public class EmployeeProfileStage extends JFXDialog{
     
     private JFXTextArea p_postalAddress, p_physicalAddress;
     private JFXTextField p_fname, p_mname, p_lname, p_identity,
-                     p_email, p_telephone, p_cellphone, p_relationship,
+                     p_email, p_telephone, p_cellphone, 
                     p_educationLevel;
+    private JFXComboBox<String> p_relationship;
     
-    public JFXButton save;
     
-    //private Guardian selectedParent = null;
+    
     private FlowPane subjectsPane;
     
     public EmployeeProfileStage(EmployeeModel  emp){
@@ -248,7 +248,7 @@ public class EmployeeProfileStage extends JFXDialog{
         btn_edit.getStyleClass().add("jfx-tool-button");
         btn_edit.setGraphic(SMS.getGraphics(MaterialDesignIcon.ACCOUNT_CONVERT, "icon-default", 22));
         btn_edit.setOnAction((ActionEvent event) -> {
-            activateButtons(false);
+            new AddEmployeeStage(emp);
         });
         
         toolbar.getChildren().addAll( new HSpacer(), btn_edit);
@@ -277,6 +277,7 @@ public class EmployeeProfileStage extends JFXDialog{
         p_identity = new JFXTextField();
         p_identity.setPromptText("Omang/ Passport Number");
         p_identity.setLabelFloat(true);
+        p_identity.setPrefWidth(350);
         p_identity.setDisable(true);
         empDetails.add(p_identity, 1, 0);
         
@@ -290,12 +291,14 @@ public class EmployeeProfileStage extends JFXDialog{
         p_email = new JFXTextField();
         p_email.setPromptText("Email Address");
         p_email.setDisable(true);
+        CCValidator.setFieldValidator(p_email, "Required");
         p_email.setLabelFloat(true);
         contactDetails.add(p_email, 0, 0);
         
         p_telephone = new JFXTextField();
         p_telephone.setPromptText("Telephone");
         p_telephone.setDisable(true);
+        CCValidator.setFieldValidator(p_telephone, "Required");
         p_telephone.setLabelFloat(true);
         contactDetails.add(p_telephone, 1, 0);
         
@@ -303,11 +306,15 @@ public class EmployeeProfileStage extends JFXDialog{
         p_cellphone = new JFXTextField();
         p_cellphone.setPromptText("Cellphone");
         p_cellphone.setLabelFloat(true);
+        CCValidator.setFieldValidator(p_cellphone, "Required");
         p_cellphone.setDisable(true);
         contactDetails.add(p_cellphone, 0, 1);
         
-        p_relationship = new JFXTextField();
+        p_relationship = new JFXComboBox();
         p_relationship.setPromptText("Relationship");
+        ObservableList<String> item= FXCollections.observableArrayList();
+        item.addAll("Mother","Father","Sibling","Spouse","Uncle","Aunt","GrandParent","Son","Daughter","Other");
+        p_relationship.setItems(item);
         p_relationship.setLabelFloat(true);
         p_relationship.setPrefWidth(350);
         p_relationship.setDisable(true);
@@ -319,6 +326,7 @@ public class EmployeeProfileStage extends JFXDialog{
         p_postalAddress.setPrefWidth(350);
         p_postalAddress.setPrefRowCount(3);
         p_postalAddress.setDisable(true);
+        CCValidator.setFieldValidator(p_postalAddress, "Required");
         contactDetails.add(p_postalAddress, 0, 2);
         
         
@@ -327,22 +335,11 @@ public class EmployeeProfileStage extends JFXDialog{
         p_physicalAddress.setLabelFloat(true);
         p_physicalAddress.setPrefWidth(350);
         p_physicalAddress.setPrefRowCount(3);
+        CCValidator.setFieldValidator(p_physicalAddress, "Required");
         p_physicalAddress.setDisable(true);
         contactDetails.add(p_physicalAddress, 1, 2);
         
-         save = new JFXButton("Save");
-            save.getStyleClass().add("dark-blue");
-            save.setDisable(true);
-            save.setTooltip(new ToolTip("Save "));
-            save.setOnAction((ActionEvent event) -> {
-                activateButtons(true);
-                save.setDisable(true);
-            });
-            
-        HBox toolbar1 = new HBox();
-        toolbar1.getStyleClass().add("secondary-toolbar");
-        toolbar1.getChildren().add(save);
-        bp.setBottom(toolbar1);
+         
         VBox con = new VBox(SMS.setBorderContainer(empDetails, "Personal Details"),
                          SMS.setBorderContainer(contactDetails, "Contacts Details"));
         con.setPadding(new Insets(10, 0, 0, 0));
@@ -350,15 +347,15 @@ public class EmployeeProfileStage extends JFXDialog{
         
         if(nextofKin!= null){
             
-                p_postalAddress.setText(nextofKin.getPostalAddress().get());
-                p_physicalAddress.setText(nextofKin.getPhysicalAddress().get());
-                p_fname.setText(nextofKin.getFirstName().get());
-                p_lname.setText(nextofKin.getSurname().get());
-                p_identity.setText(nextofKin.getOmang().get());
-                p_email.setText(nextofKin.getEmail().get());
-                p_telephone.setText(nextofKin.getTelephone().get());
-                p_cellphone.setText(nextofKin.getCellphone().get());
-                p_relationship.setText(nextofKin.getRelationship().get());
+                p_postalAddress.setText(nextofKin.getPostalAddress());
+                p_physicalAddress.setText(nextofKin.getPhysicalAddress());
+                p_fname.setText(nextofKin.getFirstName());
+                p_lname.setText(nextofKin.getSurname());
+                p_identity.setText(nextofKin.getOmang());
+                p_email.setText(nextofKin.getEmail());
+                p_telephone.setText(nextofKin.getTelephone());
+                p_cellphone.setText(nextofKin.getCellphone());
+                p_relationship.setValue(nextofKin.getRelationship());
                 
         
         }
@@ -378,13 +375,11 @@ public class EmployeeProfileStage extends JFXDialog{
         subjectsPane.setVgap(10);
         subjectsPane.getStyleClass().add("container");
         
-//        getSubject();
         //----------------------------------------------------------------------
         GridPane sports = new GridPane();
         sports.setStyle("-fx-padding:25 20;");
         sports.setVgap(20);
         sports.setHgap(20);
-        
         
         //----------------------------------------------------------------------
         GridPane clubs = new GridPane();
@@ -422,21 +417,33 @@ public class EmployeeProfileStage extends JFXDialog{
 //            subjectsPane.getChildren().add(cl);
         } 
 
-
+    private boolean isValidateInputs(){
+        
+        if(p_fname.getText().trim().equals("") || p_lname.getText().trim().equals("") ||
+            p_identity.getText().trim().equals("") || p_email.getText().trim().equals("") ||
+            p_identity.getText().trim().equals("") || p_telephone.getText().trim().equals("") ||
+            p_cellphone.getText().trim().equals("") || p_postalAddress.getText().trim().equals("") ||
+            p_physicalAddress.getText().trim().equals("") ){
+            
+            p_fname.validate(); p_lname.validate(); p_identity.validate(); p_email.validate();
+            p_telephone.validate(); p_cellphone.validate(); p_postalAddress.validate();
+            p_physicalAddress.validate(); ;
+            
+            return false;
+        }
+        return true;
+    }
 
     public void activateButtons(boolean value){
 
        p_postalAddress.setDisable(value);
        p_physicalAddress.setDisable(value);
        p_fname.setDisable(value);
-       p_mname.setDisable(value);
        p_lname.setDisable(value);
        p_identity.setDisable(value);
        p_email.setDisable(value);
        p_telephone.setDisable(value);
        p_cellphone.setDisable(value);
        p_relationship.setDisable(value); 
-       save.setDisable(value);
-
     }
 }

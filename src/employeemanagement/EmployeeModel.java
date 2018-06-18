@@ -71,6 +71,7 @@ public class EmployeeModel {
     
     public String getID(){return ID.get();}
     public void setID(String id){ID.set(id);}
+    
     public String getFirstName(){return firstName.get();}
     public void setFirstName(String titl){firstName.set(titl);}
     

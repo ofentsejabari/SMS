@@ -47,86 +47,86 @@ public class NextOfKin {
             this.physicalAddress = new SimpleStringProperty(physicalAddress);
     }
     
-    public SimpleStringProperty getEmployeeId() {
-        return employeeId;
+    public String getEmployeeId() {
+        return employeeId.get();
     }
 
-    public void setEmployeeId(SimpleStringProperty employeeId) {
-        this.firstName = employeeId;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId.set(employeeId);
     }
 
-    public SimpleStringProperty getFirstName() {
-        return firstName;
+    public String getFirstName() {
+        return firstName.get();
     }
 
-    public void setFirstName(SimpleStringProperty firstName) {
-        this.firstName = firstName;
+    public void setFirstName(String firstName) {
+        this.firstName.set(firstName);
     }
 
  
 
-    public SimpleStringProperty getSurname() {
-        return surname;
+    public String getSurname() {
+        return surname.get();
     }
 
-    public void setSurname(SimpleStringProperty surname) {
-        this.surname = surname;
+    public void setSurname(String surname) {
+        this.surname.set(surname);
     }
 
-    public SimpleStringProperty getOmang() {
-        return omang;
+    public String getOmang() {
+        return omang.get();
     }
 
-    public void setOmang(SimpleStringProperty omang) {
-        this.omang = omang;
+    public void setOmang(String omang) {
+        this.omang.set(omang);
     }
 
-    public SimpleStringProperty getEmail() {
-        return email;
+    public String getEmail() {
+        return email.get();
     }
 
-    public void setEmail(SimpleStringProperty email) {
-        this.email = email;
+    public void setEmail(String email) {
+        this.email.set(email);
     }
 
-    public SimpleStringProperty getTelephone() {
-        return telephone;
+    public String getTelephone() {
+        return telephone.get();
     }
 
-    public void setTelephone(SimpleStringProperty telephone) {
-        this.telephone = telephone;
+    public void setTelephone(String telephone) {
+        this.telephone.set(telephone);
     }
 
-    public SimpleStringProperty getCellphone() {
-        return cellphone;
+    public String getCellphone() {
+        return cellphone.get();
     }
 
-    public void setCellphone(SimpleStringProperty cellphone) {
-        this.cellphone = cellphone;
+    public void setCellphone(String cellphone) {
+        this.cellphone.set(cellphone);
     }
 
-    public SimpleStringProperty getRelationship() {
-        return relationship;
+    public String getRelationship() {
+        return relationship.get();
     }
 
-    public void setRelationship(SimpleStringProperty relationship) {
-        this.relationship = relationship;
+    public void setRelationship(String relationship) {
+        this.relationship.set(relationship);
     }
 
-    public SimpleStringProperty getPostalAddress() {
-        return postalAddress;
+    public String getPostalAddress() {
+        return postalAddress.get();
     }
 
-    public void setPostalAddress(SimpleStringProperty postalAddress) {
-        this.postalAddress = postalAddress;
+    public void setPostalAddress(String postalAddress) {
+        this.postalAddress.set(postalAddress);
     }
 
-    public SimpleStringProperty getPhysicalAddress() {
-        return physicalAddress;
+    public String getPhysicalAddress() {
+        return physicalAddress.get();
     }
 
-    public void setPhysicalAddress(SimpleStringProperty physicalAddress) {
-        this.physicalAddress = physicalAddress;
+    public void setPhysicalAddress(String physicalAddress) {
+        this.physicalAddress.set(physicalAddress);
     }
     
     

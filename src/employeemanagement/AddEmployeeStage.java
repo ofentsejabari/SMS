@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -45,11 +46,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
-import mysqldriver.AdminQuery;
 import mysqldriver.EmployeeQuery;
-import studentmanagement.Guardian;
-import studentmanagement.Student;
-import static studentmanagement.StudentManagement.studentEnrolmentController;
 
 /**
  *
@@ -63,8 +60,8 @@ public class AddEmployeeStage extends JFXDialog{
     
     private JFXTextArea p_postalAddress, p_physicalAddress;
     private JFXTextField p_fname, p_mname, p_lname, p_identity,
-                       p_email, p_telephone, p_cellphone, p_relationship;
-    private JFXComboBox<String> p_occupation, s_citizenship, p_educationLevel;
+                       p_email, p_telephone, p_cellphone;
+    private JFXComboBox<String> e_citizenship, p_relationship;
     
     private JFXTextArea e_postalAddress, e_physicalAddress;
     private JFXTextField e_fname, e_mname, e_lname, e_email;
@@ -102,21 +99,21 @@ public class AddEmployeeStage extends JFXDialog{
         
         //-- End Screen Decoration ---------------------------------------------
         
-        Image place_holder = new Image(SMS.class.getResourceAsStream("icons/u10.png"));
+        Image place_holder = new Image(SMS.class.getResourceAsStream("icons/u2.png"));
         
-        Circle studentProfilePic = new Circle(45);
-        studentProfilePic.setTranslateX(0);
-        studentProfilePic.setTranslateY(0);
-        studentProfilePic.setCenterX(30);
-        studentProfilePic.setCenterY(30);
-        studentProfilePic.setEffect(new DropShadow(3, Color.web("#EAEAEA")));
-        studentProfilePic.setStroke(Color.web("#cfd8dc"));
-        studentProfilePic.setStrokeWidth(1);
-        studentProfilePic.setFill(Color.web("#EAEAEA"));
-        studentProfilePic.setFill(new ImagePattern(place_holder));
+        Circle employeeProfilePic = new Circle(45);
+        employeeProfilePic.setTranslateX(0);
+        employeeProfilePic.setTranslateY(0);
+        employeeProfilePic.setCenterX(30);
+        employeeProfilePic.setCenterY(30);
+        employeeProfilePic.setEffect(new DropShadow(3, Color.web("#EAEAEA")));
+        employeeProfilePic.setStroke(Color.web("#cfd8dc"));
+        employeeProfilePic.setStrokeWidth(1);
+        employeeProfilePic.setFill(Color.web("#EAEAEA"));
+        employeeProfilePic.setFill(new ImagePattern(place_holder));
         
         if(employee != null){
-            studentProfilePic.setFill(new ImagePattern(new Image(SMS.class.getResourceAsStream("icons/"+((employee.getGender().equalsIgnoreCase("Female"))?"u9":"u10")+".png"))));
+            employeeProfilePic.setFill(new ImagePattern(new Image(SMS.class.getResourceAsStream("icons/"+((employee.getGender().equalsIgnoreCase("Female"))?"u3":"u6")+".png"))));
         }
         
         JFXButton update = new JFXButton("Update", getGraphics(MaterialDesignIcon.UPLOAD, "text-white", 18));
@@ -134,17 +131,17 @@ public class AddEmployeeStage extends JFXDialog{
                     BufferedImage bufferedImage = ImageIO.read(picture);
                     Image image = SwingFXUtils.toFXImage(bufferedImage, null);
           
-                    studentProfilePic.setFill(new ImagePattern(image));
+                    employeeProfilePic.setFill(new ImagePattern(image));
                 } catch (IOException ex) {
 
                 }
             } 
         });
         
-        Label studentID = new Label(id);
-        studentID.getStyleClass().add("title-label");
+        Label employeeId = new Label(id);
+        employeeId.getStyleClass().add("title-label");
         
-        VBox con = new VBox(studentProfilePic, update, studentID);
+        VBox con = new VBox(employeeProfilePic, update, employeeId);
         con.setSpacing(10);
         con.setAlignment(Pos.TOP_CENTER);
         con.setPadding(new Insets(10, 20, 10, 20));
@@ -181,17 +178,19 @@ public class AddEmployeeStage extends JFXDialog{
                 
         pane.setPrefSize(870, 700);
         if(employee != null){
-            title.setText("Update Student - "+employee.getEmployeeID() );
+            title.setText("Update Employee - "+employee.getEmployeeID() );
             
-            studentID.setText(employee.getEmployeeID());
+            employeeId.setText(employee.getEmployeeID());
             
             e_postalAddress.setText(employee.getPostalAddress());
             e_physicalAddress.setText(employee.getPhysicalAddress());
             e_fname.setText(employee.getFirstName());
             e_mname.setText(employee.getMiddleName());
             e_lname.setText(employee.getLastName());
+            e_employement.setValue(SMS.getLocalDate(employee.getEnrollDate()));
             e_email.setText(employee.getEmail());
-            e_designation.setValue(employee.getDesignation());
+            e_citizenship.setValue(employee.getNationality());
+            e_designation.setValue(EmployeeQuery.getEmployeeDesignation(employee.getDesignation()));
             e_dob.setValue(SMS.getLocalDate(employee.getDob()));
             
             if(employee.getGender().equalsIgnoreCase("Male")){
@@ -202,18 +201,15 @@ public class AddEmployeeStage extends JFXDialog{
             
             //------------------------------------------------------------------
             NextOfKin kin = EmployeeQuery.getNextOfKin(employee.getEmployeeID());
-            p_fname.setText(kin.getFirstName().get());
-            p_lname.setText(kin.getFirstName().get());
-            p_identity.setText(kin.getFirstName().get());
-            p_mname.setText(kin.getFirstName().get());
-            p_relationship.setText(kin.getFirstName().get());
-            p_email.setText(kin.getFirstName().get());
-            p_telephone.setText(kin.getFirstName().get());
-            p_cellphone.setText(kin.getFirstName().get());
-            p_postalAddress.setText(kin.getFirstName().get());
-            p_physicalAddress.setText(kin.getFirstName().get());
-            p_educationLevel.setValue(kin.getFirstName().get());
-            p_occupation.setValue(kin.getFirstName().get());
+            p_fname.setText(kin.getFirstName());
+            p_lname.setText(kin.getSurname());
+            p_identity.setText(kin.getOmang());
+            p_relationship.setValue(kin.getRelationship());
+            p_email.setText(kin.getEmail());
+            p_telephone.setText(kin.getTelephone());
+            p_cellphone.setText(kin.getCellphone());
+            p_postalAddress.setText(kin.getPostalAddress());
+            p_physicalAddress.setText(kin.getPhysicalAddress());
         }
         
         root.getChildren().add(pane);
@@ -231,12 +227,13 @@ public class AddEmployeeStage extends JFXDialog{
         if(employee != null){ //-- update --
             
             if(isValidateInputs()){
-                //-- Create student and parent models --
-                employee.setNationality((s_citizenship.getValue() != null)? s_citizenship.getValue():"");
+                //-- Create employeeand next of kin models --
+                employee.setNationality((e_citizenship.getValue() != null)? e_citizenship.getValue():"");
                 employee.setPostalAddress((e_postalAddress.getText() != null)? e_postalAddress.getText():"");
                 employee.setPhysicalAddress((e_physicalAddress.getText() != null)? e_physicalAddress.getText():"");
                 employee.setDob((e_dob.getValue() != null)? e_dob.getValue().toString():"");
                 employee.setEnrollDate((e_employement.getValue() != null)? e_employement.getValue().toString():"");
+                employee.setDesignation(EmployeeQuery.getEmployeeDesignationId(e_designation.getValue()));
                 employee.setFirstName(e_fname.getText().trim());
                 employee.setMiddleName(e_mname.getText().trim());
                 employee.setLastName(e_lname.getText().trim());
@@ -245,79 +242,78 @@ public class AddEmployeeStage extends JFXDialog{
                 
                 NextOfKin kin = EmployeeQuery.getNextOfKin(employee.getEmployeeID());
                 
-//                kin.setFirstName(p_fname.getText().trim());
-//                kin.setSurname(p_lname.getText().trim());
-//                kin.setOmang(p_identity.getText().trim());
-//                kin.setEmail(p_email.getText().trim());
-//                kin.setPostalAddress(p_postalAddress.getText().trim());
-//                kin.setPhysicalAddress(p_physicalAddress.getText().trim());
-//                kin.setTelephone(p_telephone.getText().trim());
-//                kin.setCellphone(p_cellphone.getText().trim());
-//                
-//                if(SMS.dbHandler.updateStudentProfile(employee, kin, true)){
-//                    new JFXAlert(JFXAlert.SUCCESS, "Update Successful",
-//                            " Student details has been updated successfully");
-//                    
-//                    studentEnrolmentController.enrollUI.studentListWork.restart();
-//                }else{
-//                    new JFXAlert(JFXAlert.ERROR, "Update Failed",
-//                            "An error encountered while trying to update student details");
-//                }
+                kin.setFirstName(p_fname.getText().trim());
+                kin.setSurname(p_lname.getText().trim());
+                kin.setOmang(p_identity.getText().trim());
+                kin.setEmail(p_email.getText().trim());
+                kin.setRelationship(p_relationship.getValue().trim());
+                kin.setPostalAddress(p_postalAddress.getText().trim());
+                kin.setPhysicalAddress(p_physicalAddress.getText().trim());
+                kin.setTelephone(p_telephone.getText().trim());
+                kin.setCellphone(p_cellphone.getText().trim());
+                
+                if(EmployeeQuery.updateEmployeeProfile(employee, kin, true)){
+                    new JFXAlert(JFXAlert.SUCCESS, "Update Successful",
+                            " Employee details has been updated successfully");
+                    
+                    EmployeeManagementView.employeeListWork.restart();
+                }else{
+                    new JFXAlert(JFXAlert.ERROR, "Update Failed",
+                            "An error encountered while trying to update Employee details");
+                }
             }else{
                 new JFXAlert(JFXAlert.ERROR, "Input Capture Error",
                         " Please ensure that required fields are captured, before trying to update"
-                                + " student information");
+                                + " employee information");
             }
         }else{
             //-- create new --
             if(isValidateInputs()){
                 
-                Student std = new Student();
-                std.setStudentID(id);
-                std.setCitizenship((s_citizenship.getValue() != null)? s_citizenship.getValue():"");
-                std.setPostalAddress((e_postalAddress.getText() != null)? e_postalAddress.getText():"");
-                std.setPhysicalAddress((e_physicalAddress.getText() != null)? e_physicalAddress.getText():"");
-                std.setPslegrade((e_designation.getValue() != null)? e_designation.getValue():"");
-                std.setDob((e_dob.getValue() != null)? e_dob.getValue().toString():"");
-                std.setEnrollDate((e_employement.getValue() != null)? e_employement.getValue().toString():"");
-                std.setFirstName(e_fname.getText().trim());
-                std.setMiddleName(e_mname.getText().trim());
-                std.setLastName(e_lname.getText().trim());
-                std.setEmail(e_email.getText().trim());
-                std.setGender(e_male.isSelected()?"Male":"Female");
-                std.setStatus("Active");
-                std.setSchoolID("20000");
+                EmployeeModel emp = new EmployeeModel();
+                emp.setEmployeeID(id);
+                emp.setDesignation(EmployeeQuery.getEmployeeDesignationId(e_designation.getValue()));
+                
+                emp.setNationality((e_citizenship.getValue() != null)? e_citizenship.getValue():"");
+                emp.setPostalAddress((e_postalAddress.getText() != null)? e_postalAddress.getText():"");
+                emp.setPhysicalAddress((e_physicalAddress.getText() != null)? e_physicalAddress.getText():"");
+                emp.setDob((e_dob.getValue() != null)? e_dob.getValue().toString():"");
+                emp.setEnrollDate((e_employement.getValue() != null)? e_employement.getValue().toString():"");
+                emp.setFirstName(e_fname.getText().trim());
+                emp.setMiddleName(e_mname.getText().trim());
+                emp.setLastName(e_lname.getText().trim());
+                emp.setEmail(e_email.getText().trim());
+                emp.setGender(e_male.isSelected()?"Male":"Female");
+                //emp.setSchoolID("20000");
                 
                 
-                Guardian parent = new Guardian();
-                parent.setStudentID(std.getStudentID());
-                parent.setFirstName(p_fname.getText().trim());
-                parent.setRelation(p_relationship.getText().trim());
-                parent.setLastName(p_lname.getText().trim());
-                parent.setIdentity(p_identity.getText().trim());
-                parent.setEmail(p_email.getText().trim());
-                parent.setPostalAddress(p_postalAddress.getText().trim());
-                parent.setPhysicalAddress(p_physicalAddress.getText().trim());
-                parent.setTelephone(p_telephone.getText().trim());
-                parent.setCellphone(p_cellphone.getText().trim());
-                parent.setOccupation((p_occupation.getValue() != null)? p_occupation.getValue():"");
-                parent.setEducation((p_educationLevel.getValue() != null)? p_educationLevel.getValue():"");
+                NextOfKin next = new NextOfKin();
+                next.setEmployeeId(id);
+                next.setFirstName(p_fname.getText().trim());
+                next.setRelationship(p_relationship.getValue().trim());
+                next.setSurname(p_lname.getText().trim());
+                next.setOmang(p_identity.getText().trim());
+                next.setEmail(p_email.getText().trim());
+                next.setPostalAddress(p_postalAddress.getText().trim());
+                next.setPhysicalAddress(p_physicalAddress.getText().trim());
+                next.setTelephone(p_telephone.getText().trim());
+                next.setCellphone(p_cellphone.getText().trim());
                 
-                if(SMS.dbHandler.updateStudentProfile(std, parent, false)){
+                if(EmployeeQuery.updateEmployeeProfile(emp, next, false)){
                     new JFXAlert(JFXAlert.SUCCESS, "Update Successful",
-                            " Student enrolled successfully");
+                            " Employee added successfully");
                     close();
-                    studentEnrolmentController.enrollUI.studentListWork.restart();
+                    EmployeeManagementView.employeeListWork.restart();
                     
                 }else{
                     new JFXAlert(JFXAlert.ERROR, "Update Failed",
-                            "An error encountered while trying to enroll student.");
+                            "An error encountered while trying to enroll employee.");
                 }
             }else{
                 
                 new JFXAlert(JFXAlert.ERROR, "Input Capture Error",
                         "Please ensure that required fields are captured,"
-                                + " before trying to add new student information to the system.");
+                                + " before trying to add new employee information to the system.");
                 
             }
         }
@@ -379,11 +375,13 @@ public class AddEmployeeStage extends JFXDialog{
         CCValidator.setFieldValidator(p_cellphone, "Required");
         contactDetails.add(p_cellphone, 0, 1);
         
-        p_relationship = new JFXTextField();
+        p_relationship = new JFXComboBox();
+        p_relationship.setPrefWidth(280);
         p_relationship.setPromptText("Relationship");
         p_relationship.setLabelFloat(true);
-        p_relationship.setPrefWidth(280);
-        CCValidator.setFieldValidator(p_relationship, "Required");
+        ObservableList<String> item= FXCollections.observableArrayList();
+        item.addAll("Mother","Father","Sibling","Spouse","Uncle","Aunt","GrandParent","Son","Daughter","Other");
+        p_relationship.setItems(item);
         contactDetails.add(p_relationship, 1, 1);
         
         p_postalAddress = new JFXTextArea();
@@ -408,51 +406,34 @@ public class AddEmployeeStage extends JFXDialog{
     
     private GridPane getNextOfKinDetails(){
     
-        GridPane parentDetails = new GridPane();
-        parentDetails.getStyleClass().add("container");
-        parentDetails.setStyle("-fx-padding:25 20;");
-        parentDetails.setVgap(20);
-        parentDetails.setHgap(20);
+        GridPane employeeDetails = new GridPane();
+        employeeDetails.getStyleClass().add("container");
+        employeeDetails.setStyle("-fx-padding:25 20;");
+        employeeDetails.setVgap(20);
+        employeeDetails.setHgap(20);
         
         p_fname = new JFXTextField();
         p_fname.setPromptText("First Name");
         p_fname.setLabelFloat(true);
         p_fname.setPrefWidth(280);
         CCValidator.setFieldValidator(p_fname, "Required");
-        parentDetails.add(p_fname, 0, 0);
-        
-        p_mname = new JFXTextField();
-        p_mname.setPromptText("Middle Name");
-        p_mname.setLabelFloat(true);
-        parentDetails.add(p_mname, 1, 0);
+        employeeDetails.add(p_fname, 0, 0);
         
         p_lname = new JFXTextField();
         p_lname.setPromptText("Surname");
+        p_lname.setPrefWidth(280);
         p_lname.setLabelFloat(true);
         CCValidator.setFieldValidator(p_lname, "Required");
-        parentDetails.add(p_lname, 0, 1);
+        employeeDetails.add(p_lname, 1, 0);
         
         p_identity = new JFXTextField();
         p_identity.setPromptText("Omang/ Passport Number");
         p_identity.setLabelFloat(true);
         CCValidator.setFieldValidator(p_identity, "Required");
-        parentDetails.add(p_identity, 1, 1);
+        employeeDetails.add(p_identity, 0, 1);
         
-        p_educationLevel = new JFXComboBox<>();
-        p_educationLevel.setPromptText("Education Level Attained");
-        p_educationLevel.setLabelFloat(true);
-        p_educationLevel.setPrefWidth(280);
-        new AutoCompleteComboBoxListener(p_educationLevel);
-        parentDetails.add(p_educationLevel, 0, 2);   
         
-        p_occupation = new JFXComboBox<>();
-        p_occupation.setPromptText("Occupation");
-        p_occupation.setLabelFloat(true);
-        p_occupation.setPrefWidth(280);
-        new AutoCompleteComboBoxListener(p_occupation);
-        parentDetails.add(p_occupation, 1, 2);
-        
-        return parentDetails;
+        return employeeDetails;
     }
     
     private GridPane getEmployeeContactDetails(){
@@ -463,30 +444,13 @@ public class AddEmployeeStage extends JFXDialog{
         contactDetails.setVgap(20);
         contactDetails.setHgap(20);
         
-        s_citizenship = new JFXComboBox<>(
-                FXCollections.observableArrayList("Botswana", "South Africa",
-                "Lesotho", "Zambia", "Zimbaqwe", "Namibia", "Swaziland"));
-        
-        s_citizenship.setPromptText("Citizenship");
-        s_citizenship.setLabelFloat(true);
-        s_citizenship.setPrefWidth(280);
-        AutoCompleteComboBoxListener.setAutoCompleteValidator(s_citizenship);
-        new AutoCompleteComboBoxListener(s_citizenship);
-        contactDetails.add(s_citizenship, 0, 0);
-        
-        e_email = new JFXTextField();
-        e_email.setPromptText("Email Address");
-        e_email.setLabelFloat(true);
-        e_email.setPrefWidth(280);
-        contactDetails.add(e_email, 1, 0);
-        
-        e_postalAddress = new JFXTextArea();
+         e_postalAddress = new JFXTextArea();
         e_postalAddress.setPromptText("Postal Address");
         e_postalAddress.setLabelFloat(true);
         e_postalAddress.setPrefWidth(280);
         e_postalAddress.setPrefRowCount(3);
         CCValidator.setFieldValidator(e_postalAddress, "Required");
-        contactDetails.add(e_postalAddress, 0, 1);
+        contactDetails.add(e_postalAddress, 0, 0);
         
         e_physicalAddress = new JFXTextArea();
         e_physicalAddress.setPromptText("Physical Address");
@@ -494,57 +458,76 @@ public class AddEmployeeStage extends JFXDialog{
         e_physicalAddress.setPrefWidth(280);
         e_physicalAddress.setPrefRowCount(3);
         CCValidator.setFieldValidator(e_physicalAddress, "Required");
-        contactDetails.add(e_physicalAddress, 1, 1);
+        contactDetails.add(e_physicalAddress, 1, 0);
         
+        
+        e_email = new JFXTextField();
+        e_email.setPromptText("Email Address");
+        e_email.setLabelFloat(true);
+        e_email.setPrefWidth(280);
+        contactDetails.add(e_email, 0, 1);
         return contactDetails;
     }
     
     private GridPane getEmployeeDetails(){
     
-        GridPane studentDetails = new GridPane();
-        studentDetails.getStyleClass().add("container");
-        studentDetails.setStyle("-fx-padding:25 20 20 20;");
-        studentDetails.setVgap(20);
-        studentDetails.setHgap(20);
+        GridPane employeeDetails = new GridPane();
+        employeeDetails.getStyleClass().add("container");
+        employeeDetails.setStyle("-fx-padding:25 20 20 20;");
+        employeeDetails.setVgap(20);
+        employeeDetails.setHgap(20);
         
         e_fname = new JFXTextField();
         e_fname.setPromptText("First Name");
         e_fname.setLabelFloat(true);
         e_fname.setPrefWidth(280);
         CCValidator.setFieldValidator(e_fname, "Required");
-        studentDetails.add(e_fname, 0, 0);
+        employeeDetails.add(e_fname, 0, 0);
         
         e_mname = new JFXTextField();
         e_mname.setPromptText("Middle Name");
         e_mname.setLabelFloat(true);
         e_mname.setPrefWidth(280);
-        studentDetails.add(e_mname, 1, 0);
+        employeeDetails.add(e_mname, 1, 0);
         
         e_lname = new JFXTextField();
         e_lname.setPromptText("Surname");
         e_lname.setLabelFloat(true);
         CCValidator.setFieldValidator(e_lname, "Required");
-        studentDetails.add(e_lname, 0, 1);
+        employeeDetails.add(e_lname, 0, 1);
         
         
-        e_designation = new JFXComboBox<>(FXCollections.observableArrayList("A*", "A", "B",
-                "C", "D", "E", "U"));
-        e_designation.setPromptText("PSLE Grade");
+        
+        e_designation = new JFXComboBox<>();
+        e_designation.setItems(EmployeeQuery.getEmployeeDesignationList());
+        e_designation.setPromptText("Designation");
         e_designation.setLabelFloat(true);
         e_designation.setPrefWidth(280);
         AutoCompleteComboBoxListener.setAutoCompleteValidator(e_designation);
         new AutoCompleteComboBoxListener(e_designation);
-        studentDetails.add(e_designation, 1, 2);
+        employeeDetails.add(e_designation, 1, 1);
         
         e_dob = new JFXDatePicker();
         e_dob.setPromptText("Date of birth");
         e_dob.setPrefWidth(280);
-        studentDetails.add(e_dob, 0, 3);
+        employeeDetails.add(e_dob, 0, 2);
         
         e_employement = new JFXDatePicker();
-        e_employement.setPromptText("Enrolment Date");
+        e_employement.setPromptText("Employment Date");
         e_employement.setPrefWidth(280);
-        studentDetails.add(e_employement, 1, 3);
+        employeeDetails.add(e_employement, 1, 2);
+        
+        e_citizenship = new JFXComboBox<>(
+                FXCollections.observableArrayList("Botswana", "South Africa",
+                "Lesotho", "Zambia", "Zimbaqwe", "Namibia", "Swaziland"));
+        
+        e_citizenship.setPromptText("Citizenship");
+        e_citizenship.setLabelFloat(true);
+        e_citizenship.setPrefWidth(280);
+        AutoCompleteComboBoxListener.setAutoCompleteValidator(e_citizenship);
+        new AutoCompleteComboBoxListener(e_citizenship);
+        employeeDetails.add(e_citizenship, 0, 3);
+        
         
         HBox gender = new HBox(10);
         gender.setAlignment(Pos.CENTER_LEFT);
@@ -557,16 +540,16 @@ public class AddEmployeeStage extends JFXDialog{
         tg.selectToggle(e_male);
         
         gender.getChildren().addAll(e_male, e_female);
-        studentDetails.add(gender, 0, 4, 2, 1);
+        employeeDetails.add(gender, 0, 4, 2, 1);
         
-        return studentDetails;
+        return employeeDetails;
     }
     
     /**
      * 
      * @return 
      */
-    public String generateEmployeeID(){
+    public static String generateEmployeeID(){
         
         Date date = new Date();
         String str = String.format("%tc", date);
@@ -574,7 +557,7 @@ public class AddEmployeeStage extends JFXDialog{
         
         String tym[] = st[3].split(":");
         
-        return(st[1].toUpperCase()+""+st[2]+""+st[5].substring(2)+""+tym[0]+""+tym[1]+""+tym[2]);
+        return(st[2]+st[1].toUpperCase()+""+st[5].substring(2)+""+tym[0]+""+tym[1]+""+tym[2]);
     }
     
 }
