@@ -17,7 +17,7 @@ public class NextOfKin {
 
     SimpleStringProperty employeeId,firstName, surname, omang, email, telephone, cellphone, relationship, postalAddress, physicalAddress;
     
-    
+    //
     public NextOfKin() 
     {
             employeeId = new SimpleStringProperty("");

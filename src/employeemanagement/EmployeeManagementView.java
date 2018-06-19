@@ -75,7 +75,7 @@ public class EmployeeManagementView extends BorderPane{
         
         stackpane = new StackPane();
         
-        //
+        //,..,
         BorderPane inner_bp = new BorderPane();
         inner_bp.setPadding(new Insets(10));
         employee_pane = new JFXTabPane();

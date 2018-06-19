@@ -27,6 +27,7 @@ public class EmployeeDesignationsView extends BorderPane{
     public EmployeeDesignationsView(){
     
         setPadding(new Insets(10));
+        //
         
         add = new JFXButton("Add");
         add.setGraphic(SMS.getGraphics(MaterialDesignIcon.ACCOUNT_PLUS,"icon-default", 22));

@@ -14,7 +14,7 @@ public class EmployeeModel {
                         physicalAddress, cellPhone,telephone, email, gender, 
                         enrollDate, profilePicture;
     ObservableList<NextOfKin> nextOfKin;
-
+//
     public EmployeeModel() {
         ID = new SimpleStringProperty("");
         employeeID = new SimpleStringProperty("");

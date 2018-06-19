@@ -62,7 +62,7 @@ public class HumanResourceManagement extends BorderPane{
         
         setLeft(mainMenu);
         
-        try {
+        try {//
             //-- Student Management Views
             dashboardUI = FXMLLoader.load(getClass().getResource("/employeemanagement/view/dashboard.fxml"));
             employeeManagementView = new EmployeeManagementView();
