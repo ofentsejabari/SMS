@@ -250,8 +250,8 @@ public class AcademicTermController implements Initializable {
             });
             for (Term term : termList) {
                 
-                JBCalendarDate tf1 = new JBCalendarDate(term.getFrom());
-                JBCalendarDate tf2 = new JBCalendarDate(term.getTo());
+                JBCalendarDate tf1 = new JBCalendarDate(term.getStart());
+                JBCalendarDate tf2 = new JBCalendarDate(term.getEnd());
                 
                 int days = JBCalendarDate.getDatesBetween(tf1, tf2, false, true).size();
                 term.setCurrentTerm(days+" Day(s) - " + (days/5)+"."+days%5+" Weeks");

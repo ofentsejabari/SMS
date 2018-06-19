@@ -34,10 +34,10 @@ public class Term {
     public String getDescription(){return description.get();}
     public void setDescrption(String id){description.set(id);}
     
-    public String getFrom(){return from.get();}
+    public String getStart(){return from.get();}
     public void setFrom(String titl){from.set(titl);}
     
-    public String getTo(){return to.get();}
+    public String getEnd(){return to.get();}
     public void setTo(String fnam){to.set(fnam);}
     
     public String getYear(){return year.get();}

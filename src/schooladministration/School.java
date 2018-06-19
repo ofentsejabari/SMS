@@ -20,13 +20,7 @@ public class School {
         postalAddress = new SimpleStringProperty("");
         physicalAddress = new SimpleStringProperty("");
         logo = new SimpleStringProperty("");
-//        
-//        annualLeave = new SimpleStringProperty("");
-//        taxing = new SimpleStringProperty("");
-//        workingDays = new SimpleStringProperty("");
-//        workingHours = new SimpleStringProperty("");
         showName = new SimpleStringProperty("");
-//        overtime = new SimpleStringProperty("");
     }
     
     public School(String schoolID, String schoolName, String tel, String fax, 
@@ -42,13 +36,7 @@ public class School {
         this.postalAddress = new SimpleStringProperty(postalAddress);
         this.physicalAddress = new SimpleStringProperty(physicalAddress);
         this.logo = new SimpleStringProperty(logo);
-//        
-//        this.annualLeave = new SimpleStringProperty(annualLeave);
-//        this.taxing = new SimpleStringProperty(taxing);
-//        this.workingDays = new SimpleStringProperty(workingDays);
-//        this.workingHours = new SimpleStringProperty(workingHours);
         this.showName = new SimpleStringProperty(showName);
-//        this.overtime = new SimpleStringProperty(overtime);
         
     }
     
@@ -78,25 +66,9 @@ public class School {
     
     public String getPhysicalAddress(){return physicalAddress.get();}
     public void setPhysicalAddress(String mnam){physicalAddress.set(mnam);}
-    
-//    public String getAnnualLeave(){return annualLeave.get();}
-//    public void setAnnualleave(String mnam){annualLeave.set(mnam);}
-//    
-//    public String getTaxing(){return taxing.get();}
-//    public void setTaxing(String titl){taxing.set(titl);}
-//    
-//    public String getWorkingDays(){return workingDays.get();}
-//    public void setWorkingDays(String fnam){workingDays.set(fnam);}
-//    
-//    public String getWorkingHours(){return workingHours.get();}
-//    public void setWorkingHours(String fnam){workingHours.set(fnam);}
-//    
+
     public String getShowName(){return showName.get();}
     public void setShowName(String lnam){showName.set(lnam);}
     
-//    public String getOvertime(){return overtime.get();}
-//    
-//    public void setOvertime(String mnam){overtime.set(mnam);}
-
     
 }

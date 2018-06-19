@@ -40,7 +40,6 @@ import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import java.util.Date;
-import static studentmanagement.StudentManagement.studentEnrolmentController;
 import static entry.SMS.getGraphics;
 
 /**
@@ -259,7 +258,7 @@ public class UpdateStudentProfile extends JFXDialog{
                     new JFXAlert(JFXAlert.SUCCESS, "Update Successful",
                             " Student details has been updated successfully");
                     
-                    studentEnrolmentController.enrollUI.studentListWork.restart();
+                   StudentManagement.enrollUI.studentListWork.restart();
                 }else{
                     new JFXAlert(JFXAlert.ERROR, "Update Failed",
                             "An error encountered while trying to update student details");
@@ -292,7 +291,7 @@ public class UpdateStudentProfile extends JFXDialog{
                 
                 
                 Guardian parent = new Guardian();
-                parent.setStudentID(std.getStudentID());
+                parent.setStudentID(id);
                 parent.setFirstName(p_fname.getText().trim());
                 parent.setRelation(p_relationship.getText().trim());
                 parent.setLastName(p_lname.getText().trim());
@@ -309,7 +308,7 @@ public class UpdateStudentProfile extends JFXDialog{
                     new JFXAlert(JFXAlert.SUCCESS, "Update Successful",
                             " Student enrolled successfully");
                     close();
-                    studentEnrolmentController.enrollUI.studentListWork.restart();
+                    StudentManagement.enrollUI.studentListWork.restart();
                     
                 }else{
                     new JFXAlert(JFXAlert.ERROR, "Update Failed",
@@ -465,22 +464,11 @@ public class UpdateStudentProfile extends JFXDialog{
         contactDetails.setVgap(20);
         contactDetails.setHgap(20);
         
-        s_citizenship = new JFXComboBox<>(
-                FXCollections.observableArrayList("Botswana", "South Africa",
-                "Lesotho", "Zambia", "Zimbaqwe", "Namibia", "Swaziland"));
-        
-        s_citizenship.setPromptText("Citizenship");
-        s_citizenship.setLabelFloat(true);
-        s_citizenship.setPrefWidth(280);
-        AutoCompleteComboBoxListener.setAutoCompleteValidator(s_citizenship);
-        new AutoCompleteComboBoxListener(s_citizenship);
-        contactDetails.add(s_citizenship, 0, 0);
-        
         s_email = new JFXTextField();
         s_email.setPromptText("Email Address");
         s_email.setLabelFloat(true);
         s_email.setPrefWidth(280);
-        contactDetails.add(s_email, 1, 0);
+        contactDetails.add(s_email, 0, 0);
         
         s_postalAddress = new JFXTextArea();
         s_postalAddress.setPromptText("Postal Address");
@@ -563,6 +551,17 @@ public class UpdateStudentProfile extends JFXDialog{
         s_enrollmentDate.setPrefWidth(280);
         studentDetails.add(s_enrollmentDate, 1, 3);
         
+        s_citizenship = new JFXComboBox<>(
+                FXCollections.observableArrayList("Botswana", "South Africa",
+                "Lesotho", "Zambia", "Zimbaqwe", "Namibia", "Swaziland"));
+        
+        s_citizenship.setPromptText("Citizenship");
+        s_citizenship.setLabelFloat(true);
+        s_citizenship.setPrefWidth(280);
+        AutoCompleteComboBoxListener.setAutoCompleteValidator(s_citizenship);
+        new AutoCompleteComboBoxListener(s_citizenship);
+        studentDetails.add(s_citizenship, 0, 4);
+        
         HBox gender = new HBox(10);
         gender.setAlignment(Pos.CENTER_LEFT);
         s_male = new JFXRadioButton("Male");
@@ -574,7 +573,9 @@ public class UpdateStudentProfile extends JFXDialog{
         tg.selectToggle(s_male);
         
         gender.getChildren().addAll(s_male, s_female);
-        studentDetails.add(gender, 0, 4, 2, 1);
+        studentDetails.add(gender, 1, 4);
+        
+        
         
         return studentDetails;
     }

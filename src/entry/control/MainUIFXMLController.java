@@ -26,7 +26,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.ImagePattern;
 import schooladministration.SchoolAdministartion;
-import messanger.MessangerManagement;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -66,8 +65,8 @@ public class MainUIFXMLController implements Initializable {
     
     AnchorPane drawerContent;
     
-    public static BorderPane studentManagement, employeeManagement,
-                             inventoryManagement, admin, messangerUI;
+    public static BorderPane studentManagement, employeeManagement, admin;
+                             //inventoryManagement,//, messangerUI;
     public static JFXDrawersStack drawerStack;
     public static JFXDrawer jFXDrawer;
     
@@ -90,9 +89,9 @@ public class MainUIFXMLController implements Initializable {
         //-- Modules (Student Management, Inventory, ) --
         studentManagement   = new StudentManagement();
         employeeManagement  = new HumanResourceManagement();
-        inventoryManagement = new InventoryManagement();
+        //inventoryManagement = new InventoryManagement();
         admin               = new SchoolAdministartion();
-        messangerUI         = new MessangerManagement();
+        //messangerUI         = new MessangerManagement();
         
         FlowPane fpane = new FlowPane(Orientation.HORIZONTAL);
         fpane.setPadding(new Insets(20));
@@ -140,8 +139,8 @@ public class MainUIFXMLController implements Initializable {
         Tab stdm = new Tab("Students", studentManagement);
         stdm.setGraphic(SMS.getGraphics(FontAwesomeIcon.GRADUATION_CAP, "text-indigo", 24));
         
-        Tab invm = new Tab("Inventory", inventoryManagement);
-        invm.setGraphic(SMS.getGraphics(MaterialDesignIcon.ARCHIVE, "text-indigo", 24));
+//        Tab invm = new Tab("Inventory", inventoryManagement);
+//        invm.setGraphic(SMS.getGraphics(MaterialDesignIcon.ARCHIVE, "text-indigo", 24));
         
         Tab lbm = new Tab("Administration", admin);
         lbm.setGraphic(SMS.getGraphics(FontAwesomeIcon.GEARS, "text-indigo", 24));
@@ -149,13 +148,13 @@ public class MainUIFXMLController implements Initializable {
         Tab finm = new Tab("Finance", null);
         finm.setGraphic(SMS.getGraphics(MaterialDesignIcon.ACCOUNT_NETWORK, "text-indigo", 24));
         
-        Tab messanger = new Tab("Messanger", messangerUI);
-        messanger.setGraphic(SMS.getGraphics(MaterialDesignIcon.MESSAGE_BULLETED, "text-indigo", 24));
+//        Tab messanger = new Tab("Messanger", messangerUI);
+//        messanger.setGraphic(SMS.getGraphics(MaterialDesignIcon.MESSAGE_BULLETED, "text-indigo", 24));
         
-        Tab timetable = new Tab("Timetable", messangerUI);
+        Tab timetable = new Tab("Timetable", null);
         timetable.setGraphic(SMS.getGraphics(MaterialDesignIcon.CALENDAR_CLOCK, "text-indigo", 24));
         
-        jFXTabPane.getTabs().addAll(db,  lbm, stdm, emlm, invm, finm, timetable, messanger);
+        jFXTabPane.getTabs().addAll(db,  lbm, stdm, emlm, finm, timetable);//, messanger);
 
         PARENT_STACK_PANE = new StackPane(jFXTabPane);
         
@@ -176,25 +175,6 @@ public class MainUIFXMLController implements Initializable {
             drawerStack.toggle(jFXDrawer);
         });
         
-        
-        
-        
-        /*---- System configuration drawer ---
-        systemConfigDrawerStack = new JFXDrawersStack();
-        systemConfigDrawerStack.setContent(parentContainer);
-        
-        jFXConfigDrawer = new JFXDrawer();
-        
-        jFXConfigDrawer.setDirection(JFXDrawer.DrawerDirection.RIGHT);
-        jFXConfigDrawer.setDefaultDrawerSize(200);
-        jFXConfigDrawer.setSidePane(configDrawerContent);
-        jFXConfigDrawer.setOverLayVisible(true);
-        jFXConfigDrawer.setResizableOnDrag(false);
-        
-        btn_toolbar_about.setOnAction((ActionEvent event) -> {
-            systemConfigDrawerStack.toggle(jFXConfigDrawer);
-        });
-        */
         drawerStackPane.getChildren().addAll(drawerStack);
         
         footer.getChildren().add(new Footer());

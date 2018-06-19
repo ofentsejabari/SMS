@@ -19,7 +19,6 @@
          <top>
             <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="748.0" spacing="5.0" styleClass="primary-toolbar" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btn_add" ripplerFill="#08a53a" styleClass="jfx-tool-button" text="Add Stream" textFill="#5d5a5a" />
                   <JFXButton fx:id="btn_export" ripplerFill="#08a53a" styleClass="jfx-tool-button" text="Export" textFill="#5d5a5a" />
                   <JFXButton fx:id="btn_refresh" ripplerFill="#08a53a" styleClass="jfx-tool-button" text="Refresh" textFill="#5d5a5a" />
                   <Region prefHeight="26.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
@@ -39,8 +38,8 @@
                      <children>
                         <Label fx:id="streamName" styleClass="title-label" />
                         <Region prefHeight="26.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                        <JFXButton fx:id="btn_info" prefHeight="32.0" prefWidth="32.0" ripplerFill="#08a53a" styleClass="jfx-toolbar-button" textFill="#5d5a5a" />
-                        <JFXButton fx:id="btn_edit" prefHeight="32.0" prefWidth="32.0" ripplerFill="#08a53a" styleClass="jfx-toolbar-button" textFill="#5d5a5a" />
+                        <JFXButton fx:id="btn_add" ripplerFill="#08a53a" styleClass="jfx-tool-button" text="Add Stream" textFill="#5d5a5a" />
+                        <JFXButton fx:id="btn_edit" ripplerFill="#08a53a" styleClass="jfx-tool-button" text="Edit Stream" textFill="#5d5a5a" />
                      </children>
                   </HBox>
                   <JFXTabPane styleClass="jfx-tab-flatpane">

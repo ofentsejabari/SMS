@@ -42,7 +42,7 @@ public class HouseClassesList extends BorderPane{
     
     private final JFXTextField name;
     private final JFXTextField hod;
-    private final PieChart strength;
+    //private final PieChart strength;
 
     public HouseClassesList() {
         
@@ -135,16 +135,16 @@ public class HouseClassesList extends BorderPane{
         //--
         StackPane stackPane = new StackPane(table, pi);
         stackPane.getStyleClass().add("container");
-        contentGrid.add(SMS.setBorderContainer(stackPane, null, "#F0582F"), 1, 1);
+        contentGrid.add(stackPane, 0, 1, 2, 1);
         //--
         
-        strength = new PieChart();
-        strength.setLabelLineLength(5);
+        //strength = new PieChart();
+        //strength.setLabelLineLength(5);
         
-        VBox stBox = new VBox(strength);
-        stBox.getStyleClass().add("container");
+        //VBox stBox = new VBox(strength);
+        //stBox.getStyleClass().add("container");
         
-        contentGrid.add(SMS.setBorderContainer(stBox, null, "#F0582F"), 0, 1);
+        //contentGrid.add(SMS.setBorderContainer(stBox, null, "#F0582F"), 0, 1);
         
         setCenter(contentGrid);
         
@@ -206,8 +206,6 @@ public class HouseClassesList extends BorderPane{
                                 stream.getStreamID()).size();
                         data.add(new PieChart.Data(stream.getDescription()+" - "+sz, sz));
                     }
-
-                    strength.setData(data);
 
                 }catch(Exception ex){}
             });

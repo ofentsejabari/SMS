@@ -30,9 +30,7 @@ public class UpdateStreamDialog extends JFXDialog{
 
     private JFXTextField name;
     private JFXComboBox<String> hod;
-    
-    //private final ValidationSupport vSupport;
-    
+        
     @SuppressWarnings("ResultOfObjectAllocationIgnored")
     public UpdateStreamDialog(Stream stream) {
                     

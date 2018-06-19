@@ -36,7 +36,7 @@ public class StreamGrading extends BorderPane{
         
         gradeSchemeWorkService = new GradingSchemeWorkService();
         
-        setPadding(new Insets(10));
+        setPadding(new Insets(10, 5, 5, 5));
         
         HBox toolbar = new HBox();
         toolbar.getStyleClass().add("secondary-toolbar");

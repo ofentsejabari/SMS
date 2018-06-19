@@ -10,6 +10,7 @@ import schooladministration.GradeScheme;
 import schooladministration.Stream;
 import schooladministration.House;
 import schooladministration.ISchoolClass;
+import schooladministration.ActivityMember;
 import schooladministration.Subject;
 import schooladministration.UserRoles;
 
@@ -525,13 +526,131 @@ public class AdminQuery {
     }
     
     
+    
+    
+    
+    
+    
+    
+    
+    //************************ Extra curricula Activities **********************
+    
+    public static boolean addActivityMember(ActivityMember activity){
+        
+        try{
+            String  query = "INSERT INTO `ec_activity_members` (`id`, `memberID`, `ec_activityID`, `type`)"
+                        + " VALUES ('0', '"+activity.getMemberID()+"', '"+activity.getActivityID()+"',"
+                        + " '"+activity.getType()+"')";
+                
+            return STATEMENT.executeUpdate(query) > 0;
+             
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return false;
+        }
+        
+    }
+    
+    public static boolean isActivityMemberExist(ActivityMember member){
+        
+        try{
+            String  query = " SELECT `memberID`, `ec_activityID` "
+                          + " FROM `ec_activity_members`"
+                          + " WHERE `memberID` = '"+member.getMemberID()+"' "
+                          + " AND `ec_activityID` = '"+member.getActivityID()+"'";
+            
+            return STATEMENT.executeQuery(query).first();
+             
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return false;
+        }
+        
+    }
+    
+    public static boolean deleteActivityMember(ActivityMember activity){
+        
+        try{
+            String  query = "DELETE FROM `ec_activity_members` "
+                          + " WHERE `id` = '"+activity.getId()+"'";
+                
+            return STATEMENT.executeUpdate(query) > 0;
+             
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return false;
+        }
+        
+    }
+   
+    
+    public static ActivityMember getActivityMemberByID(String id){
+        
+        try{
+            String query = " SELECT `id`, `memberID`, `ec_activityID`, `type`"
+                          +" FROM `ec_activity_members` WHERE `id`= '"+id+"'";
+           
+            ResultSet result = STATEMENT.executeQuery(query);
+            if(result.next()){
+                return new ActivityMember(result.getString("id"),
+                                               result.getString("memberID"),
+                                               result.getString("ec_activityID"),
+                                               result.getString("type"));
+            }
+            return new ActivityMember();
+            
+        }catch(Exception ex){
+            
+            System.out.println(ex.getMessage());
+            return new ActivityMember();
+        }
+        
+    }
+    
+    
+    /**
+     * 
+     * @param activityID
+     * @return 
+     */
+    public static ObservableList<ActivityMember> getExtraCurriculaActivitiesMembers(String activityID){
+        ObservableList<ActivityMember> activities = FXCollections.observableArrayList();
+        try{
+            String query = " SELECT `id`, `memberID`, `ec_activityID`, `type`"
+                          +" FROM `ec_activity_members` WHERE `ec_activityID` = '"+activityID+"'";
+           
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                activities.add(new ActivityMember(result.getString("id"),
+                                               result.getString("memberID"),
+                                               result.getString("ec_activityID"),
+                                               result.getString("type")));
+            }
+            return activities;
+        } 
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return activities;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
      /************************ Extra curricula Activities *********************/
+    
     public static boolean updateActivity(ExtraCurriculaActivity activity, boolean update){
         
         try{
             String query;
             if(!update){
-                query = "INSERT INTO `ec_activities` (`id`, `name`, `coach`, type)"
+                query = "INSERT INTO `ec_activities` (`id`, `name`, `coach`, `type`)"
                         + " VALUES ('0', '"+activity.getName()+"', '"+activity.getCoach()+"',"
                         + " '"+activity.getType()+"')";
                 
@@ -736,7 +855,7 @@ public class AdminQuery {
             
             while(result.next()){
                 categories.add(new House(result.getString("id"),result.getString("houseName"),
-                        result.getString("hoh")));
+                                result.getString("hoh")));
             }
             return categories;
         } 
@@ -1000,13 +1119,12 @@ public class AdminQuery {
         }
     }
     
-    
-    public static ObservableList<Subject> getStreamSubjects(String clusterID, int type){
+    public static ObservableList<Subject> getStreamSubjects(String streamID, int type){
         ObservableList<Subject> cluster = FXCollections.observableArrayList();
         try{
             String query = " SELECT `id`, `subject`.`subjectID`, `description`, `streamID`, `departmentID`, `type`, `schoolID`"
                          + " FROM `stream_subjects`, `subject` "
-                         + " WHERE `streamID`= '"+clusterID+"'"
+                         + " WHERE `streamID`= '"+streamID+"'"
                          + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`"
                          + " AND `type` = '"+type+"'";
            
@@ -1025,12 +1143,70 @@ public class AdminQuery {
             return cluster;
         }
     }
+    
+    
+    /*public static ObservableList<Subject> getStreamSubjects(String streamID, int type){
+        ObservableList<Subject> cluster = FXCollections.observableArrayList();
+        try{
+            String query = " SELECT `id`, `subject`.`subjectID`, `description`, `streamID`, `departmentID`, `type`, `schoolID`"
+                         + " FROM `stream_subjects`, `subject` "
+                         + " WHERE `streamID`= '"+streamID+"'"
+                         + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`"
+                         + " AND `type` = '"+type+"'";
+           
+            ResultSet result = STATEMENT.executeQuery(query);
+            System.out.println(query);
+            
+            while(result.next()){
+                cluster.add(new Subject(result.getString("subjectID"), result.getString("departmentID"),
+                                        result.getString("description"), result.getString("type"),
+                                        result.getString("streamID")));
+            }
+            return cluster;
+        } 
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return cluster;
+        }
+    }*/
    
+    
+    public static boolean deleteSubjectStream(String streamID){
+        ObservableList<String> cluster = FXCollections.observableArrayList();
+        try{
+            String query = "DELETE FROM `stream_subjects` WHERE `streamID` = '"+streamID+"'";
+            
+            return STATEMENT.executeUpdate(query) > 0;
+        } 
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+    
+    public static boolean addStreamSubject(ObservableList<String> subjectIDs, String streamID){
+        
+        try{
+            for(String subj: subjectIDs){
+                String query = "INSERT INTO `stream_subjects` (`id`, `subjectID`, `streamID`)"
+                            + " VALUES ('0', '"+subj+"', '"+streamID+"')";
+                STATEMENT.addBatch(query);
+            }
+                
+            STATEMENT.executeBatch();
+            return true;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return false;
+        }
+    }
+    
     
     public static ObservableList<String> getStreamSubjectNameList(String streamID, int type){
         ObservableList<String> cluster = FXCollections.observableArrayList();
         try{
-            String query = " SELECT `id`, `description`, `clusterID`"
+            String query = " SELECT `id`, `description`, `streamID`"
                          + " FROM `stream_subjects`, `subject` "
                          + " WHERE `streamID`= '"+streamID+"'"
                          + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`"
@@ -1100,7 +1276,7 @@ public class AdminQuery {
         
         ObservableList<Subject> cluster = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `id`, `description`, `clusterID`, `departmentID`"
+            String query = "SELECT `id`, `description`, `streamID`, `departmentID`"
                          + " FROM `stream_subjects`, `subject` "
                          + " WHERE `streamID`= '"+streamID+"'"
                          + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`";
@@ -1125,7 +1301,7 @@ public class AdminQuery {
     public static ObservableList<String> getStreamSubjectIDs(String streamID, int type){
         ObservableList<String> cluster = FXCollections.observableArrayList();
         try{
-            String query = " SELECT `subject`.`subjectID`, `description`, `clusterID`"
+            String query = " SELECT `subject`.`subjectID`, `description`, `streamID`"
                          + " FROM `stream_subjects`, `subject` "
                          + " WHERE `streamID`= '"+streamID+"'"
                          + " AND `subject`.`subjectID` = `stream_subjects`.`subjectID`"
@@ -1200,7 +1376,7 @@ public class AdminQuery {
         
         ObservableList<String> teacherNames = FXCollections.observableArrayList();
         try{
-            String query = "SELECT `fname`, `mName`, `lName`" +
+            String query = "SELECT `firstName`, `middleName`, `lastName`" +
                             " FROM `subjectteachers`, `employee`" +
                             " WHERE `subjectID` = '"+subjectID+"'" +
                             " AND `employeeID` = `teacherID`";
@@ -1208,7 +1384,7 @@ public class AdminQuery {
             ResultSet result = STATEMENT.executeQuery(query);
             
             while(result.next()){
-                teacherNames.add(result.getString("fname")+" "+result.getString("lname"));
+                teacherNames.add(result.getString("firstName")+" "+result.getString("lastName"));
             }
             
             return teacherNames;

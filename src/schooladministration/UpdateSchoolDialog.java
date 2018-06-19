@@ -15,8 +15,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.CCValidator;
+import entry.JFXAlert;
 import javafx.scene.layout.GridPane;
 import static entry.SMS.getGraphics;
+import static schooladministration.SchoolInformation.updateSchoolListView;
 
 /**
  *
@@ -69,27 +71,27 @@ public class UpdateSchoolDialog extends JFXDialog{
         fax.setLabelFloat(true);
         fax.setPromptText("Fax");
         grid.add(fax, 1, 1);
-        CCValidator.setFieldValidator(tel, "fax required.");
+        CCValidator.setFieldValidator(tel, "Fax required.");
         
         email = new JFXTextField();
         email.setLabelFloat(true);
         email.setPromptText("Email");
         grid.add(email, 0, 2);
-        CCValidator.setFieldValidator(fax, "Fax required.");
+        CCValidator.setFieldValidator(fax, "Email required.");
         
         postalAddress = new JFXTextArea();
         postalAddress.setPrefRowCount(3);
-        //postalAddress.setPrefColumnCount(8);
         postalAddress.setPromptText("Postal Address");
         postalAddress.setLabelFloat(true);
+        CCValidator.setFieldValidator(postalAddress, "Postal address required.");
         
         grid.add(postalAddress, 0, 3);
         
         physicalAddress = new JFXTextArea();
         physicalAddress.setPrefRowCount(3);
-        //physicalAddress.setPrefColumnCount(1);
         physicalAddress.setPromptText("Physical Address");
         physicalAddress.setLabelFloat(true);
+        CCValidator.setFieldValidator(physicalAddress, "Postal address required.");
         
         grid.add(physicalAddress, 1, 3);
         
@@ -106,7 +108,7 @@ public class UpdateSchoolDialog extends JFXDialog{
         });
         
         Label title = new Label("Add Subject");
-        title.setText("Update School Information");
+        title.setText("Add School Information");
         title.getStyleClass().add("window-title");
         
         toolBar.getChildren().addAll(title, new HSpacer(), btn_close);
@@ -123,6 +125,8 @@ public class UpdateSchoolDialog extends JFXDialog{
             physicalAddress.setText(school.getPhysicalAddress());
             fax.setText(school.getFax());
             email.setText(school.getEmail());
+            
+            title.setText("Update School Information");
         }
         
         
@@ -138,47 +142,54 @@ public class UpdateSchoolDialog extends JFXDialog{
                 
                 if(school != null){
                     
-                    /*Subject subj = new Subject();
-                    subj.setSubjectID(SMS.generateDBID());
-                    subj.setDescrption(name.getText().trim());
-                    subj.setType(((core.isSelected())?"1":"0"));
-                    subj.setDepartmentID(AdminQuery.getDepartmentByName(department.getValue().toString()).getID());
-                    //subj.setSchoolID("20000");
-
-                    if(AdminQuery.updateSubject(subject, false).equalsIgnoreCase("")){
-                        new DialogUI("Subject has been added successfully",
-                                    DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE, this).show();
-                        departmentsController.dws.restart();
-                        close();
+                    school.setSchoolName(name.getText().trim());
+                    school.setWebsite(website.getText().trim());
+                    school.setTel(tel.getText().trim());
+                    school.setFax(fax.getText().trim());
+                    school.setEmail(email.getText().trim());
+                    school.setPostalAddress(postalAddress.getText().trim());
+                    school.setPhysicalAddress(physicalAddress.getText().trim());
+                    
+                    if(SMS.dbHandler.updateSchoolDetails(school)){
+                        new JFXAlert(JFXAlert.SUCCESS, "Update Successful",
+                            " School details has been updated successfully");
+                        updateSchoolListView();
                     }else{
-                        new DialogUI("Exception occurred while trying to add subject details.",
-                                DialogUI.ERROR_NOTIF, stackPane, null).show();
-                  }*/
+                         new JFXAlert(JFXAlert.ERROR, "Update Failed",
+                                 "An error encountered while trying to update school details");
+                    }
                     
                 }else{
+                    School sch = new School();
+                    sch.setSchoolName(name.getText().trim());
+                    sch.setWebsite(website.getText().trim());
+                    sch.setTel(tel.getText().trim());
+                    sch.setFax(fax.getText().trim());
+                    sch.setEmail(email.getText().trim());
+                    sch.setPostalAddress(postalAddress.getText().trim());
+                    sch.setPhysicalAddress(physicalAddress.getText().trim());
                     
-                    /*subject.setDescrption(name.getText().toString());
-                    subject.setType(((core.isSelected())?"1":"0"));
-                    subject.setDepartmentID(AdminQuery.getDepartmentByName(department.getValue().toString()).getID());
-                    
-                    if(AdminQuery.updateSubject(subject, true).equalsIgnoreCase("")){
-                        new DialogUI("Subject details has been updated successfully",
-                                    DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE, this).show();
-                        departmentsController.dws.restart();
+                    if(SMS.dbHandler.updateSchoolDetails(sch)){
+                        new JFXAlert(JFXAlert.SUCCESS, "Update Successful",
+                            " School details has been updated successfully");
+                        updateSchoolListView();
                         close();
                     }else{
-                       new DialogUI("Exception occurred while trying to update subject details.",
-                                DialogUI.ERROR_NOTIF, stackPane, null).show(); 
-                  }*/
+                         new JFXAlert(JFXAlert.ERROR, "Update Failed",
+                                 "An error encountered while trying to update school details");
+                    }
                 }
             
             }else{
                 name.validate();
                 tel.validate();
                 fax.validate();
-
-                /*new DialogUI( "Ensure that mandatory field are filled up... ",
-                        DialogUI.ERROR_NOTIF, stackPane, null).show();*/
+                postalAddress.validate();
+                physicalAddress.validate();
+                email.validate();
+                
+                new JFXAlert(JFXAlert.ERROR, "Update Failed",
+                            "Ensure that mandatory fields has been captured before saving changes");
             }        
         });
         

@@ -16,7 +16,6 @@ import javafx.scene.layout.StackPane;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.CCValidator;
 import entry.DialogUI;
-import static entry.SMS.dbHandler;
 import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import javafx.collections.FXCollections;
 import javafx.scene.layout.GridPane;
@@ -34,7 +33,6 @@ public class UpdateExtraCurriculaActivityDialog extends JFXDialog{
     private JFXTextField name;
     private JFXComboBox<String> coach, type;
     
-    //private final ValidationSupport vSupport;
     
     @SuppressWarnings("ResultOfObjectAllocationIgnored")
     public UpdateExtraCurriculaActivityDialog(ExtraCurriculaActivity activity) {
@@ -118,7 +116,7 @@ public class UpdateExtraCurriculaActivityDialog extends JFXDialog{
             if(!"".equals(name.getText().trim())){
                 
                if(activity != null){
-                   
+                    activity.setType(type.getValue());
                     activity.setName(name.getText().trim());
                     activity.setCoach((coach.getValue() == null)? "":
                             EmployeeQuery.getEmployeeByName(coach.getValue()).getEmployeeID());
@@ -127,7 +125,7 @@ public class UpdateExtraCurriculaActivityDialog extends JFXDialog{
                         
                         new DialogUI("Activity details has been updated successfully",
                         DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE, this).show();
-                        extraCurriculaController.eca.restart();
+                        extraCurriculaController.updateActivityListView();
                         close();
                     }else{
                         new DialogUI("Exception occurred while trying to update activity details",
@@ -135,9 +133,7 @@ public class UpdateExtraCurriculaActivityDialog extends JFXDialog{
                     }
                     
                 }else{
-                
-                    ExtraCurriculaActivity ecactivity = new ExtraCurriculaActivity("0",
-                            name.getText().trim(), 
+                    ExtraCurriculaActivity ecactivity = new ExtraCurriculaActivity("0", name.getText().trim(), 
                             (coach.getValue() == null)? "":EmployeeQuery.getEmployeeByName(coach.getValue()).getEmployeeID(),
                             type.getValue());
                     
@@ -146,7 +142,7 @@ public class UpdateExtraCurriculaActivityDialog extends JFXDialog{
                         new DialogUI("Activity details has been added successfully",
                         DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE, null).show();
                         
-                        extraCurriculaController.eca.restart();
+                        extraCurriculaController.updateActivityListView();
                         close();
                        
                     }else{

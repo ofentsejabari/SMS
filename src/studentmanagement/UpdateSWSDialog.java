@@ -1,42 +1,35 @@
-package schooladministration;
+package studentmanagement;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import entry.AutoCompleteComboBoxListener;
-import entry.DialogUI;
 import entry.HSpacer;
 import entry.SMS;
 import static entry.SMS.dbHandler;
-import entry.ToolTip;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import mysqldriver.AdminQuery;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.CCValidator;
-import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
+import entry.JFXAlert;
 import javafx.scene.layout.GridPane;
-import static schooladministration.SchoolAdministartion.houseController;
 import static entry.SMS.getGraphics;
-import mysqldriver.EmployeeQuery;
+import javafx.scene.control.Tooltip;
 
 /**
  *
  * @author jabari
  */
-public class UpdateHouseDialog extends JFXDialog{
+public class UpdateSWSDialog extends JFXDialog{
 
     private JFXTextField name;
-    private JFXComboBox<String> hoh;
-    
-    //private final ValidationSupport vSupport;
+    private JFXTextArea description;
     
     @SuppressWarnings("ResultOfObjectAllocationIgnored")
-    public UpdateHouseDialog(House house) {
+    public UpdateSWSDialog(SocialWelfare specialWelfare) {
                     
         //-- Parent Container --
         StackPane stackPane = new StackPane();
@@ -51,20 +44,18 @@ public class UpdateHouseDialog extends JFXDialog{
         contentGrid.setHgap(2);
         
         name = new JFXTextField();
-        name.setPromptText("House Name");
+        name.setPromptText("Name");
         name.setPrefWidth(360);
         name.setLabelFloat(true);
         contentGrid.add(name, 0, 0);
         
-        CCValidator.setFieldValidator(name, "House name required.");
+        CCValidator.setFieldValidator(name, "Name required");
                 
-        hoh = new JFXComboBox<>();
-        hoh.setPromptText("Head Of House");
-        hoh.setLabelFloat(true);
-        hoh.setPrefWidth(360);
-        AutoCompleteComboBoxListener.setAutoCompleteValidator(hoh);
-        new AutoCompleteComboBoxListener(hoh);
-        contentGrid.add(hoh, 0, 1);
+        description = new JFXTextArea();
+        description.setPromptText("Description");
+        description.setLabelFloat(true);
+        description.setPrefWidth(360);
+        contentGrid.add(description, 0, 1);
         
         container.setCenter(SMS.setBorderContainer(contentGrid, null));
         
@@ -78,7 +69,7 @@ public class UpdateHouseDialog extends JFXDialog{
             close();
         });
         
-        Label title = new Label("Add House");
+        Label title = new Label("Add Social Welfare");
         title.getStyleClass().add("window-title");
         
         toolBar.getChildren().addAll(title, new HSpacer(), btn_close);
@@ -86,65 +77,57 @@ public class UpdateHouseDialog extends JFXDialog{
         
         //-- Update form entries  ----------------------------------------------
         
-        if(house != null){
+        if(specialWelfare != null){
             
-            hoh.setItems(EmployeeQuery.getEmployeeNameList());
-            
-            name.setText(house.getHouseName());
-            hoh.setValue(EmployeeQuery.getEmployeeByID(house.getHOH()).getFullName());
-            
-            title.setText("Update House");
+            name.setText(specialWelfare.getName());
+            description.setText(specialWelfare.getDescription());
+            title.setText("Update Social Welfare");
         }
         
         
         //-- Validate and save the form  ---------------------------------------
         JFXButton save = new JFXButton("Save");
         save.getStyleClass().add("dark-blue");
-        save.setTooltip(new ToolTip("Save House"));
+        save.setTooltip(new Tooltip("Save"));
         save.setOnAction((ActionEvent event) -> {
             
         if(!"".equals(name.getText().trim())){
                 
-                if(house != null){
+                if(specialWelfare != null){
                     
-                    house.setHouseName(name.getText().trim());
-                    house.setHOH((hoh.getValue() == null)? "":
-                            EmployeeQuery.getEmployeeByName(hoh.getValue().toString()).getEmployeeID());
-                            
+                    specialWelfare.setName(name.getText().trim());
+                    specialWelfare.setDescriptions((description.getText().trim()));
                     
-                    if(AdminQuery.updateHouse(house, true)){
+                    if(dbHandler.updateSWS(specialWelfare, true)){
                         
-                        new DialogUI("House details has been updated successfully",
-                        DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE, this).show();
-                        houseController.updateHouseList();
+                        new JFXAlert(JFXAlert.SUCCESS, "Update Successful", "Record has been updated successfully");
+                        SocialWelfareSupport.SWSWorkService.restart();
+                        SocialWelfareSupport.updateSWSListView();
                         close();
                     }else{
-                        new DialogUI("Exception occurred while trying to update house details",
-                        DialogUI.ERROR_NOTIF, stackPane, null).show();
+                        new JFXAlert(JFXAlert.ERROR, "Update failed", "Error encountered while trying to update record");
                     }
                     
                 }else{
                 
-                    House newHouse = new House("0", name.getText().trim(), 
-                            (hoh.getValue() == null)? "":EmployeeQuery.getEmployeeByName(hoh.getValue()).getID());
+                    SocialWelfare sws = new SocialWelfare("0", name.getText().trim(), description.getText().trim());
                     
-                    if(AdminQuery.updateHouse(newHouse, false)){
+                    if(dbHandler.updateSWS(sws, false)){
                         
-                        new DialogUI("New house has been created successfully",
-                        DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE, null).show();
-                        houseController.updateHouseList();
+                        new JFXAlert(JFXAlert.SUCCESS, "Update Successful", "New record has been added successfully");
+                        SocialWelfareSupport.SWSWorkService.restart();
+                        SocialWelfareSupport.updateSWSListView();
                         close();
                        
                     }else{
-                        new DialogUI("Exception occurred while trying to add new house details.",
-                        DialogUI.ERROR_NOTIF, stackPane, null).show();
+                        new JFXAlert(JFXAlert.ERROR, "Update failed", "Error encountered while trying to add new record");
                     }
                 }
                 
             }else{
                 name.validate();
-                new DialogUI( "Ensure that mandatory field are filled up... ",
-                    DialogUI.ERROR_NOTIF, stackPane, null).show();
+                description.validate();
+                new JFXAlert(JFXAlert.WARNING, "Input Error", "Ensure that required fields are captured before saving changes.");
             }
             
         });
@@ -155,10 +138,10 @@ public class UpdateHouseDialog extends JFXDialog{
         container.setBottom(footer);
 
         //-- Set jfxdialog view  -----------------------------------------------
-        setDialogContainer(SchoolAdministartion.ADMIN_MAN_STACK);
+        setDialogContainer(StudentManagement.STUDENT_MAN_STACK);
         setContent(stackPane);
         setOverlayClose(false);
-        stackPane.setPrefSize(400, 200);
+        stackPane.setPrefSize(400, 220);
         show();
         
     }

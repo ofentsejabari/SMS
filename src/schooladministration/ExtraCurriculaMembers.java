@@ -1,21 +1,26 @@
 package schooladministration;
 
+import com.jfoenix.controls.JFXButton;
+import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.CustomTableColumn;
 import entry.CustomTableView;
+import entry.DialogUI;
+import entry.JFXAlert;
 import entry.ProgressIndicator;
 import entry.SMS;
-import javafx.application.Platform;
+import static entry.control.MainUIFXMLController.PARENT_STACK_PANE;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
@@ -24,6 +29,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import mysqldriver.AdminQuery;
+import mysqldriver.EmployeeQuery;
 
 /**
  *
@@ -32,58 +38,17 @@ import mysqldriver.AdminQuery;
 public class ExtraCurriculaMembers extends BorderPane{
     
     public ActivityMembersService ams = null;
-    public static CustomTableView<Subject> table;
+    public static CustomTableView<ActivityMember> table;
 
     public ExtraCurriculaMembers() {
         
         getStyleClass().add("container");
         ams = new ActivityMembersService();
         
-        setPadding(new Insets(10));
-//        
-//        HBox toolbar = new HBox();
-//        toolbar.getStyleClass().add("secondary-toolbar");
-//        setTop(toolbar);
-//        
-//        JFXButton btn_add = new JFXButton("Add Subject");
-//        btn_add.getStyleClass().add("jfx-tool-button");
-//        btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
-//        btn_add.setOnAction((ActionEvent event) -> {
-//            new UpdateSubjectDialog(null).show();
-//        });
-//        
-//        toolbar.getChildren().addAll(new HSpacer(), btn_add);
-        
         table = new CustomTableView<>();
-        
-        CustomTableColumn cn = new CustomTableColumn("");
-        cn.setPercentWidth(4.9);
-        cn.setCellValueFactory(new PropertyValueFactory<>("type"));
-        cn.setCellFactory(TextFieldTableCell.forTableColumn());
-        cn.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
-            @Override 
-            public TableCell<String, String> call(TableColumn<String, String> clientID) {
-                return new TableCell<String, String>() {
-                    
-                    @Override 
-                    public void updateItem(final String ID, boolean empty) {
-                        super.updateItem(ID, empty);
-                        
-                        if(!empty){
-                            setAlignment(Pos.CENTER);
-                            if(ID.equals("student")){
-                                setGraphic(new Label("", SMS.getIcon("u10.png", 22)));
-                            }else{
-                                setGraphic(new Label("", SMS.getIcon("u5.png", 22)));
-                            }
-                        }else{ setGraphic(null); }
-                    }
-                };
-            }
-        });
-        
+
         CustomTableColumn subjectName = new CustomTableColumn("FULLNAME");
-        subjectName.setPercentWidth(59.9);
+        subjectName.setPercentWidth(24.9);
         subjectName.setCellValueFactory(new PropertyValueFactory<>("memberID"));
         subjectName.setCellFactory(TextFieldTableCell.forTableColumn());
         subjectName.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
@@ -98,17 +63,9 @@ public class ExtraCurriculaMembers extends BorderPane{
                         description.getStyleClass().add("tableLink");
                         
                         if(!empty){
-                            
-                            if(ID.equals("student")){
-                                description.setGraphic(new Label("", SMS.getIcon("u10.png", 18)));
-                            }else{
-                                description.setGraphic(new Label("", SMS.getIcon("u5.png", 18)));
-                            }
-                            
-                            
                             setGraphic(description);                           
                             description.setOnAction((ActionEvent event) -> {
-                                new UpdateSubjectDialog(AdminQuery.getSubjectByName(ID));
+                                
                             });
                         }else{ setGraphic(null); }
                     }
@@ -117,7 +74,7 @@ public class ExtraCurriculaMembers extends BorderPane{
         });
         
         CustomTableColumn type = new CustomTableColumn("TYPE");
-        type.setPercentWidth(20);
+        type.setPercentWidth(15);
         type.setCellValueFactory(new PropertyValueFactory<>("type"));
         type.setCellFactory(TextFieldTableCell.forTableColumn());
         type.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
@@ -138,10 +95,9 @@ public class ExtraCurriculaMembers extends BorderPane{
             }
         });
         
-        
         CustomTableColumn ctrl = new CustomTableColumn("");
-        ctrl.setPercentWidth(20);
-        ctrl.setCellValueFactory(new PropertyValueFactory<>("type"));
+        ctrl.setPercentWidth(60);
+        ctrl.setCellValueFactory(new PropertyValueFactory<>("id"));
         ctrl.setCellFactory(TextFieldTableCell.forTableColumn());
         ctrl.setCellFactory(new Callback<TableColumn<String, String>, TableCell<String, String>>() {
             @Override 
@@ -154,25 +110,40 @@ public class ExtraCurriculaMembers extends BorderPane{
                         
                         if(!empty){
                             
-                            setGraphic(new Label("", SMS.getIcon("bin.png", 25)));
+                            JFXButton close = new JFXButton("",SMS.getGraphics(MaterialDesignIcon.DELETE_SWEEP, "text-error", 24));
+                            close.setTooltip(new Tooltip("Close notification"));
+                            close.getStyleClass().add("jfx-close-button");
+                            close.setOnAction((ActionEvent event) -> {
+                                
+                                if(AdminQuery.deleteActivityMember(AdminQuery.getActivityMemberByID(type))){
+                                        new DialogUI("Team member has been deregistered successfully",
+                                                    DialogUI.SUCCESS_NOTIF, PARENT_STACK_PANE, null);
+                                        ams.restart();
+                                }else{
+                                    new DialogUI("Exception occurred while trying to remove team member.",
+                                                DialogUI.ERROR_NOTIF, PARENT_STACK_PANE, null).show();
+                                }
+                            });
+                            
+                            setGraphic(close);
                         }else{ setGraphic(null); }
                     }
                 };
             }
         });
         
-        
         table.getTableView().getColumns().addAll(subjectName, type, ctrl);
         VBox.setVgrow(table, Priority.ALWAYS);
         
         
-        ProgressIndicator pi = new ProgressIndicator("Loading subjects data", "If network connection is very slow,"
+        ProgressIndicator pi = new ProgressIndicator("Loading members data", "If network connection is very slow,"
                                                    + " this might take some few more seconds.");
         
         pi.visibleProperty().bind(ams.runningProperty());
         table.getTableView().itemsProperty().bind(ams.valueProperty());
         
         StackPane stackPane = new StackPane(table, pi);
+        stackPane.setPadding(new Insets(10, 5, 0, 5));
         
         setCenter(stackPane);
         
@@ -183,31 +154,30 @@ public class ExtraCurriculaMembers extends BorderPane{
     
     
     
-    public class ActivityMembersWork extends Task<ObservableList<ExtraCurriculaActivityMember>> {       
+    public class ActivityMembersWork extends Task<ObservableList<ActivityMember>> {       
         @Override 
-        protected ObservableList<ExtraCurriculaActivityMember> call() throws Exception {
-            Platform.runLater(() -> {
+        protected ObservableList<ActivityMember> call() throws Exception {
+            
+            ObservableList<ActivityMember> members = FXCollections.observableArrayList();
+            
+            ObservableList<ActivityMember> data = AdminQuery.getExtraCurriculaActivitiesMembers(SchoolAdministartion.extraCurriculaController.selectedActivity.getId()); 
+            
+            for(ActivityMember ac: data){
+                if(ac.getType().equalsIgnoreCase("student")){
+                    ac.setMemberID(SMS.dbHandler.getStudentByID(ac.getMemberID()).getFullName());
+                }else{
+                    ac.setMemberID(EmployeeQuery.getEmployeeByID(ac.getMemberID()).getFullName());
+                }
                 
-            });
+                members.add(ac);
+            }
             
-            ObservableList<ExtraCurriculaActivityMember> data = FXCollections.observableArrayList(
-                    new ExtraCurriculaActivityMember("0", "Ofentse Jabari", "23", "student"),
-                    new ExtraCurriculaActivityMember("1", "4431413", "53", "teacher"),
-                    new ExtraCurriculaActivityMember("2", "5446413", "63", "teacher")); 
-            
-            
-            
-//            for (int i = 0; i < data.size(); i++) {
-//                data.get(i).setECActivityID(i+1+"");
-//            }
-            
-            
-            return data;
+            return members;
         }
        
     }
 
-    public class ActivityMembersService extends Service<ObservableList<Subject>> {
+    public class ActivityMembersService extends Service<ObservableList<ActivityMember>> {
 
         @Override
         protected Task createTask() {

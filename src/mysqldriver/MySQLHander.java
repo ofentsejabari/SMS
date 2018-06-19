@@ -12,7 +12,9 @@ import schooladministration.GradeScheme;
 import schooladministration.School;
 import schooladministration.Term;
 import schooladministration.User;
+import studentmanagement.Aid;
 import studentmanagement.Guardian;
+import studentmanagement.SocialWelfare;
 import studentmanagement.SpecialNeed;
 import studentmanagement.Student;
 
@@ -78,6 +80,31 @@ public class MySQLHander {
             System.out.println(error.getMessage());
             error.printStackTrace();
             return false;
+        }
+    }
+    
+    
+    /**
+     * 
+     * @return 
+     */
+    public ObservableList<String> getStudentsNameList(){
+        ObservableList<String> students = FXCollections.observableArrayList();
+        try{
+            String query = " SELECT CONCAT_WS(' ',`firstName`, `lastName`) AS `fullname`"
+                         + " FROM `student`";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                students.add(result.getString("fullname"));
+            }
+            return students;
+            
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+             
+            return students;
         }
     }
     
@@ -488,6 +515,48 @@ public class MySQLHander {
         }
     }
     
+    public Term getTermByID(String id){
+        try{
+            String query = "SELECT `id`, `description`, `from`, `to`, `year`, `currentTerm`"
+                         + "FROM `term` WHERE `id` = '"+id+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return new Term(result.getString("id"),result.getString("description"), result.getString("from"),
+                          result.getString("to"), result.getString("year"), result.getString("currentTerm"));
+            }
+            return new Term();
+        } 
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+             
+            return new Term();
+        }
+    }
+    
+    
+    
+    public Term getTermByName(String name){
+        try{
+            String query = "SELECT `id`, `description`, `from`, `to`, `year`, `currentTerm`"
+                         + "FROM `term` WHERE `description` = '"+name+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return new Term(result.getString("id"),result.getString("description"), result.getString("from"),
+                          result.getString("to"), result.getString("year"), result.getString("currentTerm"));
+            }
+            return new Term();
+        } 
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+             
+            return new Term();
+        }
+    }
+    
     
     /**
      * 
@@ -707,7 +776,7 @@ public class MySQLHander {
      * @param school
      * @return 
      */
-    public String updateSchoolDetails(School school){
+    public boolean updateSchoolDetails(School school){
         try{
             String query = "INSERT INTO `school` (`id`, `name`, `tel`,`fax`, `email`,`website`, "
                     + "`postalAddress`, `physicalAddress`, `logo`, `showName`)"
@@ -727,14 +796,14 @@ public class MySQLHander {
                     + " WHERE `id`='"+school.getSchoolID()+"'";
             }
             
-            return (STATEMENT.executeUpdate(query) > 0)?"":"Exception occured while trying to add school details";
-            
+            return (STATEMENT.executeUpdate(query) > 0);
             
         }catch(SQLException ex){
-            
-            return ex.getMessage();
+            return false;
         }
     }
+    
+    
     
     public boolean updateSchoolLogo(String logoName){
         try{
@@ -750,26 +819,82 @@ public class MySQLHander {
         }
     }
     
+    
+    /**
+     * @param schoolID
+     * @return 
+     */
+    public School getSchoolByID(String schoolID){
+        try{
+            String query = "SELECT `id`, `name`, `tel`, `fax`, `website`, `email`, `postalAddress`, `physicalAddress`,"
+                    + " `logo`, `showName` FROM `school` WHERE `id` = '"+schoolID+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return new School(result.getString("id"), result.getString("name"), result.getString("tel"), result.getString("fax"),
+                result.getString("website"), result.getString("email"), result.getString("postalAddress"), result.getString("physicalAddress"),
+                result.getString("logo"), result.getString("showName"));
+            }
+            return new School();
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             
+             return new School();
+        }
+    }
+    
+    
+    /**
+     * @param s_name
+     * @return 
+     */
+    public School getSchoolByName(String s_name){
+        try{
+            String query = "SELECT `id`, `name`, `tel`, `fax`, `website`, `email`, `postalAddress`, `physicalAddress`,"
+                    + " `logo`, `showName` FROM `school` WHERE `name` = '"+s_name+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return new School(result.getString("id"), result.getString("name"), result.getString("tel"), result.getString("fax"),
+                    result.getString("website"), result.getString("email"), result.getString("postalAddress"), result.getString("physicalAddress"),
+                    result.getString("logo"), result.getString("showName"));
+            }
+            return new School();
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             
+             return new School();
+        }
+    }
+    
+    
+    
     /**
      * Get domain schools
      * @param schoolID
      * @return 
      */
-    public String getSchoolNameByID(String schoolID){
+    public ObservableList<String> getSchoolNames(){
+        ObservableList<String> names = FXCollections.observableArrayList();
+        
         try{
-            String query = "SELECT `name`  FROM `school` WHERE `id` = '"+schoolID+"'";
+            String query = "SELECT `name`  FROM `school`";
             
             ResultSet result = STATEMENT.executeQuery(query);
             
-            if(result.next()){
-                return (result.getString("name"));
+            while(result.next()){
+                names.add(result.getString("name"));
             }
-            return "";
+            return names;
         } 
         catch(Exception ex){
              System.out.println(ex.getMessage());
              
-             return "";
+             return names;
         }
     }
     
@@ -909,6 +1034,248 @@ public class MySQLHander {
              System.out.println(ex.getMessage());
              
              return ssn;
+        }
+    }
+    
+    //--------------------------------------------------------------------------
+    
+    
+    /**
+     * 
+     * @param sn
+     * @return 
+     */
+    public SocialWelfare getSocialWelfareByName(String sn){
+        try{
+            String query = "SELECT `id`, `name`, `description`"
+                         + "FROM `social_welfare` WHERE `name`='"+sn+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return new SocialWelfare(result.getString("id"),result.getString("name"), result.getString("description"));
+            }
+            return new SocialWelfare();
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return new SocialWelfare();
+        }
+    }
+    
+        /**
+     * 
+     * @param sn
+     * @return 
+     */
+    public SocialWelfare getSocialWelfareByID(String sn){
+        try{
+            String query = "SELECT `id`, `name`, `description`"
+                         + "FROM `social_welfare` WHERE `id`='"+sn+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return new SocialWelfare(result.getString("id"),result.getString("name"), result.getString("description"));
+            }
+            return new SocialWelfare();
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return new SocialWelfare();
+        }
+    }
+    
+    /**
+     * 
+     * @param sn
+     * @return 
+     */
+    public ObservableList<String> getSocialWelfareNames(){
+        ObservableList<String> sws = FXCollections.observableArrayList();
+        try{
+            String query = "SELECT `id`, `name`, `description`"
+                         + "FROM `social_welfare`";
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                sws.add(result.getString("name"));
+            }
+            return sws;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return sws;
+        }
+    }
+    
+    
+    /**
+     * 
+     * @param sws
+     * @param update
+     * @return 
+     */
+    public boolean updateSWS(SocialWelfare sws, boolean update){
+        
+        try{
+            String query = "INSERT INTO `social_welfare` (`id`, `name`, `description`)"
+                    + " VALUES ('"+sws.getId()+"', '"+sws.getName()+"','"+sws.getDescription()+"')";
+            
+            if(update){
+                query = "UPDATE `social_welfare` SET `description`='"+sws.getDescription()+"', "
+                    + "`name` = '"+sws.getName()+"'"
+                    + " WHERE `id`= '"+sws.getId()+"'";
+            }
+            
+            return STATEMENT.executeUpdate(query) > 0;
+        } 
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+    
+    
+    
+    /**
+     * 
+     * @param snID
+     * @return 
+     */
+    public ObservableList<Student> getStudentsWithSocialWelfareSupport(String snID){
+        ObservableList<Student> ssn = FXCollections.observableArrayList();
+        try{
+            String query = " SELECT `student`.`studentID`, CONCAT_WS(' ',`student`.`firstName`,`student`.`lastName`) AS `fullname`,"
+                         + " `email`, `className`, `gender`"
+                         + " FROM `student`, `student_sw`, `class`"
+                         + " WHERE `student`.`studentID` = `student_sw`.`studentID` "
+                         + " AND `class`.`classID` = `student`.`classID` AND `student_sw`.`id` = '"+snID+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                
+                Student st = new Student();
+                st.setFirstName(result.getString("fullname"));
+                st.setStudentID(result.getString("studentID"));
+                st.setClassID(result.getString("className"));
+                st.setGender(result.getString("gender"));
+                
+                ssn.add(st);
+            }
+            return ssn;
+            
+        }catch(Exception ex){
+             System.out.println(ex.getMessage());
+             
+             return ssn;
+        }
+    }
+    
+    
+    
+    //--------------------------------------------------------------------------
+    
+    
+    /**
+     * 
+     * @param sn
+     * @return 
+     */
+    public Aid getSocialWelfareAidByName(String sn){
+        try{
+            String query = "SELECT `id`, `name`, `cooperation`, `swID`, `description`"
+                         + "FROM `sw_aid` WHERE `name`='"+sn+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return new Aid(result.getString("id"),result.getString("swID"), result.getString("name"),
+                        result.getString("cooperation"), result.getString("description"));
+            }
+            return new Aid();
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return new Aid();
+        }
+    }
+    
+        /**
+     * 
+     * @param sn
+     * @return 
+     */
+    public Aid getSocialWelfareAidByID(String sn){
+        try{
+            String query = "SELECT `id`, `name`, `cooperation`, `swID`, `description`"
+                         + "FROM `sw_aid` WHERE `id`='"+sn+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                return new Aid(result.getString("id"),result.getString("swID"), result.getString("name"),
+                        result.getString("cooperation"), result.getString("description"));
+            }
+            return new Aid();
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return new Aid();
+        }
+    }
+    
+    /**
+     * 
+     * @param sn
+     * @return 
+     */
+    public ObservableList<String> getAidNames(){
+        ObservableList<String> sws = FXCollections.observableArrayList();
+        try{
+            String query = "SELECT `name`"
+                         + "FROM `sw_aid`";
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                sws.add(result.getString("name"));
+            }
+            return sws;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             return sws;
+        }
+    }
+    
+    
+    /**
+     * 
+     * @param sws
+     * @param update
+     * @return 
+     */
+    public boolean updateAid(Aid sws, boolean update){
+        
+        try{
+            String query = "INSERT INTO `sw_aid` (`id`, `name`, `cooperation`, `swID`, `description`)"
+                    + " VALUES ('"+sws.getId()+"', '"+sws.getName()+"','"+sws.getCooperation()+"',"
+                    + "'"+sws.getSocialWelfareID()+"','"+sws.getDescription()+"')";
+            
+            if(update){
+                query = "UPDATE `sw_aid` SET `name`='"+sws.getName()+"', "
+                    + "`cooperation` = '"+sws.getCooperation()+"',"
+                    + "`swID` = '"+sws.getSocialWelfareID()+"',"
+                    + "`description` = '"+sws.getDescription()+"'"
+                    + " WHERE `id`= '"+sws.getId()+"'";
+            }
+            
+            return STATEMENT.executeUpdate(query) > 0;
+        } 
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return false;
         }
     }
     

@@ -90,7 +90,7 @@ public class SMS extends Application {
                 .title(title)
                 .thickness(2, 1, 1, 1)
                 .innerPadding(0)
-                .outerPadding(5)
+                .outerPadding(20, 5, 5, 5)
                 .radius(5)
                 .color(Color.web("#cfd8dc"), Color.web("#EAEAEA"),
                        Color.web("#EAEAEA"), Color.web("#EAEAEA"))
@@ -100,7 +100,7 @@ public class SMS extends Application {
                 .lineBorder()
                 .thickness(2, 1, 1, 1)
                 .innerPadding(0)
-                .outerPadding(5)
+                .outerPadding(10, 5, 5, 5)
                 .radius(5)
                 .color(Color.web("#cfd8dc"), Color.web("#EAEAEA"),
                        Color.web("#EAEAEA"), Color.web("#EAEAEA"))

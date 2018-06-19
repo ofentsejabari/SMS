@@ -21,8 +21,12 @@ public class StudentWelfare extends BorderPane{
         ssn.setContent(new StudentSpecialNeeds());
         
         Tab sws = new Tab("Social Welfare support");
+        sws.setContent(new SocialWelfareSupport());
         
-        jfxtp.getTabs().addAll(ssn, sws);
+        Tab swsa = new Tab("Social Welfare Aid");
+        swsa.setContent(new SocialWelfareAid());
+        
+        jfxtp.getTabs().addAll(ssn, sws, swsa);
         setCenter(jfxtp);
     }
     

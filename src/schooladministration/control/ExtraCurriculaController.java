@@ -6,12 +6,9 @@ import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import entry.SMS;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +19,7 @@ import mysqldriver.EmployeeQuery;
 import schooladministration.ExtraCurriculaActivity;
 import schooladministration.ExtraCurriculaMembers;
 import schooladministration.UpdateExtraCurriculaActivityDialog;
+import schooladministration.AddMemberDialog;
 
 /**
  * FXML Controller class
@@ -32,7 +30,7 @@ public class ExtraCurriculaController implements Initializable {
     @FXML
     private JFXButton btn_add;
     @FXML
-    private JFXButton btn_export, btn_refresh, btn_edit, btn_delete;
+    private JFXButton btn_export, btn_refresh, btn_edit, btn_add_member;
     @FXML
     private JFXListView<Label> activity_ListView;
     @FXML
@@ -40,16 +38,15 @@ public class ExtraCurriculaController implements Initializable {
     @FXML
     private Label total;
     @FXML
-    private Tab membersTab; //I, subjectsTab;
-    
+    private Tab membersTab;
     
     public ExtraCurriculaActivity selectedActivity = null;
     
     public int selectedIndex = 0;
     
-    ExtraCurriculaMembers extraCurriculaMembers = null;
+    public ExtraCurriculaMembers extraCurriculaMembers = null;
     
-    public ExtraCurriculaWorkService eca = new ExtraCurriculaWorkService();
+    //public ExtraCurriculaWorkService eca = new ExtraCurriculaWorkService();
 
     /**
      * Initializes the controller class.
@@ -74,9 +71,20 @@ public class ExtraCurriculaController implements Initializable {
             
         });
         
+        btn_add_member.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
+        btn_add_member.setOnAction((ActionEvent event) -> {
+            new AddMemberDialog(selectedActivity.getId());
+        });
+        
+        btn_edit.setGraphic(SMS.getGraphics(MaterialDesignIcon.PENCIL_BOX_OUTLINE, "icon-default", 24));
+        btn_edit.setOnAction((ActionEvent event) -> {
+            new UpdateExtraCurriculaActivityDialog(selectedActivity);
+        });
+        
+        
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
         btn_refresh.setOnAction((ActionEvent event) -> {
-            eca.restart();
+            updateActivityListView();
         });
         
         activity_ListView.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
@@ -94,15 +102,26 @@ public class ExtraCurriculaController implements Initializable {
         
                 
         membersTab.setContent(extraCurriculaMembers);
-        //membersTab.setGraphic(SMS.getGraphics(MaterialDesignIcon.SERVER_NETWORK, "icon-secondary", 20));
         membersTab.setText("Sport/ Club Members");
         
-        eca.start();
-        eca.restart();
+        updateActivityListView();
     }
     
     
-    public class ExtraCurriculaWorker extends Task<ObservableList<Label>> {       
+    public void updateActivityListView(){
+        ObservableList<Label> data = FXCollections.observableArrayList();
+            
+        ObservableList<String> dt = AdminQuery.getActivityNames();
+            
+        for(String activ: dt){
+            data.add(new Label(activ));
+        }
+        activity_ListView.setItems(data);
+        activity_ListView.getSelectionModel().select(selectedIndex);
+    }
+    
+    
+  /*  public class ExtraCurriculaWorker extends Task<ObservableList<Label>> {       
         @Override 
         protected ObservableList<Label> call() throws Exception {
             ObservableList<Label> data = FXCollections.observableArrayList();
@@ -138,5 +157,5 @@ public class ExtraCurriculaController implements Initializable {
             return new ExtraCurriculaWorker();
         }
     }
-   
+   */
 }

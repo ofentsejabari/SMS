@@ -36,20 +36,19 @@ import schooladministration.UpdateSubjectDialog;
  *
  * @author ofentse
  */
-public class StudentSpecialNeeds extends BorderPane{
+public class SocialWelfareSupport extends BorderPane{
 
-    public static JFXListView<Label> ssn_listView;
-    public static SSNWorkService SSNWorkService = null;
+    public static JFXListView<Label> sws_listView;
+    public static SWSWorkService SWSWorkService = null;
     public static CustomTableView<Student> table;
     
-    SpecialNeed selectedSpecialNeed = null;
+    SocialWelfare selectedSocialWelfare = null;
     public static int selectedIndex = 0;
-    //private final Label total;
     
-    public StudentSpecialNeeds() {
+    public SocialWelfareSupport() {
         
         setPadding(new Insets(15, 5, 5, 5));
-        SSNWorkService = new SSNWorkService();
+        SWSWorkService = new SWSWorkService();
         
         BorderPane ssn_center = new BorderPane();
         ssn_center.setPadding(new Insets(0, 0, 0, 10));
@@ -63,21 +62,21 @@ public class StudentSpecialNeeds extends BorderPane{
         refresh.getStyleClass().add("jfx-tool-button");
         refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
         refresh.setOnAction((ActionEvent event) -> {
-            updateSSNListView();
+            updateSWSListView();
         });
         
         JFXButton edit = new JFXButton("Edit Record");
         edit.getStyleClass().add("jfx-tool-button");
         edit.setGraphic(SMS.getGraphics(MaterialDesignIcon.PENCIL_BOX_OUTLINE, "icon-default", 24));
         edit.setOnAction((ActionEvent event) -> {
-            new UpdateSSNDialog(selectedSpecialNeed);
+            new UpdateSWSDialog(selectedSocialWelfare);
         });
         
-        JFXButton btn_add = new JFXButton("Add Special Need");
+        JFXButton btn_add = new JFXButton("Add Social Welfare");
         btn_add.getStyleClass().add("jfx-tool-button");
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
-            new UpdateSSNDialog(null);
+            new UpdateSWSDialog(null);
         });
         
         Label title = new Label();
@@ -87,23 +86,23 @@ public class StudentSpecialNeeds extends BorderPane{
         
         setCenter(ssn_center);
         
-        ssn_listView = new JFXListView<>();
-        ssn_listView.getStyleClass().add("jfx-custom-list");
-        ssn_listView.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+        sws_listView = new JFXListView<>();
+        sws_listView.getStyleClass().add("jfx-custom-list");
+        sws_listView.getSelectionModel().selectedIndexProperty().addListener((ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             try {
-                selectedSpecialNeed = SMS.dbHandler.getSpecialNeedByName(ssn_listView.getSelectionModel().getSelectedItem().getText());
-                title.setText(ssn_listView.getSelectionModel().getSelectedItem().getText());
-                title.setTooltip(new Tooltip(selectedSpecialNeed.getDescription()));
+                selectedSocialWelfare = SMS.dbHandler.getSocialWelfareByName(sws_listView.getSelectionModel().getSelectedItem().getText());
+                title.setText(sws_listView.getSelectionModel().getSelectedItem().getText());
+                title.setTooltip(new Tooltip(selectedSocialWelfare.getDescription()));
                 
                 selectedIndex = newValue.intValue();
-                SSNWorkService.restart();
+                SWSWorkService.restart();
                 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         });
           
-        setLeft(ssn_listView);
+        setLeft(sws_listView);
         //----------------------------------------------------------------------
         table = new CustomTableView<>();
         
@@ -190,40 +189,40 @@ public class StudentSpecialNeeds extends BorderPane{
         ProgressIndicator pi = new ProgressIndicator("Loading data", "If network connection is very slow,"
                                                    + " this might take some few more seconds.");
         
-        pi.visibleProperty().bind(SSNWorkService.runningProperty());
-        table.getTableView().itemsProperty().bind(SSNWorkService.valueProperty());
+        pi.visibleProperty().bind(SWSWorkService.runningProperty());
+        table.getTableView().itemsProperty().bind(SWSWorkService.valueProperty());
         
         StackPane stackPane = new StackPane(table, pi);
         
         ssn_center.setCenter(stackPane);
-        SSNWorkService.start();
+        SWSWorkService.start();
         
-        updateSSNListView();
+        updateSWSListView();
     }
     
     
-    public static void updateSSNListView(){
-        ObservableList<String> ssn = SMS.dbHandler.getSpecialNeedNames();
+    public static void updateSWSListView(){
+        ObservableList<String> ssn = SMS.dbHandler.getSocialWelfareNames();
         ObservableList<Label> data = FXCollections.observableArrayList();
         
         for(String dt: ssn){
             data.add(new Label(dt));
         }
-        ssn_listView.setItems(data);
-        ssn_listView.getSelectionModel().select(selectedIndex);
+        sws_listView.setItems(data);
+        sws_listView.getSelectionModel().select(selectedIndex);
     }
     
     
     
-    public class SSNListWork extends Task<ObservableList<Student>> {       
+    public class SWSListWork extends Task<ObservableList<Student>> {       
         @Override 
         protected ObservableList<Student> call() throws Exception {
             
             
             ObservableList<Student> data = null; 
             
-            if(selectedSpecialNeed != null){
-                data = SMS.dbHandler.getStudentsWithSpecialNeed(selectedSpecialNeed.getId());
+            if(selectedSocialWelfare != null){
+                data = SMS.dbHandler.getStudentsWithSocialWelfareSupport(selectedSocialWelfare.getId());
             }else{ 
                 data = FXCollections.observableArrayList();
             }
@@ -237,11 +236,11 @@ public class StudentSpecialNeeds extends BorderPane{
        
     }
 
-    public class SSNWorkService extends Service<ObservableList<Student>> {
+    public class SWSWorkService extends Service<ObservableList<Student>> {
 
         @Override
         protected Task createTask() {
-            return new SSNListWork();
+            return new SWSListWork();
         }
     }
     

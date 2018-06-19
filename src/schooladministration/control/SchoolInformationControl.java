@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
-import schooladministration.SchoolBasicInfo;
+import schooladministration.SchoolInformation;
 
 /**
  * FXML Controller class
@@ -19,14 +19,14 @@ public class SchoolInformationControl implements Initializable {
     @FXML
     private Tab rolesTab, usersTab;
     
-    public SchoolBasicInfo basicInfo;
+    public SchoolInformation basicInfo;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        basicInfo = new SchoolBasicInfo();
+        basicInfo = new SchoolInformation();
         
         usersTab.setContent(basicInfo);
         usersTab.setGraphic(SMS.getGraphics(MaterialDesignIcon.ACCOUNT_NETWORK, "icon-secondary", 20));

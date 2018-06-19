@@ -29,12 +29,8 @@ import javafx.collections.FXCollections;
 import javafx.scene.layout.VBox;
 import entry.ToolTip;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import static entry.SMS.getGraphics;
 
 /**
@@ -56,7 +52,7 @@ public class StudentEnrolment extends  BorderPane{
     
     public StudentEnrolment(){
         
-        setPadding(new Insets(10));
+        getStyleClass().add("container");
         
         count = new Label("");
         
@@ -70,7 +66,7 @@ public class StudentEnrolment extends  BorderPane{
             search.clear();
         });
         
-        JFXButton src = new JFXButton("",getGraphics(MaterialDesignIcon.ACCOUNT_SEARCH, "text-bluegray", 20));
+        JFXButton src = new JFXButton("",getGraphics(MaterialDesignIcon.ACCOUNT_SEARCH, "text-bluegray", 18));
         src.setStyle("-fx-background-radius:0 20 20 0; -fx-border-radius:0 20 20 0; -fx-cursor: hand;");
         
         search = new CustomTextField();
@@ -81,12 +77,12 @@ public class StudentEnrolment extends  BorderPane{
             String str = search.getText().trim(); 
             
             if(studentTable.getTableView().getItems() != null){
-                ObservableList<Student>  studentList  = dbHandler.getStudentList(filter);
+                ObservableList<Student>  studentLst  = dbHandler.getStudentList(filter);
                 studentTable.getTableView().getItems().clear();
             
                 if(str != null && str.length() > 0){
                     
-                    for(Student student : studentList) {
+                    for(Student student : studentLst) {
                         
                         if(student.getStudentID().toLowerCase().contains(str.toLowerCase())){
                             studentTable.getTableView().getItems().add(student);
@@ -117,6 +113,7 @@ public class StudentEnrolment extends  BorderPane{
         });
         
         btn_add = new JFXButton("Add Student");
+        btn_add.getStyleClass().add("jfx-tool-button");
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.ACCOUNT_PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
             profileStage = new UpdateStudentProfile(null);
@@ -124,61 +121,24 @@ public class StudentEnrolment extends  BorderPane{
         });
         
         btn_export = new JFXButton("Export");
+        btn_export.getStyleClass().add("jfx-tool-button");
         btn_export.setGraphic(SMS.getGraphics(MaterialDesignIcon.EXPORT, "icon-default", 24));
         btn_export.setOnAction((ActionEvent event) -> {
             
         });
         
         btn_refresh = new JFXButton("Refresh");
+        btn_refresh.getStyleClass().add("jfx-tool-button");
         btn_refresh.setGraphic(SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 24));
         btn_refresh.setOnAction((ActionEvent event) -> {
             studentListWork.restart();
             search.clear();
         });
         
-        
         HBox toolbar = new HBox();
         toolbar.getStyleClass().add("secondary-toolbar");
         setTop(toolbar);
-        
-        
-        /////////////////////////////////////////////////////////////////////
-        ToggleButton ref = new ToggleButton("Refresh", 
-                SMS.getGraphics(MaterialDesignIcon.ROTATE_3D, "icon-default", 20));
-        ref.getStyleClass().add("left-pill");
-        ref.setOnAction((ActionEvent event) -> {
-            studentListWork.restart();
-            search.clear();
-        });
-        
-        ToggleButton ad = new ToggleButton("Add Student",
-                SMS.getGraphics(MaterialDesignIcon.ACCOUNT_PLUS, "icon-default", 20));
-        ad.getStyleClass().add("center-pill");
-        
-        
-        ToggleButton exp = new ToggleButton("Export", 
-                SMS.getGraphics(MaterialDesignIcon.EXPORT, "icon-default", 20));
-        exp.getStyleClass().add("right-pill");
-        
- 
-        final ToggleGroup group = new ToggleGroup();
-        ref.setToggleGroup(group);
-        ad.setToggleGroup(group);
-        exp.setToggleGroup(group);
-        group.selectToggle(ref);
- 
-        group.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) -> {
-            if (newValue == null) {
-                group.selectToggle(oldValue);
-            }
-        });
- 
-        HBox hBox = new HBox();
-        hBox.setAlignment(Pos.CENTER);
-        hBox.getChildren().addAll(ref, ad, exp);
- 
-        /////////////////////////////////////////////////////////////////////
-        
+        //----------------------------------------------------------------------
         
         toolbar.getChildren().addAll(search, new HSpacer(), btn_add, btn_export, btn_refresh);
       
@@ -326,7 +286,6 @@ public class StudentEnrolment extends  BorderPane{
         studentListWork.start();
         studentListWork.restart();
     }   
-    
     
     
     

@@ -37,7 +37,7 @@ import schooladministration.UpdateStreamDialog;
 public class StreamClassesController implements Initializable {
 
     @FXML
-    private JFXButton btn_add, btn_export, btn_refresh, btn_edit, btn_info;
+    private JFXButton btn_add, btn_export, btn_refresh, btn_edit;
     @FXML
     private JFXListView<Label> stream_ListView;
     @FXML
@@ -66,13 +66,7 @@ public class StreamClassesController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        Notification nt = new Notification("Add stream classes, associate subjects to the"
-                                         + " stream and define stream grading scheme ", 0, streamClasses);
                 
-                
-        streamClasses.getChildren().add(1, nt);
-        
         classesList = new StreamClassesList();
         classesList.classWorkService.setOnSucceeded((WorkerStateEvent event) -> {
             subjectList.subjectWorkService.restart();
@@ -84,7 +78,6 @@ public class StreamClassesController implements Initializable {
         });
         
         streamGrading = new StreamGrading();
-        
         
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setTooltip(new ToolTip("Add new stream"));
@@ -103,16 +96,6 @@ public class StreamClassesController implements Initializable {
         btn_refresh.setOnAction((ActionEvent event) -> {
             sws.restart();
             
-        });
-        
-        btn_info.setGraphic(SMS.getGraphics(MaterialDesignIcon.INFORMATION_VARIANT, "icon-default", 24));
-        btn_info.setTooltip(new ToolTip("View or hide notification area", 200, 30));
-        btn_info.setOnAction((ActionEvent event) -> {
-            if(!streamClasses.getChildren().contains(nt)){
-                streamClasses.getChildren().add(1, nt);
-            }else{
-                streamClasses.getChildren().remove(nt);
-            }
         });
         
         btn_edit.setGraphic(SMS.getGraphics(MaterialDesignIcon.PENCIL_BOX_OUTLINE, "icon-default", 24));

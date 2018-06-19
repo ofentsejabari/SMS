@@ -41,15 +41,15 @@ public class StreamClassesList extends BorderPane{
 
     public StreamClassesList() {
         
-        setPadding(new Insets(10));
         getStyleClass().add("container");
+        setPadding(new Insets(10, 5, 5, 5));
         classWorkService = new ClassWorkService();
         
         HBox toolbar = new HBox();
         toolbar.getStyleClass().add("secondary-toolbar");
         setTop(toolbar);
         
-        JFXButton btn_add = new JFXButton("Add Class");
+        JFXButton btn_add = new JFXButton("Create Class");
         btn_add.getStyleClass().add("jfx-tool-button");
         btn_add.setGraphic(SMS.getGraphics(MaterialDesignIcon.PLUS, "icon-default", 24));
         btn_add.setOnAction((ActionEvent event) -> {
@@ -81,7 +81,7 @@ public class StreamClassesList extends BorderPane{
             }
         });
         
-        CustomTableColumn className = new CustomTableColumn("Class Name");
+        CustomTableColumn className = new CustomTableColumn("CLASS NAME");
         className.setPercentWidth(25);
         className.setCellValueFactory(new PropertyValueFactory<>("name"));
         className.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -108,7 +108,7 @@ public class StreamClassesList extends BorderPane{
             }
         });
         
-        CustomTableColumn classTeacher = new CustomTableColumn("Class Teacher");
+        CustomTableColumn classTeacher = new CustomTableColumn("CLASS TEACHER");
         classTeacher.setPercentWidth(25);
         classTeacher.setCellValueFactory(new PropertyValueFactory<>("classTeacherID"));
         classTeacher.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -130,7 +130,7 @@ public class StreamClassesList extends BorderPane{
             }
         });
         
-        CustomTableColumn house = new CustomTableColumn("House");
+        CustomTableColumn house = new CustomTableColumn("HOUSE");
         house.setPercentWidth(30);
         house.setCellValueFactory(new PropertyValueFactory<>("house"));
         house.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -152,7 +152,7 @@ public class StreamClassesList extends BorderPane{
             }
         });
         
-        CustomTableColumn totalStudents = new CustomTableColumn("Class Capacity");
+        CustomTableColumn totalStudents = new CustomTableColumn("CLASS CAPACITY");
         totalStudents.setPercentWidth(19.9);
         totalStudents.setCellValueFactory(new PropertyValueFactory<>("stream"));
         totalStudents.setCellFactory(TextFieldTableCell.forTableColumn());

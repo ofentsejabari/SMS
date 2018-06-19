@@ -35,20 +35,20 @@ public class DialogUI extends JFXDialog{
         
         switch(type){
             case 1:
-                content.getChildren().addAll(SMS.getIcon("warning.png", 64), notification);
+                content.getChildren().addAll(SMS.getIcon("warning.png", 54), notification);
                 //container.setLeft(new VBox(new HSpacer(), SMS.getIcon("warning.png", 64), new VSpacer()));
                 setOverlayClose(false);
                 break;
                 
             case 2:
                 //container.setLeft(new VBox(new HSpacer(), SMS.getIcon("success.png", 64), new VSpacer()));
-                content.getChildren().addAll(SMS.getIcon("success.png", 64), notification);
+                content.getChildren().addAll(SMS.getIcon("success.png", 54), notification);
                 setOverlayClose(true);
                 break;    
             
             case 3:
                 //container.setLeft(new VBox(new HSpacer(), SMS.getIcon("information.png", 64), new VSpacer()));
-                content.getChildren().addAll(SMS.getIcon("information.png", 64), notification);
+                content.getChildren().addAll(SMS.getIcon("information.png", 54), notification);
                 setOverlayClose(true);
                 break;
         }
@@ -64,8 +64,9 @@ public class DialogUI extends JFXDialog{
         
         
         HBox footer = new HBox(ok);
-        footer.setStyle("-fx-padding: 2");
-        footer.setAlignment(Pos.CENTER);
+        footer.setStyle("-fx-padding: 0 4 4 0");
+        footer.getStyleClass().add("primary-toolbar");
+        footer.setAlignment(Pos.CENTER_RIGHT);
         container.setBottom(footer);
         
         if(jfxd != null){
@@ -74,7 +75,7 @@ public class DialogUI extends JFXDialog{
         
         setDialogContainer(dialogContainer);
         setContent(container);
-        container.setPrefSize(400, 140);
+        container.setPrefWidth(400);
         show();
         
     }

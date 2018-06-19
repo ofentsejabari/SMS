@@ -20,7 +20,6 @@
             <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="748.0" spacing="5.0" styleClass="primary-toolbar" BorderPane.alignment="CENTER">
                <children>
                   <JFXButton fx:id="btn_add" prefHeight="32.0" ripplerFill="#08a53a" styleClass="jfx-tool-button" text="Add Activitiy" textFill="#5d5a5a" />
-                  <JFXButton fx:id="btn_export" prefHeight="32.0" ripplerFill="#08a53a" styleClass="jfx-tool-button" text="Export" textFill="#5d5a5a" />
                   <JFXButton fx:id="btn_refresh" prefHeight="32.0" ripplerFill="#08a53a" styleClass="jfx-tool-button" text="Refresh" textFill="#5d5a5a" />
                   <Region prefHeight="26.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                </children>
@@ -32,13 +31,16 @@
          <center>
             <VBox prefHeight="456.0" prefWidth="294.0" BorderPane.alignment="CENTER">
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                </padding>
                <children>
                   <HBox prefHeight="27.0" prefWidth="488.0" styleClass="secondary-toolbar">
                      <children>
                         <Label fx:id="activityName" styleClass="title-label" text="Activity" />
-                        <Region prefHeight="26.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <JFXButton fx:id="btn_export" prefHeight="32.0" ripplerFill="#08a53a" styleClass="jfx-tool-button" text="Export" textFill="#5d5a5a" />
+                        <JFXButton fx:id="btn_edit" prefHeight="32.0" ripplerFill="#08a53a" styleClass="jfx-tool-button" text="Edit" textFill="#5d5a5a" />
+                        <JFXButton fx:id="btn_add_member" prefHeight="32.0" ripplerFill="#08a53a" styleClass="jfx-tool-button" text="Add Member" textFill="#5d5a5a" />
                      </children>
                   </HBox>
                   <JFXTabPane styleClass="jfx-tab-flatpane">
@@ -52,7 +54,7 @@
          <left>
             <VBox fx:id="listview" BorderPane.alignment="CENTER">
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
                </padding>
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="32.0" spacing="5.0" styleClass="secondary-toolbar">
