@@ -85,6 +85,7 @@ public class EmployeeManagementView extends BorderPane{
         all_emp = new Tab("All Employees");
         all_emp.setGraphic( SMS.getGraphics(MaterialDesignIcon.ACCOUNT_MULTIPLE,"text-bluegray", 24));
         emp_designations= new Tab("Designations");
+        emp_designations.setContent(new EmployeeDesignationsView());
         emp_designations.setGraphic( SMS.getGraphics(MaterialDesignIcon.BRIEFCASE,"text-bluegray", 24));
         employee_pane.getTabs().addAll(all_emp,emp_designations);
         setCenter(employee_pane);
