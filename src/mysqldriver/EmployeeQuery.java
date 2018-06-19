@@ -164,6 +164,26 @@ public class EmployeeQuery {
             return employees;
         }
     }
+     public static String getEmployeeDesignationId(String description){
+        String employees ="";
+        try{
+            String query = "SELECT `id` FROM `employeeposition` WHERE `description`='"+description+"'";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            if(result.next()){
+                //System.out.println(result.getString("id"));
+                employees = result.getString("id");
+            }
+            return employees;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             
+             return employees;
+        }
+    }
+    
     public static String getEmployeeDesignation(String designation){
         String employees ="";
         try{
@@ -182,7 +202,24 @@ public class EmployeeQuery {
              return employees;
         }
     }
-    
+    public static ObservableList<String> getEmployeeDesignationList(){
+        ObservableList<String> employees =FXCollections.observableArrayList();
+        try{
+            String query = "SELECT  `description` FROM `employeeposition` WHERE 1";
+            
+            ResultSet result = STATEMENT.executeQuery(query);
+            
+            while(result.next()){
+                employees.add(result.getString("description"));
+            }
+            return employees;
+        } 
+        catch(Exception ex){
+             System.out.println(ex.getMessage());
+             
+             return employees;
+        }
+    }
     
     public static NextOfKin getNextOfKin(String empID){
         
@@ -221,4 +258,76 @@ public class EmployeeQuery {
     
     }
     
+    /*
+    *   
+    */
+    public static boolean updateEmployeeProfile(EmployeeModel employee,NextOfKin kin, boolean flag)
+    {
+           
+        
+            if (flag){
+                String employee_query="UPDATE `employee` SET `title`='"+employee.getTitle()+"',`firstName`='"+employee.getFirstName()+"',"
+                    + "`middleName`='"+employee.getMiddleName()+"',`lastName`='"+employee.getLastName()+"',`gender`='"+employee.getGender()+"'"
+                    + ",`dob`='"+employee.getDob()+"',`designation`='"+employee.getDesignation()+"',"
+                    + "`qualification`='"+employee.getQualification()+"',`nationality`='"+employee.getNationality()+"',`identity`='"+employee.getIdentity()+"'"
+                    + ",`postalAddress`='"+employee.getPostalAddress()+"',"
+                    + "`physicalAddress`='"+employee.getPhysicalAddress()+"',`officePhone`='"+employee.getTelephone()+"'"
+                    + ",`mobilePhone`='"+employee.getCellPhone()+"',`email`='"+employee.getEmail()+"',"
+                    + "`enrollDate`='"+employee.getEnrollDate()+"',`picture`='"+employee.getProfilePsicture()+"' WHERE `employeeID`='"+employee.getEmployeeID()+"'";
+                
+                String kin_query="UPDATE `next_of_kin` SET `id`=0 ,`firstname`='"+kin.getFirstName()+"',"
+                        + "`lastname`='"+kin.getSurname()+"',`omang`='"+kin.getOmang()+"',`employeeID`='"+kin.getEmployeeId()+"'"
+                        + ",`telephone`='"+kin.getTelephone()+"',`cellphone`='"+kin.getCellphone()+"',`relationship`='"+kin.getRelationship()+"'"
+                        + ",`postal`='"+kin.getPostalAddress()+"',`physical`='"+kin.getPhysicalAddress()+"',`email`='"+kin.getEmail()+"'"
+                        + " WHERE `employeeID`='"+employee.getEmployeeID()+"'";
+                
+                try{
+                    STATEMENT.executeUpdate(employee_query);
+                    STATEMENT.executeUpdate(kin_query);
+
+                    return true;
+                }
+                catch(Exception e){
+                    System.out.println("EEE"+e);
+                    return false;
+                }
+            }
+            else{
+            /*
+            *  add Employee
+            */
+                try{
+                    String employee_query="INSERT INTO `employee`(`id`, `employeeID`, `title`, `firstName`, `middleName`, `lastName`, `gender`,"
+                            + " `dob`, `designation`, `qualification`, `nationality`,"
+                            + " `identity`, `postalAddress`, `physicalAddress`, `officePhone`, `mobilePhone`, "
+                            + "`email`, `enrollDate`, `picture`) VALUES (0,'"+employee.getEmployeeID()+"','"+employee.getTitle()+"',"
+                            + "'"+employee.getFirstName()+"','"+employee.getMiddleName()+"','"+employee.getLastName()+"','"+employee.getGender()+"',"
+                            + "'"+employee.getDob()+"','"+employee.getDesignation()+"','"+employee.getQualification()+"','"+employee.getNationality()+"',"
+                            + "'"+employee.getIdentity()+"','"+employee.getPostalAddress()+"',"
+                            + "'"+employee.getPhysicalAddress()+"','"+employee.getTelephone()+"','"+employee.getCellPhone()+"','"+employee.getEmail()+"',"
+                            + "'"+employee.getEnrollDate()+"','"+employee.getProfilePsicture()+"')";
+                   
+                    STATEMENT.executeUpdate(employee_query);
+                    
+                        
+                        String kin_query = "INSERT INTO `next_of_kin`(`id`, `firstname`, `lastname`, `omang`, `employeeID`, `telephone`, `cellphone`, "
+                                + "`relationship`, `postal`, `physical`, `email`)"
+                                + " VALUES (0,'"+kin.getFirstName()+"','"+kin.getSurname()+"','"+kin.getOmang()+"',"
+                                + "'"+kin.getEmployeeId()+"','"+kin.getTelephone()+"','"+kin.getCellphone()+"'"
+                                + ",'"+kin.getRelationship()+"','"+kin.getPostalAddress()+"',"
+                                + "'"+kin.getPhysicalAddress()+"','"+kin.getEmail()+"')";
+                        
+                    STATEMENT.executeUpdate(kin_query);    
+                    
+
+                    return true;
+                }
+                catch(Exception e){
+                    System.out.println(e);
+                    return false;
+                }
+            }
+    }
+            
+            
 }
